@@ -21,7 +21,7 @@ public class MixinDeveloperSession {
 	private void construct(YggdrasilAuthenticationService yggdrasilAuthenticationService, GameConfig config, CallbackInfoReturnable<UserApiService> cir) {
 		if (SparkweaveApi.DEVELOPMENT_ENVIRONMENT) {
 			DevSessionHandler.tryLoadSession(config.user.user).ifPresent(s -> {
-				SparkweaveLogging.getLogger().warn("Updating session state! Profile changed to: {}({})", s.getName(), s.getUuid());
+				SparkweaveLogging.getLogger().warn("Updating session state! Profile changed to: {}({})", s.getName(), s.getProfileId());
 				((UserDataAccessor) config.user).sw_updateSession(s);
 			});
 		}

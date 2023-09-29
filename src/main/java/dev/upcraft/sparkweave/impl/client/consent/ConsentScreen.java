@@ -28,7 +28,7 @@ public class ConsentScreen extends Screen {
 
 	@Override
 	public void render(GuiGraphics guiGraphics, int mouseX, int mouseY, float delta) {
-		this.renderBackground(guiGraphics);
+		this.renderBackground(guiGraphics, mouseX, mouseY, delta);
 		super.render(guiGraphics, mouseX, mouseY, delta);
 		System.out.println("rendering screen");
 	}
