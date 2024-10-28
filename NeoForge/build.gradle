@@ -1,6 +1,9 @@
 plugins {
-	id 'idea'
-	alias neoforge.plugins.moddevgradle
+	alias libs.plugins.moddevgradle
+}
+
+configurations {
+	runtimeClasspath.extendsFrom localRuntime
 }
 
 dependencies {
@@ -21,16 +24,24 @@ dependencies {
 		}
 	}
 
-	compileOnly "${libs.emi.neoforge.get()}:api"
-//	runtimeOnly libs.emi.neoforge
+	compileOnly variantOf(libs.emi.neoforge) {
+		classifier 'api'
+	}
+//	localRuntime libs.emi.neoforge
 }
 
 neoForge {
 	version = neoforge.versions.neoforge.get()
 
 	parchment {
-		mappingsVersion = libs.versions.parchment.asProvider().get()
 		minecraftVersion = libs.versions.parchment.minecraft.get()
+		mappingsVersion = libs.versions.parchment.mappings.get()
+	}
+
+	accessTransformers {
+		def atFile = project(":Common").file("src/main/resources/META-INF/accesstransformer.cfg")
+		from atFile
+		publish atFile
 	}
 
 	mods {
@@ -51,8 +62,9 @@ neoForge {
 
 	runs {
 		configureEach {
+			logLevel = org.slf4j.event.Level.DEBUG
 			systemProperty 'forge.logging.markers', 'REGISTRIES'
-			systemProperty 'forge.logging.console.level', 'debug'
+			systemProperty 'sparkweave.debug', 'true'
 		}
 
 		client {
@@ -61,7 +73,6 @@ neoForge {
 			systemProperty 'neoforge.enabledGameTestNamespaces', project.mod_id
 
 			sourceSet = sourceSets.main
-			mods = [neoForge.mods."${mod_id}"]
 
 			if (project.hasProperty('mc_uuid')) {
 				programArguments.add("--uuid=${project.findProperty('mc_uuid')}")
@@ -82,7 +93,6 @@ neoForge {
 			systemProperty 'neoforge.enabledGameTestNamespaces', project.mod_id
 
 			sourceSet = sourceSets.main
-			mods = [neoForge.mods."${mod_id}"]
 
 			programArguments.add('--nogui')
 		}
@@ -93,7 +103,6 @@ neoForge {
 			systemProperty 'neoforge.enabledGameTestNamespaces', "${project.mod_id}_testmod"
 
 			sourceSet = sourceSets.testmod
-			mods = [neoForge.mods."${mod_id}", neoForge.mods."${mod_id}_testmod"]
 
 			if (project.hasProperty('mc_uuid')) {
 				programArguments.add("--uuid=${project.findProperty('mc_uuid')}")
@@ -115,7 +124,6 @@ neoForge {
 			programArguments.addAll('--mod', project.mod_id, '--all', '--output', file('src/generated/resources/').absolutePath, '--existing', file('src/main/resources/').absolutePath)
 
 			sourceSet = sourceSets.testmod
-			mods = [neoForge.mods."${mod_id}"]
 		}
 	}
 }

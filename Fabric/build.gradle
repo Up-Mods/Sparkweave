@@ -1,20 +1,18 @@
 plugins {
 	alias fabric.plugins.fabric.loom
+	alias libs.plugins.repositories
 }
 
 dependencies {
 	minecraft libs.minecraft
 	mappings(loom.layered {
 		it.officialMojangMappings()
-		it.parchment("${libs.parchment.mappings.get()}@zip")
+		it.parchment("org.parchmentmc.data:parchment-${libs.versions.parchment.minecraft.get()}:${libs.versions.parchment.mappings.get()}@zip")
 	})
+	compileOnly project(":Common")
 
 	modImplementation fabric.fabric.loader
-	modImplementation (fabric.fabric.api) {
-		exclude group: "net.fabricmc", module: "fabric-loader"
-	}
-
-	compileOnly project(":Common")
+	modImplementation fabric.fabric.api
 
 	testmodImplementation sourceSets.main.output
 	testmodCompileOnly project(path: ":Common", configuration: "testmod")
@@ -26,17 +24,17 @@ dependencies {
 	implementation libs.appdirs
 	include libs.appdirs
 
-	modCompileOnly ("${libs.emi.fabric.get()}:api") {
+	modCompileOnly(variantOf(libs.emi.fabric) { classifier 'api' }) {
 		transitive = false
 	}
 //	modLocalRuntime (libs.emi.fabric) {
 //		transitive = false
 //	}
 
-	modCompileOnly (fabric.modmenu) {
+	modCompileOnly(fabric.modmenu) {
 		transitive = false
 	}
-	modLocalRuntime (fabric.modmenu) {
+	modLocalRuntime(fabric.modmenu) {
 		transitive = false
 	}
 }
@@ -54,16 +52,16 @@ loom {
 			sourceSet project(":Common").sourceSets.testmod
 		}
 	}
-	if (project(":Common").file("src/main/resources/${mod_id}.accesswidener").exists()) {
-		accessWidenerPath.set(project(":Common").file("src/main/resources/${mod_id}.accesswidener"))
-	}
+
+	accessWidenerPath.set(file("src/main/resources/${mod_id}.accesswidener"))
+
 	mixin {
 		defaultRefmapName.set("${mod_id}.refmap.json")
 	}
 
 	runs {
 		configureEach {
-			it.property("${mod_id}.debug", 'true')
+			it.property('sparkweave.debug', 'true')
 		}
 
 		client {

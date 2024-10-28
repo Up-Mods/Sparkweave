@@ -1,23 +1,28 @@
 [versions]
-minecraft = "1.21.1"
+minecraft = "1.21.3"
 
 # The latest versions are available at https://parchmentmc.org/docs/getting-started
-parchment = "2024.07.28"
 parchment_minecraft = "1.21"
+parchment_mappings = "2024.07.28"
 
-mixin = "0.15.2+mixin.0.8.7"
+# https://projects.neoforged.net/neoforged/moddevgradle
+moddevgradle = "2.0.42-beta"
+# https://projects.neoforged.net/neoforged/neoform
+neoform = "1.21.3-20241023.131943"
+
+# minecraft dependencies
+jetbrains_annotations = "26.0.1"
+mixin = "0.15.4+mixin.0.8.7"
 mixin_extras = "0.4.1"
-asm = "9.6"
-jetbrains_annotations = "24.1.0"
-vanilla_gradle = "0.2.1-SNAPSHOT"
+asm = "9.7"
 
+# other dependencies
 appdirs = "1.2.1"
-resourcefulconfig = "3.0.3"
-emi = "1.1.12+1.20.6"
+resourcefulconfig = "3.3.0" # https://www.curseforge.com/minecraft/mc-mods/resourceful-config/files/all
+emi = "1.1.16+1.21.1"
 
 [libraries]
 minecraft = { module = "com.mojang:minecraft", version.ref = "minecraft" }
-parchment_mappings = { module = "org.parchmentmc.data:parchment-1.21", version.ref = "parchment" }
 mixin = { module = "net.fabricmc:sponge-mixin", version.ref = "mixin" }
 mixin_extras = { module = "io.github.llamalad7:mixinextras-common", version.ref = "mixin_extras" }
 asm = { module = "org.ow2.asm:asm", version.ref = "asm" }
@@ -29,16 +34,18 @@ jetbrains_annotations = { module = "org.jetbrains:annotations", version.ref = "j
 
 appdirs = { module = "net.harawata:appdirs", version.ref = "appdirs" }
 
-resourcefulconfig = { module = "com.teamresourceful.resourcefulconfig:resourcefulconfig-common-1.21", version.ref = "resourcefulconfig" }
-resourcefulconfig_fabric = { module = "com.teamresourceful.resourcefulconfig:resourcefulconfig-fabric-1.21", version.ref = "resourcefulconfig" }
-resourcefulconfig_neoforge = { module = "com.teamresourceful.resourcefulconfig:resourcefulconfig-neoforge-1.21", version.ref = "resourcefulconfig" }
+resourcefulconfig = { module = "com.teamresourceful.resourcefulconfig:resourcefulconfig-common-1.21.3", version.ref = "resourcefulconfig" }
+resourcefulconfig_fabric = { module = "com.teamresourceful.resourcefulconfig:resourcefulconfig-fabric-1.21.3", version.ref = "resourcefulconfig" }
+resourcefulconfig_neoforge = { module = "com.teamresourceful.resourcefulconfig:resourcefulconfig-neoforge-1.21.3", version.ref = "resourcefulconfig" }
 
 emi = { module = "dev.emi:emi-xplat-mojmap", version.ref = "emi" }
 emi_neoforge = { module = "dev.emi:emi-neoforge", version.ref = "emi" }
 emi_fabric = { module = "dev.emi:emi-fabric", version.ref = "emi" }
 
 [bundles]
-mixin = ["mixin", "mixin_extras", "asm", "asm_analysis", "asm_commons", "asm_tree", "asm_util"]
+#mixin = ["mixin", "mixin_extras", "asm", "asm_analysis", "asm_commons", "asm_tree", "asm_util"]
+mixin = ["mixin", "mixin_extras"]
 
 [plugins]
-vanilla_gradle = { id = "org.spongepowered.gradle.vanilla", version.ref = "vanilla_gradle" }
+moddevgradle = { id = "net.neoforged.moddev", version.ref = "moddevgradle" }
+repositories = { id = "net.neoforged.moddev.repositories", version.ref = "moddevgradle" }
