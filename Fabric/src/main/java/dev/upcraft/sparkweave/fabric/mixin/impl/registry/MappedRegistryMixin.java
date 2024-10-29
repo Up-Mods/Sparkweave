@@ -3,10 +3,7 @@ package dev.upcraft.sparkweave.fabric.mixin.impl.registry;
 import com.llamalad7.mixinextras.injector.wrapoperation.Operation;
 import com.llamalad7.mixinextras.injector.wrapoperation.WrapOperation;
 import dev.upcraft.sparkweave.fabric.impl.registry.FabricRegistryHack;
-import net.minecraft.core.Holder;
-import net.minecraft.core.HolderOwner;
-import net.minecraft.core.MappedRegistry;
-import net.minecraft.core.Registry;
+import net.minecraft.core.*;
 import net.minecraft.resources.ResourceKey;
 import org.jetbrains.annotations.Nullable;
 import org.objectweb.asm.Opcodes;
@@ -23,13 +20,10 @@ import java.util.function.Supplier;
 import java.util.stream.Collectors;
 
 @Mixin(MappedRegistry.class)
-public abstract class MappedRegistryMixin<T> implements FabricRegistryHack<T> {
+public abstract class MappedRegistryMixin<T> implements WritableRegistry<T>, FabricRegistryHack<T> {
 
 	@Unique
 	private final Map<ResourceKey<T>, Holder.Reference<T>> unregisteredHolders = new HashMap<>();
-
-	@Shadow
-	public abstract HolderOwner<T> holderOwner();
 
 	@Shadow
 	protected abstract void validateWrite(ResourceKey<T> key);
@@ -41,17 +35,14 @@ public abstract class MappedRegistryMixin<T> implements FabricRegistryHack<T> {
 	@Nullable
 	private Map<T, Holder.Reference<T>> unregisteredIntrusiveHolders;
 
-	@Shadow
-	public abstract Holder.Reference<T> createIntrusiveHolder(T value);
-
 	@Override
 	public Holder.Reference<T> sparkweave$createHolder(ResourceKey<T> key, Supplier<T> factory) {
 		if(unregisteredIntrusiveHolders != null) {
-			return createIntrusiveHolder(factory.get());
+			return this.createIntrusiveHolder(factory.get());
 		}
 		validateWrite(key);
-		var holder = Holder.Reference.createStandAlone(this.holderOwner(), key);
-		unregisteredHolders.put(key, holder);
+		var holder = Holder.Reference.createStandAlone(this, key);
+		this.unregisteredHolders.put(key, holder);
 		return holder;
 	}
 

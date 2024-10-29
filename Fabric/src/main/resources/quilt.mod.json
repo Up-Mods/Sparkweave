@@ -29,8 +29,11 @@
 		},
 		"depends": [
 			{
-				"id": "quilt_loader",
-				"versions": ">=${quilt_loader_version}"
+				"id": "quilt_loader"
+			},
+			{
+				"id": "fabricloader",
+				"versions": ">=${fabric_loader_version}"
 			},
 			{
 				"id": "minecraft",

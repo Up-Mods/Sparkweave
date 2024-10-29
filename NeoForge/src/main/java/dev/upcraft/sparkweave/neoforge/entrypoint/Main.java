@@ -12,11 +12,16 @@ import dev.upcraft.sparkweave.logging.SparkweaveLogging;
 import dev.upcraft.sparkweave.registry.SparkweaveCommandArgumentTypes;
 import net.minecraft.core.registries.BuiltInRegistries;
 import net.minecraft.core.registries.Registries;
+import net.minecraft.resources.ResourceKey;
+import net.minecraft.world.item.Item;
 import net.neoforged.bus.api.IEventBus;
 import net.neoforged.bus.api.SubscribeEvent;
 import net.neoforged.fml.common.Mod;
 import net.neoforged.fml.loading.FMLEnvironment;
 import net.neoforged.neoforge.registries.RegisterEvent;
+
+import java.util.function.Function;
+import java.util.function.Supplier;
 
 @CalledByReflection
 @Mod(SparkweaveMod.MODID)
@@ -45,7 +50,14 @@ public class Main {
 		if (event.getRegistryKey() == Registries.ITEM) {
 			BuiltInRegistries.BLOCK.entrySet().forEach(entry -> {
 				if (entry.getValue() instanceof BlockItemProvider provider) {
-					event.register(Registries.ITEM, entry.getKey().location(), provider::createItem);
+					var id = entry.getKey().location();
+					var helper = new BlockItemProvider.RegistryHelper() {
+						@Override
+						public <T extends Item> T accept(Function<Item.Properties, T> factory, Supplier<Item.Properties> properties) {
+							return factory.apply(properties.get().setId(ResourceKey.create(Registries.ITEM, id)));
+						}
+					};
+					event.register(Registries.ITEM, id, () -> provider.createItem(helper));
 				}
 			});
 		}

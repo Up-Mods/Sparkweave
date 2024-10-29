@@ -38,11 +38,11 @@ public class FabricRegistrySupplier<R, T extends R> implements RegistrySupplier<
 		this.registry = registry;
 		var object = getOrCreateObject();
 		Registry.register(registry, this.getRegistryKey(), object);
-		var entryHolder = registry.getHolderOrThrow(this.getRegistryKey());
-		if(entryHolder instanceof Holder.Reference<R> reference && (reference.type != Holder.Reference.Type.INTRUSIVE || reference.value == null)) {
+		var reference = registry.getOrThrow(this.getRegistryKey());
+		if(reference.type != Holder.Reference.Type.INTRUSIVE || reference.value == null) {
 			reference.bindValue(this.value);
 		}
-		this.holder = entryHolder;
+		this.holder = reference;
 	}
 
 	@SuppressWarnings("unchecked")
@@ -88,7 +88,7 @@ public class FabricRegistrySupplier<R, T extends R> implements RegistrySupplier<
 	@Override
 	public Holder<R> holder() {
 		if (holder == null) {
-			holder = registry.getHolder(getRegistryKey()).orElseGet(() -> {
+			holder = registry.get(getRegistryKey()).orElseGet(() -> {
 				if(registry instanceof FabricRegistryHack<?>) {
 					return ((FabricRegistryHack<R>) registry).sparkweave$createHolder(getRegistryKey(), this::getOrCreateObject);
 				}
