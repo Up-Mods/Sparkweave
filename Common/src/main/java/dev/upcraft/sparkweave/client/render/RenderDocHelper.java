@@ -3,7 +3,7 @@ package dev.upcraft.sparkweave.client.render;
 import dev.upcraft.sparkweave.SparkweaveMod;
 import dev.upcraft.sparkweave.api.SparkweaveApi;
 import dev.upcraft.sparkweave.api.annotation.Mod;
-import dev.upcraft.sparkweave.logging.SparkweaveLogging;
+import dev.upcraft.sparkweave.api.logging.SparkweaveLoggerFactory;
 import org.apache.logging.log4j.Logger;
 
 import java.io.File;
@@ -13,7 +13,7 @@ import java.nio.file.Path;
 @Mod.Context(SparkweaveMod.MODID)
 public class RenderDocHelper {
 
-	private static final Logger LOGGER = SparkweaveLogging.getLogger();
+	private static final Logger LOGGER = SparkweaveLoggerFactory.getLogger();
 
 	public static void init() {
 		if(SparkweaveApi.Client.LOAD_RENDERDOC) {

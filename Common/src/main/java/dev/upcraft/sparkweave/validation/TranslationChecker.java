@@ -1,8 +1,9 @@
 package dev.upcraft.sparkweave.validation;
 
 import dev.upcraft.sparkweave.api.SparkweaveApi;
-import dev.upcraft.sparkweave.logging.SparkweaveLogging;
+import dev.upcraft.sparkweave.api.logging.SparkweaveLoggerFactory;
 import net.minecraft.server.Bootstrap;
+import org.apache.logging.log4j.Logger;
 
 import java.util.Collections;
 import java.util.HashSet;
@@ -12,11 +13,12 @@ public class TranslationChecker {
 
 	private static final Set<String> MISSING_KEYS = new HashSet<>();
 	private static final Set<String> MISSING_KEYS_VIEW = Collections.unmodifiableSet(MISSING_KEYS);
+	private static final Logger LOGGER = SparkweaveLoggerFactory.getLogger("Sparkweave Engine/TranslationChecker");
 
 	private static void notifyMissingTranslation(String translationKey) {
 		if(!MISSING_KEYS.contains(translationKey)) {
 			if(SparkweaveApi.Client.LOG_MISSING_TRANSLATIONS) {
-				SparkweaveLogging.getLogger().warn("Missing translation for key '{}'", translationKey);
+				LOGGER.warn("Missing translation for key '{}'", translationKey);
 			}
 			MISSING_KEYS.add(translationKey);
 		}

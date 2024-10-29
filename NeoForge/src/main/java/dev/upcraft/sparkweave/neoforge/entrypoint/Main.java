@@ -8,7 +8,6 @@ import dev.upcraft.sparkweave.api.entrypoint.MainEntryPoint;
 import dev.upcraft.sparkweave.api.platform.services.RegistryService;
 import dev.upcraft.sparkweave.api.registry.block.BlockItemProvider;
 import dev.upcraft.sparkweave.entrypoint.EntrypointHelper;
-import dev.upcraft.sparkweave.logging.SparkweaveLogging;
 import dev.upcraft.sparkweave.registry.SparkweaveCommandArgumentTypes;
 import net.minecraft.core.registries.BuiltInRegistries;
 import net.minecraft.core.registries.Registries;
@@ -42,7 +41,7 @@ public class Main {
 				EntrypointHelper.fireEntrypoints(DedicatedServerEntryPoint.class, DedicatedServerEntryPoint::onInitializeServer);
 		}
 
-		SparkweaveLogging.getLogger().debug("System initialized!");
+		SparkweaveMod.onLoadComplete();
 	}
 
 	@SubscribeEvent

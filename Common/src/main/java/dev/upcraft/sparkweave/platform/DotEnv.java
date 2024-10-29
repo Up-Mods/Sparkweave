@@ -1,13 +1,16 @@
 package dev.upcraft.sparkweave.platform;
 
+import dev.upcraft.sparkweave.api.logging.SparkweaveLoggerFactory;
 import dev.upcraft.sparkweave.api.platform.Services;
-import dev.upcraft.sparkweave.logging.SparkweaveLogging;
+import org.apache.logging.log4j.Logger;
 
 import java.io.IOException;
 import java.nio.file.Files;
 import java.nio.file.Path;
 
 public class DotEnv {
+
+	private static final Logger LOGGER = SparkweaveLoggerFactory.getLogger("Sparkweave Engine/DotEnv");
 
 	public static void load(Path path) {
 		if(!Files.isRegularFile(path)) {
@@ -16,7 +19,7 @@ public class DotEnv {
 		try (var reader = Files.newBufferedReader(path)) {
 			System.getProperties().load(reader);
 		} catch (IOException e) {
-			SparkweaveLogging.getLogger().error("Unable to load env file: {}", path.toAbsolutePath(), e);
+			LOGGER.error("Unable to load env file: {}", path.toAbsolutePath(), e);
 		}
 	}
 
