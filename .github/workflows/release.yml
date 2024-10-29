@@ -5,6 +5,10 @@ on:
     tags:
       - '*'
 
+env:
+  TAG: "${{ github.ref_name }}"
+  MAVEN_UPLOAD_URL: "${{ secrets.MAVEN_UPLOAD_URL }}"
+
 jobs:
   publish:
     runs-on: ubuntu-latest
@@ -15,25 +19,23 @@ jobs:
         with:
           distribution: 'microsoft'
           java-version: 21
+          cache: 'gradle'
+      - name: Validate Gradle Wrapper
+        uses: gradle/actions/wrapper-validation@v4
+      - name: Grant execute permission for gradlew
+        run: chmod +x ./gradlew
       - name: Get current time
         uses: srfrnk/current-time@master
         id: current-time
         with:
           format: YYYYMMDDHHmmss
-      - name: Setup ENV
-        run: echo "TAG=${{ github.ref_name }}" >> $GITHUB_ENV
-      - name: Copy Maven Upload URL
-        id: extract_maven_upload_url
-        run: echo "maven_upload_url=${{secrets.MAVEN_UPLOAD_URL}}" >> $GITHUB_OUTPUT
-      - name: Grant execute permission for gradlew
-        run: chmod +x ./gradlew
       - name: Build with Gradle
         env:
           BUILD_TIME: ${{ steps.current-time.outputs.formattedTime }}
           BUILD_NUMBER: ${{ github.run_number }}
         run: ./gradlew assemble --rerun-tasks
       - name: Maven Release
-        if: steps.extract_maven_upload_url.outputs.maven_upload_url
+        if: ${{ env.MAVEN_UPLOAD_URL }}
         env:
           BUILD_TIME: ${{ steps.current-time.outputs.formattedTime }}
           BUILD_NUMBER: ${{ github.run_number }}
