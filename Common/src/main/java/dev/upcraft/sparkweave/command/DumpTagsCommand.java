@@ -15,11 +15,11 @@ import dev.upcraft.sparkweave.api.platform.Services;
 import net.minecraft.ChatFormatting;
 import net.minecraft.commands.CommandSourceStack;
 import net.minecraft.commands.Commands;
+import net.minecraft.core.HolderLookup;
 import net.minecraft.core.Registry;
 import net.minecraft.network.chat.ClickEvent;
 import net.minecraft.network.chat.Component;
 import net.minecraft.network.chat.HoverEvent;
-import net.minecraft.resources.ResourceKey;
 
 import java.io.IOException;
 import java.nio.file.Files;
@@ -48,9 +48,8 @@ public class DumpTagsCommand {
 		var registries = registryAccess.listRegistries().toList();
 		var dir = Services.PLATFORM.getGameDir().resolve(SparkweaveMod.MODID).resolve("tag_export");
 
-		for (ResourceKey<? extends Registry<?>> registryKey : registries) {
-			var registry = registryAccess.registry(registryKey).orElseThrow();
-			saveTags(registry, dir);
+		for (var lookup : registries) {
+			saveTags(lookup, dir);
 		}
 
 		if (ctx.getSource().getServer().isSingleplayerOwner(player.getGameProfile())) {
@@ -76,17 +75,17 @@ public class DumpTagsCommand {
 		return Command.SINGLE_SUCCESS;
 	}
 
-	private static void saveTags(Registry<?> registry, Path dir) throws CommandSyntaxException {
-		Path rootDir = dir.resolve(registry.key().location().getNamespace()).resolve(registry.key().location().getPath());
+	private static void saveTags(HolderLookup.RegistryLookup<?> lookup, Path dir) throws CommandSyntaxException {
+		Path rootDir = dir.resolve(lookup.key().location().getNamespace()).resolve(lookup.key().location().getPath());
 
-		var tags = registry.getTags().toList();
-		for (var tagPair : tags) {
-			var name = tagPair.getFirst().location();
+		var tags = lookup.listTags().toList();
+		for (var tag : tags) {
+			var name = tag.key().location();
 			var outputFile = rootDir.resolve(name.getNamespace()).resolve(name.getPath() + ".json");
 
 			var json = new JsonObject();
 			var array = new JsonArray();
-			tagPair.getSecond().stream()
+			tag.stream()
 				.map(holder -> holder.unwrap().map(k -> k.location().toString(), Object::toString))
 				.forEach(array::add);
 			json.add("values", array);

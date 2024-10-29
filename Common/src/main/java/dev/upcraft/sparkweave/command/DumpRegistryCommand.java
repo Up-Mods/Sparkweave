@@ -13,6 +13,7 @@ import dev.upcraft.sparkweave.logging.SparkweaveLogging;
 import net.minecraft.ChatFormatting;
 import net.minecraft.commands.CommandSourceStack;
 import net.minecraft.commands.Commands;
+import net.minecraft.core.HolderLookup;
 import net.minecraft.core.Registry;
 import net.minecraft.network.chat.ClickEvent;
 import net.minecraft.network.chat.Component;
@@ -44,9 +45,8 @@ public class DumpRegistryCommand {
 		var registries = registryAccess.listRegistries().toList();
 		var dir = Services.PLATFORM.getGameDir().resolve(SparkweaveMod.MODID).resolve("registry_export");
 
-		for (ResourceKey<? extends Registry<?>> registryKey : registries) {
-			var registry = registryAccess.registry(registryKey).orElseThrow();
-			saveRegistryToFile(registry, dir);
+		for (var lookup : registries) {
+			saveRegistryToFile(lookup, dir);
 		}
 
 		if (ctx.getSource().getServer().isSingleplayerOwner(player.getGameProfile())) {
@@ -87,17 +87,17 @@ public class DumpRegistryCommand {
 		return Command.SINGLE_SUCCESS;
 	}
 
-	private static void saveRegistryToFile(Registry<?> registry, Path outputDir) throws CommandSyntaxException {
-		var outputFile = outputDir.resolve(registry.key().location().getNamespace()).resolve(registry.key().location().getPath() + ".csv");
+	private static void saveRegistryToFile(HolderLookup.RegistryLookup<?> lookup, Path outputDir) throws CommandSyntaxException {
+		var outputFile = outputDir.resolve(lookup.key().location().getNamespace()).resolve(lookup.key().location().getPath() + ".csv");
 		try {
 			Files.createDirectories(outputFile.getParent());
 			try (var stream = Files.newOutputStream(outputFile)) {
 				try (var writer = CSVWriter.create(stream, "namespace", "path")) {
-					registry.keySet().stream().sorted().forEachOrdered(key -> writer.addRow(key.getNamespace(), key.getPath()));
+					lookup.listElementIds().map(ResourceKey::location).sorted().forEachOrdered(key -> writer.addRow(key.getNamespace(), key.getPath()));
 				}
 			}
 		} catch (IOException e) {
-			SparkweaveLogging.getLogger().error("Failed to write registry dump for {}", registry.key().location(), e);
+			SparkweaveLogging.getLogger().error("Failed to write registry dump for {}", lookup.key().location(), e);
 			throw CommandHelper.IO_EXCEPTION.create(e.getMessage());
 		}
 	}

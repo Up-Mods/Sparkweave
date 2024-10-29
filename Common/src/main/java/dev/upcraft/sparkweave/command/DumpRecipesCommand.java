@@ -19,13 +19,14 @@ import net.minecraft.core.registries.Registries;
 import net.minecraft.network.chat.ClickEvent;
 import net.minecraft.network.chat.Component;
 import net.minecraft.network.chat.HoverEvent;
-import net.minecraft.world.item.crafting.Recipe;
-import net.minecraft.world.item.crafting.RecipeInput;
+import net.minecraft.resources.ResourceKey;
+import net.minecraft.resources.ResourceLocation;
 import net.minecraft.world.item.crafting.RecipeType;
 
 import java.io.IOException;
 import java.nio.file.Files;
 import java.nio.file.Path;
+import java.util.Comparator;
 
 public class DumpRecipesCommand {
 
@@ -56,8 +57,8 @@ public class DumpRecipesCommand {
 		var player = ctx.getSource().getPlayerOrException();
 		var dir = Services.PLATFORM.getGameDir().resolve(SparkweaveMod.MODID).resolve("recipe_export");
 
-		var types = ctx.getSource().registryAccess().registryOrThrow(Registries.RECIPE_TYPE).holders().toList();
-		for (var type : types) {
+		var registry = ctx.getSource().registryAccess().lookupOrThrow(Registries.RECIPE_TYPE).asHolderIdMap();
+		for (var type : registry) {
 			saveRecipes(ctx, type, dir);
 		}
 
@@ -69,29 +70,31 @@ public class DumpRecipesCommand {
 			);
 
 			//TODO directly send to client to bypass message click event filtering
-			ctx.getSource().sendSuccess(() -> Component.translatable("commands.sparkweave.debug.dump_recipes.multi_success_path", types.size(), path), true);
+			ctx.getSource().sendSuccess(() -> Component.translatable("commands.sparkweave.debug.dump_recipes.multi_success_path", registry.size(), path), true);
 		} else {
-			ctx.getSource().sendSuccess(() -> Component.translatable("commands.sparkweave.debug.dump_recipes.multi_success", types.size()), true);
+			ctx.getSource().sendSuccess(() -> Component.translatable("commands.sparkweave.debug.dump_recipes.multi_success", registry.size()), true);
 		}
 
-		return types.size();
+		return registry.size();
 	}
 
-	private static void saveRecipes(CommandContext<CommandSourceStack> ctx, Holder.Reference<RecipeType<?>> holder, Path dir) throws CommandSyntaxException {
-		if (!holder.isBound()) {
-			throw TYPE_NOT_FOUND.create(holder.key().location());
+	private static void saveRecipes(CommandContext<CommandSourceStack> ctx, Holder<RecipeType<?>> holder, Path dir) throws CommandSyntaxException {
+		var keyOpt = holder.unwrapKey().map(ResourceKey::location);
+		if (!holder.isBound() || keyOpt.isEmpty()) {
+			throw TYPE_NOT_FOUND.create(keyOpt.orElseGet(() -> ResourceLocation.withDefaultNamespace("unregistered_sadface")));
 		}
+		var key = keyOpt.orElseThrow();
 
-		//noinspection unchecked
-		var recipes = ctx.getSource().getServer().getRecipeManager().getAllRecipesFor((RecipeType<Recipe<RecipeInput>>) holder.value());
-		var outputFile = dir.resolve(holder.key().location().getNamespace()).resolve(holder.key().location().getPath() + ".csv");
-		var serializers = ctx.getSource().registryAccess().registryOrThrow(Registries.RECIPE_SERIALIZER);
+
+		var outputFile = dir.resolve(key.getNamespace()).resolve(key.getPath() + ".csv");
+		var serializers = ctx.getSource().registryAccess().lookupOrThrow(Registries.RECIPE_SERIALIZER);
 		try {
 			Files.createDirectories(outputFile.getParent());
 			try (var writer = CSVWriter.create(Files.newOutputStream(outputFile), "namespace", "path", "group", "serializer", "special")) {
-				for (var recipeHolder : recipes) {
-					writer.addRow(recipeHolder.id().getNamespace(), recipeHolder.id().getPath(), recipeHolder.value().getGroup(), serializers.getKey(recipeHolder.value().getSerializer()), recipeHolder.value().isSpecial());
-				}
+				ctx.getSource().getServer().getRecipeManager().getRecipes().stream().filter(h -> h.value().getType() == holder.value()).sorted(Comparator.comparing(h -> h.id().location())).forEachOrdered(recipeHolder -> {
+					var id = recipeHolder.id().location();
+					writer.addRow(id.getNamespace(), id.getPath(), recipeHolder.value().group(), serializers.getKey(recipeHolder.value().getSerializer()), recipeHolder.value().isSpecial());
+				});
 			}
 		} catch (IOException e) {
 			throw CommandHelper.IO_EXCEPTION.create(e);

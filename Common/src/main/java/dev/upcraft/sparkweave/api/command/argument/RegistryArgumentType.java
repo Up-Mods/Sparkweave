@@ -32,7 +32,7 @@ public class RegistryArgumentType implements ArgumentType<ResourceLocation> {
 
 	public static <T> Registry<T> getRegistry(CommandContext<CommandSourceStack> ctx, String name) throws CommandSyntaxException {
 		var location = ctx.getArgument(name, ResourceLocation.class);
-		Optional<Registry<T>> optional = ctx.getSource().registryAccess().registry(ResourceKey.createRegistryKey(location));
+		Optional<Registry<T>> optional = ctx.getSource().registryAccess().lookup(ResourceKey.createRegistryKey(location));
 		return optional.orElseThrow(() -> REGISTRY_NOT_FOUND.create(location));
 	}
 
@@ -44,7 +44,7 @@ public class RegistryArgumentType implements ArgumentType<ResourceLocation> {
 	@Override
 	public <S> CompletableFuture<Suggestions> listSuggestions(CommandContext<S> context, SuggestionsBuilder builder) {
 		if (context.getSource() instanceof SharedSuggestionProvider provider) {
-			return SharedSuggestionProvider.suggestResource(provider.registryAccess().listRegistries().map(ResourceKey::location), builder);
+			return SharedSuggestionProvider.suggestResource(provider.registryAccess().listRegistryKeys().map(ResourceKey::location), builder);
 		}
 
 		return builder.buildFuture();
