@@ -19,7 +19,7 @@ public abstract class DeferredHolderMixin<R, T extends R> implements RegistrySup
 	@Override
 	public abstract ResourceKey<? super T> getRegistryKey();
 
-	@SuppressWarnings("unchecked")
+	@SuppressWarnings({"unchecked", "AddedMixinMembersNamePattern"})
 	@Override
 	public Holder<R> holder() {
 		return (Holder<R>) this;

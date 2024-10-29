@@ -73,6 +73,7 @@ neoForge {
 			systemProperty 'neoforge.enabledGameTestNamespaces', project.mod_id
 
 			sourceSet = sourceSets.main
+			loadedMods.set([mods."${mod_id}"])
 
 			if (project.hasProperty('mc_uuid')) {
 				programArguments.add("--uuid=${project.findProperty('mc_uuid')}")
@@ -93,6 +94,7 @@ neoForge {
 			systemProperty 'neoforge.enabledGameTestNamespaces', project.mod_id
 
 			sourceSet = sourceSets.main
+			loadedMods.set([mods."${mod_id}"])
 
 			programArguments.add('--nogui')
 		}
@@ -103,6 +105,7 @@ neoForge {
 			systemProperty 'neoforge.enabledGameTestNamespaces', "${project.mod_id}_testmod"
 
 			sourceSet = sourceSets.testmod
+			loadedMods.set([mods."${mod_id}", mods."${mod_id}_testmod"])
 
 			if (project.hasProperty('mc_uuid')) {
 				programArguments.add("--uuid=${project.findProperty('mc_uuid')}")
@@ -124,6 +127,7 @@ neoForge {
 			programArguments.addAll('--mod', project.mod_id, '--all', '--output', file('src/generated/resources/').absolutePath, '--existing', file('src/main/resources/').absolutePath)
 
 			sourceSet = sourceSets.testmod
+			loadedMods.set([mods."${mod_id}"])
 		}
 	}
 }
