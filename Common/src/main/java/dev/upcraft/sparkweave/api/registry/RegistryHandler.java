@@ -3,7 +3,11 @@ package dev.upcraft.sparkweave.api.registry;
 import dev.upcraft.sparkweave.api.platform.services.RegistryService;
 import dev.upcraft.sparkweave.registry.IdAwareRegistryHandlerImpl;
 import net.minecraft.core.Registry;
+import net.minecraft.core.registries.Registries;
 import net.minecraft.resources.ResourceKey;
+import net.minecraft.world.item.Item;
+import net.minecraft.world.level.block.Block;
+import net.minecraft.world.level.block.state.BlockBehaviour;
 
 import java.util.function.BiFunction;
 import java.util.function.Consumer;
@@ -18,6 +22,14 @@ public interface RegistryHandler<T> extends Consumer<RegistryService>, ViewableR
 	static <T, P> IdAwareRegistryHandler<T, P> create(ResourceKey<Registry<T>> registryKey, String namespace, BiFunction<P, ResourceKey<T>, P> idMapper) {
 		var handler = create(registryKey, namespace);
 		return new IdAwareRegistryHandlerImpl<>(handler, idMapper);
+	}
+
+	static IdAwareRegistryHandler<Item, Item.Properties> items(String namespace) {
+		return create(Registries.ITEM, namespace, Item.Properties::setId);
+	}
+
+	static IdAwareRegistryHandler<Block, BlockBehaviour.Properties> blocks(String namespace) {
+		return create(Registries.BLOCK, namespace, BlockBehaviour.Properties::setId);
 	}
 
 	<S extends T> RegistrySupplier<S> register(String name, Supplier<S> factory);
