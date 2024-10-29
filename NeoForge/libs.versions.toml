@@ -2,4 +2,5 @@
 # https://projects.neoforged.net/neoforged/neoforge
 neoforge = "21.3.4-beta"
 
-#[libraries]
+[libraries]
+testframework = { module = "net.neoforged:testframework", version.ref = "neoforge" }

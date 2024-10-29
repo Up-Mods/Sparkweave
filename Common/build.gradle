@@ -26,6 +26,9 @@ dependencies {
 	}
 
 	testmodImplementation sourceSets.main.output
+
+	testCompileOnly libs.junit.api
+	testCompileOnly neoforge.testframework
 }
 
 neoForge {
@@ -41,6 +44,9 @@ neoForge {
 		from atFile
 		publish atFile
 	}
+	validateAccessTransformers.set(true)
+
+	addModdingDependenciesTo sourceSets.test
 }
 
 configurations {

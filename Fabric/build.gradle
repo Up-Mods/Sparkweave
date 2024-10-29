@@ -3,6 +3,12 @@ plugins {
 	alias libs.plugins.repositories
 }
 
+test {
+	useJUnitPlatform()
+
+	workingDir(project.file("run"))
+}
+
 dependencies {
 	minecraft libs.minecraft
 	mappings(loom.layered {
@@ -37,6 +43,11 @@ dependencies {
 	modLocalRuntime(fabric.modmenu) {
 		transitive = false
 	}
+
+	testImplementation libs.junit.api
+	testImplementation neoforge.testframework
+	testRuntimeOnly libs.junit.launcher
+	testRuntimeOnly libs.junit.engine
 }
 
 loom {
@@ -112,8 +123,12 @@ loom {
 	}
 }
 
-tasks.withType(JavaCompile).configureEach {
+tasks.named("compileJava", JavaCompile) {
 	source(project(":Common").sourceSets.main.allJava)
+}
+
+tasks.named("compileTestJava", JavaCompile) {
+	source(project(":Common").sourceSets.test.allSource)
 }
 
 tasks.named("compileTestmodJava", JavaCompile).configure {
@@ -130,6 +145,10 @@ tasks.named("sourcesJar", Jar) {
 
 processResources {
 	from project(":Common").sourceSets.main.resources
+}
+
+processTestResources {
+	from project(":Common").sourceSets.test.resources
 }
 
 processTestmodResources {

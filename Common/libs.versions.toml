@@ -21,6 +21,9 @@ appdirs = "1.2.1"
 resourcefulconfig = "3.3.0" # https://www.curseforge.com/minecraft/mc-mods/resourceful-config/files/all
 emi = "1.1.16+1.21.1"
 
+# test dependencies
+junit = "5.11.3"
+
 [libraries]
 minecraft = { module = "com.mojang:minecraft", version.ref = "minecraft" }
 mixin = { module = "net.fabricmc:sponge-mixin", version.ref = "mixin" }
@@ -42,9 +45,12 @@ emi = { module = "dev.emi:emi-xplat-mojmap", version.ref = "emi" }
 emi_neoforge = { module = "dev.emi:emi-neoforge", version.ref = "emi" }
 emi_fabric = { module = "dev.emi:emi-fabric", version.ref = "emi" }
 
+junit_api = { module = "org.junit.jupiter:junit-jupiter-api", version.ref = "junit" }
+junit_launcher = { module = "org.junit.platform:junit-platform-launcher" }
+junit_engine = { module = "org.junit.jupiter:junit-jupiter-engine", version.ref = "junit" }
+
 [bundles]
-#mixin = ["mixin", "mixin_extras", "asm", "asm_analysis", "asm_commons", "asm_tree", "asm_util"]
-mixin = ["mixin", "mixin_extras"]
+mixin = ["mixin", "mixin_extras", "asm", "asm_analysis", "asm_commons", "asm_tree", "asm_util"]
 
 [plugins]
 moddevgradle = { id = "net.neoforged.moddev", version.ref = "moddevgradle" }

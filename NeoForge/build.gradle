@@ -28,6 +28,17 @@ dependencies {
 		classifier 'api'
 	}
 //	localRuntime libs.emi.neoforge
+
+	testImplementation libs.junit.api
+	testImplementation neoforge.testframework
+	testRuntimeOnly libs.junit.launcher
+	testRuntimeOnly libs.junit.engine
+}
+
+test {
+	useJUnitPlatform()
+
+	workingDir(project.file("run"))
 }
 
 neoForge {
@@ -43,6 +54,7 @@ neoForge {
 		from atFile
 		publish atFile
 	}
+	validateAccessTransformers.set(true)
 
 	mods {
 		// define mod <-> source bindings
@@ -58,6 +70,12 @@ neoForge {
 			sourceSet(sourceSets.testmod)
 			sourceSet(project(":Common").sourceSets.testmod)
 		}
+	}
+
+	unitTest {
+		enable()
+
+		testedMod = mods."${mod_id}"
 	}
 
 	runs {
@@ -135,7 +153,15 @@ neoForge {
 sourceSets.main.resources { srcDir 'src/generated/resources' }
 
 tasks.named("compileJava", JavaCompile) {
-	source(project(":Common").sourceSets.main.allSource)
+	source(project(":Common").sourceSets.main.allJava)
+}
+
+tasks.named("compileTestJava", JavaCompile) {
+	source(project(":Common").sourceSets.test.allJava)
+}
+
+tasks.named("compileTestmodJava", JavaCompile) {
+	source(project(":Common").sourceSets.testmod.allJava)
 }
 
 tasks.named("javadoc", Javadoc) {
@@ -146,12 +172,12 @@ tasks.named("sourcesJar", Jar) {
 	from(project(":Common").sourceSets.main.allSource)
 }
 
-tasks.named("compileTestmodJava", JavaCompile) {
-	source(project(":Common").sourceSets.testmod.allJava)
-}
-
 processResources {
 	from project(":Common").sourceSets.main.resources
+}
+
+processTestResources {
+	from project(":Common").sourceSets.test.resources
 }
 
 processTestmodResources {
