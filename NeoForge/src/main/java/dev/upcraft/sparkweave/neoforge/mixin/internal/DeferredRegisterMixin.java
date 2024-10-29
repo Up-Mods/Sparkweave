@@ -9,16 +9,10 @@ import net.neoforged.neoforge.registries.DeferredHolder;
 import net.neoforged.neoforge.registries.DeferredRegister;
 import net.neoforged.neoforge.registries.RegistryBuilder;
 import org.jetbrains.annotations.Nullable;
-import org.spongepowered.asm.mixin.Implements;
-import org.spongepowered.asm.mixin.Interface;
-import org.spongepowered.asm.mixin.Mixin;
-import org.spongepowered.asm.mixin.Shadow;
+import org.spongepowered.asm.mixin.*;
 import org.spongepowered.asm.mixin.gen.Invoker;
 
-import java.util.Collection;
-import java.util.Comparator;
-import java.util.List;
-import java.util.Map;
+import java.util.*;
 import java.util.function.Consumer;
 import java.util.function.Supplier;
 import java.util.function.UnaryOperator;
@@ -55,14 +49,12 @@ public abstract class DeferredRegisterMixin<T> {
 		return (RegistrySupplier<S>) register(id.location().getPath(), factory);
 	}
 
-	@SuppressWarnings("unchecked")
 	public Map<ResourceLocation, RegistrySupplier<? extends T>> handler$values() {
-		return (Map<ResourceLocation, RegistrySupplier<? extends T>>) (Object) this.getEntries().stream().collect(Collectors.toMap(DeferredHolder::getId, UnaryOperator.identity()));
+		return handler$stream().collect(Collectors.toMap(RegistrySupplier::getId, UnaryOperator.identity()));
 	}
 
-	@SuppressWarnings("unchecked")
 	public List<RegistrySupplier<? extends T>> handler$getEntriesOrdered() {
-		return (List<RegistrySupplier<? extends T>>) (Object) this.getEntries().stream().sorted(Comparator.comparing(DeferredHolder::getKey, Comparator.naturalOrder())).toList();
+		return handler$stream().toList();
 	}
 
 	@SuppressWarnings("unchecked")
