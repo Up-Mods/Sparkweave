@@ -8,14 +8,6 @@ import net.minecraft.world.item.CreativeModeTab;
 public interface SparkweaveHelperService {
 
 	/**
-	 * @deprecated use {@link SparkweaveHelperService#newCreativeTabBuilder(Component)}
-	 */
-	@Deprecated(forRemoval = true, since = "0.502.0-alpha.1")
-	default CreativeModeTab.Builder newCreativeTabBuilder() {
-		return newCreativeTabBuilder(Component.literal("SPARKWEAVE: please use the creative tab builder that takes a title component!"));
-	}
-
-	/**
 	 * @see dev.upcraft.sparkweave.api.item.CreativeTabHelper
 	 */
 	CreativeModeTab.Builder newCreativeTabBuilder(Component title);
