@@ -1,0 +1,20 @@
+{
+  "argument.sparkweave.debug.dump_recipes.type_not_found": "Tipo de receta no encontrado: %s",
+  "argument.sparkweave.registry.not_found": "Registro no encontrado: %s",
+  "chat.sparkweave.open_folder": "Clica para ver en el Explorador de Archivos",
+  "commands.sparkweave.error.io_exception": "Un error de E/S ha ocurrido al ejecutar el comando: %s",
+  "commands.sparkweave.debug.dump_recipes.success": "Se ha exportado todas las recetas del tipo %s con éxito",
+  "commands.sparkweave.debug.dump_recipes.success_path": "Se ha exportado todas las recetas del tipo %s a %s con éxito",
+  "commands.sparkweave.debug.dump_recipes.multi_success": "Se ha exportado recetas para %s tipos con éxito",
+  "commands.sparkweave.debug.dump_recipes.multi_success_path": "Se ha exportado recetas %s tipos a %s con éxito",
+  "commands.sparkweave.debug.dump_registries.success": "Se ha exportado el registro %s con éxito",
+  "commands.sparkweave.debug.dump_registries.success_path": "Se ha exportado el registro %s a %s con éxito",
+  "commands.sparkweave.debug.dump_registries.multi_success": "Se ha exportado %s registros con éxito",
+  "commands.sparkweave.debug.dump_registries.multi_success_path": "Se ha exportado %s registrios a %s con éxito",
+  "commands.sparkweave.debug.dump_tags.success": "Se ha exportado las tags del rgistro %s con éxito",
+  "commands.sparkweave.debug.dump_tags.success_path": "Se ha exportado las tags del registro %s a %s con éxito",
+  "commands.sparkweave.debug.dump_tags.multi_success": "Se ha exportado las tags para %s registros con éxito",
+  "commands.sparkweave.debug.dump_tags.multi_success_path": "Se ha exportado las tags para %s registros sa %s con éxito",
+  "itemGroup.sparkweave.developer_tab": "Utilidades para Desarrolladores",
+  "screen.sparkweave.consent.title": "Consentimiento Requerido"
+}
