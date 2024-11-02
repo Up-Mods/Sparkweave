@@ -1,12 +1,19 @@
 package dev.upcraft.sparkweave.testmod;
 
 import dev.upcraft.sparkweave.api.entrypoint.MainEntryPoint;
+import dev.upcraft.sparkweave.api.event.ItemMenuInteractionEvent;
 import dev.upcraft.sparkweave.api.platform.ModContainer;
 import dev.upcraft.sparkweave.api.platform.services.RegistryService;
 import dev.upcraft.sparkweave.testmod.init.TestCreativeTabs;
 import dev.upcraft.sparkweave.testmod.init.TestItems;
 import dev.upcraft.sparkweave.testmod.init.TestStatusEffects;
+import net.minecraft.network.chat.Component;
 import net.minecraft.resources.ResourceLocation;
+import net.minecraft.sounds.SoundEvents;
+import net.minecraft.sounds.SoundSource;
+import net.minecraft.world.inventory.ChestMenu;
+import net.minecraft.world.inventory.ClickAction;
+import net.minecraft.world.item.Items;
 
 public class SparkweaveTestmod implements MainEntryPoint {
 
@@ -19,6 +26,16 @@ public class SparkweaveTestmod implements MainEntryPoint {
 		TestItems.ITEMS.accept(registryService);
 		TestCreativeTabs.TABS.accept(registryService);
 		TestStatusEffects.STATUS_EFFECTS.accept(registryService);
+
+		ItemMenuInteractionEvent.EVENT.register((menu, player, level, clickAction, slot, slotStack, cursorStack) -> {
+			if(level.isClientSide() && menu instanceof ChestMenu && clickAction == ClickAction.SECONDARY && slotStack.is(Items.DEEPSLATE_COAL_ORE) && cursorStack.is(Items.DEEPSLATE_EMERALD_ORE) && player.isCrouching()) {
+				player.displayClientMessage(Component.literal("Uh oh stinky"), false);
+				level.playSound(null, player.blockPosition(), SoundEvents.ARROW_HIT_PLAYER, SoundSource.PLAYERS);
+				return true;
+			}
+
+			return false;
+		});
 	}
 
 	public static ResourceLocation id(String path) {

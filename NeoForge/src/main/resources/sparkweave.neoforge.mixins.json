@@ -5,6 +5,7 @@
   "plugin": "dev.upcraft.sparkweave.SparkweaveMixinConfigPlugin",
   "compatibilityLevel": "JAVA_21",
   "mixins": [
+    "AbstractContainerMenuMixin",
     "internal.DeferredHolderMixin",
     "internal.DeferredRegisterMixin",
     "internal.RegisterMenuScreensEventMixin"
@@ -14,5 +15,5 @@
   ],
   "injectors": {
     "defaultRequire": 1
-  }
+	}
 }
