@@ -17,6 +17,8 @@ public class SparkweaveTestmodClient implements ClientEntryPoint {
 
 	@Override
 	public void onInitializeClient(ModContainer mod) {
+		RegisterLayerDefinitionsEvent.EVENT.register(event -> event.registerModelLayers(MageRobesModel.MODEL_LAYER, MageRobesModel::createBodyLayer));
+		CustomArmorRendererRegistryEvent.register(new MageRobesRenderer(), Items.CHAINMAIL_HELMET, Items.CHAINMAIL_CHESTPLATE, Items.CHAINMAIL_LEGGINGS, Items.CHAINMAIL_BOOTS);
 	}
 
 	public static void onClientTickStart(Minecraft client) {
