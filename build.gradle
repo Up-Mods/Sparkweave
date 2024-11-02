@@ -175,6 +175,7 @@ subprojects {
 			"minecraft_version"   : libs.versions.minecraft.get(),
 			"neoforge_version"    : neoforge.versions.neoforge.get(),
 			"fabric_loader_version": fabric.versions.fabric.loader.get(),
+			"quilt_loader_version": fabric.versions.quilt.loader.get(),
 			"java_version": "${javaVersion}",
 		]
 
@@ -202,6 +203,7 @@ subprojects {
 
 			"neoforge_version"    : neoforge.versions.neoforge.get(),
 			"fabric_loader_version": fabric.versions.fabric.loader.get(),
+			"quilt_loader_version": fabric.versions.quilt.loader.get(),
 		]
 
 		filesMatching(['pack.mcmeta', '*.mod.json', 'META-INF/neoforge.mods.toml', '*.mixins.json']) {
