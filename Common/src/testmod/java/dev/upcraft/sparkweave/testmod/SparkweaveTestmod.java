@@ -1,16 +1,19 @@
 package dev.upcraft.sparkweave.testmod;
 
+import dev.upcraft.sparkweave.api.entrypoint.MainEntryPoint;
+import dev.upcraft.sparkweave.api.platform.ModContainer;
 import dev.upcraft.sparkweave.api.platform.services.RegistryService;
 import dev.upcraft.sparkweave.testmod.init.TestCreativeTabs;
 import dev.upcraft.sparkweave.testmod.init.TestItems;
 import dev.upcraft.sparkweave.testmod.init.TestStatusEffects;
 import net.minecraft.resources.ResourceLocation;
 
-public class SparkweaveTestmod {
+public class SparkweaveTestmod implements MainEntryPoint {
 
 	public static final String MODID = "sparkweave_testmod";
 
-	public static void init() {
+	@Override
+	public void onInitialize(ModContainer mod) {
 		var registryService = RegistryService.get();
 
 		TestItems.ITEMS.accept(registryService);

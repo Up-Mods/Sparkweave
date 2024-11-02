@@ -1,12 +1,23 @@
 package dev.upcraft.sparkweave.testmod.client;
 
 import dev.upcraft.sparkweave.api.client.Debug;
+import dev.upcraft.sparkweave.api.client.event.CustomArmorRendererRegistryEvent;
+import dev.upcraft.sparkweave.api.client.event.RegisterLayerDefinitionsEvent;
+import dev.upcraft.sparkweave.api.entrypoint.ClientEntryPoint;
+import dev.upcraft.sparkweave.api.platform.ModContainer;
 import dev.upcraft.sparkweave.api.time.Time;
+import dev.upcraft.sparkweave.testmod.client.models.MageRobesModel;
+import dev.upcraft.sparkweave.testmod.client.renderers.MageRobesRenderer;
 import net.minecraft.client.Minecraft;
+import net.minecraft.world.item.Items;
 
-public class SparkweaveTestmodClient {
+public class SparkweaveTestmodClient implements ClientEntryPoint {
 
 	private static int ticks = 0;
+
+	@Override
+	public void onInitializeClient(ModContainer mod) {
+	}
 
 	public static void onClientTickStart(Minecraft client) {
 		if (client.level != null && ticks++ % 100 == 0) {

@@ -7,6 +7,6 @@ import net.neoforged.fml.common.Mod;
 public class Main {
 
 	public Main() {
-		SparkweaveTestmod.init();
+
 	}
 }
