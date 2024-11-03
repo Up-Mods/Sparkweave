@@ -3,6 +3,7 @@ package dev.upcraft.sparkweave.client.event;
 import com.google.common.base.Preconditions;
 import com.mojang.datafixers.util.Pair;
 import dev.upcraft.sparkweave.api.client.render.CustomArmorRenderer;
+import it.unimi.dsi.fastutil.objects.Object2ObjectOpenHashMap;
 import net.minecraft.client.Minecraft;
 import net.minecraft.client.model.EntityModel;
 import net.minecraft.client.renderer.entity.EntityRendererProvider;
@@ -11,14 +12,16 @@ import net.minecraft.core.registries.BuiltInRegistries;
 import net.minecraft.world.entity.LivingEntity;
 import net.minecraft.world.item.Item;
 import net.minecraft.world.level.ItemLike;
+import org.jetbrains.annotations.ApiStatus;
 
-import java.util.HashMap;
+import java.util.Map;
 import java.util.Optional;
 
+@ApiStatus.Internal
 public class ArmorRendererRegistry {
 
-	private static final HashMap<Pair<Class<? extends LivingEntity>, Item>, Optional<CustomArmorRenderer<? extends LivingEntity, ? extends EntityModel<?>>>> RENDERERS = new HashMap<>();
-	private static final HashMap<Item, CustomArmorRenderer.Factory<? extends LivingEntity, ? extends EntityModel<?>>> FACTORIES = new HashMap<>();
+	private static final Map<Pair<Class<? extends LivingEntity>, Item>, Optional<CustomArmorRenderer<? extends LivingEntity, ? extends EntityModel<?>>>> RENDERERS = new Object2ObjectOpenHashMap<>();
+	private static final Map<Item, CustomArmorRenderer.Factory<? extends LivingEntity, ? extends EntityModel<?>>> FACTORIES = new Object2ObjectOpenHashMap<>();
 
 	public static <E extends LivingEntity, M extends EntityModel<E>> void register(CustomArmorRenderer.Factory<E, M> factory, ItemLike... items) {
 		Preconditions.checkArgument(items.length > 0, "Custom armor renderer registered, but no items are attached to it");

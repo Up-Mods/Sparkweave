@@ -20,7 +20,7 @@ public class MageRobesRenderer extends CustomHumanoidModelArmorRenderer<LivingEn
 	}
 
 	@Override
-	protected void setPartVisibility(MageRobesModel<LivingEntity> model, LivingEntity entity, EquipmentSlot slot) {
+	protected void setPartVisibility(MageRobesModel<LivingEntity> model, LivingEntity entity, ItemStack stack, EquipmentSlot slot) {
 		switch (slot) {
 			case HEAD -> {
 				model.openHood.visible = true;
@@ -42,7 +42,7 @@ public class MageRobesRenderer extends CustomHumanoidModelArmorRenderer<LivingEn
 	}
 
 	@Override
-	protected MageRobesModel<LivingEntity> getArmorModel(LivingEntity entity, EquipmentSlot slot) {
+	protected MageRobesModel<LivingEntity> getArmorModel(LivingEntity entity, ItemStack stack, EquipmentSlot slot) {
 		return this.model;
 	}
 
