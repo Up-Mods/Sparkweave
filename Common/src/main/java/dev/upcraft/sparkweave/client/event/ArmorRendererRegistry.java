@@ -1,7 +1,8 @@
-package dev.upcraft.sparkweave.api.client.render;
+package dev.upcraft.sparkweave.client.event;
 
 import com.google.common.base.Preconditions;
 import com.mojang.datafixers.util.Pair;
+import dev.upcraft.sparkweave.api.client.render.CustomArmorRenderer;
 import net.minecraft.client.Minecraft;
 import net.minecraft.client.model.EntityModel;
 import net.minecraft.client.renderer.entity.EntityRendererProvider;

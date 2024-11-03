@@ -42,4 +42,9 @@ public class ClientModBusRegistryEvents {
 		RegisterLayerDefinitionsEvent.EVENT.invoker().registerModelLayers(event::registerLayerDefinition);
 	}
 
+	@SubscribeEvent
+	public static void onRegisterEntityLayers(EntityRenderersEvent.AddLayers event) {
+		RegisterCustomArmorRenderersEvent.EVENT.invoker().registerCustomArmorRenderers(new RegisterCustomArmorRenderersEvent());
+	}
+
 }

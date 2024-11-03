@@ -1,7 +1,7 @@
 package dev.upcraft.sparkweave.testmod.client;
 
 import dev.upcraft.sparkweave.api.client.Debug;
-import dev.upcraft.sparkweave.api.client.render.ArmorRendererRegistry;
+import dev.upcraft.sparkweave.client.event.ArmorRendererRegistry;
 import dev.upcraft.sparkweave.api.client.event.RegisterLayerDefinitionsEvent;
 import dev.upcraft.sparkweave.api.entrypoint.ClientEntryPoint;
 import dev.upcraft.sparkweave.api.platform.ModContainer;

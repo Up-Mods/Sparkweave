@@ -2,7 +2,7 @@ package dev.upcraft.sparkweave.fabric.mixin.client;
 
 import com.llamalad7.mixinextras.sugar.Local;
 import com.mojang.blaze3d.vertex.PoseStack;
-import dev.upcraft.sparkweave.api.client.render.ArmorRendererRegistry;
+import dev.upcraft.sparkweave.client.event.ArmorRendererRegistry;
 import dev.upcraft.sparkweave.api.client.render.RenderLayerExtension;
 import net.minecraft.client.model.HumanoidModel;
 import net.minecraft.client.renderer.MultiBufferSource;

@@ -17,6 +17,7 @@ public class CreativeTabHelper {
 	private static final SparkweaveHelperService HELPER = Services.getService(SparkweaveHelperService.class);
 	private static final RandomSource RANDOM_SOURCE = RandomSource.create();
 
+	// TODO make this a vararg method
 	public static <T extends ItemLike> void addRegistryEntries(CreativeModeTab.ItemDisplayParameters displayParameters, CreativeModeTab.Output collector, RegistryHandler<T> itemProvider) {
 		itemProvider.stream().forEach(supplier -> {
 
