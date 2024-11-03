@@ -1,4 +1,4 @@
-package dev.upcraft.sparkweave.neoforge.mixin.internal;
+package dev.upcraft.sparkweave.neoforge.mixin;
 
 import dev.upcraft.sparkweave.api.registry.RegistryHandler;
 import dev.upcraft.sparkweave.api.registry.RegistrySupplier;

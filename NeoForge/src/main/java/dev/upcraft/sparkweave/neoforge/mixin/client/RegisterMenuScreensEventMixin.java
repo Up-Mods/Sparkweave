@@ -1,4 +1,4 @@
-package dev.upcraft.sparkweave.neoforge.mixin.internal;
+package dev.upcraft.sparkweave.neoforge.mixin.client;
 
 import net.minecraft.client.gui.screens.MenuScreens;
 import net.minecraft.client.gui.screens.Screen;

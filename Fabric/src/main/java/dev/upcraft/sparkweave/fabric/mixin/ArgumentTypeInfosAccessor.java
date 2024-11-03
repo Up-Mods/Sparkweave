@@ -1,4 +1,4 @@
-package dev.upcraft.sparkweave.fabric.mixin.impl;
+package dev.upcraft.sparkweave.fabric.mixin;
 
 import net.minecraft.commands.synchronization.ArgumentTypeInfo;
 import net.minecraft.commands.synchronization.ArgumentTypeInfos;

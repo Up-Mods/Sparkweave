@@ -7,10 +7,11 @@
   "compatibilityLevel": "JAVA_21",
   "mixins": [
     "AbstractContainerMenuMixin",
-    "impl.ArgumentTypeInfosAccessor",
-    "impl.registry.MappedRegistryMixin"
+    "ArgumentTypeInfosAccessor",
+    "MappedRegistryMixin"
   ],
   "client": [
+    "client.HumanoidArmorLayerMixin"
   ],
   "injectors": {
     "defaultRequire": 1

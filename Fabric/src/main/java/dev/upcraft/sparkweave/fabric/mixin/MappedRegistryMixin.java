@@ -1,4 +1,4 @@
-package dev.upcraft.sparkweave.fabric.mixin.impl.registry;
+package dev.upcraft.sparkweave.fabric.mixin;
 
 import com.llamalad7.mixinextras.injector.wrapoperation.Operation;
 import com.llamalad7.mixinextras.injector.wrapoperation.WrapOperation;

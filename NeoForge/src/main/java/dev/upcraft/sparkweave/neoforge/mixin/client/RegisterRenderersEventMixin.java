@@ -1,4 +1,4 @@
-package dev.upcraft.sparkweave.neoforge.mixin.internal;
+package dev.upcraft.sparkweave.neoforge.mixin.client;
 
 import dev.upcraft.sparkweave.api.client.event.RegisterBlockEntityRenderersEvent;
 import dev.upcraft.sparkweave.api.client.event.RegisterEntityRenderersEvent;

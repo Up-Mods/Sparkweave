@@ -3,7 +3,7 @@ package dev.upcraft.sparkweave.fabric.service;
 import com.mojang.brigadier.arguments.ArgumentType;
 import dev.upcraft.sparkweave.api.annotation.CalledByReflection;
 import dev.upcraft.sparkweave.api.platform.services.SparkweaveHelperService;
-import dev.upcraft.sparkweave.fabric.mixin.impl.ArgumentTypeInfosAccessor;
+import dev.upcraft.sparkweave.fabric.mixin.ArgumentTypeInfosAccessor;
 import net.fabricmc.fabric.api.itemgroup.v1.FabricItemGroup;
 import net.minecraft.commands.synchronization.ArgumentTypeInfo;
 import net.minecraft.network.chat.Component;

@@ -6,12 +6,13 @@
   "compatibilityLevel": "JAVA_21",
   "mixins": [
     "AbstractContainerMenuMixin",
-    "internal.DeferredHolderMixin",
-    "internal.DeferredRegisterMixin",
-    "internal.RegisterMenuScreensEventMixin"
+    "DeferredHolderMixin",
+    "DeferredRegisterMixin",
+    "client.RegisterMenuScreensEventMixin"
   ],
   "client": [
-    "internal.RegisterRenderersEventMixin"
+    "client.HumanoidArmorLayerMixin",
+    "client.RegisterRenderersEventMixin"
   ],
   "injectors": {
     "defaultRequire": 1

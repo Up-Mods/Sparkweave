@@ -22,8 +22,9 @@ public class AbstractContainerMenuMixin {
 		at = @At(value = "INVOKE", target = "Lnet/minecraft/world/entity/player/Player;updateTutorialInventoryAction(Lnet/minecraft/world/item/ItemStack;Lnet/minecraft/world/item/ItemStack;Lnet/minecraft/world/inventory/ClickAction;)V"),
 		locals = LocalCapture.CAPTURE_FAILSOFT, cancellable = true
 	)
-	private void handleItemClickEvent(int slotId, int button, ClickType clickType, Player player, CallbackInfo info, Inventory inventory, ClickAction clickAction, Slot slot, ItemStack slotStack, ItemStack cursorStack) {
-		if(ItemMenuInteractionEvent.EVENT.invoker().interactWithItemInMenu((AbstractContainerMenu) (Object) this, player, player.level(), clickAction, slot, slotStack, cursorStack))
-			info.cancel();
+	private void handleItemClickEvent(int slotId, int button, ClickType clickType, Player player, CallbackInfo ci, Inventory inventory, ClickAction clickAction, Slot slot, ItemStack slotStack, ItemStack cursorStack) {
+		if(ItemMenuInteractionEvent.EVENT.invoker().interactWithItemInMenu((AbstractContainerMenu) (Object) this, player, player.level(), clickAction, slot, slotStack, cursorStack)) {
+			ci.cancel();
+		}
 	}
 }

@@ -11,6 +11,7 @@ minecraft {
 
 dependencies {
 	compileOnly libs.bundles.mixin
+	annotationProcessor libs.mixin.extras
 	compileOnly libs.jetbrains.annotations
 
 	implementation libs.appdirs

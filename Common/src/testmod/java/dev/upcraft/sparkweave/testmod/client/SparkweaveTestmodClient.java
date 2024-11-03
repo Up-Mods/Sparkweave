@@ -1,7 +1,7 @@
 package dev.upcraft.sparkweave.testmod.client;
 
 import dev.upcraft.sparkweave.api.client.Debug;
-import dev.upcraft.sparkweave.api.client.event.CustomArmorRendererRegistryEvent;
+import dev.upcraft.sparkweave.api.client.render.ArmorRendererRegistry;
 import dev.upcraft.sparkweave.api.client.event.RegisterLayerDefinitionsEvent;
 import dev.upcraft.sparkweave.api.entrypoint.ClientEntryPoint;
 import dev.upcraft.sparkweave.api.platform.ModContainer;
@@ -18,7 +18,7 @@ public class SparkweaveTestmodClient implements ClientEntryPoint {
 	@Override
 	public void onInitializeClient(ModContainer mod) {
 		RegisterLayerDefinitionsEvent.EVENT.register(event -> event.registerModelLayers(MageRobesModel.MODEL_LAYER, MageRobesModel::createBodyLayer));
-		CustomArmorRendererRegistryEvent.register(new MageRobesRenderer(), Items.CHAINMAIL_HELMET, Items.CHAINMAIL_CHESTPLATE, Items.CHAINMAIL_LEGGINGS, Items.CHAINMAIL_BOOTS);
+		ArmorRendererRegistry.register((entity, context, renderer) -> new MageRobesRenderer(context), Items.CHAINMAIL_HELMET, Items.CHAINMAIL_CHESTPLATE, Items.CHAINMAIL_LEGGINGS, Items.CHAINMAIL_BOOTS);
 	}
 
 	public static void onClientTickStart(Minecraft client) {

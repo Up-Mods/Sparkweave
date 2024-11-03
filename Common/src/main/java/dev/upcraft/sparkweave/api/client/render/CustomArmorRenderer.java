@@ -1,25 +1,23 @@
 package dev.upcraft.sparkweave.api.client.render;
 
 import com.mojang.blaze3d.vertex.PoseStack;
-import com.mojang.blaze3d.vertex.VertexConsumer;
-import net.minecraft.client.model.HumanoidModel;
-import net.minecraft.client.model.Model;
+import net.minecraft.client.model.EntityModel;
 import net.minecraft.client.renderer.MultiBufferSource;
-import net.minecraft.client.renderer.RenderType;
-import net.minecraft.client.renderer.entity.ItemRenderer;
-import net.minecraft.client.renderer.texture.OverlayTexture;
-import net.minecraft.resources.ResourceLocation;
+import net.minecraft.client.renderer.entity.EntityRendererProvider;
+import net.minecraft.client.renderer.entity.RenderLayerParent;
 import net.minecraft.world.entity.EquipmentSlot;
 import net.minecraft.world.entity.LivingEntity;
 import net.minecraft.world.item.ItemStack;
+import org.jetbrains.annotations.Nullable;
 
-@FunctionalInterface
-public interface CustomArmorRenderer {
-	static void renderArmor(PoseStack matrices, MultiBufferSource vertexConsumers, int light, ItemStack stack, Model model, ResourceLocation texture) {
-		VertexConsumer vertexConsumer = ItemRenderer.getArmorFoilBuffer(vertexConsumers, RenderType.armorCutoutNoCull(texture), stack.hasFoil());
+public abstract class CustomArmorRenderer<E extends LivingEntity, M extends EntityModel<E>> {
 
-		model.renderToBuffer(matrices, vertexConsumer, light, OverlayTexture.NO_OVERLAY);
+	public abstract void render(PoseStack matrices, MultiBufferSource bufferSource, ItemStack stack, E entity, EquipmentSlot slot, int light, M contextModel);
+
+	@FunctionalInterface
+	public interface Factory<E extends LivingEntity, M extends EntityModel<E>> {
+
+		@Nullable CustomArmorRenderer<? extends E, ? extends M> create(LivingEntity entity, EntityRendererProvider.Context context, RenderLayerParent<E, M> renderer);
 	}
 
-	void render(PoseStack matrices, MultiBufferSource bufferSource, ItemStack stack, LivingEntity entity, EquipmentSlot slot, int light, HumanoidModel<LivingEntity> contextModel);
 }
