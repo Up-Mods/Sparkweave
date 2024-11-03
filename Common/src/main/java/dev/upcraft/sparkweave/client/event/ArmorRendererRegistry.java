@@ -11,6 +11,7 @@ import net.minecraft.client.renderer.entity.RenderLayerParent;
 import net.minecraft.core.registries.BuiltInRegistries;
 import net.minecraft.world.entity.LivingEntity;
 import net.minecraft.world.item.Item;
+import net.minecraft.world.item.ItemStack;
 import net.minecraft.world.level.ItemLike;
 import org.jetbrains.annotations.ApiStatus;
 
@@ -37,8 +38,12 @@ public class ArmorRendererRegistry {
 	}
 
 	@SuppressWarnings({"unchecked", "rawtypes"})
-	public static <E extends LivingEntity, M extends EntityModel<E>> Optional<CustomArmorRenderer<E, M>> get(RenderLayerParent<E, M> renderer, E entity, Item item) {
-		return (Optional<CustomArmorRenderer<E,M>>) RENDERERS.computeIfAbsent(Pair.of(entity.getClass(), item), key -> {
+	public static <E extends LivingEntity, M extends EntityModel<E>> Optional<CustomArmorRenderer<E, M>> get(RenderLayerParent<E, M> renderer, E entity, ItemStack stack) {
+		if(stack.isEmpty()) {
+			return Optional.empty();
+		}
+
+		return (Optional<CustomArmorRenderer<E,M>>) RENDERERS.computeIfAbsent(Pair.of(entity.getClass(), stack.getItem()), key -> {
 			var factory = FACTORIES.get(key.getSecond());
 			if(factory == null) {
 				return Optional.empty();

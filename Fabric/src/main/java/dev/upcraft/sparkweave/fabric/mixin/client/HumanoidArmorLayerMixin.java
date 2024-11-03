@@ -2,8 +2,8 @@ package dev.upcraft.sparkweave.fabric.mixin.client;
 
 import com.llamalad7.mixinextras.sugar.Local;
 import com.mojang.blaze3d.vertex.PoseStack;
-import dev.upcraft.sparkweave.client.event.ArmorRendererRegistry;
 import dev.upcraft.sparkweave.api.client.render.RenderLayerExtensions;
+import dev.upcraft.sparkweave.client.event.ArmorRendererRegistry;
 import net.minecraft.client.model.HumanoidModel;
 import net.minecraft.client.renderer.MultiBufferSource;
 import net.minecraft.client.renderer.entity.RenderLayerParent;
@@ -11,7 +11,7 @@ import net.minecraft.client.renderer.entity.layers.HumanoidArmorLayer;
 import net.minecraft.client.renderer.entity.layers.RenderLayer;
 import net.minecraft.world.entity.EquipmentSlot;
 import net.minecraft.world.entity.LivingEntity;
-import net.minecraft.world.item.ArmorItem;
+import net.minecraft.world.item.Equipable;
 import net.minecraft.world.item.ItemStack;
 import org.spongepowered.asm.mixin.Mixin;
 import org.spongepowered.asm.mixin.injection.At;
@@ -29,8 +29,8 @@ public abstract class HumanoidArmorLayerMixin<T extends LivingEntity, M extends 
 	@SuppressWarnings("unchecked")
 	@Inject(method = "renderArmorPiece", at = @At(value = "INVOKE", target = "Lnet/minecraft/world/item/ItemStack;getItem()Lnet/minecraft/world/item/Item;"), cancellable = true)
 	private void disableDefaultArmorRendererForCustomArmor(PoseStack poseStack, MultiBufferSource bufferSource, T entity, EquipmentSlot slot, int light, A model, CallbackInfo info, @Local ItemStack armorStack) {
-		if (!(armorStack.getItem() instanceof ArmorItem armorItem) || armorItem.getEquipmentSlot() == slot) {
-			ArmorRendererRegistry.get(((RenderLayerExtensions<T, M>) this).sparkweave$getParent(), entity, armorStack.getItem()).ifPresent(renderer -> {
+		if (!(armorStack.getItem() instanceof Equipable equipable) || equipable.getEquipmentSlot() == slot) {
+			ArmorRendererRegistry.get(((RenderLayerExtensions<T, M>) this).sparkweave$getParent(), entity, armorStack).ifPresent(renderer -> {
 				renderer.render(poseStack, bufferSource, armorStack, entity, slot, light, this.getParentModel());
 				info.cancel();
 			});

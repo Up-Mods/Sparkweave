@@ -21,24 +21,16 @@ public class MageRobesRenderer extends CustomHumanoidModelArmorRenderer<LivingEn
 
 	@Override
 	protected void setPartVisibility(MageRobesModel<LivingEntity> model, LivingEntity entity, ItemStack stack, EquipmentSlot slot) {
-		switch (slot) {
-			case HEAD -> {
-				model.openHood.visible = true;
-				model.cloak.visible = true;
-			}
-			case CHEST -> {
-				model.garb.visible = true;
-				model.leftSleeve.visible = true;
-				model.rightSleeve.visible = true;
-			}
-			case LEGS -> {
-				model.belt.visible = true;
-			}
-			case FEET -> {
-				model.leftShoe.visible = true;
-				model.rightShoe.visible = true;
-			}
-		}
+		model.setAllVisible(true);
+		model.closedHood.visible = false;
+		model.openHood.visible = slot == EquipmentSlot.HEAD;
+		model.cloak.visible = slot == EquipmentSlot.HEAD;
+		model.garb.visible = slot == EquipmentSlot.CHEST;
+		model.leftSleeve.visible = slot == EquipmentSlot.CHEST;
+		model.rightSleeve.visible = slot == EquipmentSlot.CHEST;
+		model.belt.visible = slot == EquipmentSlot.LEGS;
+		model.leftShoe.visible = slot == EquipmentSlot.FEET;
+		model.rightShoe.visible = slot == EquipmentSlot.FEET;
 	}
 
 	@Override
