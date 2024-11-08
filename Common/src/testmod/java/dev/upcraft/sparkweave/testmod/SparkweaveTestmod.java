@@ -1,6 +1,7 @@
 package dev.upcraft.sparkweave.testmod;
 
 import dev.upcraft.sparkweave.api.entrypoint.MainEntryPoint;
+import dev.upcraft.sparkweave.api.event.CustomLecternMenuEvent;
 import dev.upcraft.sparkweave.api.event.ItemMenuInteractionEvent;
 import dev.upcraft.sparkweave.api.platform.ModContainer;
 import dev.upcraft.sparkweave.api.platform.services.RegistryService;
@@ -13,6 +14,7 @@ import net.minecraft.sounds.SoundEvents;
 import net.minecraft.sounds.SoundSource;
 import net.minecraft.world.inventory.ChestMenu;
 import net.minecraft.world.inventory.ClickAction;
+import net.minecraft.world.inventory.MenuType;
 import net.minecraft.world.item.Items;
 
 public class SparkweaveTestmod implements MainEntryPoint {
@@ -36,6 +38,8 @@ public class SparkweaveTestmod implements MainEntryPoint {
 
 			return false;
 		});
+
+		CustomLecternMenuEvent.EVENT.register(event -> event.register(Items.DIAMOND, (containerId, inventory, player) -> MenuType.CRAFTER_3x3.create(containerId, inventory)));
 	}
 
 	public static ResourceLocation id(String path) {

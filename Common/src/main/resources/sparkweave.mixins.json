@@ -1,18 +1,19 @@
 {
-  "required": true,
-  "minVersion": "0.8",
-  "package": "dev.upcraft.sparkweave.mixin",
-  "plugin": "dev.upcraft.sparkweave.SparkweaveMixinConfigPlugin",
-  "refmap": "${mod_id}.refmap.json",
-  "compatibilityLevel": "JAVA_21",
-  "mixins": [
-  ],
-  "client": [
-    "client.LecternRendererMixin",
-    "client.MainMixin",
-    "client.RenderLayerMixin"
-  ],
-  "injectors": {
-    "defaultRequire": 1
+	"required": true,
+	"minVersion": "0.8",
+	"package": "dev.upcraft.sparkweave.mixin",
+	"plugin": "dev.upcraft.sparkweave.SparkweaveMixinConfigPlugin",
+	"refmap": "${mod_id}.refmap.json",
+	"compatibilityLevel": "JAVA_21",
+	"mixins": [
+		"LecternBlockEntityMixin"
+	],
+	"client": [
+		"client.LecternRendererMixin",
+		"client.MainMixin",
+		"client.RenderLayerMixin"
+	],
+	"injectors": {
+		"defaultRequire": 1
 	}
 }
