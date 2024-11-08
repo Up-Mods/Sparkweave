@@ -5,7 +5,6 @@ import net.minecraft.world.level.ItemLike;
 
 public class CustomLecternMenuEvent {
 	public void register(ItemLike item, LecternMenuRegistry.MenuFactory factory) {
-		System.out.println("THIS IS A TEST");
 		LecternMenuRegistry.register(item, factory);
 	}
 

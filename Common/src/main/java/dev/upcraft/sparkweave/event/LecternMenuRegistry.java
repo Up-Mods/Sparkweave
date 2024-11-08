@@ -27,7 +27,6 @@ public class LecternMenuRegistry {
 	}
 
 	public static Set<Item> validItems() {
-		System.out.println(FACTORIES.keySet());
 		return ImmutableSet.copyOf(FACTORIES.keySet());
 	}
 
