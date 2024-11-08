@@ -2,11 +2,9 @@ package dev.upcraft.sparkweave.neoforge.event;
 
 import dev.upcraft.sparkweave.SparkweaveMod;
 import dev.upcraft.sparkweave.api.event.CommandEvents;
-import dev.upcraft.sparkweave.api.event.CustomLecternMenuEvent;
 import dev.upcraft.sparkweave.scheduler.ScheduledTaskQueue;
 import net.neoforged.bus.api.SubscribeEvent;
 import net.neoforged.fml.common.EventBusSubscriber;
-import net.neoforged.neoforge.client.event.RegisterMenuScreensEvent;
 import net.neoforged.neoforge.event.RegisterCommandsEvent;
 import net.neoforged.neoforge.event.server.ServerStartingEvent;
 import net.neoforged.neoforge.event.server.ServerStoppedEvent;
@@ -33,10 +31,5 @@ public class ForgeBusEvents {
 	@SubscribeEvent
 	public static void onRegisterCommands(RegisterCommandsEvent event) {
 		CommandEvents.REGISTER.invoker().registerCommands(event.getDispatcher(), event.getBuildContext(), event.getCommandSelection());
-	}
-
-	@SubscribeEvent
-	public static void onRegisterMenus(RegisterMenuScreensEvent event) {
-		CustomLecternMenuEvent.EVENT.invoker().registerLecternMenus(new CustomLecternMenuEvent());
 	}
 }

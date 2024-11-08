@@ -33,12 +33,13 @@ public class Main implements ModInitializer {
 		ServerTickEvents.START_SERVER_TICK.register(server -> ScheduledTaskQueue.onServerTick());
 
 		CommandRegistrationCallback.EVENT.register((dispatcher, buildContext, environment) -> CommandEvents.REGISTER.invoker().registerCommands(dispatcher, buildContext, environment));
-		CustomLecternMenuEvent.EVENT.invoker().registerLecternMenus(new CustomLecternMenuEvent());
 
 		var service = RegistryService.get();
 		SparkweaveCommandArgumentTypes.ARGUMENT_TYPES.accept(service);
 
 		EntrypointHelper.fireEntrypoints(MainEntryPoint.class, MainEntryPoint::onInitialize);
+
+		CustomLecternMenuEvent.EVENT.invoker().registerLecternMenus(new CustomLecternMenuEvent());
 
 		SparkweaveLogging.getLogger().debug("System initialized!");
 	}

@@ -5,6 +5,7 @@ import dev.upcraft.sparkweave.api.annotation.CalledByReflection;
 import dev.upcraft.sparkweave.api.entrypoint.ClientEntryPoint;
 import dev.upcraft.sparkweave.api.entrypoint.DedicatedServerEntryPoint;
 import dev.upcraft.sparkweave.api.entrypoint.MainEntryPoint;
+import dev.upcraft.sparkweave.api.event.CustomLecternMenuEvent;
 import dev.upcraft.sparkweave.api.platform.services.RegistryService;
 import dev.upcraft.sparkweave.api.registry.block.BlockItemProvider;
 import dev.upcraft.sparkweave.entrypoint.EntrypointHelper;
@@ -29,6 +30,8 @@ public class Main {
 		SparkweaveCommandArgumentTypes.ARGUMENT_TYPES.accept(helper);
 
 		EntrypointHelper.fireEntrypoints(MainEntryPoint.class, MainEntryPoint::onInitialize);
+
+		CustomLecternMenuEvent.EVENT.invoker().registerLecternMenus(new CustomLecternMenuEvent());
 
 		switch (FMLEnvironment.dist) {
 			case CLIENT ->
