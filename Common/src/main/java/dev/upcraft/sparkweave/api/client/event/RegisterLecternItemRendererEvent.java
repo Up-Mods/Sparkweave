@@ -3,17 +3,17 @@ package dev.upcraft.sparkweave.api.client.event;
 import dev.upcraft.sparkweave.api.client.render.LecternItemRenderer;
 import dev.upcraft.sparkweave.api.event.Event;
 import dev.upcraft.sparkweave.client.event.LecternItemRendererRegistry;
-import net.minecraft.world.item.Item;
+import net.minecraft.world.level.ItemLike;
 
 import java.util.function.Supplier;
 
 public class RegisterLecternItemRendererEvent {
-	public void registerRenderer(LecternItemRenderer.Factory factory, Item item) {
-		LecternItemRendererRegistry.register(factory, item);
+	public void registerRenderer(LecternItemRenderer.Factory factory, ItemLike item) {
+		registerRenderer(factory, () -> item);
 	}
 
-	public void registerRenderer(LecternItemRenderer.Factory factory, Supplier<Item> item) {
-		LecternItemRendererRegistry.register(factory, item.get());
+	public void registerRenderer(LecternItemRenderer.Factory factory, Supplier<ItemLike> item) {
+		LecternItemRendererRegistry.register(factory, item);
 	}
 
 	public static final Event<RegisterLecternItemRendererEvent.Callback> EVENT = Event.create(RegisterLecternItemRendererEvent.Callback.class, callbacks -> event -> {

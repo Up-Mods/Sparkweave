@@ -15,8 +15,10 @@ import net.minecraft.world.item.ItemStack;
 import net.minecraft.world.level.ItemLike;
 import org.jetbrains.annotations.ApiStatus;
 
+import java.util.Arrays;
 import java.util.Map;
 import java.util.Optional;
+import java.util.function.Supplier;
 
 @ApiStatus.Internal
 public class ArmorRendererRegistry {
@@ -24,17 +26,23 @@ public class ArmorRendererRegistry {
 	private static final Map<Pair<Class<? extends LivingEntity>, Item>, Optional<CustomArmorRenderer<? extends LivingEntity, ? extends EntityModel<?>>>> RENDERERS = new Object2ObjectOpenHashMap<>();
 	private static final Map<Item, CustomArmorRenderer.Factory<? extends LivingEntity, ? extends EntityModel<?>>> FACTORIES = new Object2ObjectOpenHashMap<>();
 
-	public static <E extends LivingEntity, M extends EntityModel<E>> void register(CustomArmorRenderer.Factory<E, M> factory, ItemLike... items) {
+	public static <E extends LivingEntity, M extends EntityModel<E>> void register(CustomArmorRenderer.Factory<E, M> factory, Supplier<ItemLike>[] items) {
 		Preconditions.checkArgument(items.length > 0, "Custom armor renderer registered, but no items are attached to it");
 
-		for (ItemLike itemLike : items) {
-			Preconditions.checkNotNull(itemLike, "Armor item is null or doesn't exist");
-			Item item = Preconditions.checkNotNull(itemLike.asItem(), "Armor item is null or doesn't exist");
+		for (Supplier<ItemLike> supplier : items) {
+			Preconditions.checkNotNull(supplier, "Armor item is null or doesn't exist");
+			Item item = Preconditions.checkNotNull(supplier.get().asItem(), "Armor item is null or doesn't exist");
 
 			if (FACTORIES.putIfAbsent(item, factory) != null) {
-				throw new IllegalArgumentException("Custom armor renderer already exists for " + BuiltInRegistries.ITEM.getKey(item.asItem()));
+				throw new IllegalArgumentException("Custom armor renderer already exists for " + BuiltInRegistries.ITEM.getKey(item));
 			}
 		}
+	}
+
+	@SuppressWarnings("unchecked")
+	public static <E extends LivingEntity, M extends EntityModel<E>> void register(CustomArmorRenderer.Factory<E, M> factory, ItemLike[] items) {
+		var suppliers = Arrays.stream(items).map(it -> (Supplier<ItemLike>) () -> it).toArray(Supplier[]::new);
+		register(factory, suppliers);
 	}
 
 	@SuppressWarnings({"unchecked", "rawtypes"})

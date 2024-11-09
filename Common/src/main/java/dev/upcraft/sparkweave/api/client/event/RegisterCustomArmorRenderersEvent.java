@@ -8,7 +8,6 @@ import net.minecraft.world.entity.LivingEntity;
 import net.minecraft.world.level.ItemLike;
 import org.jetbrains.annotations.ApiStatus;
 
-import java.util.Arrays;
 import java.util.function.Supplier;
 
 public final class RegisterCustomArmorRenderersEvent {
@@ -23,7 +22,7 @@ public final class RegisterCustomArmorRenderersEvent {
 
 	@SafeVarargs
 	public final <E extends LivingEntity, M extends EntityModel<E>> void register(CustomArmorRenderer.Factory<E, M> factory, Supplier<ItemLike>... items) {
-		ArmorRendererRegistry.register(factory, Arrays.stream(items).map(Supplier::get).toArray(ItemLike[]::new));
+		ArmorRendererRegistry.register(factory, items);
 	}
 
 	public static final Event<RegisterCustomArmorRenderersEvent.Callback> EVENT = Event.create(RegisterCustomArmorRenderersEvent.Callback.class, callbacks -> event -> {

@@ -40,7 +40,7 @@ public class LecternRendererMixin {
 	private void renderCustomBookInstead(LecternBlockEntity lecternBlockEntity, float partialTick, PoseStack poseStack, MultiBufferSource bufferSource, int packedLight, int packedOverlay, CallbackInfo info, @Local BlockState blockState) {
 		ItemStack itemStack = lecternBlockEntity.hasBook() ? lecternBlockEntity.getBook() : ItemStack.EMPTY;
 
-		LecternItemRendererRegistry.get(itemStack.getItem()).ifPresent(lecternItemRenderer -> {
+		LecternItemRendererRegistry.get(itemStack).ifPresent(lecternItemRenderer -> {
 			poseStack.pushPose();
 			poseStack.translate(0.5f, 1.0625f, 0.5f);
 			poseStack.mulPose(Axis.YP.rotationDegrees(-blockState.getValue(LecternBlock.FACING).getClockWise().toYRot()));

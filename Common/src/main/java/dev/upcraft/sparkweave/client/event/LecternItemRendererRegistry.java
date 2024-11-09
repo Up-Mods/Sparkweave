@@ -7,26 +7,32 @@ import net.minecraft.client.Minecraft;
 import net.minecraft.client.renderer.blockentity.BlockEntityRendererProvider;
 import net.minecraft.core.registries.BuiltInRegistries;
 import net.minecraft.world.item.Item;
+import net.minecraft.world.item.ItemStack;
 import net.minecraft.world.level.ItemLike;
 
 import java.util.Map;
 import java.util.Optional;
+import java.util.function.Supplier;
 
 public class LecternItemRendererRegistry {
 	private static final Map<Item, Optional<LecternItemRenderer>> RENDERERS = new Object2ObjectOpenHashMap<>();
 	private static final Map<Item, LecternItemRenderer.Factory> FACTORIES = new Object2ObjectOpenHashMap<>();
 
-	public static void register(LecternItemRenderer.Factory factory, ItemLike itemLike) {
+	public static void register(LecternItemRenderer.Factory factory, Supplier<ItemLike> itemLike) {
 		Preconditions.checkNotNull(itemLike, "Item is null or doesn't exist");
-		Item item = Preconditions.checkNotNull(itemLike.asItem(), "Item is null or doesn't exist");
+		Item item = Preconditions.checkNotNull(itemLike.get().asItem(), "Item is null or doesn't exist");
 
 		if (FACTORIES.putIfAbsent(item, factory) != null) {
-			throw new IllegalArgumentException("Custom lectern item renderer already exists for " + BuiltInRegistries.ITEM.getKey(item.asItem()));
+			throw new IllegalArgumentException("Custom lectern item renderer already exists for " + BuiltInRegistries.ITEM.getKey(item));
 		}
 	}
 
-	public static Optional<LecternItemRenderer> get(Item item) {
-		return RENDERERS.computeIfAbsent(item, key -> {
+	public static Optional<LecternItemRenderer> get(ItemStack stack) {
+		if(stack.isEmpty()) {
+			return Optional.empty();
+		}
+
+		return RENDERERS.computeIfAbsent(stack.getItem(), key -> {
 			var factory = FACTORIES.get(key);
 			if(factory == null) {
 				return Optional.empty();

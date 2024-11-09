@@ -15,10 +15,6 @@ public abstract class LecternItemRenderer {
 		this.context = context;
 	}
 
-	public BlockEntityRendererProvider.Context blockEntityContext() {
-		return context;
-	}
-
 	public abstract void renderBook(LecternBlockEntity lecternBlockEntity, BlockState blockState, ItemStack itemStack, float partialTick, PoseStack poseStack, MultiBufferSource bufferSource, int packedLight, int packedOverlay);
 
 	@FunctionalInterface
