@@ -39,7 +39,7 @@ public class SparkweaveTestmod implements MainEntryPoint {
 			return false;
 		});
 
-		CustomLecternMenuEvent.EVENT.register(event -> event.register(Items.DIAMOND, (containerId, inventory, player) -> MenuType.CRAFTER_3x3.create(containerId, inventory)));
+		CustomLecternMenuEvent.EVENT.register(event -> event.register((containerId, inventory, player) -> MenuType.CRAFTER_3x3.create(containerId, inventory), Items.DIAMOND));
 	}
 
 	public static ResourceLocation id(String path) {

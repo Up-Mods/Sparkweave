@@ -3,10 +3,12 @@ package dev.upcraft.sparkweave.testmod.client;
 import dev.upcraft.sparkweave.api.client.Debug;
 import dev.upcraft.sparkweave.api.client.event.RegisterCustomArmorRenderersEvent;
 import dev.upcraft.sparkweave.api.client.event.RegisterLayerDefinitionsEvent;
+import dev.upcraft.sparkweave.api.client.event.RegisterLecternItemRendererEvent;
 import dev.upcraft.sparkweave.api.entrypoint.ClientEntryPoint;
 import dev.upcraft.sparkweave.api.platform.ModContainer;
 import dev.upcraft.sparkweave.api.time.Time;
 import dev.upcraft.sparkweave.testmod.client.models.MageRobesModel;
+import dev.upcraft.sparkweave.testmod.client.renderers.DiamondLecternRenderer;
 import dev.upcraft.sparkweave.testmod.client.renderers.MageRobesRenderer;
 import net.minecraft.client.Minecraft;
 import net.minecraft.world.item.Items;
@@ -19,6 +21,7 @@ public class SparkweaveTestmodClient implements ClientEntryPoint {
 	public void onInitializeClient(ModContainer mod) {
 		RegisterLayerDefinitionsEvent.EVENT.register(event -> event.registerModelLayers(MageRobesModel.MODEL_LAYER, MageRobesModel::createBodyLayer));
 		RegisterCustomArmorRenderersEvent.EVENT.register(event -> event.register((entity, context, renderer) -> new MageRobesRenderer(context), Items.CHAINMAIL_HELMET, Items.CHAINMAIL_CHESTPLATE, Items.CHAINMAIL_LEGGINGS, Items.CHAINMAIL_BOOTS));
+		RegisterLecternItemRendererEvent.EVENT.register(event -> event.registerRenderer(DiamondLecternRenderer::new, Items.DIAMOND));
 	}
 
 	public static void onClientTickStart(Minecraft client) {

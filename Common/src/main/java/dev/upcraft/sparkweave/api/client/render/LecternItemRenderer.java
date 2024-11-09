@@ -10,8 +10,19 @@ import net.minecraft.world.level.block.state.BlockState;
 import org.jetbrains.annotations.Nullable;
 
 public abstract class LecternItemRenderer {
+	protected final BlockEntityRendererProvider.Context context;
+
+	public LecternItemRenderer(BlockEntityRendererProvider.Context context) {
+		this.context = context;
+	}
+
+	public BlockEntityRendererProvider.Context blockEntityContext() {
+		return context;
+	}
+
 	public abstract void renderBook(LecternBlockEntity lecternBlockEntity, BlockState blockState, ItemStack itemStack, float partialTick, PoseStack poseStack, MultiBufferSource bufferSource, int packedLight, int packedOverlay);
 
+	@Nullable
 	public abstract Model getBookModel();
 
 	@FunctionalInterface

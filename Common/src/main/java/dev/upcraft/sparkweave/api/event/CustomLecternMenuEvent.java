@@ -4,7 +4,7 @@ import dev.upcraft.sparkweave.event.LecternMenuRegistry;
 import net.minecraft.world.level.ItemLike;
 
 public class CustomLecternMenuEvent {
-	public void register(ItemLike item, LecternMenuRegistry.MenuFactory factory) {
+	public void register(LecternMenuRegistry.MenuFactory factory, ItemLike item) {
 		LecternMenuRegistry.register(item, factory);
 	}
 

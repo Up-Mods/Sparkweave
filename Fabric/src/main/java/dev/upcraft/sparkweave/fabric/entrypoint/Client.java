@@ -63,6 +63,7 @@ public class Client implements ClientModInitializer {
 		RegisterEntityRenderersEvent.EVENT.invoker().registerEntityRenderers(new RegisterEntityRenderersEventImpl());
 		RegisterLayerDefinitionsEvent.EVENT.invoker().registerModelLayers(new RegisterLayerDefinitionsEventImpl());
 		RegisterCustomArmorRenderersEvent.EVENT.invoker().registerCustomArmorRenderers(new RegisterCustomArmorRenderersEvent());
+		RegisterLecternItemRendererEvent.EVENT.invoker().registerBookRenderers(new RegisterLecternItemRendererEvent());
 		RegisterItemPropertiesEvent.EVENT.invoker().registerItemProperties(new RegisterItemPropertiesEventImpl());
 		RegisterMenuScreensEvent.EVENT.invoker().registerMenuScreens(new RegisterMenuScreensEventImpl());
 		RegisterParticleFactoriesEvent.EVENT.invoker().registerParticleFactories(new RegisterParticleFactoriesEventImpl());
