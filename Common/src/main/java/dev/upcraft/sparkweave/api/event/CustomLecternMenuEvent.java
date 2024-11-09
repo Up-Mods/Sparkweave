@@ -6,11 +6,11 @@ import net.minecraft.world.level.ItemLike;
 import java.util.function.Supplier;
 
 public class CustomLecternMenuEvent {
-	public void register(LecternMenuRegistry.MenuFactory factory, ItemLike item) {
+	public void register(LecternMenuRegistry.MenuProviderFactory factory, ItemLike item) {
 		LecternMenuRegistry.register(factory, item);
 	}
 
-	public void register(LecternMenuRegistry.MenuFactory factory, Supplier<ItemLike> item) {
+	public void register(LecternMenuRegistry.MenuProviderFactory factory, Supplier<ItemLike> item) {
 		LecternMenuRegistry.register(factory, item);
 	}
 
