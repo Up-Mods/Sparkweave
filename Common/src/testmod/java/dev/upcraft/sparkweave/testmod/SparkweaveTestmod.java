@@ -12,10 +12,15 @@ import net.minecraft.network.chat.Component;
 import net.minecraft.resources.ResourceLocation;
 import net.minecraft.sounds.SoundEvents;
 import net.minecraft.sounds.SoundSource;
+import net.minecraft.world.MenuProvider;
+import net.minecraft.world.entity.player.Inventory;
+import net.minecraft.world.entity.player.Player;
+import net.minecraft.world.inventory.AbstractContainerMenu;
 import net.minecraft.world.inventory.ChestMenu;
 import net.minecraft.world.inventory.ClickAction;
 import net.minecraft.world.inventory.MenuType;
 import net.minecraft.world.item.Items;
+import org.jetbrains.annotations.Nullable;
 
 public class SparkweaveTestmod implements MainEntryPoint {
 
@@ -39,7 +44,17 @@ public class SparkweaveTestmod implements MainEntryPoint {
 			return false;
 		});
 
-		CustomLecternMenuEvent.EVENT.register(event -> event.register((containerId, inventory, player) -> MenuType.CRAFTER_3x3.create(containerId, inventory), Items.DIAMOND));
+		CustomLecternMenuEvent.EVENT.register(event -> event.register((level, pos, player, blockEntity, stack) -> new MenuProvider() {
+			@Override
+			public Component getDisplayName() {
+				return Component.empty();
+			}
+
+			@Override
+			public @Nullable AbstractContainerMenu createMenu(int i, Inventory inventory, Player player) {
+				return MenuType.GENERIC_3x3.create(i, inventory);
+			}
+		}, Items.DIAMOND));
 	}
 
 	public static ResourceLocation id(String path) {
