@@ -18,7 +18,7 @@ public class LecternItemRendererRegistry {
 	private static final Map<Item, Optional<LecternItemRenderer>> RENDERERS = new Object2ObjectOpenHashMap<>();
 	private static final Map<Item, LecternItemRenderer.Factory> FACTORIES = new Object2ObjectOpenHashMap<>();
 
-	public static void register(LecternItemRenderer.Factory factory, Supplier<ItemLike> itemLike) {
+	public static void register(LecternItemRenderer.Factory factory, Supplier<? extends ItemLike> itemLike) {
 		Preconditions.checkNotNull(itemLike, "Item is null or doesn't exist");
 		Item item = Preconditions.checkNotNull(itemLike.get().asItem(), "Item is null or doesn't exist");
 

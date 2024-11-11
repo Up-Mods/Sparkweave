@@ -26,10 +26,10 @@ public class ArmorRendererRegistry {
 	private static final Map<Pair<Class<? extends LivingEntity>, Item>, Optional<CustomArmorRenderer<? extends LivingEntity, ? extends EntityModel<?>>>> RENDERERS = new Object2ObjectOpenHashMap<>();
 	private static final Map<Item, CustomArmorRenderer.Factory<? extends LivingEntity, ? extends EntityModel<?>>> FACTORIES = new Object2ObjectOpenHashMap<>();
 
-	public static <E extends LivingEntity, M extends EntityModel<E>> void register(CustomArmorRenderer.Factory<E, M> factory, Supplier<ItemLike>[] items) {
+	public static <E extends LivingEntity, M extends EntityModel<E>> void register(CustomArmorRenderer.Factory<E, M> factory, Supplier<? extends ItemLike>[] items) {
 		Preconditions.checkArgument(items.length > 0, "Custom armor renderer registered, but no items are attached to it");
 
-		for (Supplier<ItemLike> supplier : items) {
+		for (Supplier<? extends ItemLike> supplier : items) {
 			Preconditions.checkNotNull(supplier, "Armor item is null or doesn't exist");
 			Item item = Preconditions.checkNotNull(supplier.get().asItem(), "Armor item is null or doesn't exist");
 
@@ -41,7 +41,7 @@ public class ArmorRendererRegistry {
 
 	@SuppressWarnings("unchecked")
 	public static <E extends LivingEntity, M extends EntityModel<E>> void register(CustomArmorRenderer.Factory<E, M> factory, ItemLike[] items) {
-		var suppliers = Arrays.stream(items).map(it -> (Supplier<ItemLike>) () -> it).toArray(Supplier[]::new);
+		var suppliers = Arrays.stream(items).map(itemLike -> (Supplier<ItemLike>) () -> itemLike).toArray(Supplier[]::new);
 		register(factory, suppliers);
 	}
 

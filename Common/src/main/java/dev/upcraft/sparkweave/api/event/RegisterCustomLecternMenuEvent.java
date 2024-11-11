@@ -10,7 +10,7 @@ public class RegisterCustomLecternMenuEvent {
 		LecternMenuRegistry.register(factory, item);
 	}
 
-	public void register(LecternMenuRegistry.MenuProviderFactory factory, Supplier<ItemLike> item) {
+	public void register(LecternMenuRegistry.MenuProviderFactory factory, Supplier<? extends ItemLike> item) {
 		LecternMenuRegistry.register(factory, item);
 	}
 

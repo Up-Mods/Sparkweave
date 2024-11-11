@@ -21,7 +21,7 @@ public final class RegisterCustomArmorRenderersEvent {
 	}
 
 	@SafeVarargs
-	public final <E extends LivingEntity, M extends EntityModel<E>> void register(CustomArmorRenderer.Factory<E, M> factory, Supplier<ItemLike>... items) {
+	public final <E extends LivingEntity, M extends EntityModel<E>> void register(CustomArmorRenderer.Factory<E, M> factory, Supplier<? extends ItemLike>... items) {
 		ArmorRendererRegistry.register(factory, items);
 	}
 

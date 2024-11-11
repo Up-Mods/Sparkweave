@@ -22,7 +22,7 @@ import java.util.function.Supplier;
 public class LecternMenuRegistry {
 	private static final Map<Item, MenuProviderFactory> FACTORIES = new Object2ObjectOpenHashMap<>();
 
-	public static void register(MenuProviderFactory factory, Supplier<ItemLike> itemLike) {
+	public static void register(MenuProviderFactory factory, Supplier<? extends ItemLike> itemLike) {
 		Preconditions.checkNotNull(itemLike, "Item for menu is null or doesn't exist");
 		Item item = Preconditions.checkNotNull(itemLike.get().asItem(), "Item for menu is null or doesn't exist");
 

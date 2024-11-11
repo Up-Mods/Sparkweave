@@ -12,7 +12,7 @@ public class RegisterLecternItemRendererEvent {
 		registerRenderer(factory, () -> item);
 	}
 
-	public void registerRenderer(LecternItemRenderer.Factory factory, Supplier<ItemLike> item) {
+	public void registerRenderer(LecternItemRenderer.Factory factory, Supplier<? extends ItemLike> item) {
 		LecternItemRendererRegistry.register(factory, item);
 	}
 
