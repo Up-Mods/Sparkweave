@@ -1,6 +1,6 @@
 {
   "replace": false,
   "values": [
-    "minecraft:diamond"
+    "sparkweave_testmod:test_item"
   ]
 }

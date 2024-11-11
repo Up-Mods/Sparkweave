@@ -1,8 +1,8 @@
 package dev.upcraft.sparkweave.testmod;
 
 import dev.upcraft.sparkweave.api.entrypoint.MainEntryPoint;
-import dev.upcraft.sparkweave.api.event.RegisterCustomLecternMenuEvent;
 import dev.upcraft.sparkweave.api.event.ItemMenuInteractionEvent;
+import dev.upcraft.sparkweave.api.event.RegisterCustomLecternMenuEvent;
 import dev.upcraft.sparkweave.api.platform.ModContainer;
 import dev.upcraft.sparkweave.api.platform.services.RegistryService;
 import dev.upcraft.sparkweave.testmod.init.TestCreativeTabs;
@@ -54,7 +54,7 @@ public class SparkweaveTestmod implements MainEntryPoint {
 			public @Nullable AbstractContainerMenu createMenu(int i, Inventory inventory, Player player) {
 				return MenuType.GENERIC_3x3.create(i, inventory);
 			}
-		}, Items.DIAMOND));
+		}, TestItems.TEST_ITEM));
 	}
 
 	public static ResourceLocation id(String path) {
