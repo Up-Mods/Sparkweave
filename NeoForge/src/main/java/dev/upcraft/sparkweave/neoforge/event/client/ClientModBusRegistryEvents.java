@@ -29,8 +29,8 @@ public class ClientModBusRegistryEvents {
 	@SubscribeEvent
 	public static void onRegisterRenderers(EntityRenderersEvent.RegisterRenderers event) {
 		RegisterBlockEntityRenderersEvent.EVENT.invoker().registerBlockEntityRenderers((RegisterBlockEntityRenderersEvent) event);
-		RegisterLecternItemRendererEvent.EVENT.invoker().registerBookRenderers(new RegisterLecternItemRendererEvent());
 		RegisterEntityRenderersEvent.EVENT.invoker().registerEntityRenderers((RegisterEntityRenderersEvent) event);
+		RegisterLecternItemRendererEvent.EVENT.invoker().registerBookRenderers(new RegisterLecternItemRendererEvent());
 	}
 
 	@SubscribeEvent

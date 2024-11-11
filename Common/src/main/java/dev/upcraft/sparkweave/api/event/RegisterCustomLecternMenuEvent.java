@@ -5,7 +5,7 @@ import net.minecraft.world.level.ItemLike;
 
 import java.util.function.Supplier;
 
-public class CustomLecternMenuEvent {
+public class RegisterCustomLecternMenuEvent {
 	public void register(LecternMenuRegistry.MenuProviderFactory factory, ItemLike item) {
 		LecternMenuRegistry.register(factory, item);
 	}
@@ -14,13 +14,13 @@ public class CustomLecternMenuEvent {
 		LecternMenuRegistry.register(factory, item);
 	}
 
-	public static final Event<CustomLecternMenuEvent.Callback> EVENT = Event.create(CustomLecternMenuEvent.Callback.class, listeners -> event -> {
-		for(CustomLecternMenuEvent.Callback listener : listeners)
+	public static final Event<RegisterCustomLecternMenuEvent.Callback> EVENT = Event.create(RegisterCustomLecternMenuEvent.Callback.class, listeners -> event -> {
+		for(RegisterCustomLecternMenuEvent.Callback listener : listeners)
 			listener.registerLecternMenus(event);
 	});
 
 	@FunctionalInterface
 	public interface Callback {
-		void registerLecternMenus(CustomLecternMenuEvent event);
+		void registerLecternMenus(RegisterCustomLecternMenuEvent event);
 	}
 }

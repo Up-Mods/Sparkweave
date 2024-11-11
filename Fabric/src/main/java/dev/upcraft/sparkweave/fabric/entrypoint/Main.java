@@ -3,7 +3,7 @@ package dev.upcraft.sparkweave.fabric.entrypoint;
 import dev.upcraft.sparkweave.api.annotation.CalledByReflection;
 import dev.upcraft.sparkweave.api.entrypoint.MainEntryPoint;
 import dev.upcraft.sparkweave.api.event.CommandEvents;
-import dev.upcraft.sparkweave.api.event.CustomLecternMenuEvent;
+import dev.upcraft.sparkweave.api.event.RegisterCustomLecternMenuEvent;
 import dev.upcraft.sparkweave.api.platform.services.RegistryService;
 import dev.upcraft.sparkweave.api.registry.block.BlockItemProvider;
 import dev.upcraft.sparkweave.entrypoint.EntrypointHelper;
@@ -39,7 +39,7 @@ public class Main implements ModInitializer {
 
 		EntrypointHelper.fireEntrypoints(MainEntryPoint.class, MainEntryPoint::onInitialize);
 
-		CustomLecternMenuEvent.EVENT.invoker().registerLecternMenus(new CustomLecternMenuEvent());
+		RegisterCustomLecternMenuEvent.EVENT.invoker().registerLecternMenus(new RegisterCustomLecternMenuEvent());
 
 		SparkweaveLogging.getLogger().debug("System initialized!");
 	}

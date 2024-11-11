@@ -1,7 +1,7 @@
 package dev.upcraft.sparkweave.testmod;
 
 import dev.upcraft.sparkweave.api.entrypoint.MainEntryPoint;
-import dev.upcraft.sparkweave.api.event.CustomLecternMenuEvent;
+import dev.upcraft.sparkweave.api.event.RegisterCustomLecternMenuEvent;
 import dev.upcraft.sparkweave.api.event.ItemMenuInteractionEvent;
 import dev.upcraft.sparkweave.api.platform.ModContainer;
 import dev.upcraft.sparkweave.api.platform.services.RegistryService;
@@ -44,7 +44,7 @@ public class SparkweaveTestmod implements MainEntryPoint {
 			return false;
 		});
 
-		CustomLecternMenuEvent.EVENT.register(event -> event.register((level, pos, player, blockEntity, stack) -> new MenuProvider() {
+		RegisterCustomLecternMenuEvent.EVENT.register(event -> event.register((level, pos, player, blockEntity, stack) -> new MenuProvider() {
 			@Override
 			public Component getDisplayName() {
 				return Component.empty();
