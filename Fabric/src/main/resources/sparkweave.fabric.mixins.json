@@ -8,9 +8,11 @@
   "mixins": [
     "AbstractContainerMenuMixin",
     "ArgumentTypeInfosAccessor",
-    "MappedRegistryMixin"
+    "MappedRegistryMixin",
+    "ServerLevelMixin"
   ],
   "client": [
+    "client.ClientLevelMixin",
     "client.HumanoidArmorLayerMixin"
   ],
   "injectors": {

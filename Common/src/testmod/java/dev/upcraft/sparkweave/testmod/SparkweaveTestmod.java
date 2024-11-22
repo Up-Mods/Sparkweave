@@ -1,6 +1,7 @@
 package dev.upcraft.sparkweave.testmod;
 
 import dev.upcraft.sparkweave.api.entrypoint.MainEntryPoint;
+import dev.upcraft.sparkweave.api.event.EntityTickEvents;
 import dev.upcraft.sparkweave.api.event.ItemMenuInteractionEvent;
 import dev.upcraft.sparkweave.api.event.RegisterCustomLecternMenuEvent;
 import dev.upcraft.sparkweave.api.platform.ModContainer;
@@ -15,6 +16,8 @@ import net.minecraft.sounds.SoundSource;
 import net.minecraft.world.MenuProvider;
 import net.minecraft.world.entity.player.Inventory;
 import net.minecraft.world.entity.player.Player;
+import net.minecraft.world.entity.vehicle.Boat;
+import net.minecraft.world.entity.vehicle.Minecart;
 import net.minecraft.world.inventory.AbstractContainerMenu;
 import net.minecraft.world.inventory.ChestMenu;
 import net.minecraft.world.inventory.ClickAction;
@@ -33,6 +36,18 @@ public class SparkweaveTestmod implements MainEntryPoint {
 		TestItems.ITEMS.accept(registryService);
 		TestCreativeTabs.TABS.accept(registryService);
 		TestStatusEffects.STATUS_EFFECTS.accept(registryService);
+
+		EntityTickEvents.START_TICK.register((entity, level) -> {
+			if(!level.isClientSide() && entity instanceof Boat boat && boat.getControllingPassenger() instanceof Player player && player.getMainHandItem().is(Items.BEACON))
+				player.displayClientMessage(Component.literal("Start of Boat server tick"), true);
+
+			return false;
+		});
+
+		EntityTickEvents.END_TICK.register((entity, level) -> {
+			if(level.isClientSide() && entity instanceof Minecart minecart && minecart.getFirstPassenger() instanceof Player player && player.getMainHandItem().is(Items.BEACON))
+				player.displayClientMessage(Component.literal("End of Minecart client tick"), true);
+		});
 
 		ItemMenuInteractionEvent.EVENT.register((menu, player, level, clickAction, slot, slotStack, cursorStack) -> {
 			if(menu instanceof ChestMenu && clickAction == ClickAction.SECONDARY && slotStack.is(Items.DEEPSLATE_COAL_ORE) && cursorStack.is(Items.DEEPSLATE_EMERALD_ORE) && player.isCrouching()) {
