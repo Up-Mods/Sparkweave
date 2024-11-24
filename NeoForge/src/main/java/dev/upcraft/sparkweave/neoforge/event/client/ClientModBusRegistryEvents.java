@@ -4,10 +4,12 @@ import dev.upcraft.sparkweave.SparkweaveMod;
 import dev.upcraft.sparkweave.api.client.event.*;
 import dev.upcraft.sparkweave.client.event.RegisterItemPropertiesEventImpl;
 import dev.upcraft.sparkweave.neoforge.impl.registry.RegisterParticleFactoriesEventImpl;
+import net.minecraft.client.Minecraft;
 import net.neoforged.api.distmarker.Dist;
 import net.neoforged.bus.api.SubscribeEvent;
 import net.neoforged.fml.common.EventBusSubscriber;
 import net.neoforged.fml.event.lifecycle.FMLClientSetupEvent;
+import net.neoforged.neoforge.client.event.ClientTickEvent;
 import net.neoforged.neoforge.client.event.EntityRenderersEvent;
 import net.neoforged.neoforge.client.event.RegisterParticleProvidersEvent;
 
@@ -48,4 +50,13 @@ public class ClientModBusRegistryEvents {
 		RegisterCustomArmorRenderersEvent.EVENT.invoker().registerCustomArmorRenderers(new RegisterCustomArmorRenderersEvent());
 	}
 
+	@SubscribeEvent
+	public static void onClientPreTick(ClientTickEvent.Pre event) {
+		ClientTickEvents.START_TICK.invoker().startOfTick(Minecraft.getInstance());
+	}
+
+	@SubscribeEvent
+	public static void onClientPostTick(ClientTickEvent.Post event) {
+		ClientTickEvents.END_TICK.invoker().endOfTick(Minecraft.getInstance());
+	}
 }
