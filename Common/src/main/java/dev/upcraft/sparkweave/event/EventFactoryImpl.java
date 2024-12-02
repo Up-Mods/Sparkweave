@@ -31,6 +31,14 @@ public class EventFactoryImpl<T> implements Event<T> {
 		return new EventFactoryImpl<>(type, invokerFactory);
 	}
 
+	public static <T> Event<T> create(Class<T> type, T emptyInvoker, Function<T[], T> invokerFactory) {
+		return new EventFactoryImpl<>(type, listeners -> switch (listeners.length) {
+			case 0 -> emptyInvoker;
+			case 1 -> listeners[0];
+			default -> invokerFactory.apply(listeners);
+		});
+	}
+
 	@Override
 	public void register(T listener) {
 		Preconditions.checkArgument(type.isInstance(listener), "Listener is not of the correct type, must extend " + type.getName());
@@ -72,5 +80,10 @@ public class EventFactoryImpl<T> implements Event<T> {
 	@Override
 	public T invoker() {
 		return invoker;
+	}
+
+	@Override
+	public int listenerCount() {
+		return listeners.length;
 	}
 }

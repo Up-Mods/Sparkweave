@@ -10,9 +10,15 @@ public interface Event<T> {
 		return EventFactoryImpl.create(type, invokerFactory);
 	}
 
+	static <T> Event<T> create(Class<T> type, T emptyInvoker, Function<T[], T> invokerFactory) {
+		return EventFactoryImpl.create(type, emptyInvoker, invokerFactory);
+	}
+
 	void register(T listener);
 
 	void unregister(T listener);
 
 	T invoker();
+
+	int listenerCount();
 }
