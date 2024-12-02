@@ -37,20 +37,22 @@ public class SparkweaveTestmod implements MainEntryPoint {
 		TestCreativeTabs.TABS.accept(registryService);
 		TestStatusEffects.STATUS_EFFECTS.accept(registryService);
 
-		EntityTickEvents.START_TICK.register((entity, level) -> {
-			if(!level.isClientSide() && entity instanceof Boat boat && boat.getControllingPassenger() instanceof Player player && player.getMainHandItem().is(Items.BEACON))
+		EntityTickEvents.startTick(Boat.class).register((boat, level) -> {
+			if (!level.isClientSide() && boat.getControllingPassenger() instanceof Player player && player.getMainHandItem().is(Items.BEACON)) {
 				player.displayClientMessage(Component.literal("Start of Boat server tick"), true);
+			}
 
 			return false;
 		});
 
-		EntityTickEvents.END_TICK.register((entity, level) -> {
-			if(level.isClientSide() && entity instanceof Minecart minecart && minecart.getFirstPassenger() instanceof Player player && player.getMainHandItem().is(Items.BEACON))
+		EntityTickEvents.endTick(Minecart.class).register((minecart, level) -> {
+			if (level.isClientSide() && minecart.getFirstPassenger() instanceof Player player && player.getMainHandItem().is(Items.BEACON)) {
 				player.displayClientMessage(Component.literal("End of Minecart client tick"), true);
+			}
 		});
 
 		ItemMenuInteractionEvent.EVENT.register((menu, player, level, clickAction, slot, slotStack, cursorStack) -> {
-			if(menu instanceof ChestMenu && clickAction == ClickAction.SECONDARY && slotStack.is(Items.DEEPSLATE_COAL_ORE) && cursorStack.is(Items.DEEPSLATE_EMERALD_ORE) && player.isCrouching()) {
+			if (menu instanceof ChestMenu && clickAction == ClickAction.SECONDARY && slotStack.is(Items.DEEPSLATE_COAL_ORE) && cursorStack.is(Items.DEEPSLATE_EMERALD_ORE) && player.isCrouching()) {
 				player.displayClientMessage(Component.literal("Uh oh stinky"), false);
 				level.playSound(null, player.blockPosition(), SoundEvents.ARROW_HIT_PLAYER, SoundSource.PLAYERS);
 				return true;

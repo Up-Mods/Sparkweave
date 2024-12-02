@@ -3,7 +3,7 @@ package dev.upcraft.sparkweave.fabric.mixin.client;
 import com.llamalad7.mixinextras.injector.v2.WrapWithCondition;
 import com.llamalad7.mixinextras.sugar.Share;
 import com.llamalad7.mixinextras.sugar.ref.LocalRef;
-import dev.upcraft.sparkweave.api.event.EntityTickEvents;
+import dev.upcraft.sparkweave.event.EntityTickEventsImpl;
 import net.minecraft.client.multiplayer.ClientLevel;
 import net.minecraft.core.Holder;
 import net.minecraft.core.RegistryAccess;
@@ -27,12 +27,12 @@ public abstract class ClientLevelMixin extends Level {
 	@WrapWithCondition(method = "tickNonPassenger", at = @At(value = "INVOKE", target = "Lnet/minecraft/world/entity/Entity;tick()V"))
 	private boolean startOfTick(Entity entity, @Share("entity") LocalRef<Entity> ref) {
 		ref.set(entity);
-		return !EntityTickEvents.START_TICK.invoker().startOfTick(entity, this);
+		return !EntityTickEventsImpl.getStartHandler(entity.getClass()).invoker().startTick(entity, this);
 	}
 
 	@Inject(method = "tickNonPassenger", at = @At(value = "INVOKE", target = "Lnet/minecraft/world/entity/Entity;tick()V", shift = At.Shift.AFTER))
 	private void endOfTick(CallbackInfo info, @Share("entity") LocalRef<Entity> ref) {
-		if(ref.get() instanceof Entity entity)
-			EntityTickEvents.END_TICK.invoker().endOfTick(entity, this);
+		Entity entity = ref.get();
+		EntityTickEventsImpl.getEndHandler(entity.getClass()).invoker().endTick(entity, this);
 	}
 }

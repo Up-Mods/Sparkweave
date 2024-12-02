@@ -2,7 +2,7 @@ package dev.upcraft.sparkweave.neoforge.event;
 
 import dev.upcraft.sparkweave.SparkweaveMod;
 import dev.upcraft.sparkweave.api.event.CommandEvents;
-import dev.upcraft.sparkweave.api.event.EntityTickEvents;
+import dev.upcraft.sparkweave.event.EntityTickEventsImpl;
 import dev.upcraft.sparkweave.scheduler.ScheduledTaskQueue;
 import net.neoforged.bus.api.SubscribeEvent;
 import net.neoforged.fml.common.EventBusSubscriber;
@@ -13,7 +13,7 @@ import net.neoforged.neoforge.event.tick.EntityTickEvent;
 import net.neoforged.neoforge.event.tick.ServerTickEvent;
 
 @EventBusSubscriber(modid = SparkweaveMod.MODID, bus = EventBusSubscriber.Bus.GAME)
-public class ForgeBusEvents {
+public class GameBusEvents {
 
 	@SubscribeEvent
 	public static void onServerStart(ServerStartingEvent event) {
@@ -37,12 +37,15 @@ public class ForgeBusEvents {
 
 	@SubscribeEvent
 	public static void preEntityTick(EntityTickEvent.Pre event) {
-		if(EntityTickEvents.START_TICK.invoker().startOfTick(event.getEntity(), event.getEntity().level()))
+		var entity = event.getEntity();
+		if(EntityTickEventsImpl.getStartHandler(entity.getClass()).invoker().startTick(entity, entity.level())) {
 			event.setCanceled(true);
+		}
 	}
 
 	@SubscribeEvent
 	public static void postEntityTick(EntityTickEvent.Post event) {
-		EntityTickEvents.END_TICK.invoker().endOfTick(event.getEntity(), event.getEntity().level());
+		var entity = event.getEntity();
+		EntityTickEventsImpl.getEndHandler(entity.getClass()).invoker().endTick(entity, entity.level());
 	}
 }
