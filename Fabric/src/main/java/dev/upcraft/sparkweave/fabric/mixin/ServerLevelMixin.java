@@ -29,12 +29,12 @@ public abstract class ServerLevelMixin extends Level {
 	@WrapWithCondition(method = "tickNonPassenger", at = @At(value = "INVOKE", target = "Lnet/minecraft/world/entity/Entity;tick()V"))
 	private boolean startOfTick(Entity entity, @Share("entity") LocalRef<Entity> ref) {
 		ref.set(entity);
-		return !EntityTickEventsImpl.getStartHandler(entity.getClass()).startTick(entity, this);
+		return !EntityTickEventsImpl.getStartHandler(entity.getClass()).invoker().startTick(entity, this);
 	}
 
 	@Inject(method = "tickNonPassenger", at = @At(value = "INVOKE", target = "Lnet/minecraft/world/entity/Entity;tick()V", shift = At.Shift.AFTER))
 	private void endOfTick(CallbackInfo info, @Share("entity") LocalRef<Entity> ref) {
 		Entity entity = ref.get();
-		EntityTickEventsImpl.getEndInvoker(entity.getClass()).endTick(entity, this);
+		EntityTickEventsImpl.getEndHandler(entity.getClass()).invoker().endTick(entity, this);
 	}
 }
