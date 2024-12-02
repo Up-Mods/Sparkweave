@@ -8,6 +8,7 @@
   "mixins": [
     "AbstractContainerMenuMixin",
     "ArgumentTypeInfosAccessor",
+    "EntityMixin",
     "MappedRegistryMixin",
     "ServerLevelMixin"
   ],
