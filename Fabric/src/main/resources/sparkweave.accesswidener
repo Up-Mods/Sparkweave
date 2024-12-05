@@ -1,0 +1,10 @@
+accessWidener v1 named
+
+# RegisterParticleFactoriesEvent
+accessible class net/minecraft/client/particle/ParticleEngine$SpriteParticleRegistration
+
+# Fabric registry hacks
+accessible method net/minecraft/core/Holder$Reference bindValue (Ljava/lang/Object;)V
+accessible field net/minecraft/core/Holder$Reference type Lnet/minecraft/core/Holder$Reference$Type;
+accessible class net/minecraft/core/Holder$Reference$Type
+accessible field net/minecraft/core/Holder$Reference value Ljava/lang/Object;

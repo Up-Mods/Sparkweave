@@ -3,10 +3,12 @@
 fabric_loom = "1.8-SNAPSHOT"
 
 fabric_loader = "0.16.9"
-fabric_api = "0.107.0+1.21.1"
+fabric_api = "0.110.0+1.21.1"
 
-quilt_loader = "0.26.4"
+# https://quiltmc.org/en/usage/latest-versions
+quilt_loader = "0.27.1-beta.1"
 
+# https://modrinth.com/mod/modmenu/versions
 modmenu = "11.0.3"
 
 [libraries]
@@ -15,9 +17,6 @@ fabric_loader = { module = "net.fabricmc:fabric-loader", version.ref = "fabric_l
 fabric_api = { module = "net.fabricmc.fabric-api:fabric-api", version.ref = "fabric_api" }
 
 modmenu = { module = "com.terraformersmc:modmenu", version.ref = "modmenu" }
-
-# If you have multiple similar dependencies, you can declare a dependency bundle and reference it on the build script with "libs.bundles.example".
-#[bundles]
 
 [plugins]
 fabric_loom = { id = "fabric-loom", version.ref = "fabric_loom" }

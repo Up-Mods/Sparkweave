@@ -1,7 +1,5 @@
 plugins {
 	id 'idea'
-	// Required for NeoGradle
-	id "org.jetbrains.gradle.plugin.idea-ext" version "1.1.7"
 	id 'maven-publish'
 }
 
@@ -11,13 +9,11 @@ group = maven_group_id
 
 def ENV = System.getenv()
 def NOW = new Date();
-def buildTime = ENV.BUILD_TIME ?: NOW.format('yyyyMMddHHmmss')
+def buildTime = ENV.BUILD_TIME ?: NOW.format('yy.MMdd.HHmm')
 
 boolean isPreviewBuild = !ENV.TAG || ENV.TAG.matches(".+-.+")
 def buildNumber = !ENV.TAG ? ("${ENV.BUILD_NUMBER ? "build.${ENV.BUILD_NUMBER}" : buildTime}") : ""
 version = (ENV.TAG ?: "${libs.versions.minecraft.get()}-development") + ((isPreviewBuild && !ENV.TAG) ? "+${buildNumber}" : "")
-
-def mod_name = rootProject.name.replaceAll("-", "_").toLowerCase(Locale.ROOT)
 
 println("Building ${project.name} ${version}")
 
@@ -54,7 +50,7 @@ subprojects {
 
 	jar {
 		from(rootProject.file("LICENSE.md")) {
-			rename { "LICENSE_${mod_name}.md" }
+			rename { "LICENSE_${rootProject.mod_id}.md" }
 		}
 		manifest {
 			attributes([
@@ -73,7 +69,7 @@ subprojects {
 
 	sourcesJar {
 		from(rootProject.file("LICENSE.md")) {
-			rename { "LICENSE_${mod_name}.md" }
+			rename { "LICENSE_${rootProject.mod_id}.md" }
 		}
 	}
 
@@ -84,10 +80,9 @@ subprojects {
 			name = "Sponge"
 			url = "https://repo.spongepowered.org/repository/maven-public"
 			content {
-				includeGroup "org.spongepowered"
+				includeGroupAndSubgroups "org.spongepowered"
 			}
 		}
-
 		exclusiveContent {
 			forRepository {
 				maven {
@@ -99,23 +94,27 @@ subprojects {
 				includeGroupAndSubgroups("org.parchmentmc")
 			}
 		}
-
-
 		maven {
-			name = "Quilt"
+			name = "QuiltMC"
 			url = "https://maven.quiltmc.org/repository/release"
 		}
-
 		maven {
-			name = "Fabric"
+			name = "FabricMC"
 			url = "https://maven.fabricmc.net"
 		}
-
 		maven {
 			name = "NeoForge"
 			url = "https://maven.neoforged.net/releases"
 		}
 
+		// our own maven
+		maven {
+			name = "Up-Mods"
+			url = "https://maven.uuid.gg/releases"
+		}
+
+		// third party maven repositories
+		// TODO set up pass-through relay for these
 		maven {
 			name = "Ladysnake"
 			url = "https://maven.ladysnake.org/releases"
@@ -128,6 +127,8 @@ subprojects {
 			name = "TerraformersMC"
 			url = "https://maven.terraformersmc.com/releases"
 		}
+
+		// mod platforms
 		exclusiveContent {
 			forRepository {
 				maven {
@@ -153,7 +154,6 @@ subprojects {
 	}
 
 	tasks.withType(JavaCompile).configureEach {
-		it.options.encoding = "UTF-8"
 		it.options.release.set(javaVersion)
 	}
 
@@ -199,24 +199,18 @@ subprojects {
 			"license_url"         : license_url,
 			"discord_url"         : discord_url,
 			"homepage_url"        : homepage_url,
-			"minecraft_version"   : libs.versions.minecraft.get(),
 
+			"minecraft_version"   : libs.versions.minecraft.get(),
 			"neoforge_version"    : neoforge.versions.neoforge.get(),
 			"fabric_loader_version": fabric.versions.fabric.loader.get(),
 			"quilt_loader_version": fabric.versions.quilt.loader.get(),
+			"java_version": "${javaVersion}",
 		]
 
 		filesMatching(['pack.mcmeta', '*.mod.json', 'META-INF/neoforge.mods.toml', '*.mixins.json']) {
 			expand expandProps
 		}
 		inputs.properties(expandProps)
-	}
-
-	// Disables Gradle's custom module metadata from being published to maven. The
-	// metadata includes mapped dependencies which are not reasonably consumable by
-	// other mod developers.
-	tasks.withType(GenerateModuleMetadata).configureEach {
-		enabled = false
 	}
 
 	publishing {

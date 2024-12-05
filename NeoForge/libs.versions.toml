@@ -1,10 +1,6 @@
 [versions]
-moddevgradle = "2.0.16-beta"
-
-neoforge = "21.1.73"
+# https://projects.neoforged.net/neoforged/neoforge
+neoforge = "21.1.83"
 
 [libraries]
-neoforge = { module = "net.neoforged:neoforge", version.ref = "neoforge" }
-
-[plugins]
-moddevgradle = { id = "net.neoforged.moddev", version.ref = "moddevgradle" }
+testframework = { module = "net.neoforged:testframework", version.ref = "neoforge" }

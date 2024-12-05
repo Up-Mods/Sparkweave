@@ -1,25 +1,51 @@
 plugins {
-	alias libs.plugins.vanilla.gradle
+	alias libs.plugins.moddevgradle
 }
 
-minecraft {
-	version(libs.versions.minecraft.get())
-	if (file("src/main/resources/${mod_id}.accesswidener").exists()) {
-		accessWideners(file("src/main/resources/${mod_id}.accesswidener"))
-	}
-}
+//// Vanilla depends on ASM 9.3, MDG makes that a 'strict' version constraint,
+//// but mixin needs newer ASM so we override that here.
+//configurations.configureEach {
+//	resolutionStrategy.eachDependency { details ->
+//		if (details.requested.group == "org.ow2.asm") {
+//			details.useVersion(libs.versions.asm.get())
+//			details.because("Mixin requires new ASM")
+//		}
+//	}
+//}
 
 dependencies {
 	compileOnly libs.bundles.mixin
-	annotationProcessor libs.mixin.extras
 	compileOnly libs.jetbrains.annotations
 
-	implementation libs.appdirs
+	compileOnly libs.appdirs
 
 //	compileOnly libs.resourcefulconfig
-	compileOnly "${libs.emi.asProvider().get()}:api"
+	compileOnly variantOf(libs.emi) {
+		classifier 'api'
+	}
 
 	testmodImplementation sourceSets.main.output
+
+	testCompileOnly libs.junit.api
+	testCompileOnly neoforge.testframework
+}
+
+neoForge {
+	neoFormVersion = libs.versions.neoform.get()
+
+	parchment {
+		minecraftVersion = libs.versions.parchment.minecraft.get()
+		mappingsVersion = libs.versions.parchment.mappings.get()
+	}
+
+	accessTransformers {
+		def atFile = file("src/main/resources/META-INF/accesstransformer.cfg")
+		from atFile
+		publish atFile
+	}
+	validateAccessTransformers.set(true)
+
+	addModdingDependenciesTo sourceSets.test
 }
 
 configurations {
