@@ -72,6 +72,7 @@ neoForge {
 		enable()
 
 		testedMod = mods."${mod_id}"
+		loadedMods.set([mods."${mod_id}"])
 	}
 
 	runs {
