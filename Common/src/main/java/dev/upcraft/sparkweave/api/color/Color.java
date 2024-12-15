@@ -49,10 +49,10 @@ public class Color {
 
 	public static Color fromIntArray(Ordering ordering, int... values) {
 		Preconditions.checkElementIndex(ordering.expectedLength() - 1, values.length);
-		int red = ordering.hasRed() ? values[ordering.iR()] : 0;
-		int green = ordering.hasGreen() ? values[ordering.iG()] : 0;
-		int blue = ordering.hasBlue() ? values[ordering.iB()] : 0;
-		int alpha = ordering.hasAlpha() ? values[ordering.iA()] : 255;
+		int red = ordering.hasRed() ? values[ordering.iR()] : 0x00;
+		int green = ordering.hasGreen() ? values[ordering.iG()] : 0x00;
+		int blue = ordering.hasBlue() ? values[ordering.iB()] : 0x00;
+		int alpha = ordering.hasAlpha() ? values[ordering.iA()] : 0xFF;
 		return fromRGBA(red, green, blue, alpha);
 	}
 
@@ -124,17 +124,23 @@ public class Color {
 
 	public int asInt(Ordering ordering) {
 		int value = 0;
+		int maxIdx = ordering.expectedLength() - 1;
+
 		if (ordering.hasRed()) {
-			value |= red() << ((ordering.expectedLength - ordering.iR()) * 8);
+			assert ordering.iR() <= maxIdx;
+			value |= red() << ((maxIdx - ordering.iR()) * 8);
 		}
 		if (ordering.hasGreen()) {
-			value |= green() << ((ordering.expectedLength - ordering.iG()) * 8);
+			assert ordering.iG() <= maxIdx;
+			value |= green() << ((maxIdx - ordering.iG()) * 8);
 		}
 		if (ordering.hasBlue()) {
-			value |= blue() << ((ordering.expectedLength - ordering.iB()) * 8);
+			assert ordering.iB() <= maxIdx;
+			value |= blue() << ((maxIdx - ordering.iB()) * 8);
 		}
 		if (ordering.hasAlpha()) {
-			value |= alpha() << ((ordering.expectedLength - ordering.iA()) * 8);
+			assert ordering.iA() <= maxIdx;
+			value |= alpha() << ((maxIdx - ordering.iA()) * 8);
 		}
 		return value;
 	}
