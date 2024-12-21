@@ -106,7 +106,7 @@ jar {
 publishing {
 	publications {
         mavenJava(MavenPublication) {
-			artifactId = "Sparkweave-Fabric"
+			artifactId "Sparkweave-Fabric"
             from components.java
         }
     }
