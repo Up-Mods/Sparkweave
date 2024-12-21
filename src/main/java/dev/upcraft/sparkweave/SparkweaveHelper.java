@@ -1,9 +1,9 @@
 package dev.upcraft.sparkweave;
 
 import it.unimi.dsi.fastutil.objects.Object2ObjectOpenHashMap;
-import org.quiltmc.loader.api.ModContainer;
-import org.quiltmc.loader.api.ModMetadata;
-import org.quiltmc.loader.api.QuiltLoader;
+import net.fabricmc.loader.api.FabricLoader;
+import net.fabricmc.loader.api.ModContainer;
+import net.fabricmc.loader.api.metadata.ModMetadata;
 
 import java.util.Map;
 import java.util.NoSuchElementException;
@@ -17,12 +17,12 @@ public class SparkweaveHelper {
 
 	public static ModContainer getModContainer(String modid) {
 		return MOD_CONTAINERS.computeIfAbsent(modid,
-				key -> QuiltLoader.getModContainer(key)
+				key -> FabricLoader.getInstance().getModContainer(key)
 						.orElseThrow(() -> new NoSuchElementException("No mod loaded with ID " + key))
 		);
 	}
 
 	public static Optional<ModMetadata> tryGetMetadata(String modid) {
-		return Optional.ofNullable(MOD_CONTAINERS.computeIfAbsent(modid, key -> QuiltLoader.getModContainer(key).orElse(null))).map(ModContainer::metadata);
+		return Optional.ofNullable(MOD_CONTAINERS.computeIfAbsent(modid, key -> FabricLoader.getInstance().getModContainer(key).orElse(null))).map(ModContainer::getMetadata);
 	}
 }

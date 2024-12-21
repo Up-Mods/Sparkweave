@@ -1,7 +1,7 @@
 package dev.upcraft.sparkweave.api.util.modcompat;
 
 import dev.upcraft.sparkweave.api.util.ContextHelper;
-import org.quiltmc.loader.api.QuiltLoader;
+import net.fabricmc.loader.api.FabricLoader;
 
 import java.util.function.Supplier;
 
@@ -12,7 +12,7 @@ public final class CompatHelper {
 
 	public CompatHelper(String modid) {
 		this.modid = modid;
-		this.enabled = QuiltLoader.isModLoaded(modid);
+		this.enabled = FabricLoader.getInstance().isModLoaded(modid);
 	}
 
 	public String modid() {
@@ -39,7 +39,7 @@ public final class CompatHelper {
 
 	public void orThrow() {
 		if (!isEnabled()) {
-			var callingMod = ContextHelper.getCallerContext().metadata().name();
+			var callingMod = ContextHelper.getCallerContext().getMetadata().getName();
 			throw new IllegalStateException(String.format("[%s CompatHelper] Error: mod %s is not loaded!", callingMod, modid));
 		}
 	}

@@ -1,13 +1,14 @@
 package dev.upcraft.sparkweave.mixin.debug;
 
+import net.fabricmc.api.EnvType;
+import net.fabricmc.api.Environment;
 import net.minecraft.client.Minecraft;
-import org.quiltmc.loader.api.minecraft.ClientOnly;
 import org.slf4j.Logger;
 import org.spongepowered.asm.mixin.Mixin;
 import org.spongepowered.asm.mixin.injection.At;
 import org.spongepowered.asm.mixin.injection.Redirect;
 
-@ClientOnly
+@Environment(EnvType.CLIENT)
 @Mixin(Minecraft.class)
 public class MixinRemoveAuthError {
 

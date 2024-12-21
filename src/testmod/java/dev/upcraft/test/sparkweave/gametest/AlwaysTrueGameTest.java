@@ -1,13 +1,13 @@
 package dev.upcraft.test.sparkweave.gametest;
 
+import net.fabricmc.fabric.api.gametest.v1.FabricGameTest;
 import net.minecraft.gametest.framework.GameTest;
-import org.quiltmc.qsl.testing.api.game.QuiltGameTest;
-import org.quiltmc.qsl.testing.api.game.QuiltTestContext;
+import net.minecraft.gametest.framework.GameTestHelper;
 
-public class AlwaysTrueGameTest implements QuiltGameTest {
+public class AlwaysTrueGameTest implements FabricGameTest {
 
-    @GameTest(template = QuiltGameTest.EMPTY_STRUCTURE)
-    public void alwaysTrue(QuiltTestContext ctx) {
+    @GameTest(template = FabricGameTest.EMPTY_STRUCTURE)
+    public void alwaysTrue(GameTestHelper ctx) {
         ctx.succeed();
     }
 }

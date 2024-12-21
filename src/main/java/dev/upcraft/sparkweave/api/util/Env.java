@@ -11,7 +11,7 @@ public class Env {
 	public static String get(String name) {
 		var caller = StackWalker.getInstance(StackWalker.Option.RETAIN_CLASS_REFERENCE).getCallerClass();
 		var ctx = ContextHelper.getContext(caller);
-		return get(name, ctx.metadata().id());
+		return get(name, ctx.getMetadata().getId());
 	}
 
 	@Nullable
@@ -27,7 +27,7 @@ public class Env {
 	public static boolean getBool(String name) {
 		var caller = StackWalker.getInstance(StackWalker.Option.RETAIN_CLASS_REFERENCE).getCallerClass();
 		var ctx = ContextHelper.getContext(caller);
-		return getBool(name, ctx.metadata().id());
+		return getBool(name, ctx.getMetadata().getId());
 	}
 
 	public static boolean getBool(String name, String prefix) {
@@ -42,7 +42,7 @@ public class Env {
 	public static int getInt(String name) {
 		var caller = StackWalker.getInstance(StackWalker.Option.RETAIN_CLASS_REFERENCE).getCallerClass();
 		var ctx = ContextHelper.getContext(caller);
-		return getInt(name, ctx.metadata().id());
+		return getInt(name, ctx.getMetadata().getId());
 	}
 
 	public static int getInt(String name, String prefix) {

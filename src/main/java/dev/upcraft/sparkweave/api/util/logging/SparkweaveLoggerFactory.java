@@ -1,12 +1,12 @@
 package dev.upcraft.sparkweave.api.util.logging;
 
-import dev.upcraft.sparkweave.api.util.ContextHelper;
 import dev.upcraft.sparkweave.api.annotation.CallerSensitive;
+import dev.upcraft.sparkweave.api.util.ContextHelper;
+import net.fabricmc.loader.api.ModContainer;
 import org.apache.logging.log4j.Logger;
 import org.apache.logging.log4j.core.LoggerContext;
 import org.apache.logging.log4j.core.config.ConfigurationSource;
 import org.apache.logging.log4j.core.config.Configurator;
-import org.quiltmc.loader.api.ModContainer;
 
 public class SparkweaveLoggerFactory {
 
@@ -20,8 +20,7 @@ public class SparkweaveLoggerFactory {
 	}
 
 	public static Logger getLogger(ModContainer mod) {
-		var name = mod.metadata().name();
-		return getLogger(!name.isBlank() ? name : mod.metadata().id());
+		return getLogger(mod.getMetadata().getName());
 	}
 
 	@CallerSensitive

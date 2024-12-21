@@ -6,9 +6,9 @@ import dev.upcraft.sparkweave.api.registry.RegistryService;
 import dev.upcraft.sparkweave.util.Utils;
 
 @CalledByReflection
-public class QuiltRegistryService implements RegistryService {
+public class FabricRegistryService implements RegistryService {
 
-	public QuiltRegistryService() {
+	public FabricRegistryService() {
 		// need an explicit default constructor for the service loader to work
 	}
 

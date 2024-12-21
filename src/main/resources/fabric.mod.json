@@ -1,0 +1,56 @@
+{
+  "schemaVersion": 1,
+  "id": "sparkweave",
+  "version": "${version}",
+  "name": "Sparkweave Engine",
+  "description": "Modding Library",
+  "authors": [
+    "Up"
+  ],
+  "contact": {
+    "homepage": "https://mods.upcraft.dev",
+    "sources": "https://github.com/Up-Mods/Sparkweave",
+    "issues": "https://github.com/Up-Mods/Sparkweave/issues"
+  },
+  "license": "https://github.com/Up-Mods/Sparkweave/blob/HEAD/LICENSE.md",
+  "icon": "assets/sparkweave/icon.png",
+  "environment": "*",
+  "custom": {
+    "mc-publish": {
+      "curseforge": "911456",
+      "modrinth": "nf68xfAw",
+      "loaders": [
+        "fabric",
+        "quilt"
+      ]
+    },
+    "modmenu": {
+      "links": {
+        "modmenu.discord": "https://mods.upcraft.dev/discord"
+      },
+      "badges": [
+        "library"
+      ]
+    }
+  },
+  "entrypoints": {
+    "main": [
+      "dev.upcraft.sparkweave.entrypoint.Main"
+    ],
+    "client": [
+      "dev.upcraft.sparkweave.entrypoint.Client"
+    ],
+    "preLaunch": [
+      "dev.upcraft.sparkweave.entrypoint.PreLaunch"
+    ]
+  },
+  "mixins": [
+    "sparkweave.mixins.json"
+  ],
+  "depends": {
+    "fabricloader": ">=0.16.9",
+    "minecraft": "=1.20.1",
+    "java": ">=17",
+    "fabric-api": "*"
+  }
+}

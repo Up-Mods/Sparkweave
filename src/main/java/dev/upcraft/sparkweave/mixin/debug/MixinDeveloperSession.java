@@ -5,15 +5,16 @@ import com.mojang.authlib.yggdrasil.YggdrasilAuthenticationService;
 import dev.upcraft.sparkweave.api.SparkweaveApi;
 import dev.upcraft.sparkweave.util.SparkweaveLogging;
 import dev.upcraft.sparkweave.util.internal.DevSessionHandler;
+import net.fabricmc.api.EnvType;
+import net.fabricmc.api.Environment;
 import net.minecraft.client.Minecraft;
 import net.minecraft.client.main.GameConfig;
-import org.quiltmc.loader.api.minecraft.ClientOnly;
 import org.spongepowered.asm.mixin.Mixin;
 import org.spongepowered.asm.mixin.injection.At;
 import org.spongepowered.asm.mixin.injection.Inject;
 import org.spongepowered.asm.mixin.injection.callback.CallbackInfoReturnable;
 
-@ClientOnly
+@Environment(EnvType.CLIENT)
 @Mixin(Minecraft.class)
 public class MixinDeveloperSession {
 

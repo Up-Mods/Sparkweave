@@ -5,7 +5,7 @@ import dev.upcraft.sparkweave.api.annotation.CallerSensitive;
 import dev.upcraft.sparkweave.api.annotation.Mod;
 import dev.upcraft.sparkweave.api.util.logging.SparkweaveLoggerFactory;
 import it.unimi.dsi.fastutil.objects.Object2ObjectOpenHashMap;
-import org.quiltmc.loader.api.ModContainer;
+import net.fabricmc.loader.api.ModContainer;
 
 import java.util.List;
 import java.util.Map;

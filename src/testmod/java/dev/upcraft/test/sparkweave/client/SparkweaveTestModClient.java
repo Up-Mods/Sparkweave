@@ -1,22 +1,20 @@
 package dev.upcraft.test.sparkweave.client;
 
 import dev.upcraft.sparkweave.api.annotation.CalledByReflection;
-import dev.upcraft.sparkweave.api.annotation.Mod;
 import dev.upcraft.sparkweave.api.client.Debug;
 import dev.upcraft.sparkweave.api.util.Time;
+import net.fabricmc.api.ClientModInitializer;
+import net.fabricmc.fabric.api.client.event.lifecycle.v1.ClientTickEvents;
 import net.minecraft.client.Minecraft;
-import org.quiltmc.loader.api.ModContainer;
-import org.quiltmc.qsl.base.api.entrypoint.client.ClientModInitializer;
-import org.quiltmc.qsl.lifecycle.api.client.event.ClientTickEvents;
 
 @CalledByReflection
 public class SparkweaveTestModClient implements ClientModInitializer {
 	@Override
-	public void onInitializeClient(ModContainer mod) {
-		ClientTickEvents.START.register(new ClientTickEvents.Start() {
+	public void onInitializeClient() {
+		ClientTickEvents.START_CLIENT_TICK.register(new ClientTickEvents.StartTick() {
 			int ticks = 0;
 			@Override
-			public void startClientTick(Minecraft client) {
+			public void onStartTick(Minecraft client) {
 				if (client.level != null && ticks++ % 100 == 0) {
 					for (int x = 0; x < 16; x++) {
 						for (int z = 0; z < 16; z++) {

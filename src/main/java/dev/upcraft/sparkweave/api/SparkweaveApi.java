@@ -2,16 +2,15 @@ package dev.upcraft.sparkweave.api;
 
 import dev.upcraft.sparkweave.api.util.Env;
 import net.fabricmc.api.EnvType;
+import net.fabricmc.api.Environment;
+import net.fabricmc.loader.api.FabricLoader;
 import org.apache.logging.log4j.Level;
-import org.quiltmc.loader.api.QuiltLoader;
-import org.quiltmc.loader.api.minecraft.ClientOnly;
-import org.quiltmc.loader.api.minecraft.MinecraftQuiltLoader;
 
 public class SparkweaveApi {
 
-	public static final boolean DEVELOPMENT_ENVIRONMENT = QuiltLoader.isDevelopmentEnvironment();
+	public static final boolean DEVELOPMENT_ENVIRONMENT = FabricLoader.getInstance().isDevelopmentEnvironment();
 
-	public static final boolean CLIENTSIDE_ENVIRONMENT = MinecraftQuiltLoader.getEnvironmentType() == EnvType.CLIENT;
+	public static final boolean CLIENTSIDE_ENVIRONMENT = FabricLoader.getInstance().getEnvironmentType() == EnvType.CLIENT;
 
 	public static final boolean DEBUG_MODE = Env.getBool("debug");
 
@@ -19,7 +18,7 @@ public class SparkweaveApi {
 
 	public static final Level DEBUG_LOG_LEVEL = Level.toLevel(Env.get("debug.logging.level"), DEVELOPMENT_ENVIRONMENT ? Level.ALL : Level.DEBUG);
 
-	@ClientOnly
+	@Environment(EnvType.CLIENT)
 	public static class Client {
 
 		public static final boolean RENDER_SLOT_NUMBERS = DEBUG_MODE || Env.getBool("debug.render.slotnumber");

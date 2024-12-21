@@ -1,0 +1,42 @@
+{
+  "schemaVersion": 1,
+  "id": "sparkweave-testmod",
+  "version": "${version}",
+  "name": "Sparkweave Engine Testmod",
+  "description": "Test Mod for Sparkweave Engine",
+  "authors": [
+    "Up"
+  ],
+  "contact": {
+    "homepage": "https://github.com/Up-Mods/Sparkweave",
+    "sources": "https://github.com/Up-Mods/Sparkweave"
+  },
+  "license": "https://github.com/Up-Mods/Sparkweave/blob/HEAD/LICENSE.md",
+  "icon": "assets/sparkweave_testmod/icon.png",
+  "environment": "*",
+  "custom": {
+    "modmenu": {
+      "parent": "sparkweave"
+    }
+  },
+  "entrypoints": {
+    "main": [
+      "dev.upcraft.test.sparkweave.SparkweaveTestMod"
+    ],
+    "client": [
+      "dev.upcraft.test.sparkweave.client.SparkweaveTestModClient"
+    ],
+    "fabric-gametest": [
+      "dev.upcraft.test.sparkweave.gametest.AlwaysTrueGameTest"
+    ]
+  },
+  "mixins": [
+  ],
+  "depends": {
+    "fabricloader": ">=0.16.9",
+    "minecraft": "=1.20.1",
+    "java": ">=17",
+    "fabric-api": "*",
+    "sparkweave": "*"
+  }
+}

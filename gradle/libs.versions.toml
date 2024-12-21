@@ -1,44 +1,32 @@
 [versions]
-# The latest versions are available at https://lambdaurora.dev/tools/import_quilt.html
-chenille = "0.11.+"
-quilt_loom = "1.3.+"
+chenille = "0.14.0"
+fabric_loom = "1.9.2"
 
 minecraft = "1.20.1"
-quilt_mappings = "1.20.1+build.23"
-quilt_loader = "0.22.0"
+fabric_loader = "0.16.9"
 
-parchment = "2023.09.03"
+parchment_minecraft = "1.20.1"
+parchment_mappings = "2023.09.03"
+
+fabric_api = "0.92.2+1.20.1"
+appdirs = "1.2.1"
+
 emi = "1.0.29+1.20.1"
 modmenu = "7.2.2"
-midnightlib = "1.4.1-quilt"
 lazydfu = "0.1.3"
-mixinextras = "0.2.0-rc.2"
-
-quilted_fabric_api = "7.4.0+0.90.0-1.20.1"
-
-appdirs = "1.2.1"
 
 [libraries]
 minecraft = { module = "com.mojang:minecraft", version.ref = "minecraft" }
-quilt_mappings = { module = "org.quiltmc:quilt-mappings", version.ref = "quilt_mappings" }
-parchment_mappings = { module = "org.parchmentmc.data:parchment-1.20.1", version.ref = "parchment" }
-quilt_loader = { module = "org.quiltmc:quilt-loader", version.ref = "quilt_loader" }
-mixinextras = { module = "io.github.llamalad7:mixinextras-fabric", version.ref = "mixinextras" }
+fabric_loader = { module = "net.fabricmc:fabric-loader", version.ref = "fabric_loader" }
 
-quilted_fabric_api = { module = "org.quiltmc.quilted-fabric-api:quilted-fabric-api", version.ref = "quilted_fabric_api" }
-quilted_fabric_api_deprecated = { module = "org.quiltmc.quilted-fabric-api:quilted-fabric-api-deprecated", version.ref = "quilted_fabric_api" }
+fabric_api = { module = "net.fabricmc.fabric-api:fabric-api", version.ref = "fabric_api" }
 
 appdirs = { module = "net.harawata:appdirs", version.ref = "appdirs" }
 
 emi = { module = "dev.emi:emi-fabric", version.ref = "emi" }
 modmenu = { module = "com.terraformersmc:modmenu", version.ref = "modmenu" }
-midnightlib = { module = "maven.modrinth:midnightlib", version.ref = "midnightlib" }
 lazydfu = { module = "maven.modrinth:lazydfu", version.ref = "lazydfu" }
 
-# If you have multiple similar dependencies, you can declare a dependency bundle and reference it on the build script with "libs.bundles.example".
-[bundles]
-quilted_fabric_api = ["quilted_fabric_api", "quilted_fabric_api_deprecated"]
-
 [plugins]
-quilt_loom = { id = "org.quiltmc.loom", version.ref = "quilt_loom" }
+fabric_loom = { id = "fabric-loom", version.ref = "fabric_loom" }
 chenille = { id = "io.github.ladysnake.chenille", version.ref = "chenille" }

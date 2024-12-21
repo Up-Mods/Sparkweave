@@ -1,7 +1,7 @@
 package dev.upcraft.sparkweave.mixin;
 
+import net.fabricmc.loader.api.FabricLoader;
 import org.objectweb.asm.tree.ClassNode;
-import org.quiltmc.loader.api.QuiltLoader;
 import org.spongepowered.asm.mixin.extensibility.IMixinConfigPlugin;
 import org.spongepowered.asm.mixin.extensibility.IMixinInfo;
 
@@ -11,7 +11,7 @@ import java.util.Set;
 public class SparkweaveMixinConfigPlugin implements IMixinConfigPlugin {
 
 	private static final String PACKAGE_NAME = "dev.upcraft.sparkweave.mixin";
-	private static final boolean DEV_ENV = QuiltLoader.isDevelopmentEnvironment();
+	private static final boolean DEV_ENV = FabricLoader.getInstance().isDevelopmentEnvironment();
 
 	@Override
 	public void onLoad(String mixinPackage) {

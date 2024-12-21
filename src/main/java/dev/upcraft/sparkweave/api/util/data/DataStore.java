@@ -1,8 +1,9 @@
 package dev.upcraft.sparkweave.api.util.data;
 
 import dev.upcraft.sparkweave.util.SparkweaveLogging;
+import net.fabricmc.fabric.api.event.Event;
+import net.fabricmc.fabric.api.event.EventFactory;
 import org.jetbrains.annotations.Nullable;
-import org.quiltmc.qsl.base.api.event.Event;
 
 import java.time.Duration;
 import java.time.Instant;
@@ -26,7 +27,7 @@ public class DataStore<T> {
 	private Instant lastRefresh = Instant.MIN;
 	private final ReadWriteLock lock = new ReentrantReadWriteLock();
 
-	private final Event<Consumer<T>> refreshEvent = Event.create(Consumer.class, callbacks -> data -> {
+	private final Event<Consumer<T>> refreshEvent = EventFactory.createArrayBacked(Consumer.class, callbacks -> data -> {
 		for (Consumer<T> callback : callbacks) {
 			callback.accept(data);
 		}

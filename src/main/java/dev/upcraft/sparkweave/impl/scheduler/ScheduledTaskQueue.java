@@ -2,8 +2,8 @@ package dev.upcraft.sparkweave.impl.scheduler;
 
 import com.mojang.datafixers.util.Either;
 import dev.upcraft.sparkweave.api.util.scheduler.Task;
-import org.quiltmc.qsl.lifecycle.api.event.ServerLifecycleEvents;
-import org.quiltmc.qsl.lifecycle.api.event.ServerTickEvents;
+import net.fabricmc.fabric.api.event.lifecycle.v1.ServerLifecycleEvents;
+import net.fabricmc.fabric.api.event.lifecycle.v1.ServerTickEvents;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -17,12 +17,12 @@ public class ScheduledTaskQueue {
 	private static volatile LongSupplier timeSupplier = () -> 0;
 
 	public static void init() {
-		ServerLifecycleEvents.STARTING.register(server -> {
+		ServerLifecycleEvents.SERVER_STARTING.register(server -> {
 			TASK_QUEUE.clear();
 			timeSupplier = server.getWorldData().overworldData()::getGameTime;
 		});
 
-		ServerLifecycleEvents.STOPPED.register(server -> {
+		ServerLifecycleEvents.SERVER_STOPPING.register(server -> {
 
 			// set all tasks to a cancelled state before clearing the queue
 			TASK_QUEUE.forEach(AbstractTask::cancel);
@@ -30,7 +30,7 @@ public class ScheduledTaskQueue {
 			timeSupplier = () -> 0;
 		});
 
-		ServerTickEvents.START.register(server -> {
+		ServerTickEvents.START_SERVER_TICK.register(server -> {
 			if(TASK_QUEUE.isEmpty()) return;
 
 			long time = timeSupplier.getAsLong();

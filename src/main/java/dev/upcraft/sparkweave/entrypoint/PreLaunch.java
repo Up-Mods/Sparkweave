@@ -1,10 +1,8 @@
 package dev.upcraft.sparkweave.entrypoint;
 
 import dev.upcraft.sparkweave.api.annotation.CalledByReflection;
-import dev.upcraft.sparkweave.api.annotation.Mod;
 import dev.upcraft.sparkweave.util.DotEnv;
-import org.quiltmc.loader.api.ModContainer;
-import org.quiltmc.loader.api.entrypoint.PreLaunchEntrypoint;
+import net.fabricmc.loader.api.entrypoint.PreLaunchEntrypoint;
 
 import java.nio.file.Files;
 import java.nio.file.Path;
@@ -20,7 +18,7 @@ public class PreLaunch implements PreLaunchEntrypoint {
 	}
 
 	@Override
-	public void onPreLaunch(ModContainer mod) {
+	public void onPreLaunch() {
 
 	}
 }
