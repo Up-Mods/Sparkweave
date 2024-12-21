@@ -29,7 +29,6 @@ chenille {
 	repositories {
 		ladysnake()
 		modrinth()
-		parchment()
 		quiltMC()
 		terraformers()
 	}
@@ -39,6 +38,13 @@ repositories {
 	maven {
 		name = 'Up-Mods'
 		url = 'https://maven.uuid.gg/releases'
+	}
+	maven {
+		name = 'ParchmentMC'
+		url = 'https://maven.parchmentmc.org'
+		content {
+			includeGroupAndSubgroups('org.parchmentmc')
+		}
 	}
 }
 
