@@ -5,6 +5,8 @@
   "compatibilityLevel": "JAVA_17",
   "plugin": "dev.upcraft.sparkweave.mixin.SparkweaveMixinConfigPlugin",
   "mixins": [
+    "ArgumentTypeInfosAccessor",
+    "CommandSourceStackAccessor"
   ],
   "client": [
     "debug.MixinDeveloperSession",
