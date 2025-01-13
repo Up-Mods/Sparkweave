@@ -4,6 +4,7 @@ import it.unimi.dsi.fastutil.objects.Object2ObjectOpenHashMap;
 import net.fabricmc.loader.api.FabricLoader;
 import net.fabricmc.loader.api.ModContainer;
 import net.fabricmc.loader.api.metadata.ModMetadata;
+import net.minecraft.resources.ResourceLocation;
 
 import java.util.Map;
 import java.util.NoSuchElementException;
@@ -24,5 +25,9 @@ public class SparkweaveHelper {
 
 	public static Optional<ModMetadata> tryGetMetadata(String modid) {
 		return Optional.ofNullable(MOD_CONTAINERS.computeIfAbsent(modid, key -> FabricLoader.getInstance().getModContainer(key).orElse(null))).map(ModContainer::getMetadata);
+	}
+
+	public static ResourceLocation id(String path) {
+		return new ResourceLocation(MODID, path);
 	}
 }
