@@ -20,11 +20,14 @@
       "curseforge": "911456",
       "modrinth": "nf68xfAw",
       "dependencies": [
-        "fabric-api(required)#{curseforge:306612}{modrinth:P7dR8mSH}"
+        "fabric-api(required){curseforge:306612}{modrinth:P7dR8mSH}"
       ],
       "loaders": [
         "fabric",
         "quilt"
+      ],
+      "java": [
+        "17"
       ]
     },
     "modmenu": {
