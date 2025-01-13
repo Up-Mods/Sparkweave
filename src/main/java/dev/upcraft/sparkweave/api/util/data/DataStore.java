@@ -16,6 +16,7 @@ import java.util.concurrent.locks.ReentrantReadWriteLock;
 import java.util.function.Consumer;
 import java.util.function.Supplier;
 
+@Deprecated(forRemoval = true)
 public class DataStore<T> {
 
 	private final String name;
