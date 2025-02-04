@@ -70,6 +70,10 @@ dependencies {
 	include libs.appdirs
 }
 
+loom {
+	accessWidenerPath.set(project.file("src/main/resources/sparkweave.accesswidener"))
+}
+
 processResources {
 	filteringCharset "UTF-8"
 	inputs.property "version", version

@@ -1,0 +1,32 @@
+accessWidener v2 named
+
+transitive-accessible method net/minecraft/world/item/SmithingTemplateItem createTrimmableArmorIconList ()Ljava/util/List;
+transitive-accessible method net/minecraft/world/item/SmithingTemplateItem createTrimmableMaterialIconList ()Ljava/util/List;
+transitive-accessible method net/minecraft/world/item/SmithingTemplateItem createNetheriteUpgradeIconList ()Ljava/util/List;
+transitive-accessible method net/minecraft/world/item/SmithingTemplateItem createNetheriteUpgradeMaterialList ()Ljava/util/List;
+transitive-accessible field net/minecraft/world/item/SmithingTemplateItem EMPTY_SLOT_HELMET Lnet/minecraft/resources/ResourceLocation;
+transitive-accessible field net/minecraft/world/item/SmithingTemplateItem EMPTY_SLOT_CHESTPLATE Lnet/minecraft/resources/ResourceLocation;
+transitive-accessible field net/minecraft/world/item/SmithingTemplateItem EMPTY_SLOT_LEGGINGS Lnet/minecraft/resources/ResourceLocation;
+transitive-accessible field net/minecraft/world/item/SmithingTemplateItem EMPTY_SLOT_BOOTS Lnet/minecraft/resources/ResourceLocation;
+transitive-accessible field net/minecraft/world/item/SmithingTemplateItem EMPTY_SLOT_HOE Lnet/minecraft/resources/ResourceLocation;
+transitive-accessible field net/minecraft/world/item/SmithingTemplateItem EMPTY_SLOT_AXE Lnet/minecraft/resources/ResourceLocation;
+transitive-accessible field net/minecraft/world/item/SmithingTemplateItem EMPTY_SLOT_SWORD Lnet/minecraft/resources/ResourceLocation;
+transitive-accessible field net/minecraft/world/item/SmithingTemplateItem EMPTY_SLOT_SHOVEL Lnet/minecraft/resources/ResourceLocation;
+transitive-accessible field net/minecraft/world/item/SmithingTemplateItem EMPTY_SLOT_PICKAXE Lnet/minecraft/resources/ResourceLocation;
+transitive-accessible field net/minecraft/world/item/SmithingTemplateItem EMPTY_SLOT_INGOT Lnet/minecraft/resources/ResourceLocation;
+transitive-accessible field net/minecraft/world/item/SmithingTemplateItem EMPTY_SLOT_REDSTONE_DUST Lnet/minecraft/resources/ResourceLocation;
+transitive-accessible field net/minecraft/world/item/SmithingTemplateItem EMPTY_SLOT_QUARTZ Lnet/minecraft/resources/ResourceLocation;
+transitive-accessible field net/minecraft/world/item/SmithingTemplateItem EMPTY_SLOT_EMERALD Lnet/minecraft/resources/ResourceLocation;
+transitive-accessible field net/minecraft/world/item/SmithingTemplateItem EMPTY_SLOT_DIAMOND Lnet/minecraft/resources/ResourceLocation;
+transitive-accessible field net/minecraft/world/item/SmithingTemplateItem EMPTY_SLOT_LAPIS_LAZULI Lnet/minecraft/resources/ResourceLocation;
+transitive-accessible field net/minecraft/world/item/SmithingTemplateItem EMPTY_SLOT_AMETHYST_SHARD Lnet/minecraft/resources/ResourceLocation;
+
+# datagen
+transitive-accessible class net/minecraft/core/RegistrySetBuilder$RegistryStub
+transitive-accessible method net/minecraft/data/worldgen/Structures structure (Lnet/minecraft/core/HolderSet;Ljava/util/Map;Lnet/minecraft/world/level/levelgen/GenerationStep$Decoration;Lnet/minecraft/world/level/levelgen/structure/TerrainAdjustment;)Lnet/minecraft/world/level/levelgen/structure/Structure$StructureSettings;
+transitive-accessible method net/minecraft/data/worldgen/Structures structure (Lnet/minecraft/core/HolderSet;Lnet/minecraft/world/level/levelgen/GenerationStep$Decoration;Lnet/minecraft/world/level/levelgen/structure/TerrainAdjustment;)Lnet/minecraft/world/level/levelgen/structure/Structure$StructureSettings;
+transitive-accessible method net/minecraft/data/worldgen/Structures structure (Lnet/minecraft/core/HolderSet;Lnet/minecraft/world/level/levelgen/structure/TerrainAdjustment;)Lnet/minecraft/world/level/levelgen/structure/Structure$StructureSettings;
+transitive-accessible method net/minecraft/data/models/model/ModelTemplates create ([Lnet/minecraft/data/models/model/TextureSlot;)Lnet/minecraft/data/models/model/ModelTemplate;
+transitive-accessible method net/minecraft/data/models/model/ModelTemplates create (Ljava/lang/String;[Lnet/minecraft/data/models/model/TextureSlot;)Lnet/minecraft/data/models/model/ModelTemplate;
+transitive-accessible method net/minecraft/data/models/model/ModelTemplates createItem (Ljava/lang/String;[Lnet/minecraft/data/models/model/TextureSlot;)Lnet/minecraft/data/models/model/ModelTemplate;
+transitive-accessible method net/minecraft/data/models/model/ModelTemplates create (Ljava/lang/String;Ljava/lang/String;[Lnet/minecraft/data/models/model/TextureSlot;)Lnet/minecraft/data/models/model/ModelTemplate;

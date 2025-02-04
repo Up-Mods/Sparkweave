@@ -37,8 +37,29 @@
       "badges": [
         "library"
       ]
+    },
+    "loom:injected_interfaces": {
+      "net/minecraft/class_161\u0024class_162": [
+        "dev/upcraft/sparkweave/api/util/ext/datagen/AdvancementBuilderExt"
+      ],
+      "net/minecraft/class_1867": [
+        "dev/upcraft/sparkweave/api/util/ext/crafting/ShapelessRecipeExt"
+      ],
+      "net/minecraft/class_1869": [
+        "dev/upcraft/sparkweave/api/util/ext/crafting/ShapedRecipeExt"
+      ],
+      "net/minecraft/class_1874": [
+        "dev/upcraft/sparkweave/api/util/ext/crafting/AbstractCookingRecipeExt"
+      ],
+      "net/minecraft/class_7877": [
+        "dev/upcraft/sparkweave/api/util/ext/datagen/RegistrySetBuilderExt"
+      ],
+      "net/minecraft/class_8060": [
+        "dev/upcraft/sparkweave/api/util/ext/crafting/SmithingTransformRecipeExt"
+      ]
     }
   },
+  "accessWidener": "sparkweave.accesswidener",
   "entrypoints": {
     "main": [
       "dev.upcraft.sparkweave.entrypoint.Main"

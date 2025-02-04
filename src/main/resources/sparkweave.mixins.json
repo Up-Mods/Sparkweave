@@ -6,7 +6,15 @@
   "plugin": "dev.upcraft.sparkweave.mixin.SparkweaveMixinConfigPlugin",
   "mixins": [
     "ArgumentTypeInfosAccessor",
-    "CommandSourceStackAccessor"
+    "CommandSourceStackAccessor",
+    "ext.crafting.AbstractCookingRecipeMixin",
+    "ext.crafting.ShapedRecipeMixin",
+    "ext.crafting.ShapelessRecipeMixin",
+    "ext.crafting.SingleItemRecipeMixin",
+    "ext.crafting.SmithingTransformRecipeMixin",
+    "ext.datagen.AdvancementBuilderMixin",
+    "ext.datagen.RegistrySetBuilderMixin",
+    "ext.datagen.fabric.FabricModelProviderMixin"
   ],
   "client": [
     "debug.MixinDeveloperSession",
