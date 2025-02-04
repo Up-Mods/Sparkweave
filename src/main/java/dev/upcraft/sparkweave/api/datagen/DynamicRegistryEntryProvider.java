@@ -2,6 +2,7 @@ package dev.upcraft.sparkweave.api.datagen;
 
 import com.google.common.collect.HashMultimap;
 import com.google.common.collect.Multimap;
+import com.google.common.collect.Multimaps;
 import dev.upcraft.sparkweave.SparkweaveHelper;
 import dev.upcraft.sparkweave.impl.datagen.RegistrySetBuilderDynamicProvider;
 import dev.upcraft.sparkweave.util.Utils;
@@ -17,7 +18,7 @@ import java.util.function.Supplier;
 
 public abstract class DynamicRegistryEntryProvider {
 
-    private static final Multimap<String, RegistrySetBuilder> BUILDERS = HashMultimap.create(2, 32);
+    private static final Multimap<String, RegistrySetBuilder> BUILDERS = Multimaps.synchronizedSetMultimap(HashMultimap.create(2, 32));
 
 	protected abstract void generate(RegistrySetBuilder builder);
 
@@ -26,8 +27,12 @@ public abstract class DynamicRegistryEntryProvider {
         return new EntriesProvider.Builder(modid);
     }
 
-    public static synchronized FabricDynamicRegistryProvider getGenerator(String modid, FabricDataOutput output, CompletableFuture<HolderLookup.Provider> registriesFuture) {
+    public static FabricDynamicRegistryProvider getGenerator(String modid, FabricDataOutput output, CompletableFuture<HolderLookup.Provider> registriesFuture) {
         Utils.assertValidFabricModId(modid);
+
+		// this is a dirty hack to work around fabric api issues
+		registriesFuture.join();
+
 		return new RegistrySetBuilderDynamicProvider(output, registriesFuture, BUILDERS.removeAll(modid), SparkweaveHelper.id("dynamic_registries/" + modid));
     }
 
