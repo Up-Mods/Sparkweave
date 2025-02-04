@@ -13,8 +13,7 @@
     "ext.crafting.SingleItemRecipeMixin",
     "ext.crafting.SmithingTransformRecipeMixin",
     "ext.datagen.AdvancementBuilderMixin",
-    "ext.datagen.RegistrySetBuilderMixin",
-    "ext.datagen.fabric.FabricModelProviderMixin"
+    "ext.datagen.RegistrySetBuilderMixin"
   ],
   "client": [
     "debug.MixinDeveloperSession",
