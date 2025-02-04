@@ -15,7 +15,7 @@ public abstract class SparkweaveModelProvider extends FabricModelProvider {
 		super(output);
 	}
 
-	public void copyModelNoItem(BlockModelGenerators gen, Block sourceBlock, Block targetBlock) {
+	protected void copyModelNoItem(BlockModelGenerators gen, Block sourceBlock, Block targetBlock) {
 		gen.blockStateOutput.accept(MultiVariantGenerator.multiVariant(targetBlock, Variant.variant().with(VariantProperties.MODEL, ModelLocationUtils.getModelLocation(sourceBlock))));
 	}
 }
