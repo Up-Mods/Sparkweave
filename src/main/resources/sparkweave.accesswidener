@@ -1,5 +1,8 @@
 accessWidener v2 named
 
+transitive-accessible method net/minecraft/resources/ResourceLocation isValidNamespace (Ljava/lang/String;)Z
+transitive-accessible method net/minecraft/resources/ResourceLocation isValidPath (Ljava/lang/String;)Z
+
 transitive-accessible method net/minecraft/world/item/SmithingTemplateItem createTrimmableArmorIconList ()Ljava/util/List;
 transitive-accessible method net/minecraft/world/item/SmithingTemplateItem createTrimmableMaterialIconList ()Ljava/util/List;
 transitive-accessible method net/minecraft/world/item/SmithingTemplateItem createNetheriteUpgradeIconList ()Ljava/util/List;
