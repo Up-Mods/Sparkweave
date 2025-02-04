@@ -51,6 +51,9 @@
       "net/minecraft/class_1874": [
         "dev/upcraft/sparkweave/api/util/ext/crafting/AbstractCookingRecipeExt"
       ],
+      "net/minecraft/class_4915": [
+        "dev/upcraft/sparkweave/api/util/ext/datagen/ItemModelGeneratorsExt"
+      ],
       "net/minecraft/class_7877": [
         "dev/upcraft/sparkweave/api/util/ext/datagen/RegistrySetBuilderExt"
       ],
