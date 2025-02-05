@@ -7,6 +7,7 @@
   "mixins": [
     "ArgumentTypeInfosAccessor",
     "CommandSourceStackAccessor",
+    "debug.FabricTranslationBuilderMixin",
     "ext.crafting.AbstractCookingRecipeMixin",
     "ext.crafting.ShapedRecipeMixin",
     "ext.crafting.ShapelessRecipeMixin",

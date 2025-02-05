@@ -12,6 +12,7 @@ import net.minecraft.tags.TagKey;
 import net.minecraft.world.damagesource.DamageType;
 import net.minecraft.world.damagesource.DeathMessageType;
 import net.minecraft.world.item.ItemStack;
+import net.minecraft.world.item.enchantment.Enchantment;
 import net.minecraft.world.level.biome.Biome;
 import org.jetbrains.annotations.Nullable;
 
@@ -51,6 +52,11 @@ public abstract class SparkweaveLanguageProvider extends FabricLanguageProvider 
 			translationBuilder.add(translationKey + ".player", Objects.requireNonNullElse(killedByTranslation, defaultTranslation));
 			translationBuilder.add(translationKey + ".item", Objects.requireNonNullElse(killedWithItemTranslation, defaultTranslation));
 		});
+	}
+
+	protected void enchantment(FabricLanguageProvider.TranslationBuilder translationBuilder, Supplier<? extends Enchantment> enchantment, String translation, String description) {
+		translationBuilder.add(enchantment.get().getDescriptionId(), translation);
+		translationBuilder.add(enchantment.get().getDescriptionId() + ".desc", description);
 	}
 
 	protected void itemStack(FabricLanguageProvider.TranslationBuilder translationBuilder, ItemStack stack, String translationValue) {
