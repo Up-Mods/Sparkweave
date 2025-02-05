@@ -25,6 +25,7 @@ public class AdvancementBuilderMixin {
 
 		if(!canBuild && this.parentId != null && !this.parentId.getNamespace().equals(advancementId.getNamespace())) {
 			SparkweaveLogging.getLogger().info("Unable to verify parent advancement {} for {}, forcing build to continue anyways.", this.parentId, advancementId);
+			return true;
 		}
 
 		return canBuild;
