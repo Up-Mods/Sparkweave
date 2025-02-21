@@ -51,14 +51,22 @@
       "curseforge": "911456",
       "modrinth": "nf68xfAw",
       "dependencies": [
-        "fabric-api(required)#{curseforge:306612}{modrinth:P7dR8mSH}"
+        "fabric-api(required){curseforge:306612}{modrinth:P7dR8mSH}"
       ],
       "loaders": [
         "fabric",
         "quilt"
       ]
-    }
-  },
+    },
+		"modmenu": {
+			"links": {
+				"modmenu.discord": "${discord_url}"
+			},
+			"badges": [
+				"library"
+			]
+		}
+	},
   "depends": {
     "fabricloader": ">=${fabric_loader_version}",
     "minecraft": "=${minecraft_version}",
