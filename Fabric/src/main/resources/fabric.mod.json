@@ -5,7 +5,28 @@
   "name": "${mod_display_name}",
   "description": "${mod_description}",
   "authors": [
-    "Up"
+    {
+      "name": "Up",
+      "contact": {
+        "homepage": "https://upcraft.dev",
+        "github": "https://github.com/UpcraftLP",
+        "bsky": "https://bsky.app/profile/did:plc:77uzn2lx2zhtdgr5zfvzumji",
+        "curseforge": "https://www.curseforge.com/members/upcraftlp/projects",
+        "modrinth": "https://modrinth.com/user/Up"
+      }
+    }
+  ],
+  "contributors": [
+    {
+      "name": "Cammie",
+      "contact": {
+        "homepage": "https://cammiescorner.dev",
+        "github": "https://github.com/CammiePone",
+        "bsky": "https://bsky.app/profile/did:plc:mrfyoh5nqmmuztcsmklcihfv",
+        "curseforge": "https://www.curseforge.com/members/cammie/projects",
+        "modrinth": "https://modrinth.com/user/Cammie"
+      }
+    }
   ],
   "contact": {
     "homepage": "${homepage_url}",

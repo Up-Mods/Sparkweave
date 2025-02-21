@@ -28,7 +28,7 @@ subprojects {
 			vendor = JvmVendorSpec.MICROSOFT
 		}
 		withSourcesJar()
-        withJavadocJar()
+		withJavadocJar()
 	}
 
 	javadoc {
@@ -95,10 +95,6 @@ subprojects {
 			}
 		}
 		maven {
-			name = "QuiltMC"
-			url = "https://maven.quiltmc.org/repository/release"
-		}
-		maven {
 			name = "FabricMC"
 			url = "https://maven.fabricmc.net"
 		}
@@ -161,25 +157,24 @@ subprojects {
 		filteringCharset "UTF-8"
 
 		def expandProps = [
-			"version"             : version,
-			"maven_group_id"      : maven_group_id,
-			"mod_id"              : mod_id,
-			"mod_display_name"    : mod_display_name,
-			"mod_description"     : mod_description,
-			"sources_url"         : sources_url,
-			"issues_url"          : issues_url,
-			"license_url"         : license_url,
-			"discord_url"         : discord_url,
-			"homepage_url"        : homepage_url,
+			"version"              : version,
+			"maven_group_id"       : maven_group_id,
+			"mod_id"               : mod_id,
+			"mod_display_name"     : mod_display_name,
+			"mod_description"      : mod_description,
+			"sources_url"          : sources_url,
+			"issues_url"           : issues_url,
+			"license_url"          : license_url,
+			"discord_url"          : discord_url,
+			"homepage_url"         : homepage_url,
 
-			"minecraft_version"   : libs.versions.minecraft.get(),
-			"neoforge_version"    : neoforge.versions.neoforge.get(),
+			"minecraft_version"    : libs.versions.minecraft.get(),
+			"neoforge_version"     : neoforge.versions.neoforge.get(),
 			"fabric_loader_version": fabric.versions.fabric.loader.get(),
-			"quilt_loader_version": fabric.versions.quilt.loader.get(),
-			"java_version": "${javaVersion}",
+			"java_version"         : "${javaVersion}",
 		]
 
-		filesMatching(['pack.mcmeta', '*.mod.json', 'META-INF/neoforge.mods.toml', '*.mixins.json']) {
+		filesMatching(['*.mod.json', 'META-INF/neoforge.mods.toml', '*.mixins.json']) {
 			expand expandProps
 		}
 		inputs.properties(expandProps)
@@ -189,22 +184,21 @@ subprojects {
 		filteringCharset "UTF-8"
 
 		def expandProps = [
-			"version"             : version,
-			"maven_group_id"      : maven_group_id,
-			"mod_id"              : mod_id,
-			"mod_display_name"    : mod_display_name,
-			"mod_description"     : mod_description,
-			"sources_url"         : sources_url,
-			"issues_url"          : issues_url,
-			"license_url"         : license_url,
-			"discord_url"         : discord_url,
-			"homepage_url"        : homepage_url,
+			"version"              : version,
+			"maven_group_id"       : maven_group_id,
+			"mod_id"               : mod_id,
+			"mod_display_name"     : mod_display_name,
+			"mod_description"      : mod_description,
+			"sources_url"          : sources_url,
+			"issues_url"           : issues_url,
+			"license_url"          : license_url,
+			"discord_url"          : discord_url,
+			"homepage_url"         : homepage_url,
 
-			"minecraft_version"   : libs.versions.minecraft.get(),
-			"neoforge_version"    : neoforge.versions.neoforge.get(),
+			"minecraft_version"    : libs.versions.minecraft.get(),
+			"neoforge_version"     : neoforge.versions.neoforge.get(),
 			"fabric_loader_version": fabric.versions.fabric.loader.get(),
-			"quilt_loader_version": fabric.versions.quilt.loader.get(),
-			"java_version": "${javaVersion}",
+			"java_version"         : "${javaVersion}",
 		]
 
 		filesMatching(['pack.mcmeta', '*.mod.json', 'META-INF/neoforge.mods.toml', '*.mixins.json']) {

@@ -37,8 +37,8 @@ public class ContextHelper {
         PACKAGE_CONTEXT_CACHE.put("org.quiltmc.qsl", "qsl"); // catch-all for QSL
 
         // fabric compatibility
-        PACKAGE_CONTEXT_CACHE.put("net.fabricmc", "quilt_loader");
-        PACKAGE_CONTEXT_CACHE.put("net.fabricmc.loader", "quilt_loader");
+        PACKAGE_CONTEXT_CACHE.put("net.fabricmc", "fabricloader");
+        PACKAGE_CONTEXT_CACHE.put("net.fabricmc.loader", "fabricloader");
         PACKAGE_CONTEXT_CACHE.put("net.fabricmc.fabric", "fabric");
 
 		// neoforge
