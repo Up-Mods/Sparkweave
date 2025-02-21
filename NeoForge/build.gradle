@@ -2,6 +2,9 @@ plugins {
 	alias libs.plugins.moddevgradle
 }
 
+// need this before dependencies because it configures the plugin and creates additionalRuntimeClasspath configuration
+neoForge.version = neoforge.versions.neoforge.get()
+
 configurations {
 	runtimeClasspath.extendsFrom localRuntime
 }
@@ -15,7 +18,7 @@ dependencies {
 //	implementation libs.resourcefulconfig.neoforge
 
 	implementation libs.appdirs
-	additionalRuntimeClasspath libs.appdirs.get()
+	additionalRuntimeClasspath libs.appdirs
 	jarJar(libs.appdirs) {
 		transitive = false
 	}
@@ -38,8 +41,6 @@ test {
 }
 
 neoForge {
-	version = neoforge.versions.neoforge.get()
-
 	parchment {
 		minecraftVersion = libs.versions.parchment.minecraft.get()
 		mappingsVersion = libs.versions.parchment.mappings.get()

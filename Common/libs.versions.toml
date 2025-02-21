@@ -2,26 +2,26 @@
 minecraft = "1.21.1"
 
 # The latest versions are available at https://parchmentmc.org/docs/getting-started
-parchment_minecraft = "1.21"
-parchment_mappings = "2024.11.10"
+parchment_minecraft = "1.21.1"
+parchment_mappings = "2024.11.17"
 
 # https://projects.neoforged.net/neoforged/moddevgradle
-moddevgradle = "2.0.52-beta"
+moddevgradle = "2.0.78"
 
 # https://projects.neoforged.net/neoforged/neoform
 neoform = "1.21.1-20240808.144430"
 
 # minecraft dependencies
-jetbrains_annotations = "26.0.1"
-mixin = "0.15.4+mixin.0.8.7"
+jetbrains_annotations = "26.0.2"
+mixin = "0.15.5+mixin.0.8.7"
 mixin_extras = "0.4.1"
-asm = "9.7"
+asm = "9.7.1"
 
 # other dependencies
 appdirs = "1.2.1"
 # https://beehive.sh
-resourcefulconfig = "3.0.4"
-emi = "1.1.17+1.21.1"
+resourcefulconfig = "3.0.9"
+emi = "1.1.19+1.21.1"
 
 # test dependencies
 junit = "5.11.3"

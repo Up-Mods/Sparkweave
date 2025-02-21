@@ -1,12 +1,12 @@
 [versions]
 # The latest versions are available at https://fabricmc.net/develop
-fabric_loom = "1.8-SNAPSHOT"
+fabric_loom = "1.10.1"
 
-fabric_loader = "0.16.9"
-fabric_api = "0.110.0+1.21.1"
+fabric_loader = "0.16.10"
+fabric_api = "0.115.1+1.21.1"
 
 # https://quiltmc.org/en/usage/latest-versions
-quilt_loader = "0.27.1-beta.1"
+quilt_loader = "0.28.0-beta.8"
 
 # https://modrinth.com/mod/modmenu/versions
 modmenu = "11.0.3"
