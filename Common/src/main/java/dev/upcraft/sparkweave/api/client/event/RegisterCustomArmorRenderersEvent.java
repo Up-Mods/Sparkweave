@@ -26,6 +26,7 @@ public final class RegisterCustomArmorRenderersEvent {
 	}
 
 	public static final Event<RegisterCustomArmorRenderersEvent.Callback> EVENT = Event.create(RegisterCustomArmorRenderersEvent.Callback.class, callbacks -> event -> {
+		ArmorRendererRegistry.prepare();
 		for (RegisterCustomArmorRenderersEvent.Callback callback : callbacks) {
 			callback.registerCustomArmorRenderers(event);
 		}

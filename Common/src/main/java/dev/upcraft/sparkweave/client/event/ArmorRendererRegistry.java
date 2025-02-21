@@ -62,4 +62,9 @@ public class ArmorRendererRegistry {
 			return Optional.ofNullable(factory.create(entity, ctx, (RenderLayerParent) renderer));
 		});
 	}
+
+	public static void prepare() {
+		FACTORIES.clear();
+		RENDERERS.clear();
+	}
 }
