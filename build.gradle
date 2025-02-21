@@ -8,7 +8,7 @@ def javaVersion = 21
 group = maven_group_id
 
 def ENV = System.getenv()
-def NOW = new Date();
+def NOW = new Date()
 def buildTime = ENV.BUILD_TIME ?: NOW.format('yy.MMdd.HHmm')
 
 boolean isPreviewBuild = !ENV.TAG || ENV.TAG.matches(".+-.+")

@@ -149,23 +149,23 @@ neoForge {
 sourceSets.main.resources { srcDir 'src/generated/resources' }
 
 tasks.named("compileJava", JavaCompile) {
-	source(project(":Common").sourceSets.main.allJava)
+	source project(":Common").sourceSets.main.allJava
 }
 
 tasks.named("compileTestJava", JavaCompile) {
-	source(project(":Common").sourceSets.test.allJava)
+	source project(":Common").sourceSets.test.allJava
 }
 
 tasks.named("compileTestmodJava", JavaCompile) {
-	source(project(":Common").sourceSets.testmod.allJava)
+	source project(":Common").sourceSets.testmod.allJava
 }
 
 tasks.named("javadoc", Javadoc) {
-	source(project(":Common").sourceSets.main.allJava)
+	source project(":Common").sourceSets.main.allSource
 }
 
 tasks.named("sourcesJar", Jar) {
-	from(project(":Common").sourceSets.main.allSource)
+	from project(":Common").sourceSets.main.allSource
 }
 
 processResources {

@@ -2,6 +2,8 @@ plugins {
 	alias libs.plugins.moddevgradle
 }
 
+neoForge.neoFormVersion = libs.versions.neoform.get()
+
 dependencies {
 	compileOnly libs.bundles.mixin
 	compileOnly libs.jetbrains.annotations
@@ -20,8 +22,6 @@ dependencies {
 }
 
 neoForge {
-	neoFormVersion = libs.versions.neoform.get()
-
 	parchment {
 		minecraftVersion = libs.versions.parchment.minecraft.get()
 		mappingsVersion = libs.versions.parchment.mappings.get()

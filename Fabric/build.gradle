@@ -65,7 +65,7 @@ loom {
 	accessWidenerPath.set(file("src/main/resources/${mod_id}.accesswidener"))
 
 	mixin {
-		defaultRefmapName.set("${mod_id}.refmap.json")
+		useLegacyMixinAp.set(false)
 	}
 
 	runs {
@@ -122,23 +122,23 @@ loom {
 }
 
 tasks.named("compileJava", JavaCompile) {
-	source(project(":Common").sourceSets.main.allJava)
+	source project(":Common").sourceSets.main.allJava
 }
 
 tasks.named("compileTestJava", JavaCompile) {
-	source(project(":Common").sourceSets.test.allJava)
+	source project(":Common").sourceSets.test.allJava
 }
 
 tasks.named("compileTestmodJava", JavaCompile).configure {
-	source(project(":Common").sourceSets.testmod.allJava)
+	source project(":Common").sourceSets.testmod.allJava
 }
 
 tasks.named("javadoc", Javadoc).configure {
-	source(project(":Common").sourceSets.main.allJava)
+	source project(":Common").sourceSets.main.allSource
 }
 
 tasks.named("sourcesJar", Jar) {
-	from(project(":Common").sourceSets.main.allSource)
+	from project(":Common").sourceSets.main.allSource
 }
 
 processResources {
