@@ -161,7 +161,7 @@ tasks.named("compileTestmodJava", JavaCompile) {
 }
 
 tasks.named("javadoc", Javadoc) {
-	source project(":Common").sourceSets.main.allSource
+	source project(":Common").sourceSets.main.allJava
 }
 
 tasks.named("sourcesJar", Jar) {
