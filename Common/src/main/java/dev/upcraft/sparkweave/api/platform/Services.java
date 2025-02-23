@@ -12,7 +12,7 @@ public class Services {
 
 	public static <T> T getService(Class<T> serviceClass) {
 		T service = ServiceLoader.load(serviceClass).findFirst().orElseThrow(() -> new IllegalStateException("No platform implementation found for " + serviceClass.getCanonicalName()));
-		logger.debug("Loaded {} for service {}", () -> service.getClass().getName(), serviceClass::getName);
+		logger.debug("Loaded {} for service {}", service.getClass().getName(), serviceClass.getName());
 		return service;
 	}
 
