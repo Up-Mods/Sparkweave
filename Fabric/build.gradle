@@ -27,9 +27,9 @@ dependencies {
 	modCompileOnly(variantOf(libs.emi.fabric) { classifier 'api' }) {
 		transitive = false
 	}
-//	modLocalRuntime (libs.emi.fabric) {
-//		transitive = false
-//	}
+	modLocalRuntime (libs.emi.fabric) {
+		transitive = false
+	}
 
 	modCompileOnly (fabric.modmenu) {
 		transitive = false
@@ -70,13 +70,13 @@ loom {
 
 	runs {
 		configureEach {
+			ideConfigGenerated(true)
 			it.property('sparkweave.debug', 'true')
 		}
 
 		client {
 			client()
 			setConfigName("Fabric Client")
-			ideConfigGenerated(true)
 			runDir("run")
 
 			if (project.hasProperty('mc_uuid')) {
@@ -95,7 +95,6 @@ loom {
 		testmodClient {
 			client()
 			setConfigName("Fabric Testmod Client")
-			ideConfigGenerated(true)
 			runDir("run/testmod")
 			source(sourceSets.testmod)
 
@@ -115,11 +114,27 @@ loom {
 		server {
 			server()
 			setConfigName("Fabric Server")
-			ideConfigGenerated(true)
 			runDir("run/server")
+		}
+
+		datagen {
+			client()
+			setConfigName("Fabric Data Generation")
+
+			source(sourceSets.testmod)
+
+			property("fabric-api.datagen")
+			property("fabric-api.datagen.strict-validation", "true") // '--all' sets '--validate' to true as well
+			property("fabric-api.datagen.output-dir", file("src/testmod/generated").absolutePath)
+			property("sparkweave.datagen.mods", "${mod_id}, ${mod_id}_testmod")
+			runDir("build/datagen")
 		}
 	}
 }
+
+tasks.ideaSyncTask.doLast { project.layout.buildDirectory.dir("datagen").get().asFile.mkdirs() }
+tasks.runDatagen.doFirst { project.layout.buildDirectory.dir("datagen").get().asFile.mkdirs() }
+sourceSets.testmod.resources { srcDir "src/testmod/generated" }
 
 tasks.named("compileJava", JavaCompile) {
 	source project(":Common").sourceSets.main.allJava

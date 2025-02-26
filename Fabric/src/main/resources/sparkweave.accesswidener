@@ -1,10 +1,15 @@
-accessWidener v1 named
+accessWidener v2 named
 
 # RegisterParticleFactoriesEvent
-accessible class net/minecraft/client/particle/ParticleEngine$SpriteParticleRegistration
+transitive-accessible class net/minecraft/client/particle/ParticleEngine$SpriteParticleRegistration
 
 # Fabric registry hacks
 accessible method net/minecraft/core/Holder$Reference bindValue (Ljava/lang/Object;)V
 accessible field net/minecraft/core/Holder$Reference type Lnet/minecraft/core/Holder$Reference$Type;
 accessible class net/minecraft/core/Holder$Reference$Type
 accessible field net/minecraft/core/Holder$Reference value Ljava/lang/Object;
+
+# Datageneration
+transitive-accessible class net/minecraft/core/RegistrySetBuilder$RegistryStub
+transitive-accessible method net/minecraft/data/worldgen/biome/OverworldBiomes biome (ZFFIILjava/lang/Integer;Ljava/lang/Integer;Lnet/minecraft/world/level/biome/MobSpawnSettings$Builder;Lnet/minecraft/world/level/biome/BiomeGenerationSettings$Builder;Lnet/minecraft/sounds/Music;)Lnet/minecraft/world/level/biome/Biome;
+transitive-accessible method net/minecraft/data/worldgen/biome/OverworldBiomes biome (ZFFLnet/minecraft/world/level/biome/MobSpawnSettings$Builder;Lnet/minecraft/world/level/biome/BiomeGenerationSettings$Builder;Lnet/minecraft/sounds/Music;)Lnet/minecraft/world/level/biome/Biome;

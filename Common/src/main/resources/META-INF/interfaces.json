@@ -1,0 +1,5 @@
+{
+  "net/minecraft/core/RegistrySetBuilder": [
+    "dev/upcraft/sparkweave/api/ext/datagen/RegistrySetBuilderExt"
+  ]
+}

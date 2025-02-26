@@ -9,7 +9,9 @@
     "ArgumentTypeInfosAccessor",
     "EntityMixin",
     "MappedRegistryMixin",
-    "ServerLevelMixin"
+    "ServerLevelMixin",
+    "datagen.PackGeneratorAccessor",
+    "datagen.RegistrySetBuilderMixin"
   ],
   "client": [
     "client.ClientLevelMixin",

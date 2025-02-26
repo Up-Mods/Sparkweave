@@ -1,0 +1,7 @@
+{
+  "biome.sparkweave_testmod.test_biome": "Test Biome",
+  "enchantment.sparkweave_testmod.test_enchantment": "Test Enchantment",
+  "enchantment.sparkweave_testmod.test_enchantment.desc": "Debug Enchantment to test Sparkweave Data generation APIs",
+  "item.sparkweave_testmod.test_item": "Test Item",
+  "itemGroup.sparkweave_testmod.items": "TestMod Items"
+}

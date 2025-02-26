@@ -1,0 +1,23 @@
+{
+  "anvil_cost": 3,
+  "description": {
+    "translate": "enchantment.sparkweave_testmod.test_enchantment"
+  },
+  "effects": {
+    "minecraft:prevent_equipment_drop": {}
+  },
+  "max_cost": {
+    "base": 12,
+    "per_level_above_first": 11
+  },
+  "max_level": 4,
+  "min_cost": {
+    "base": 1,
+    "per_level_above_first": 11
+  },
+  "slots": [
+    "hand"
+  ],
+  "supported_items": "#minecraft:enchantable/equippable",
+  "weight": 10
+}

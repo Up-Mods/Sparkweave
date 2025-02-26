@@ -34,6 +34,12 @@ neoForge {
 	}
 	validateAccessTransformers.set(true)
 
+	interfaceInjectionData {
+		def interfacesFile = file("src/main/resources/META-INF/interfaces.json")
+		from(interfacesFile)
+		publish interfacesFile
+	}
+
 	addModdingDependenciesTo sourceSets.test
 }
 

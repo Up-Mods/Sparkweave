@@ -36,15 +36,10 @@
   "license": "${license_url}",
   "icon": "icon.png",
   "entrypoints": {
-    "main": [
-      "dev.upcraft.sparkweave.fabric.entrypoint.Main"
-    ],
-    "client": [
-      "dev.upcraft.sparkweave.fabric.entrypoint.Client"
-    ],
-    "server": [
-      "dev.upcraft.sparkweave.fabric.entrypoint.DedicatedServer"
-    ]
+    "main": ["dev.upcraft.sparkweave.fabric.entrypoint.Main"],
+    "client": ["dev.upcraft.sparkweave.fabric.entrypoint.Client"],
+    "server": ["dev.upcraft.sparkweave.fabric.entrypoint.DedicatedServer"],
+		"fabric-datagen": ["dev.upcraft.sparkweave.fabric.entrypoint.DataGenerator"]
   },
   "custom": {
     "mc-publish": {
@@ -64,6 +59,11 @@
 			},
 			"badges": [
 				"library"
+			]
+		},
+		"loom:injected_interfaces": {
+			"net/minecraft/class_7877": [
+				"dev/upcraft/sparkweave/api/ext/datagen/RegistrySetBuilderExt"
 			]
 		}
 	},

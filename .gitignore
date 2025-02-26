@@ -6,6 +6,8 @@ classes/
 
 # Misc
 run/
+Fabric/src/testmod/generated/.cache/**
+NeoForge/src/testmod/generated/.cache/**
 
 # Eclipse
 *.launch

@@ -11,6 +11,8 @@ configurations {
 
 dependencies {
 	compileOnly project(":Common")
+	interfaceInjectionData project(":Common")
+	accessTransformers project(":Common")
 
 	testmodImplementation sourceSets.main.output
 	testmodCompileOnly project(path: ":Common", configuration: "testmod")
@@ -44,13 +46,6 @@ neoForge {
 		mappingsVersion = libs.versions.parchment.mappings.get()
 	}
 
-	accessTransformers {
-		def atFile = project(":Common").file("src/main/resources/META-INF/accesstransformer.cfg")
-		from atFile
-		publish atFile
-	}
-	validateAccessTransformers.set(true)
-
 	mods {
 		// define mod <-> source bindings
 		// these are used to tell the game which sources are for which mod
@@ -79,27 +74,20 @@ neoForge {
 			logLevel = org.slf4j.event.Level.DEBUG
 			systemProperty 'forge.logging.markers', 'REGISTRIES'
 			systemProperty 'sparkweave.debug', 'true'
+
+			if (project.hasProperty('mc_java_agent_path')) {
+				jvmArgument("-javaagent:${project.findProperty('mc_java_agent_path')}")
+			}
 		}
 
 		client {
 			client()
+			devLogin = true
 			gameDirectory = project.file('run')
 			systemProperty 'neoforge.enabledGameTestNamespaces', project.mod_id
 
 			sourceSet = sourceSets.main
 			loadedMods.set([mods."${mod_id}"])
-
-			if (project.hasProperty('mc_uuid')) {
-				programArguments.add("--uuid=${project.findProperty('mc_uuid')}")
-			}
-
-			if (project.hasProperty('mc_username')) {
-				programArguments.add("--username=${project.findProperty('mc_username')}")
-			}
-
-			if (project.hasProperty('mc_java_agent_path')) {
-				jvmArgument("-javaagent:${project.findProperty('mc_java_agent_path')}")
-			}
 		}
 
 		server {
@@ -115,38 +103,26 @@ neoForge {
 
 		testmodClient {
 			client()
+			devLogin = true
 			gameDirectory = project.file('run/testmod')
 			systemProperty 'neoforge.enabledGameTestNamespaces', "${project.mod_id}_testmod"
 
 			sourceSet = sourceSets.testmod
 			loadedMods.set([mods."${mod_id}", mods."${mod_id}_testmod"])
-
-			if (project.hasProperty('mc_uuid')) {
-				programArguments.add("--uuid=${project.findProperty('mc_uuid')}")
-			}
-
-			if (project.hasProperty('mc_username')) {
-				programArguments.add("--username=${project.findProperty('mc_username')}")
-			}
-
-			if (project.hasProperty('mc_java_agent_path')) {
-				jvmArgument("-javaagent:${project.findProperty('mc_java_agent_path')}")
-			}
 		}
 
 		data {
 			data()
 			gameDirectory = project.file('run')
-			// this must be strings ONLY, or neogradle will not generate run configs at all!
-			programArguments.addAll('--mod', project.mod_id, '--all', '--output', file('src/generated/resources/').absolutePath, '--existing', file('src/main/resources/').absolutePath)
+			programArguments.addAll('--mod', "${mod_id}", '--mod', "${mod_id}_testmod", '--all', '--flat', '--output', file('src/testmod/generated').absolutePath, '--existing', file('src/testmod/resources').absolutePath)
 
 			sourceSet = sourceSets.testmod
-			loadedMods.set([mods."${mod_id}"])
+			loadedMods.set([mods."${mod_id}", mods."${mod_id}_testmod"])
 		}
 	}
 }
 
-sourceSets.main.resources { srcDir 'src/generated/resources' }
+sourceSets.testmod.resources { srcDir "src/testmod/generated" }
 
 tasks.named("compileJava", JavaCompile) {
 	source project(":Common").sourceSets.main.allJava
