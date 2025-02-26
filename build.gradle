@@ -201,7 +201,7 @@ subprojects {
 			"java_version"         : "${javaVersion}",
 		]
 
-		filesMatching(['pack.mcmeta', '*.mod.json', 'META-INF/neoforge.mods.toml', '*.mixins.json']) {
+		filesMatching(['*.mod.json', 'META-INF/neoforge.mods.toml', '*.mixins.json']) {
 			expand expandProps
 		}
 		inputs.properties(expandProps)
