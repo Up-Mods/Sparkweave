@@ -1,6 +1,6 @@
 package dev.upcraft.sparkweave.fabric.impl.datagen;
 
-import dev.upcraft.sparkweave.api.datagen.provider.DynamicRegistryEntryProvider;
+import dev.upcraft.sparkweave.api.datagen.provider.SparkweaveDynamicRegistryEntryProvider;
 import dev.upcraft.sparkweave.api.platform.ModContainer;
 import net.fabricmc.fabric.api.datagen.v1.FabricDataOutput;
 import net.fabricmc.fabric.api.datagen.v1.provider.FabricDynamicRegistryProvider;
@@ -17,10 +17,10 @@ public class FabricBuiltinEntriesProvider extends FabricDynamicRegistryProvider 
 
 	private final CompletableFuture<HolderLookup.Provider> registriesFuture;
 	private final Set<String> modIds;
-	private final Map<ModContainer, List<DynamicRegistryEntryProvider>> providers;
+	private final Map<ModContainer, List<SparkweaveDynamicRegistryEntryProvider>> providers;
 	private final RegistrySetBuilder registrySetBuilder;
 
-	public FabricBuiltinEntriesProvider(FabricDataOutput output, CompletableFuture<HolderLookup.Provider> registriesFuture, RegistrySetBuilder registrySetBuilder, Set<String> modIds, Map<ModContainer, List<DynamicRegistryEntryProvider>> providers) {
+	public FabricBuiltinEntriesProvider(FabricDataOutput output, CompletableFuture<HolderLookup.Provider> registriesFuture, RegistrySetBuilder registrySetBuilder, Set<String> modIds, Map<ModContainer, List<SparkweaveDynamicRegistryEntryProvider>> providers) {
 		super(output, registriesFuture);
 		this.registriesFuture = registriesFuture;
 		this.registrySetBuilder = registrySetBuilder;

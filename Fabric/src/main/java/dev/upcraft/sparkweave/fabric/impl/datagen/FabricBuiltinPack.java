@@ -3,8 +3,8 @@ package dev.upcraft.sparkweave.fabric.impl.datagen;
 import dev.upcraft.sparkweave.api.datagen.ContextAwarePackOutput;
 import dev.upcraft.sparkweave.api.datagen.DataGenerationContext;
 import dev.upcraft.sparkweave.api.datagen.Pack;
-import dev.upcraft.sparkweave.api.datagen.provider.DynamicRegistryEntryProvider;
-import dev.upcraft.sparkweave.api.datagen.provider.LanguageProvider;
+import dev.upcraft.sparkweave.api.datagen.provider.SparkweaveDynamicRegistryEntryProvider;
+import dev.upcraft.sparkweave.api.datagen.provider.SparkweaveLanguageProvider;
 import dev.upcraft.sparkweave.fabric.mixin.datagen.PackGeneratorAccessor;
 import net.fabricmc.fabric.api.datagen.v1.FabricDataGenerator;
 import net.fabricmc.fabric.api.datagen.v1.FabricDataOutput;
@@ -21,11 +21,11 @@ public class FabricBuiltinPack implements Pack {
 	private final FabricDataGenerationContext context;
 	private final FabricDataGenerator.Pack pack;
 	private final CompletableFuture<HolderLookup.Provider> registriesFuture;
-	private final List<DynamicRegistryEntryProvider> dynamicProviders;
+	private final List<SparkweaveDynamicRegistryEntryProvider> dynamicProviders;
 	private final ContextAwarePackOutput output;
 	private boolean hasTranslations;
 
-	public FabricBuiltinPack(FabricDataGenerationContext context, FabricDataGenerator.Pack pack, CompletableFuture<HolderLookup.Provider> registriesFuture, List<DynamicRegistryEntryProvider> dynamicProviders) {
+	public FabricBuiltinPack(FabricDataGenerationContext context, FabricDataGenerator.Pack pack, CompletableFuture<HolderLookup.Provider> registriesFuture, List<SparkweaveDynamicRegistryEntryProvider> dynamicProviders) {
 		this.context = context;
 		this.pack = pack;
 		this.registriesFuture = registriesFuture;
@@ -41,7 +41,7 @@ public class FabricBuiltinPack implements Pack {
 			pack.addProvider((FabricDataOutput fabricOutput) -> provider);
 		}
 
-		if(!hasTranslations && provider instanceof LanguageProvider languageProvider && languageProvider.isDefaultLanguage()) {
+		if(!hasTranslations && provider instanceof SparkweaveLanguageProvider languageProvider && languageProvider.isDefaultLanguage()) {
 			dynamicProviders.forEach(it -> it.appendTranslations(languageProvider::addExtra));
 			hasTranslations = true;
 		}
@@ -57,7 +57,7 @@ public class FabricBuiltinPack implements Pack {
 			pack.addProvider((fabricOutput, registriesFuture1) -> provider);
 		}
 
-		if(!hasTranslations && provider instanceof LanguageProvider languageProvider && languageProvider.isDefaultLanguage()) {
+		if(!hasTranslations && provider instanceof SparkweaveLanguageProvider languageProvider && languageProvider.isDefaultLanguage()) {
 			dynamicProviders.forEach(it -> it.appendTranslations(languageProvider::addExtra));
 			hasTranslations = true;
 		}

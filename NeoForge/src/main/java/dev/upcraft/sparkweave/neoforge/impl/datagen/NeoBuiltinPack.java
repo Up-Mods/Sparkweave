@@ -3,8 +3,8 @@ package dev.upcraft.sparkweave.neoforge.impl.datagen;
 import dev.upcraft.sparkweave.api.datagen.ContextAwarePackOutput;
 import dev.upcraft.sparkweave.api.datagen.DataGenerationContext;
 import dev.upcraft.sparkweave.api.datagen.Pack;
-import dev.upcraft.sparkweave.api.datagen.provider.DynamicRegistryEntryProvider;
-import dev.upcraft.sparkweave.api.datagen.provider.LanguageProvider;
+import dev.upcraft.sparkweave.api.datagen.provider.SparkweaveDynamicRegistryEntryProvider;
+import dev.upcraft.sparkweave.api.datagen.provider.SparkweaveLanguageProvider;
 import net.minecraft.core.HolderLookup;
 import net.minecraft.data.DataGenerator;
 import net.minecraft.data.DataProvider;
@@ -19,11 +19,11 @@ public class NeoBuiltinPack implements Pack {
 	private final NeoDataGenerationContext context;
 	private final DataGenerator rootGenerator;
 	private final CompletableFuture<HolderLookup.Provider> registriesFuture;
-	private final List<DynamicRegistryEntryProvider> dynamicProviders;
+	private final List<SparkweaveDynamicRegistryEntryProvider> dynamicProviders;
 	private final ContextAwarePackOutput output;
 	private boolean hasTranslations;
 
-	public NeoBuiltinPack(NeoDataGenerationContext context, DataGenerator rootGenerator, CompletableFuture<HolderLookup.Provider> registriesFuture, List<DynamicRegistryEntryProvider> dynamicProviders) {
+	public NeoBuiltinPack(NeoDataGenerationContext context, DataGenerator rootGenerator, CompletableFuture<HolderLookup.Provider> registriesFuture, List<SparkweaveDynamicRegistryEntryProvider> dynamicProviders) {
 		this.context = context;
 		this.rootGenerator = rootGenerator;
 		this.registriesFuture = registriesFuture;
@@ -35,7 +35,7 @@ public class NeoBuiltinPack implements Pack {
 	public <T extends DataProvider> T addProvider(Predicate<DataGenerationContext> enabled, Function<ContextAwarePackOutput, T> factory) {
 		T provider = rootGenerator.addProvider(enabled.test(context), factory.apply(output));
 
-		if(!hasTranslations && provider instanceof LanguageProvider languageProvider && languageProvider.isDefaultLanguage()) {
+		if(!hasTranslations && provider instanceof SparkweaveLanguageProvider languageProvider && languageProvider.isDefaultLanguage()) {
 			dynamicProviders.forEach(it -> it.appendTranslations(languageProvider::addExtra));
 			hasTranslations = true;
 		}
@@ -47,7 +47,7 @@ public class NeoBuiltinPack implements Pack {
 	public <T extends DataProvider> T addProvider(Predicate<DataGenerationContext> enabled, RegistryDependentFactory<T> factory) {
 		T provider = rootGenerator.addProvider(enabled.test(context), factory.create(output, registriesFuture));
 
-		if(!hasTranslations && provider instanceof LanguageProvider languageProvider && languageProvider.isDefaultLanguage()) {
+		if(!hasTranslations && provider instanceof SparkweaveLanguageProvider languageProvider && languageProvider.isDefaultLanguage()) {
 			dynamicProviders.forEach(it -> it.appendTranslations(languageProvider::addExtra));
 			hasTranslations = true;
 		}

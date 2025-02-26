@@ -1,7 +1,7 @@
 package dev.upcraft.sparkweave.datagen;
 
 import dev.upcraft.sparkweave.api.datagen.DynamicRegistryBuilder;
-import dev.upcraft.sparkweave.api.datagen.provider.DynamicRegistryEntryProvider;
+import dev.upcraft.sparkweave.api.datagen.provider.SparkweaveDynamicRegistryEntryProvider;
 import dev.upcraft.sparkweave.api.logging.SparkweaveLoggerFactory;
 import dev.upcraft.sparkweave.api.platform.ModContainer;
 import net.minecraft.core.RegistrySetBuilder;
@@ -16,7 +16,7 @@ public class DynamicRegistryBuilderImpl implements DynamicRegistryBuilder {
 
 	private static final Logger LOGGER = SparkweaveLoggerFactory.getLogger();
 
-	private final List<DynamicRegistryEntryProvider> providers = new ArrayList<>();
+	private final List<SparkweaveDynamicRegistryEntryProvider> providers = new ArrayList<>();
 	private final ModContainer modContainer;
 	private final RegistrySetBuilder registrySetBuilder;
 
@@ -26,7 +26,7 @@ public class DynamicRegistryBuilderImpl implements DynamicRegistryBuilder {
 	}
 
 	@Override
-	public DynamicRegistryBuilder add(Supplier<DynamicRegistryEntryProvider> factory) {
+	public DynamicRegistryBuilder add(Supplier<SparkweaveDynamicRegistryEntryProvider> factory) {
 		var provider = factory.get();
 		LOGGER.info("Collecting entries: {}/{}", modContainer.metadata().displayName(), provider.getName());
 		provider.generate(registrySetBuilder);
@@ -34,7 +34,7 @@ public class DynamicRegistryBuilderImpl implements DynamicRegistryBuilder {
 		return this;
 	}
 
-	public List<DynamicRegistryEntryProvider> getProviders() {
+	public List<SparkweaveDynamicRegistryEntryProvider> getProviders() {
 		return Collections.unmodifiableList(providers);
 	}
 }

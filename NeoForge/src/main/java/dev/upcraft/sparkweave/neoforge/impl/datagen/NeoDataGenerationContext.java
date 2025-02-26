@@ -1,7 +1,7 @@
 package dev.upcraft.sparkweave.neoforge.impl.datagen;
 
 import dev.upcraft.sparkweave.api.datagen.DataGenerationContext;
-import dev.upcraft.sparkweave.api.datagen.provider.DynamicRegistryEntryProvider;
+import dev.upcraft.sparkweave.api.datagen.provider.SparkweaveDynamicRegistryEntryProvider;
 import dev.upcraft.sparkweave.api.datagen.Pack;
 import dev.upcraft.sparkweave.api.platform.ModContainer;
 import net.minecraft.core.HolderLookup;
@@ -17,7 +17,7 @@ public class NeoDataGenerationContext implements DataGenerationContext {
 	private final GatherDataEvent event;
 	private final NeoBuiltinPack builtinPack;
 
-	public NeoDataGenerationContext(ModContainer modContainer, DataGenerator rootGenerator, CompletableFuture<HolderLookup.Provider> registriesFuture, GatherDataEvent event, List<DynamicRegistryEntryProvider> dynamicProviders) {
+	public NeoDataGenerationContext(ModContainer modContainer, DataGenerator rootGenerator, CompletableFuture<HolderLookup.Provider> registriesFuture, GatherDataEvent event, List<SparkweaveDynamicRegistryEntryProvider> dynamicProviders) {
 		this.modContainer = modContainer;
 		this.event = event;
 		this.builtinPack = new NeoBuiltinPack(this, rootGenerator, registriesFuture, dynamicProviders);

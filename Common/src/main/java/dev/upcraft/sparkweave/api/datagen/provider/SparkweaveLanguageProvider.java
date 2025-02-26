@@ -17,7 +17,7 @@ import java.util.TreeMap;
 import java.util.concurrent.CompletableFuture;
 import java.util.regex.Pattern;
 
-public abstract class LanguageProvider implements DataProvider {
+public abstract class SparkweaveLanguageProvider implements DataProvider {
 
 	private final Map<String, String> extraTranslations = Collections.synchronizedMap(new TreeMap<>());
 	private static final Pattern LANGUAGE_FILE_PATTERN = Pattern.compile("^[a-z][a-z0-9]+_[a-z0-9]{2,}$");
@@ -26,7 +26,7 @@ public abstract class LanguageProvider implements DataProvider {
 	private final String languageCode;
 	private final ContextAwarePackOutput output;
 
-	public LanguageProvider(ContextAwarePackOutput output, CompletableFuture<HolderLookup.Provider> registriesFuture, String languageCode) {
+	public SparkweaveLanguageProvider(ContextAwarePackOutput output, CompletableFuture<HolderLookup.Provider> registriesFuture, String languageCode) {
 		Preconditions.checkArgument(LANGUAGE_FILE_PATTERN.asMatchPredicate().test(languageCode), "Invalid language code: %s", languageCode);
 		this.output = output;
 		this.registriesFuture = registriesFuture;

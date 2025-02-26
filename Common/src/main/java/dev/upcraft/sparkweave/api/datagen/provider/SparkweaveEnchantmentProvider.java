@@ -13,7 +13,7 @@ import net.minecraft.world.item.Item;
 import net.minecraft.world.item.enchantment.Enchantment;
 import net.minecraft.world.level.block.Block;
 
-public abstract class EnchantmentProvider extends DynamicRegistryEntryProvider {
+public abstract class SparkweaveEnchantmentProvider extends SparkweaveDynamicRegistryEntryProvider {
 	@Override
 	public final void generate(RegistrySetBuilder builder) {
 		builder.add(Registries.ENCHANTMENT, bootstrapContext -> {
@@ -21,18 +21,18 @@ public abstract class EnchantmentProvider extends DynamicRegistryEntryProvider {
 			var enchantments = bootstrapContext.lookup(Registries.ENCHANTMENT);
 			var items = bootstrapContext.lookup(Registries.ITEM);
 			var blocks = bootstrapContext.lookup(Registries.BLOCK);
-			generateEnchantments(new EnchantmentProvider.Context(bootstrapContext), damageTypes, enchantments, items, blocks);
+			generateEnchantments(new SparkweaveEnchantmentProvider.Context(bootstrapContext), damageTypes, enchantments, items, blocks);
 		});
 	}
 
-	protected abstract void generateEnchantments(EnchantmentProvider.Context ctx, HolderGetter<DamageType> damageTypes, HolderGetter<Enchantment> enchantments, HolderGetter<Item> items, HolderGetter<Block> blocks);
+	protected abstract void generateEnchantments(SparkweaveEnchantmentProvider.Context ctx, HolderGetter<DamageType> damageTypes, HolderGetter<Enchantment> enchantments, HolderGetter<Item> items, HolderGetter<Block> blocks);
 
 	@Override
 	public String getName() {
 		return "Enchantments";
 	}
 
-	public class Context extends DynamicRegistryEntryProvider.Context<Enchantment> {
+	public class Context extends SparkweaveDynamicRegistryEntryProvider.Context<Enchantment> {
 
 		protected Context(BootstrapContext<Enchantment> bootstrapContext) {
 			super(bootstrapContext);

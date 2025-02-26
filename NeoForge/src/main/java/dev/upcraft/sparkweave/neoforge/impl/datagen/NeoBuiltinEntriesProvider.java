@@ -1,6 +1,6 @@
 package dev.upcraft.sparkweave.neoforge.impl.datagen;
 
-import dev.upcraft.sparkweave.api.datagen.provider.DynamicRegistryEntryProvider;
+import dev.upcraft.sparkweave.api.datagen.provider.SparkweaveDynamicRegistryEntryProvider;
 import dev.upcraft.sparkweave.api.platform.ModContainer;
 import net.minecraft.core.HolderLookup;
 import net.minecraft.core.RegistrySetBuilder;
@@ -17,9 +17,9 @@ public class NeoBuiltinEntriesProvider extends DatapackBuiltinEntriesProvider {
 
 	private final CompletableFuture<HolderLookup.Provider> registriesFuture;
 	private final Set<String> modIds;
-	private final Map<ModContainer, List<DynamicRegistryEntryProvider>> providers;
+	private final Map<ModContainer, List<SparkweaveDynamicRegistryEntryProvider>> providers;
 
-	public NeoBuiltinEntriesProvider(PackOutput output, CompletableFuture<HolderLookup.Provider> registriesFuture, RegistrySetBuilder registrySetBuilder, Set<String> modIds, Map<ModContainer, List<DynamicRegistryEntryProvider>> providers) {
+	public NeoBuiltinEntriesProvider(PackOutput output, CompletableFuture<HolderLookup.Provider> registriesFuture, RegistrySetBuilder registrySetBuilder, Set<String> modIds, Map<ModContainer, List<SparkweaveDynamicRegistryEntryProvider>> providers) {
 		super(output, registriesFuture, registrySetBuilder, modIds);
 		this.registriesFuture = registriesFuture;
 		this.modIds = modIds;

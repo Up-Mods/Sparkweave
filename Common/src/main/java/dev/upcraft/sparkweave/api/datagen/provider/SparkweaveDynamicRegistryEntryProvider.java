@@ -15,7 +15,7 @@ import java.util.TreeMap;
 import java.util.concurrent.CompletableFuture;
 import java.util.function.BiConsumer;
 
-public abstract class DynamicRegistryEntryProvider {
+public abstract class SparkweaveDynamicRegistryEntryProvider {
 
 	private final Map<String, String> storedTranslations = new TreeMap<>();
 	protected final Logger LOGGER = SparkweaveLoggerFactory.getLogger();

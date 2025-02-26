@@ -1,7 +1,7 @@
 package dev.upcraft.sparkweave.fabric.impl.datagen;
 
 import dev.upcraft.sparkweave.api.datagen.DataGenerationContext;
-import dev.upcraft.sparkweave.api.datagen.provider.DynamicRegistryEntryProvider;
+import dev.upcraft.sparkweave.api.datagen.provider.SparkweaveDynamicRegistryEntryProvider;
 import dev.upcraft.sparkweave.api.datagen.Pack;
 import dev.upcraft.sparkweave.api.SparkweaveApi;
 import dev.upcraft.sparkweave.api.platform.ModContainer;
@@ -17,7 +17,7 @@ public class FabricDataGenerationContext implements DataGenerationContext {
 	private final FabricBuiltinPack builtinPack;
 	private final boolean validate;
 
-	public FabricDataGenerationContext(ModContainer modContainer, boolean validate, FabricDataGenerator.Pack fabricPack, CompletableFuture<HolderLookup.Provider> registriesFuture, List<DynamicRegistryEntryProvider> dynamicProviders) {
+	public FabricDataGenerationContext(ModContainer modContainer, boolean validate, FabricDataGenerator.Pack fabricPack, CompletableFuture<HolderLookup.Provider> registriesFuture, List<SparkweaveDynamicRegistryEntryProvider> dynamicProviders) {
 		this.modContainer = modContainer;
 		this.validate = validate;
 		this.builtinPack = new FabricBuiltinPack(this, fabricPack, registriesFuture, dynamicProviders);

@@ -3,7 +3,7 @@ package dev.upcraft.sparkweave.neoforge.entrypoint;
 import dev.upcraft.sparkweave.SparkweaveMod;
 import dev.upcraft.sparkweave.api.datagen.DataGenerationContext;
 import dev.upcraft.sparkweave.datagen.DynamicRegistryBuilderImpl;
-import dev.upcraft.sparkweave.api.datagen.provider.DynamicRegistryEntryProvider;
+import dev.upcraft.sparkweave.api.datagen.provider.SparkweaveDynamicRegistryEntryProvider;
 import dev.upcraft.sparkweave.api.entrypoint.DataGenerationEntryPoint;
 import dev.upcraft.sparkweave.api.logging.SparkweaveLoggerFactory;
 import dev.upcraft.sparkweave.api.platform.ModContainer;
@@ -46,7 +46,7 @@ public class DataGenerator {
 		});
 
 		var registrySetBuilder = new RegistrySetBuilder();
-		Map<ModContainer, List<DynamicRegistryEntryProvider>> dynamicProviders = Collections.synchronizedMap(new LinkedHashMap<>());
+		Map<ModContainer, List<SparkweaveDynamicRegistryEntryProvider>> dynamicProviders = Collections.synchronizedMap(new LinkedHashMap<>());
 
 		// first gather ALL the dynamic entries
 		EntrypointHelper.fireEntrypoints(DataGenerationEntryPoint.class, (dataGenerator, contextModContainer) -> {

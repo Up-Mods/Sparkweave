@@ -1,6 +1,6 @@
 package dev.upcraft.sparkweave.testmod.datagen.common;
 
-import dev.upcraft.sparkweave.api.datagen.provider.EnchantmentProvider;
+import dev.upcraft.sparkweave.api.datagen.provider.SparkweaveEnchantmentProvider;
 import dev.upcraft.sparkweave.testmod.data.TestmodEnchantments;
 import net.minecraft.core.HolderGetter;
 import net.minecraft.tags.ItemTags;
@@ -11,7 +11,7 @@ import net.minecraft.world.item.enchantment.Enchantment;
 import net.minecraft.world.item.enchantment.EnchantmentEffectComponents;
 import net.minecraft.world.level.block.Block;
 
-public class TestmodEnchantmentProvider extends EnchantmentProvider {
+public class TestmodEnchantmentProvider extends SparkweaveEnchantmentProvider {
 
 	@Override
 	protected void generateEnchantments(Context ctx, HolderGetter<DamageType> damageTypes, HolderGetter<Enchantment> enchantments, HolderGetter<Item> items, HolderGetter<Block> blocks) {

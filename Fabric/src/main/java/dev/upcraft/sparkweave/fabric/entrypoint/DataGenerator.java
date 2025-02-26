@@ -3,7 +3,7 @@ package dev.upcraft.sparkweave.fabric.entrypoint;
 import dev.upcraft.sparkweave.SparkweaveMod;
 import dev.upcraft.sparkweave.api.datagen.DataGenerationContext;
 import dev.upcraft.sparkweave.datagen.DynamicRegistryBuilderImpl;
-import dev.upcraft.sparkweave.api.datagen.provider.DynamicRegistryEntryProvider;
+import dev.upcraft.sparkweave.api.datagen.provider.SparkweaveDynamicRegistryEntryProvider;
 import dev.upcraft.sparkweave.api.entrypoint.DataGenerationEntryPoint;
 import dev.upcraft.sparkweave.api.logging.SparkweaveLoggerFactory;
 import dev.upcraft.sparkweave.api.platform.ModContainer;
@@ -34,7 +34,7 @@ public class DataGenerator implements DataGeneratorEntrypoint {
 		return Collections.unmodifiableSet(modIDs);
 	});
 
-	private final Map<ModContainer, List<DynamicRegistryEntryProvider>> dynamicProviders = Collections.synchronizedMap(new LinkedHashMap<>());
+	private final Map<ModContainer, List<SparkweaveDynamicRegistryEntryProvider>> dynamicProviders = Collections.synchronizedMap(new LinkedHashMap<>());
 	private RegistrySetBuilder registrySetBuilder;
 
 	private static final Logger LOGGER = SparkweaveLoggerFactory.getLogger();

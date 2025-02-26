@@ -11,7 +11,7 @@ import net.minecraft.world.level.biome.Biome;
 import net.minecraft.world.level.levelgen.carver.ConfiguredWorldCarver;
 import net.minecraft.world.level.levelgen.placement.PlacedFeature;
 
-public abstract class BiomeProvider extends DynamicRegistryEntryProvider {
+public abstract class SparkweaveBiomeProvider extends SparkweaveDynamicRegistryEntryProvider {
 
 	protected abstract void generateBiomes(Context ctx, HolderGetter<PlacedFeature> placedFeatures, HolderGetter<ConfiguredWorldCarver<?>> worldCarvers);
 
@@ -20,7 +20,7 @@ public abstract class BiomeProvider extends DynamicRegistryEntryProvider {
 		builder.add(Registries.BIOME, bootstrapContext -> {
 			var placedFeatures = bootstrapContext.lookup(Registries.PLACED_FEATURE);
 			var worldCarvers = bootstrapContext.lookup(Registries.CONFIGURED_CARVER);
-			generateBiomes(new BiomeProvider.Context(bootstrapContext), placedFeatures, worldCarvers);
+			generateBiomes(new SparkweaveBiomeProvider.Context(bootstrapContext), placedFeatures, worldCarvers);
 		});
 	}
 
@@ -29,7 +29,7 @@ public abstract class BiomeProvider extends DynamicRegistryEntryProvider {
 		return "Biomes";
 	}
 
-	public class Context extends DynamicRegistryEntryProvider.Context<Biome> {
+	public class Context extends SparkweaveDynamicRegistryEntryProvider.Context<Biome> {
 
 		protected Context(BootstrapContext<Biome> bootstrapContext) {
 			super(bootstrapContext);
@@ -40,8 +40,8 @@ public abstract class BiomeProvider extends DynamicRegistryEntryProvider {
 			addTranslation(Util.makeDescriptionId("biome", key.location()), name);
 		}
 
-		public void register(ResourceKey<Biome> key, Biome value, String translation) {
-			register(key, value, Lifecycle.stable(), translation);
+		public void register(ResourceKey<Biome> key, Biome value, String name) {
+			register(key, value, Lifecycle.stable(), name);
 		}
 	}
 }
