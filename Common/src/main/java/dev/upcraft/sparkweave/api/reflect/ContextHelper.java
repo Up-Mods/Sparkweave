@@ -22,29 +22,37 @@ public class ContextHelper {
     private static final Map<String, String> PACKAGE_CONTEXT_CACHE = new Object2ObjectOpenHashMap<>();
 
     static {
-        // load our own metadata
-        // this is necessary to load the root package context
-//		SparkweaveHelper.tryGetMetadata(SparkweaveHelper.MODID).orElseThrow();
-
-		//TODO do this per-platform
-
-        // vanilla game
+        // Vanilla Minecraft
         PACKAGE_CONTEXT_CACHE.put("net.minecraft", "minecraft");
         PACKAGE_CONTEXT_CACHE.put("com.mojang", "minecraft");
 
-        PACKAGE_CONTEXT_CACHE.put("org.quiltmc", "quilt_loader");
-        PACKAGE_CONTEXT_CACHE.put("org.quiltmc.loader", "quilt_loader");
-        PACKAGE_CONTEXT_CACHE.put("org.quiltmc.qsl", "qsl"); // catch-all for QSL
-
-        // fabric compatibility
+        // Fabric
         PACKAGE_CONTEXT_CACHE.put("net.fabricmc", "fabricloader");
         PACKAGE_CONTEXT_CACHE.put("net.fabricmc.loader", "fabricloader");
-        PACKAGE_CONTEXT_CACHE.put("net.fabricmc.fabric", "fabric");
+        PACKAGE_CONTEXT_CACHE.put("net.fabricmc.fabric", "fabric"); // catch-all for Fabric API
 
-		// neoforge
+	    // MixinExtras
+	    PACKAGE_CONTEXT_CACHE.put("io.github.llamalad7", "mixinextras");
+
+		// NeoForge
 		PACKAGE_CONTEXT_CACHE.put("net.neoforged", "neoforge");
+		// ::bootstraplauncher
+		PACKAGE_CONTEXT_CACHE.put("cpw.mods.bootstraplauncher", "neoforge");
+		// ::modlauncher
 		PACKAGE_CONTEXT_CACHE.put("cpw.mods.modlauncher", "neoforge");
+		// ::secure jar handler
 		PACKAGE_CONTEXT_CACHE.put("cpw.mods.cl", "neoforge");
+		PACKAGE_CONTEXT_CACHE.put("cpw.mods.jarhandling", "neoforge");
+		PACKAGE_CONTEXT_CACHE.put("cpw.mods.niofs", "neoforge");
+		PACKAGE_CONTEXT_CACHE.put("cpw.mods.util", "neoforge");
+
+	    // Quilt
+	    PACKAGE_CONTEXT_CACHE.put("org.quiltmc", "quilt_loader");
+	    PACKAGE_CONTEXT_CACHE.put("org.quiltmc.loader", "quilt_loader");
+	    PACKAGE_CONTEXT_CACHE.put("org.quiltmc.qsl", "qsl"); // catch-all for QSL
+
+		// Sinytra Connector
+		PACKAGE_CONTEXT_CACHE.put("org.sinytra.connector", "connector");
 
         // JVM packages as of Microsoft JDK 17.0.4.101-hotspot
         // @formatter:off
