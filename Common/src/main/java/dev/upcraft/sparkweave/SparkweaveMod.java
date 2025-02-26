@@ -7,6 +7,7 @@ import dev.upcraft.sparkweave.api.platform.ModContainer;
 import dev.upcraft.sparkweave.api.platform.services.RegistryService;
 import dev.upcraft.sparkweave.api.registry.RegistryHandler;
 import dev.upcraft.sparkweave.command.SparkweaveCommandRoot;
+import dev.upcraft.sparkweave.registry.SparkweavePlacementModifiers;
 import dev.upcraft.sparkweave.util.SparkweaveDevCreativeTab;
 import net.minecraft.core.registries.Registries;
 import net.minecraft.resources.ResourceLocation;
@@ -22,13 +23,15 @@ public class SparkweaveMod implements MainEntryPoint {
 	@Override
 	public void onInitialize(ModContainer mod) {
 		CommandEvents.REGISTER.register(SparkweaveCommandRoot::register);
-		var service = RegistryService.get();
+		var registryService = RegistryService.get();
 
 		if(SparkweaveApi.DEVELOPER_CREATIVE_TAB) {
 			var creativeTabsRegister = RegistryHandler.create(Registries.CREATIVE_MODE_TAB, SparkweaveMod.MODID);
 			creativeTabsRegister.register(SparkweaveDevCreativeTab.DEVELOPER_MODE_TAB, SparkweaveDevCreativeTab::buildTab);
-			creativeTabsRegister.accept(service);
+			creativeTabsRegister.accept(registryService);
 		}
+
+		SparkweavePlacementModifiers.MODIFIERS.accept(registryService);
 	}
 
 	public static ResourceLocation id(String path) {
