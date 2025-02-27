@@ -132,8 +132,16 @@ loom {
 	}
 }
 
-tasks.ideaSyncTask.doLast { project.layout.buildDirectory.dir("datagen").get().asFile.mkdirs() }
-tasks.runDatagen.doFirst { project.layout.buildDirectory.dir("datagen").get().asFile.mkdirs() }
+tasks.register('generateDatagenDir') {
+	inputs.dir(project.layout.buildDirectory.dir("datagen"))
+
+	doFirst {
+		inputs.files.forEach { it.mkdirs() }
+	}
+}
+
+tasks.ideaSyncTask.finalizedBy(tasks.generateDatagenDir)
+tasks.runDatagen.dependsOn(tasks.generateDatagenDir)
 sourceSets.testmod.resources { srcDir "src/testmod/generated" }
 
 tasks.named("compileJava", JavaCompile) {
