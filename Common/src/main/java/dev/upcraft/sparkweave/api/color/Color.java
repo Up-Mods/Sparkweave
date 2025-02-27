@@ -1,10 +1,10 @@
 package dev.upcraft.sparkweave.api.color;
 
 import com.google.common.base.Preconditions;
-import com.mojang.datafixers.util.Either;
 import com.mojang.serialization.Codec;
 import com.mojang.serialization.MapCodec;
 import com.mojang.serialization.codecs.RecordCodecBuilder;
+import net.minecraft.util.FastColor;
 import net.minecraft.util.Mth;
 import net.minecraft.util.StringRepresentable;
 import org.joml.Vector3f;
@@ -40,7 +40,7 @@ public class Color {
 	}
 
 	public static Color fromFloatsRGBA(float red, float green, float blue, float alpha) {
-		return fromRGBA((int) (red * 255.0F), (int) (green * 255.0F), (int) (blue * 255.0F), (int)(alpha * 255.0F));
+		return fromRGBA((int) (red * 255.0F), (int) (green * 255.0F), (int) (blue * 255.0F), (int) (alpha * 255.0F));
 	}
 
 	public static Color fromFloatsRGB(float red, float green, float blue) {
@@ -171,16 +171,68 @@ public class Color {
 	 *
 	 * @param hue        angle as [0, 1], where 1.0 means a full circle and overflows back to 0.0
 	 * @param saturation saturation in [0, 1]
-	 * @param value brightness in [0, 1]
+	 * @param value      brightness in [0, 1]
 	 */
 	public static Color fromHSV(float hue, float saturation, float value) {
 		int argb = Mth.hsvToRgb(hue, saturation, value);
 		return Color.fromInt(argb, Ordering.ARGB);
 	}
 
+	/**
+	 * interpolate RGB components directly, for parity with Mojang's color interpolation.
+	 * <br>For smoother visuals use {@link #lerp(Color, float)}
+	 *
+	 * @see FastColor.ARGB32#lerp(float, int, int)
+	 */
+	public Color lerpDirect(Color other, float delta) {
+		var red = Mth.lerpInt(delta, red(), other.red());
+		var green = Mth.lerpInt(delta, green(), other.green());
+		var blue = Mth.lerpInt(delta, blue(), other.blue());
+		var alpha = Mth.lerpInt(delta, alpha(), other.alpha());
+		return Color.fromRGBA(red, green, blue, alpha);
+	}
+
+	/**
+	 * interpolate in RGB color space by first converting each component to linear RGB, for smoother color blending
+	 */
+	public Color lerp(Color other, float delta) {
+		float r1 = rgb2linear(redF());
+		float g1 = rgb2linear(greenF());
+		float b1 = rgb2linear(blueF());
+
+		float r2 = rgb2linear(other.redF());
+		float g2 = rgb2linear(other.greenF());
+		float b2 = rgb2linear(other.blueF());
+
+		float r = Mth.clamp(linear2rgb(Mth.lerp(delta, r1, r2)), 0.0F, 1.0F);
+		float g = Mth.clamp(linear2rgb(Mth.lerp(delta, g1, g2)), 0.0F, 1.0F);
+		float b = Mth.clamp(linear2rgb(Mth.lerp(delta, b1, b2)), 0.0F, 1.0F);
+
+		// interpolate alpha directly, no need to convert
+		float a1 = alphaF();
+		float a2 = other.alphaF();
+		float a = Mth.lerp(delta, a1, a2);
+
+		return Color.fromFloatsRGBA(r, g, b, a);
+	}
+
+	/**
+	 * convert a single channel sRGB value to linear RGB
+	 */
+	private static float rgb2linear(float value) {
+		return value < 0.04045F ? value / 12.92F : (float) Math.pow((value + 0.055F) / 1.055F, 2.4);
+	}
+
+	/**
+	 * convert a single channel linear RGB value to sRGB
+	 */
+	private static float linear2rgb(float value) {
+		return value < 0.0031308F ? value * 12.92F : (1.055F * ((float) Math.pow(value, 0.41666F)) - 0.055F);
+	}
+
 	public static final Codec<Color> CODEC_ARGB = Codec.INT.xmap(intValue -> Color.fromInt(intValue, Ordering.ARGB), Color::asIntARGB);
 
-	public static final Codec<Color> CODEC = Codec.either(CODEC_ARGB, Ordering.CODEC.dispatch("ordering", c -> DEFAULT_ORDERING, Ordering::dispatchedCodec)).xmap(Either::unwrap, Either::left);
+	public static final Codec<Color> CODEC = Codec.withAlternative(CODEC_ARGB, Ordering.CODEC.dispatch("ordering", c -> DEFAULT_ORDERING, Ordering::dispatchedCodec));
 
 	public enum Ordering implements StringRepresentable {
 		RGBA("rgba", 0, 1, 2, 3),
