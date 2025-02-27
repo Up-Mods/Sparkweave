@@ -5,6 +5,8 @@ import com.google.common.collect.ImmutableMap;
 import dev.upcraft.sparkweave.api.registry.RegistrySupplier;
 import net.minecraft.Util;
 import net.minecraft.core.HolderLookup;
+import net.minecraft.world.entity.Entity;
+import net.minecraft.world.entity.EntityType;
 import net.minecraft.world.item.CreativeModeTab;
 import net.minecraft.world.item.Item;
 import net.minecraft.world.level.block.Block;
@@ -33,6 +35,10 @@ public class TranslationBuilder {
 
 	public void creativeTab(RegistrySupplier<CreativeModeTab> tab, String name) {
 		add(Util.makeDescriptionId("itemGroup", tab.getId()), name);
+	}
+
+	public void entity(RegistrySupplier<? extends EntityType<? extends Entity>> entity, String name) {
+		add(entity.get().getDescriptionId(), name);
 	}
 
 	public void item(Supplier<? extends Item> item, String name) {
