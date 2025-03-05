@@ -8,8 +8,7 @@
     "AbstractContainerMenuMixin",
     "DeferredHolderMixin",
     "DeferredRegisterMixin",
-    "client.RegisterMenuScreensEventMixin",
-    "datagen.GatherDataEventAccessor"
+    "client.RegisterMenuScreensEventMixin"
   ],
   "client": [
     "client.HumanoidArmorLayerMixin",

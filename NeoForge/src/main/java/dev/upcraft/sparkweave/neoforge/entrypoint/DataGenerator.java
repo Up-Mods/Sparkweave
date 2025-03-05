@@ -2,15 +2,14 @@ package dev.upcraft.sparkweave.neoforge.entrypoint;
 
 import dev.upcraft.sparkweave.SparkweaveMod;
 import dev.upcraft.sparkweave.api.datagen.DataGenerationContext;
-import dev.upcraft.sparkweave.datagen.DynamicRegistryBuilderImpl;
 import dev.upcraft.sparkweave.api.datagen.provider.SparkweaveDynamicRegistryEntryProvider;
 import dev.upcraft.sparkweave.api.entrypoint.DataGenerationEntryPoint;
 import dev.upcraft.sparkweave.api.logging.SparkweaveLoggerFactory;
 import dev.upcraft.sparkweave.api.platform.ModContainer;
+import dev.upcraft.sparkweave.datagen.DynamicRegistryBuilderImpl;
 import dev.upcraft.sparkweave.entrypoint.EntrypointHelper;
 import dev.upcraft.sparkweave.neoforge.impl.datagen.NeoBuiltinEntriesProvider;
 import dev.upcraft.sparkweave.neoforge.impl.datagen.NeoDataGenerationContext;
-import dev.upcraft.sparkweave.neoforge.mixin.datagen.GatherDataEventAccessor;
 import net.minecraft.Util;
 import net.minecraft.core.RegistrySetBuilder;
 import net.minecraft.data.DataProvider;
@@ -32,7 +31,7 @@ public class DataGenerator {
 		var rootGenerator = event.getGenerator();
 
 		Set<String> mods = Util.make(() -> {
-			var modIDs = new TreeSet<>(((GatherDataEventAccessor) event).sparkweave$getConfig().getMods());
+			var modIDs = new TreeSet<>(event.getMods());
 			if (modIDs.isEmpty()) {
 				throw new IllegalArgumentException("[Sparkweave] No --mod parameter provided! please define which mod(s) to generate data for!");
 			}
