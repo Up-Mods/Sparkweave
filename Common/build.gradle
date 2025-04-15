@@ -18,7 +18,7 @@ dependencies {
 	testmodImplementation sourceSets.main.output
 
 	testCompileOnly libs.junit.api
-	testCompileOnly neoforge.testframework
+	testCompileOnly libs.neoforge.testframework
 }
 
 neoForge {

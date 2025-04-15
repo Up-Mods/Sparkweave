@@ -1,6 +1,0 @@
-[versions]
-# https://projects.neoforged.net/neoforged/neoforge
-neoforge = "21.1.129"
-
-[libraries]
-testframework = { module = "net.neoforged:testframework", version.ref = "neoforge" }

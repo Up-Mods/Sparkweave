@@ -1,5 +1,5 @@
 plugins {
-	alias fabric.plugins.fabric.loom
+	alias libs.plugins.fabric.loom
 	alias libs.plugins.repositories
 }
 
@@ -11,8 +11,8 @@ dependencies {
 	})
 	compileOnly project(":Common")
 
-	modImplementation fabric.fabric.loader
-	modImplementation fabric.fabric.api
+	modImplementation libs.fabric.loader
+	modImplementation libs.fabric.api
 
 	testmodImplementation sourceSets.main.output
 	testmodCompileOnly project(path: ":Common", configuration: "testmod")
@@ -31,15 +31,15 @@ dependencies {
 		transitive = false
 	}
 
-	modCompileOnly (fabric.modmenu) {
+	modCompileOnly (libs.modmenu.fabric) {
 		transitive = false
 	}
-	modLocalRuntime (fabric.modmenu) {
+	modLocalRuntime (libs.modmenu.fabric) {
 		transitive = false
 	}
 
 	testImplementation libs.junit.api
-	testImplementation neoforge.testframework
+	testImplementation libs.neoforge.testframework
 	testRuntimeOnly libs.junit.launcher
 	testRuntimeOnly libs.junit.engine
 }

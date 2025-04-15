@@ -169,8 +169,8 @@ subprojects {
 			"homepage_url"         : homepage_url,
 
 			"minecraft_version"    : libs.versions.minecraft.get(),
-			"neoforge_version"     : neoforge.versions.neoforge.get(),
-			"fabric_loader_version": fabric.versions.fabric.loader.get(),
+			"neoforge_version"     : libs.versions.neoforge.get(),
+			"fabric_loader_version": libs.versions.fabric.loader.get(),
 			"java_version"         : "${javaVersion}",
 		]
 
@@ -196,8 +196,8 @@ subprojects {
 			"homepage_url"         : homepage_url,
 
 			"minecraft_version"    : libs.versions.minecraft.get(),
-			"neoforge_version"     : neoforge.versions.neoforge.get(),
-			"fabric_loader_version": fabric.versions.fabric.loader.get(),
+			"neoforge_version"     : libs.versions.neoforge.get(),
+			"fabric_loader_version": libs.versions.fabric.loader.get(),
 			"java_version"         : "${javaVersion}",
 		]
 

@@ -1,0 +1,82 @@
+[versions]
+minecraft = "1.21.1"
+
+# https://parchmentmc.org/docs/getting-started
+parchment_minecraft = "1.21.1"
+parchment_mappings = "2024.11.17"
+
+# https://projects.neoforged.net/neoforged/moddevgradle
+moddevgradle = "2.0.80"
+# https://projects.neoforged.net/neoforged/neoform
+neoform = "1.21.1-20240808.144430"
+
+# NeoForge
+# https://projects.neoforged.net/neoforged/neoforge
+neoforge = "21.1.148"
+
+# Fabric
+# https://fabricmc.net/develop
+fabric_loom = "1.10.5" # https://maven.fabricmc.net/fabric-loom/fabric-loom.gradle.plugin
+fabric_loader = "0.16.13"
+fabric_api = "0.115.4+1.21.1"
+
+# Minecraft dependencies
+jetbrains_annotations = "26.0.2"
+mixin = "0.15.5+mixin.0.8.7"
+mixin_extras = "0.4.1"
+asm = "9.7.1"
+
+# Other dependencies
+appdirs = "1.2.1"
+junit = "5.11.3"
+
+# Mods
+emi = "1.1.19+1.21.1"
+# https://modrinth.com/mod/modmenu/versions
+modmenu = "11.0.3"
+# https://beehive.sh
+resourcefulconfig = "3.0.9"
+
+[libraries]
+# NeoForge
+neoforge_testframework = { module = "net.neoforged:testframework", version.ref = "neoforge" }
+
+# Fabric
+fabric_loader = { module = "net.fabricmc:fabric-loader", version.ref = "fabric_loader" }
+fabric_api = { module = "net.fabricmc.fabric-api:fabric-api", version.ref = "fabric_api" }
+
+# Minecraft dependencies
+minecraft = { module = "com.mojang:minecraft", version.ref = "minecraft" }
+mixin = { module = "net.fabricmc:sponge-mixin", version.ref = "mixin" }
+mixin_extras = { module = "io.github.llamalad7:mixinextras-common", version.ref = "mixin_extras" }
+asm = { module = "org.ow2.asm:asm", version.ref = "asm" }
+asm_analysis = { module = "org.ow2.asm:asm-analysis", version.ref = "asm" }
+asm_commons = { module = "org.ow2.asm:asm-commons", version.ref = "asm" }
+asm_tree = { module = "org.ow2.asm:asm-tree", version.ref = "asm" }
+asm_util = { module = "org.ow2.asm:asm-util", version.ref = "asm" }
+jetbrains_annotations = { module = "org.jetbrains:annotations", version.ref = "jetbrains_annotations" }
+
+# Other dependencies
+appdirs = { module = "net.harawata:appdirs", version.ref = "appdirs" }
+junit_api = { module = "org.junit.jupiter:junit-jupiter-api", version.ref = "junit" }
+junit_launcher = { module = "org.junit.platform:junit-platform-launcher" }
+junit_engine = { module = "org.junit.jupiter:junit-jupiter-engine", version.ref = "junit" }
+
+# Mods
+emi = { module = "dev.emi:emi-xplat-mojmap", version.ref = "emi" }
+emi_neoforge = { module = "dev.emi:emi-neoforge", version.ref = "emi" }
+emi_fabric = { module = "dev.emi:emi-fabric", version.ref = "emi" }
+
+modmenu_fabric = { module = "com.terraformersmc:modmenu", version.ref = "modmenu" }
+
+resourcefulconfig = { module = "com.teamresourceful.resourcefulconfig:resourcefulconfig-common-1.21", version.ref = "resourcefulconfig" }
+resourcefulconfig_fabric = { module = "com.teamresourceful.resourcefulconfig:resourcefulconfig-fabric-1.21", version.ref = "resourcefulconfig" }
+resourcefulconfig_neoforge = { module = "com.teamresourceful.resourcefulconfig:resourcefulconfig-neoforge-1.21", version.ref = "resourcefulconfig" }
+
+[bundles]
+mixin = ["mixin", "mixin_extras", "asm", "asm_analysis", "asm_commons", "asm_tree", "asm_util"]
+
+[plugins]
+moddevgradle = { id = "net.neoforged.moddev", version.ref = "moddevgradle" }
+repositories = { id = "net.neoforged.moddev.repositories", version.ref = "moddevgradle" }
+fabric_loom = { id = "fabric-loom", version.ref = "fabric_loom" }

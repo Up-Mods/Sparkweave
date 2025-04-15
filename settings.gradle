@@ -20,20 +20,6 @@ plugins {
 rootProject.name = 'Sparkweave'
 include 'Common', 'Fabric', 'NeoForge'
 
-dependencyResolutionManagement {
-	versionCatalogs {
-		libs {
-			from(files("./Common/libs.versions.toml"))
-		}
-		fabric {
-			from(files("./Fabric/libs.versions.toml"))
-		}
-		neoforge {
-			from(files("./NeoForge/libs.versions.toml"))
-		}
-	}
-}
-
 def ENV = System.getenv()
 
 buildCache {

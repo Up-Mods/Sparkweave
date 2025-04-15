@@ -3,7 +3,7 @@ plugins {
 }
 
 // need this before dependencies because it configures the plugin and creates additionalRuntimeClasspath configuration
-neoForge.version = neoforge.versions.neoforge.get()
+neoForge.version = libs.versions.neoforge.get()
 
 configurations {
 	runtimeClasspath.extendsFrom localRuntime
@@ -31,7 +31,7 @@ dependencies {
 	localRuntime libs.emi.neoforge
 
 	testImplementation libs.junit.api
-	testImplementation neoforge.testframework
+	testImplementation libs.neoforge.testframework
 	testRuntimeOnly libs.junit.launcher
 	testRuntimeOnly libs.junit.engine
 }
