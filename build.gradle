@@ -194,6 +194,8 @@ subprojects {
 			"license_url"          : license_url,
 			"discord_url"          : discord_url,
 			"homepage_url"         : homepage_url,
+			"curseforge_id"        : curseforge_id,
+			"modrinth_id"          : modrinth_id,
 
 			"minecraft_version"    : libs.versions.minecraft.get(),
 			"neoforge_version"     : libs.versions.neoforge.get(),

@@ -36,6 +36,6 @@ config = "${mod_id}.neoforge.mixins.json"
 javaVersion="[${java_version},)"
 
 [mc-publish]
-curseforge = "911456"
-modrinth = "nf68xfAw"
+curseforge = "${curseforge_id}"
+modrinth = "${modrinth_id}"
 loaders = ["neoforge"]

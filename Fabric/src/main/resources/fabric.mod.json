@@ -43,8 +43,8 @@
   },
   "custom": {
     "mc-publish": {
-      "curseforge": "911456",
-      "modrinth": "nf68xfAw",
+      "curseforge": "${curseforge_id}",
+      "modrinth": "${modrinth_id}",
       "dependencies": [
         "fabric-api(required){curseforge:306612}{modrinth:P7dR8mSH}"
       ],
