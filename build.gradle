@@ -50,7 +50,7 @@ subprojects {
 
 	jar {
 		from(rootProject.file("LICENSE.md")) {
-			rename { "LICENSE_${rootProject.mod_id}.md" }
+			rename "LICENSE.md", "LICENSE_${rootProject.mod_id}.md"
 		}
 		manifest {
 			attributes([
@@ -69,7 +69,7 @@ subprojects {
 
 	sourcesJar {
 		from(rootProject.file("LICENSE.md")) {
-			rename { "LICENSE_${rootProject.mod_id}.md" }
+			rename "LICENSE.md", "LICENSE_${rootProject.mod_id}.md"
 		}
 	}
 
