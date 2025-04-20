@@ -1,5 +1,6 @@
 package dev.upcraft.sparkweave.testmod.datagen;
 
+import com.google.auto.service.AutoService;
 import dev.upcraft.sparkweave.api.datagen.DataGenerationContext;
 import dev.upcraft.sparkweave.api.datagen.DynamicRegistryBuilder;
 import dev.upcraft.sparkweave.api.entrypoint.DataGenerationEntryPoint;
@@ -9,6 +10,7 @@ import dev.upcraft.sparkweave.testmod.datagen.common.TestmodConfiguredFeaturePro
 import dev.upcraft.sparkweave.testmod.datagen.common.TestmodEnchantmentProvider;
 import dev.upcraft.sparkweave.testmod.datagen.common.TestmodPlacedFeatureProvider;
 
+@AutoService(DataGenerationEntryPoint.class)
 public class TestmodDataGenerator implements DataGenerationEntryPoint {
 
 	@Override

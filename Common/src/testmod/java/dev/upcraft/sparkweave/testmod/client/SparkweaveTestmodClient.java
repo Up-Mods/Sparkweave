@@ -1,5 +1,6 @@
 package dev.upcraft.sparkweave.testmod.client;
 
+import com.google.auto.service.AutoService;
 import dev.upcraft.sparkweave.api.client.Debug;
 import dev.upcraft.sparkweave.api.client.event.ClientTickEvents;
 import dev.upcraft.sparkweave.api.client.event.RegisterCustomArmorRenderersEvent;
@@ -15,6 +16,7 @@ import dev.upcraft.sparkweave.testmod.init.TestItems;
 import net.minecraft.client.Minecraft;
 import net.minecraft.world.item.Items;
 
+@AutoService(ClientEntryPoint.class)
 public class SparkweaveTestmodClient implements ClientEntryPoint {
 
 	private static int ticks = 0;

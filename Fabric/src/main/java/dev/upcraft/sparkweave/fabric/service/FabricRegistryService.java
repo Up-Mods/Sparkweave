@@ -1,5 +1,6 @@
 package dev.upcraft.sparkweave.fabric.service;
 
+import com.google.auto.service.AutoService;
 import dev.upcraft.sparkweave.api.annotation.CalledByReflection;
 import dev.upcraft.sparkweave.api.platform.services.RegistryService;
 import dev.upcraft.sparkweave.api.registry.RegistryHandler;
@@ -12,6 +13,7 @@ import net.minecraft.resources.ResourceKey;
 
 import java.util.stream.Collectors;
 
+@AutoService(RegistryService.class)
 public class FabricRegistryService implements RegistryService {
 
 	@CalledByReflection

@@ -13,9 +13,13 @@ dependencies {
 	compileOnly project(":Common")
 	interfaceInjectionData project(":Common")
 	accessTransformers project(":Common")
+	compileOnly libs.autoservice.annotations
+	annotationProcessor libs.autoservice
 
 	testmodImplementation sourceSets.main.output
 	testmodCompileOnly project(path: ":Common", configuration: "testmod")
+	testmodCompileOnly libs.autoservice.annotations
+	testmodAnnotationProcessor libs.autoservice
 
 //	implementation libs.resourcefulconfig.neoforge
 

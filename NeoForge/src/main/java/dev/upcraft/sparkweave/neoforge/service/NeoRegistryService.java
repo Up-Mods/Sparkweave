@@ -1,5 +1,6 @@
 package dev.upcraft.sparkweave.neoforge.service;
 
+import com.google.auto.service.AutoService;
 import dev.upcraft.sparkweave.SparkweaveMod;
 import dev.upcraft.sparkweave.api.annotation.CalledByReflection;
 import dev.upcraft.sparkweave.api.platform.services.RegistryService;
@@ -12,6 +13,7 @@ import net.neoforged.fml.ModList;
 import net.neoforged.neoforge.registries.DeferredRegister;
 import org.apache.commons.lang3.NotImplementedException;
 
+@AutoService(RegistryService.class)
 public class NeoRegistryService implements RegistryService {
 
 	private final IEventBus modBus;

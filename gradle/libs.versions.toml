@@ -28,6 +28,7 @@ asm = "9.7.1"
 
 # Other dependencies
 appdirs = "1.2.1"
+autoservice = "1.1.1"
 junit = "5.11.3"
 
 # Mods
@@ -58,6 +59,8 @@ jetbrains_annotations = { module = "org.jetbrains:annotations", version.ref = "j
 
 # Other dependencies
 appdirs = { module = "net.harawata:appdirs", version.ref = "appdirs" }
+autoservice = { module = "com.google.auto.service:auto-service", version.ref = "autoservice" }
+autoservice_annotations = { module = "com.google.auto.service:auto-service-annotations", version.ref = "autoservice" }
 junit_api = { module = "org.junit.jupiter:junit-jupiter-api", version.ref = "junit" }
 junit_launcher = { module = "org.junit.platform:junit-platform-launcher" }
 junit_engine = { module = "org.junit.jupiter:junit-jupiter-engine", version.ref = "junit" }

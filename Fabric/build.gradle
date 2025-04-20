@@ -11,11 +11,16 @@ dependencies {
 	})
 	compileOnly project(":Common")
 
+	compileOnly libs.autoservice.annotations
+	annotationProcessor libs.autoservice
+
 	modImplementation libs.fabric.loader
 	modImplementation libs.fabric.api
 
 	testmodImplementation sourceSets.main.output
 	testmodCompileOnly project(path: ":Common", configuration: "testmod")
+	testmodCompileOnly libs.autoservice.annotations
+	testmodAnnotationProcessor libs.autoservice
 
 //	modImplementation (libs.resourcefulconfig.fabric) {
 //		transitive = false

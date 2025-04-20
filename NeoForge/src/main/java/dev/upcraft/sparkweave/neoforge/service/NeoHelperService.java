@@ -1,5 +1,6 @@
 package dev.upcraft.sparkweave.neoforge.service;
 
+import com.google.auto.service.AutoService;
 import com.mojang.brigadier.arguments.ArgumentType;
 import dev.upcraft.sparkweave.api.annotation.CalledByReflection;
 import dev.upcraft.sparkweave.api.platform.services.SparkweaveHelperService;
@@ -8,6 +9,7 @@ import net.minecraft.commands.synchronization.ArgumentTypeInfos;
 import net.minecraft.network.chat.Component;
 import net.minecraft.world.item.CreativeModeTab;
 
+@AutoService(SparkweaveHelperService.class)
 public class NeoHelperService implements SparkweaveHelperService {
 
 	@CalledByReflection

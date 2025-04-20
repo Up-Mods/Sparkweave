@@ -1,5 +1,6 @@
 package dev.upcraft.sparkweave.testmod;
 
+import com.google.auto.service.AutoService;
 import dev.upcraft.sparkweave.api.entrypoint.MainEntryPoint;
 import dev.upcraft.sparkweave.api.event.EntityTickEvents;
 import dev.upcraft.sparkweave.api.event.ItemMenuInteractionEvent;
@@ -25,6 +26,7 @@ import net.minecraft.world.inventory.MenuType;
 import net.minecraft.world.item.Items;
 import org.jetbrains.annotations.Nullable;
 
+@AutoService(MainEntryPoint.class)
 public class SparkweaveTestmod implements MainEntryPoint {
 
 	public static final String MODID = "sparkweave_testmod";

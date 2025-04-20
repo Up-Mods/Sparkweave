@@ -1,5 +1,6 @@
 package dev.upcraft.sparkweave.neoforge.service;
 
+import com.google.auto.service.AutoService;
 import com.google.common.base.Suppliers;
 import dev.upcraft.sparkweave.api.annotation.CalledByReflection;
 import dev.upcraft.sparkweave.api.platform.ModContainer;
@@ -26,6 +27,7 @@ import java.util.Optional;
 import java.util.function.Supplier;
 import java.util.stream.Collectors;
 
+@AutoService(PlatformService.class)
 public class NeoPlatformService extends BasePlatformService implements PlatformService {
 
 //	private static final Set<String> SENSITIVE_ARGS = Set.of(
