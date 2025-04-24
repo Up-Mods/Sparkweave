@@ -78,7 +78,7 @@ public class NeoPlatformService extends BasePlatformService implements PlatformS
 
 	@Override
 	public boolean isDevelopmentEnvironment() {
-		return FMLEnvironment.production;
+		return !FMLEnvironment.production;
 	}
 
 	@Override
