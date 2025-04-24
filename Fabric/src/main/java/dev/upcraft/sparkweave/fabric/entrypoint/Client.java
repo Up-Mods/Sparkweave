@@ -1,6 +1,7 @@
 package dev.upcraft.sparkweave.fabric.entrypoint;
 
 import dev.upcraft.sparkweave.SparkweaveMod;
+import dev.upcraft.sparkweave.api.SparkweaveApi;
 import dev.upcraft.sparkweave.api.annotation.CalledByReflection;
 import dev.upcraft.sparkweave.api.client.event.*;
 import dev.upcraft.sparkweave.api.client.render.DebugRenderer;
@@ -38,24 +39,26 @@ public class Client implements ClientModInitializer {
 			}
 		});
 
-		ResourceManagerHelper.get(PackType.CLIENT_RESOURCES).registerReloadListener(new SimpleSynchronousResourceReloadListener() {
-			private final ResourceLocation ID = ResourceLocation.fromNamespaceAndPath(SparkweaveMod.MODID, "translation_checker");
+		if(SparkweaveApi.Client.LOG_MISSING_TRANSLATIONS) {
+			ResourceManagerHelper.get(PackType.CLIENT_RESOURCES).registerReloadListener(new SimpleSynchronousResourceReloadListener() {
+				private final ResourceLocation ID = SparkweaveMod.id("translation_checker");
 
-			@Override
-			public ResourceLocation getFabricId() {
-				return ID;
-			}
+				@Override
+				public ResourceLocation getFabricId() {
+					return ID;
+				}
 
-			@Override
-			public void onResourceManagerReload(ResourceManager resourceManager) {
-				TranslationChecker.validate();
-			}
+				@Override
+				public void onResourceManagerReload(ResourceManager resourceManager) {
+					TranslationChecker.validate();
+				}
 
-			@Override
-			public Collection<ResourceLocation> getFabricDependencies() {
-				return Set.of(ResourceReloadListenerKeys.LANGUAGES);
-			}
-		});
+				@Override
+				public Collection<ResourceLocation> getFabricDependencies() {
+					return Set.of(ResourceReloadListenerKeys.LANGUAGES);
+				}
+			});
+		}
 
 		EntrypointHelper.fireEntrypoints(ClientEntryPoint.class, ClientEntryPoint::onInitializeClient);
 
