@@ -6,16 +6,19 @@ import dev.upcraft.sparkweave.api.event.EntityTickEvents;
 import dev.upcraft.sparkweave.api.event.Event;
 import net.minecraft.world.entity.Entity;
 
-import java.util.HashMap;
 import java.util.Map;
+import java.util.concurrent.ConcurrentHashMap;
 
 public class EntityTickEventsImpl {
 
 	private static final Multimap<Class<? extends Entity>, EntityTickEvents.StartTick<Entity>> START_TICK_HANDLERS = HashMultimap.create();
 	private static final Multimap<Class<? extends Entity>, EntityTickEvents.EndTick<Entity>> END_TICK_HANDLERS = HashMultimap.create();
 
-	private static final Map<Class<? extends Entity>, Event<EntityTickEvents.StartTick<Entity>>> COMPUTED_START_HANDLERS = new HashMap<>();
-	private static final Map<Class<? extends Entity>, Event<EntityTickEvents.EndTick<Entity>>> COMPUTED_END_HANDLERS = new HashMap<>();
+	// Note: client and server threads tick independently of each other and therefore might be accessing these
+	//  simultaneously, therefore the computed maps need to be threadsafe.
+	//  see https://github.com/Up-Mods/Sparkweave/issues/4
+	private static final Map<Class<? extends Entity>, Event<EntityTickEvents.StartTick<Entity>>> COMPUTED_START_HANDLERS = new ConcurrentHashMap<>();
+	private static final Map<Class<? extends Entity>, Event<EntityTickEvents.EndTick<Entity>>> COMPUTED_END_HANDLERS = new ConcurrentHashMap<>();
 
 	@SuppressWarnings("unchecked")
 	public static <T extends Entity> Event<EntityTickEvents.StartTick<T>> getOrCreateStartTick(Class<T> entityClass) {
@@ -50,7 +53,7 @@ public class EntityTickEventsImpl {
 		return COMPUTED_START_HANDLERS.computeIfAbsent(entityClass, key -> {
 			var eventHandler = (Event<EntityTickEvents.StartTick<Entity>>) (Object) Event.create(EntityTickEvents.StartTick.class, (entity, level) -> false, listeners -> (entity, level) -> {
 				for (EntityTickEvents.StartTick<Entity> listener : listeners) {
-					if(listener.startTick(entity, level)) {
+					if (listener.startTick(entity, level)) {
 						return true;
 					}
 				}
@@ -59,7 +62,7 @@ public class EntityTickEventsImpl {
 			});
 
 			Class<?> clazz = entityClass;
-			while(Entity.class.isAssignableFrom(clazz)) {
+			while (Entity.class.isAssignableFrom(clazz)) {
 				START_TICK_HANDLERS.get((Class<? extends Entity>) clazz).forEach(eventHandler::register);
 				clazz = clazz.getSuperclass();
 			}
