@@ -94,6 +94,17 @@ neoForge {
 			loadedMods.set([mods."${mod_id}"])
 		}
 
+		clientRenderDoc {
+			client()
+			devLogin = true
+			gameDirectory = project.file('run')
+			systemProperty 'neoforge.enabledGameTestNamespaces', project.mod_id
+			systemProperty "${project.mod_id}.debug.render.load_renderdoc", 'true'
+
+			sourceSet = sourceSets.main
+			loadedMods.set([mods."${mod_id}"])
+		}
+
 		server {
 			server()
 			gameDirectory = project.file('run')

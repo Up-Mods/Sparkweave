@@ -98,6 +98,25 @@ loom {
 			}
 		}
 
+		clientRenderDoc {
+			client()
+			setConfigName("Fabric ClientRenderDoc")
+			runDir("run")
+			property("${project.mod_id}.debug.render.load_renderdoc", 'true')
+
+			if (project.hasProperty('mc_uuid')) {
+				programArg("--uuid=${project.findProperty('mc_uuid')}")
+			}
+
+			if (project.hasProperty('mc_username')) {
+				programArg("--username=${project.findProperty('mc_username')}")
+			}
+
+			if (project.hasProperty('mc_java_agent_path')) {
+				vmArg("-javaagent:${project.findProperty('mc_java_agent_path')}")
+			}
+		}
+
 		testmodClient {
 			client()
 			setConfigName("Fabric Testmod Client")
