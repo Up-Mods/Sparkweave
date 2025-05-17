@@ -15,7 +15,8 @@
   ],
   "client": [
     "client.ClientLevelMixin",
-    "client.HumanoidArmorLayerMixin"
+    "client.HumanoidArmorLayerMixin",
+    "client.MainMixin"
   ],
   "injectors": {
     "defaultRequire": 1

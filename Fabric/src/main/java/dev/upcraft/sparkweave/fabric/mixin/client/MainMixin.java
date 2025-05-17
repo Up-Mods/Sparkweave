@@ -1,4 +1,4 @@
-package dev.upcraft.sparkweave.mixin.client;
+package dev.upcraft.sparkweave.fabric.mixin.client;
 
 import dev.upcraft.sparkweave.client.render.RenderDocHelper;
 import net.minecraft.client.main.Main;
