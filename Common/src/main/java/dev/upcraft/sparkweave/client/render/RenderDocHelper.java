@@ -22,7 +22,7 @@ public class RenderDocHelper {
 			// if set, search in RENDERDOC_HOME first, then fall back to library path
 			var rdHome = System.getenv("RENDERDOC_HOME");
 			if(rdHome != null) {
-				libraryPath = rdHome + File.pathSeparator + rdHome;
+				libraryPath = rdHome + File.pathSeparator + libraryPath;
 			}
 
 			var libraryName = System.mapLibraryName("renderdoc");
