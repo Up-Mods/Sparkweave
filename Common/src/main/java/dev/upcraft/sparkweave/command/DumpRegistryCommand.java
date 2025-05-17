@@ -7,9 +7,9 @@ import com.mojang.brigadier.exceptions.CommandSyntaxException;
 import dev.upcraft.sparkweave.SparkweaveMod;
 import dev.upcraft.sparkweave.api.command.CommandHelper;
 import dev.upcraft.sparkweave.api.command.argument.RegistryArgumentType;
+import dev.upcraft.sparkweave.api.logging.SparkweaveLoggerFactory;
 import dev.upcraft.sparkweave.api.platform.Services;
 import dev.upcraft.sparkweave.api.serialization.CSVWriter;
-import dev.upcraft.sparkweave.logging.SparkweaveLogging;
 import net.minecraft.ChatFormatting;
 import net.minecraft.commands.CommandSourceStack;
 import net.minecraft.commands.Commands;
@@ -18,12 +18,15 @@ import net.minecraft.network.chat.ClickEvent;
 import net.minecraft.network.chat.Component;
 import net.minecraft.network.chat.HoverEvent;
 import net.minecraft.resources.ResourceKey;
+import org.apache.logging.log4j.Logger;
 
 import java.io.IOException;
 import java.nio.file.Files;
 import java.nio.file.Path;
 
 public class DumpRegistryCommand {
+
+	private static final Logger LOGGER = SparkweaveLoggerFactory.getLogger();
 
 	public static void register(LiteralArgumentBuilder<CommandSourceStack> $) {
 		$.then(Commands.literal("dump_registries")
@@ -88,6 +91,7 @@ public class DumpRegistryCommand {
 	}
 
 	private static void saveRegistryToFile(Registry<?> registry, Path outputDir) throws CommandSyntaxException {
+		// TODO logging
 		var outputFile = outputDir.resolve(registry.key().location().getNamespace()).resolve(registry.key().location().getPath() + ".csv");
 		try {
 			Files.createDirectories(outputFile.getParent());
@@ -97,7 +101,7 @@ public class DumpRegistryCommand {
 				}
 			}
 		} catch (IOException e) {
-			SparkweaveLogging.getLogger().error("Failed to write registry dump for {}", registry.key().location(), e);
+			LOGGER.error("Failed to write registry dump for {}", registry.key().location(), e);
 			throw CommandHelper.IO_EXCEPTION.create(e.getMessage());
 		}
 	}

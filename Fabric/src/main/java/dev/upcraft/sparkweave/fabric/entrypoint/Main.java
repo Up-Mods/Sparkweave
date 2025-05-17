@@ -4,10 +4,10 @@ import dev.upcraft.sparkweave.api.annotation.CalledByReflection;
 import dev.upcraft.sparkweave.api.entrypoint.MainEntryPoint;
 import dev.upcraft.sparkweave.api.event.CommandEvents;
 import dev.upcraft.sparkweave.api.event.RegisterCustomLecternMenuEvent;
+import dev.upcraft.sparkweave.api.logging.SparkweaveLoggerFactory;
 import dev.upcraft.sparkweave.api.platform.services.RegistryService;
 import dev.upcraft.sparkweave.api.registry.block.BlockItemProvider;
 import dev.upcraft.sparkweave.entrypoint.EntrypointHelper;
-import dev.upcraft.sparkweave.logging.SparkweaveLogging;
 import dev.upcraft.sparkweave.registry.SparkweaveCommandArgumentTypes;
 import dev.upcraft.sparkweave.scheduler.ScheduledTaskQueue;
 import net.fabricmc.api.ModInitializer;
@@ -41,6 +41,6 @@ public class Main implements ModInitializer {
 
 		RegisterCustomLecternMenuEvent.EVENT.invoker().registerLecternMenus(new RegisterCustomLecternMenuEvent());
 
-		SparkweaveLogging.getLogger().debug("System initialized!");
+		SparkweaveLoggerFactory.getLogger().debug("System initialized!");
 	}
 }

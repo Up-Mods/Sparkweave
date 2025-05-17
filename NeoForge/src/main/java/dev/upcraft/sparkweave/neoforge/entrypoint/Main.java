@@ -5,9 +5,9 @@ import dev.upcraft.sparkweave.api.annotation.CalledByReflection;
 import dev.upcraft.sparkweave.api.entrypoint.ClientEntryPoint;
 import dev.upcraft.sparkweave.api.entrypoint.DedicatedServerEntryPoint;
 import dev.upcraft.sparkweave.api.entrypoint.MainEntryPoint;
+import dev.upcraft.sparkweave.api.logging.SparkweaveLoggerFactory;
 import dev.upcraft.sparkweave.api.platform.services.RegistryService;
 import dev.upcraft.sparkweave.entrypoint.EntrypointHelper;
-import dev.upcraft.sparkweave.logging.SparkweaveLogging;
 import dev.upcraft.sparkweave.registry.SparkweaveCommandArgumentTypes;
 import net.neoforged.bus.api.IEventBus;
 import net.neoforged.fml.common.Mod;
@@ -30,6 +30,6 @@ public class Main {
 				EntrypointHelper.fireEntrypoints(DedicatedServerEntryPoint.class, DedicatedServerEntryPoint::onInitializeServer);
 		}
 
-		SparkweaveLogging.getLogger().debug("System initialized!");
+		SparkweaveLoggerFactory.getLogger().debug("System initialized!");
 	}
 }

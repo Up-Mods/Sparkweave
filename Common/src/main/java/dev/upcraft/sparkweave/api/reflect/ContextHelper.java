@@ -6,6 +6,8 @@ import dev.upcraft.sparkweave.api.logging.SparkweaveLoggerFactory;
 import dev.upcraft.sparkweave.api.platform.ModContainer;
 import dev.upcraft.sparkweave.api.platform.Services;
 import it.unimi.dsi.fastutil.objects.Object2ObjectOpenHashMap;
+import org.apache.logging.log4j.Logger;
+import org.jetbrains.annotations.ApiStatus;
 
 import java.util.List;
 import java.util.Map;
@@ -18,6 +20,7 @@ public class ContextHelper {
         throw new UnsupportedOperationException();
     }
 
+	private static final Logger LOGGER = SparkweaveLoggerFactory.getLogger("Sparkweave Engine/ContextHelper");
     private static final Map<Class<?>, ModContainer> CONTEXT_CACHE = new Object2ObjectOpenHashMap<>();
     private static final Map<String, String> PACKAGE_CONTEXT_CACHE = new Object2ObjectOpenHashMap<>();
 
@@ -83,8 +86,7 @@ public class ContextHelper {
             }
 
             if (annotation != null) {
-				String modid = annotation.value();
-                return Services.PLATFORM.getModContainer(modid).orElseThrow(() -> new NoSuchElementException("No mod loaded with ID " + modid));
+                return getModContainer(annotation.value());
             }
 
             var pkgName = clazz.getPackageName();
@@ -121,7 +123,7 @@ public class ContextHelper {
             }
 
             if (contextModID == null) {
-                SparkweaveLoggerFactory.getLogger("Sparkweave ContextHelper").error("Could not determine mod context for class {}, assuming Minecraft!", clazz.getCanonicalName());
+                LOGGER.error("Could not determine mod context for class {}, assuming Minecraft!", clazz.getCanonicalName());
                 contextModID = "minecraft";
             }
 
@@ -129,10 +131,18 @@ public class ContextHelper {
                 PACKAGE_CONTEXT_CACHE.put(pkg, contextModID);
             }
 
-			String modid = contextModID;
-            return Services.PLATFORM.getModContainer(modid).orElseThrow(() -> new NoSuchElementException("No mod loaded with ID " + modid));
+            return getModContainer(contextModID);
         });
     }
+
+	private static ModContainer getModContainer(String modid) {
+		return Services.PLATFORM.getModContainer(modid).orElseThrow(() -> new NoSuchElementException("No mod loaded with ID " + modid));
+	}
+
+	@ApiStatus.Internal
+	public static void setServiceInitDone() {
+
+	}
 
     @CallerSensitive
     public static ModContainer getCurrentContext() {

@@ -1,7 +1,6 @@
 package dev.upcraft.sparkweave.validation;
 
 import dev.upcraft.sparkweave.api.logging.SparkweaveLoggerFactory;
-import dev.upcraft.sparkweave.logging.SparkweaveLogging;
 import net.minecraft.server.Bootstrap;
 import org.apache.logging.log4j.Logger;
 
@@ -17,7 +16,7 @@ public class TranslationChecker {
 
 	private static void notifyMissingTranslation(String translationKey) {
 		if(!MISSING_KEYS.contains(translationKey)) {
-			SparkweaveLogging.getLogger().warn("Missing translation for key '{}'", translationKey);
+			LOGGER.warn("Missing translation for key '{}'", translationKey);
 			MISSING_KEYS.add(translationKey);
 		}
 	}

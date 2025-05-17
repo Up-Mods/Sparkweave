@@ -8,11 +8,11 @@ import java.util.ServiceLoader;
 
 public class Services {
 
-	private static final Logger logger = SparkweaveLoggerFactory.getLogger("Sparkweave Engine/ServiceLoader");
+	private static final Logger LOGGER = SparkweaveLoggerFactory.getLogger("Sparkweave Engine/ServiceLoader");
 
 	public static <T> T getService(Class<T> serviceClass) {
-		T service = ServiceLoader.load(serviceClass).findFirst().orElseThrow(() -> new IllegalStateException("No platform implementation found for " + serviceClass.getCanonicalName()));
-		logger.debug("Loaded {} for service {}", service.getClass().getName(), serviceClass.getName());
+		T service = ServiceLoader.load(serviceClass).findFirst().orElseThrow(() -> new IllegalStateException("No platform implementation found for " + serviceClass.getName()));
+		LOGGER.debug("Loaded {} for service {}", service.getClass().getName(), serviceClass.getName());
 		return service;
 	}
 

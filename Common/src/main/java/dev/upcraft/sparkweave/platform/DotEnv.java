@@ -1,7 +1,7 @@
 package dev.upcraft.sparkweave.platform;
 
+import dev.upcraft.sparkweave.api.logging.SparkweaveLoggerFactory;
 import dev.upcraft.sparkweave.api.platform.Services;
-import dev.upcraft.sparkweave.logging.SparkweaveLogging;
 
 import java.io.IOException;
 import java.nio.file.Files;
@@ -16,7 +16,7 @@ public class DotEnv {
 		try (var reader = Files.newBufferedReader(path)) {
 			System.getProperties().load(reader);
 		} catch (IOException e) {
-			SparkweaveLogging.getLogger().error("Unable to load env file: {}", path.toAbsolutePath(), e);
+			SparkweaveLoggerFactory.getLogger("Sparkweave Engine/Env").error("Unable to load env file: {}", path.toAbsolutePath(), e);
 		}
 	}
 
