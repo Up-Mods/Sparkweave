@@ -4,6 +4,8 @@ import com.google.common.base.Preconditions;
 import com.mojang.serialization.Codec;
 import com.mojang.serialization.MapCodec;
 import com.mojang.serialization.codecs.RecordCodecBuilder;
+import io.netty.buffer.ByteBuf;
+import net.minecraft.network.codec.StreamCodec;
 import net.minecraft.util.FastColor;
 import net.minecraft.util.Mth;
 import net.minecraft.util.StringRepresentable;
@@ -233,6 +235,8 @@ public class Color {
 	public static final Codec<Color> CODEC_ARGB = Codec.INT.xmap(intValue -> Color.fromInt(intValue, Ordering.ARGB), Color::asIntARGB);
 
 	public static final Codec<Color> CODEC = Codec.withAlternative(CODEC_ARGB, Ordering.CODEC.dispatch("ordering", c -> DEFAULT_ORDERING, Ordering::dispatchedCodec));
+
+	public static final StreamCodec<ByteBuf, Color> STREAM_CODEC = StreamCodec.ofMember((color, buf) -> buf.writeInt(color.asIntARGB()), buf -> Color.fromARGB(buf.readInt()));
 
 	public enum Ordering implements StringRepresentable {
 		RGBA("rgba", 0, 1, 2, 3),
