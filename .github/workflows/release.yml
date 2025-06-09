@@ -133,6 +133,7 @@ jobs:
           path: ${{ matrix.loader }}/build/libs
       - name: Publish (Modrinth)
         id: publish_modrinth
+        if: matrix.platform == 'Modrinth'
         uses: Kira-NT/mc-publish@995edadc13559a8b28d0b7e6571229f067ec7659
         with:
           modrinth-token: ${{ secrets.MODRINTH_TOKEN }}
@@ -143,6 +144,7 @@ jobs:
             ${{ matrix.loader }}/build/libs/*-@(sources|javadoc).jar
       - name: Publish (Curseforge)
         id: publish_curseforge
+        if: matrix.platform == 'Curseforge'
         uses: Kira-NT/mc-publish@995edadc13559a8b28d0b7e6571229f067ec7659
         with:
           curseforge-token: ${{ secrets.CURSEFORGE_TOKEN }}
