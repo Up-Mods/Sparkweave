@@ -152,7 +152,7 @@ jobs:
 
   notify:
     name: Notify
-    needs: [ publish_platforms ]
+    needs: [ publish_github, publish_platforms ]
     runs-on: ubuntu-latest
     steps:
       - name: Notify Discord
