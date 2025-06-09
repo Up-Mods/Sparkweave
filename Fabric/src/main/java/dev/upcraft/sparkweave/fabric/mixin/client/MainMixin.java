@@ -1,6 +1,6 @@
 package dev.upcraft.sparkweave.fabric.mixin.client;
 
-import dev.upcraft.sparkweave.client.render.RenderDocHelper;
+import dev.upcraft.sparkweave.renderdoc.client.RenderDocHelper;
 import net.minecraft.client.main.Main;
 import org.spongepowered.asm.mixin.Mixin;
 import org.spongepowered.asm.mixin.injection.At;

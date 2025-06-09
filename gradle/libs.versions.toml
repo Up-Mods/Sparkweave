@@ -13,6 +13,9 @@ neoform = "1.21.1-20240808.144430"
 # NeoForge
 # https://projects.neoforged.net/neoforged/neoforge
 neoforge = "21.1.148"
+# https://projects.neoforged.net/neoforged/fancymodloader
+# MUST match the version that neoforge uses! https://github.com/neoforged/NeoForge/blob/1.21.1/gradle.properties
+fancymodloader = "4.0.39"
 
 # Fabric
 # https://fabricmc.net/develop
@@ -41,6 +44,8 @@ resourcefulconfig = "3.0.9"
 [libraries]
 # NeoForge
 neoforge_testframework = { module = "net.neoforged:testframework", version.ref = "neoforge" }
+neoforge_mcdeps = { module = "net.neoforged:minecraft-dependencies", version.ref = "minecraft" }
+neoforge_fancymodloader = { module = "net.neoforged.fancymodloader:loader", version.ref = "fancymodloader" }
 
 # Fabric
 fabric_loader = { module = "net.fabricmc:fabric-loader", version.ref = "fabric_loader" }
@@ -64,6 +69,7 @@ autoservice_annotations = { module = "com.google.auto.service:auto-service-annot
 junit_api = { module = "org.junit.jupiter:junit-jupiter-api", version.ref = "junit" }
 junit_launcher = { module = "org.junit.platform:junit-platform-launcher" }
 junit_engine = { module = "org.junit.jupiter:junit-jupiter-engine", version.ref = "junit" }
+slf4j_api = { module = "org.slf4j:slf4j-api" }
 
 # Mods
 emi = { module = "dev.emi:emi-xplat-mojmap", version.ref = "emi" }

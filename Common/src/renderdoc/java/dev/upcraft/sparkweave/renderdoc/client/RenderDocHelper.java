@@ -1,4 +1,4 @@
-package dev.upcraft.sparkweave.client.render;
+package dev.upcraft.sparkweave.renderdoc.client;
 
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -6,14 +6,16 @@ import org.slf4j.LoggerFactory;
 import java.io.File;
 import java.nio.file.Files;
 import java.nio.file.Path;
+import java.util.concurrent.atomic.AtomicBoolean;
 
 public class RenderDocHelper {
 
-	private static final Logger LOGGER = LoggerFactory.getLogger(RenderDocHelper.class);
 	public static final boolean LOAD_RENDERDOC = Boolean.getBoolean("sparkweave.debug.render.load_renderdoc");
+	private static final AtomicBoolean INITIALIZED = new AtomicBoolean(false);
+	private static final Logger LOGGER = LoggerFactory.getLogger(RenderDocHelper.class);
 
-	public static void init() {
-		if(LOAD_RENDERDOC) {
+	public static synchronized void init() {
+		if(LOAD_RENDERDOC && !isLoaded()) {
 			LOGGER.info("Loading RenderDoc");
 			var libraryPath = System.getProperty("java.library.path");
 
@@ -44,6 +46,13 @@ public class RenderDocHelper {
 			if(!loaded) {
 				LOGGER.warn("RenderDoc not found or unable to load");
 			}
+			else {
+				INITIALIZED.set(true);
+			}
 		}
+	}
+
+	public static boolean isLoaded() {
+		return INITIALIZED.get();
 	}
 }

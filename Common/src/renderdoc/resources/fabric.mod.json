@@ -1,0 +1,21 @@
+{
+	"schemaVersion": 1,
+	"id": "${mod_id}_renderdoc_loader",
+	"version": "${version}",
+	"name": "${mod_display_name} RenderDoc Loader",
+	"license": "${license_url}",
+	"icon": "icon.png",
+	"custom": {
+		"modmenu": {
+			"badges": [
+				"library"
+			],
+			"parent": "${mod_id}",
+			"update_checker": false
+		}
+	},
+	"depends": {
+		"${mod_id}": "=${version}"
+	},
+	"environment": "client"
+}

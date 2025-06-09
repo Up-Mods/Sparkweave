@@ -16,6 +16,9 @@ dependencies {
 	compileOnly libs.autoservice.annotations
 	annotationProcessor libs.autoservice
 
+	implementation project(path: ":Common", configuration: "renderdoc")
+//	additionalRuntimeClasspath project(path: ":Common", configuration: "renderdoc")
+
 	testmodImplementation sourceSets.main.output
 	testmodCompileOnly project(path: ":Common", configuration: "testmod")
 	testmodCompileOnly libs.autoservice.annotations
@@ -40,6 +43,14 @@ dependencies {
 	testRuntimeOnly libs.junit.engine
 }
 
+jar {
+	def loaderJarName = "${mod_id}-renderdoc-loader-${version}.jar"
+	from(project(":Common").tasks.renderdocJar) {
+		into "META-INF/jarjar"
+		rename { loaderJarName }
+	}
+}
+
 test {
 	useJUnitPlatform()
 }
@@ -58,6 +69,10 @@ neoForge {
 		"${mod_id}" {
 			sourceSet(sourceSets.main)
 			sourceSet(project(":Common").sourceSets.main)
+		}
+
+		"${mod_id}_renderdoc_loader" {
+			sourceSet(project(":Common").sourceSets.renderdoc)
 		}
 
 		"${project.mod_id}_testmod" {
@@ -102,7 +117,7 @@ neoForge {
 			systemProperty "${project.mod_id}.debug.render.load_renderdoc", 'true'
 
 			sourceSet = sourceSets.main
-			loadedMods.set([mods."${mod_id}"])
+			loadedMods.set([mods."${mod_id}", mods."${mod_id}_renderdoc_loader"])
 		}
 
 		server {
