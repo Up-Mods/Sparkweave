@@ -150,6 +150,7 @@ jobs:
           version-type: beta
           files: |
             ${{ matrix.loader }}/build/libs/!(*-@(sources|javadoc)).jar
+            ${{ matrix.loader }}/build/libs/*-@(sources|javadoc).jar
       - name: Store Platform IDs
         id: store_ids
         run: |
