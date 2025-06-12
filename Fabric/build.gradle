@@ -17,7 +17,8 @@ dependencies {
 	modImplementation libs.fabric.loader
 	modImplementation libs.fabric.api
 
-	implementation project(path: ":Common", configuration: "renderdoc")
+	compileOnly project(path: ":Common", configuration: "renderdoc")
+	localRuntime project(path: ":Common", configuration: "renderdoc")
 	include(project(path: ":Common", configuration: "renderdoc"))
 
 	testmodImplementation sourceSets.main.output
