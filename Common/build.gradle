@@ -13,7 +13,7 @@ dependencies {
 	compileOnly libs.jetbrains.annotations
 	compileOnly libs.autoservice.annotations
 
-	implementation sourceSets.renderdoc.output
+	compileOnly sourceSets.renderdoc.output
 
 	compileOnly libs.appdirs
 
@@ -121,4 +121,12 @@ artifacts {
 	}
 
 	add("renderdoc", tasks.renderdocJar)
+}
+
+publishing {
+	publications {
+		"mavenJava${project.name}"(MavenPublication) {
+			artifact tasks.renderdocJar
+		}
+	}
 }

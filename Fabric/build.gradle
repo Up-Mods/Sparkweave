@@ -173,6 +173,32 @@ tasks.ideaSyncTask.finalizedBy(tasks.generateDatagenDir)
 tasks.runDatagen.dependsOn(tasks.generateDatagenDir)
 sourceSets.testmod.resources { srcDir "src/testmod/generated" }
 
+publishing {
+	publications {
+		"mavenJava${project.name}"(MavenPublication) {
+			// Use project.provider to make it configuration-cache safe
+			def projectGroup = project.provider { rootProject.group }.get()
+			def projectVersion = project.provider { rootProject.version }.get()
+			pom.withXml {
+				def dependenciesNode = asNode().get("dependencies")
+				if(dependenciesNode.isEmpty()) {
+					dependenciesNode = asNode().appendNode('dependencies')
+				}
+				else {
+					dependenciesNode = dependenciesNode.get(0)
+				}
+
+				def dependencyNode = dependenciesNode.appendNode('dependency')
+				dependencyNode.appendNode('groupId', projectGroup)
+				dependencyNode.appendNode('artifactId', 'Common')
+				dependencyNode.appendNode('version', projectVersion)
+				dependencyNode.appendNode('classifier', 'renderdoc')
+				dependencyNode.appendNode('type', 'jar')
+			}
+		}
+	}
+}
+
 tasks.named("compileJava", JavaCompile) {
 	source project(":Common").sourceSets.main.allJava
 }
