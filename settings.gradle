@@ -20,8 +20,10 @@ plugins {
 enableFeaturePreview 'TYPESAFE_PROJECT_ACCESSORS'
 
 rootProject.name = 'Sparkweave'
-include 'Common', 'Fabric', 'NeoForge'
-project(":Common").name = "${rootProject.name}-Common"
+['Common', 'Fabric', 'NeoForge'].each {
+	include it
+	project(":${it}").name = "${rootProject.name}-${it}"
+}
 
 def ENV = System.getenv()
 

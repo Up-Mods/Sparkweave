@@ -18,13 +18,20 @@ dependencies {
 
 	compileOnly(projects.sparkweaveCommon) {
 		capabilities {
-			it.requireFeature("renderdocLoader")
+			it.requireFeature("renderdoc-loader")
 		}
 	}
 	localRuntime(projects.sparkweaveCommon) {
 		capabilities {
-			it.requireFeature("renderdocLoader")
+			it.requireFeature("renderdoc-loader")
 		}
+	}
+	renderdoc(projects.sparkweaveCommon) {
+		capabilities {
+			it.requireFeature("renderdoc-loader")
+		}
+		endorseStrictVersions()
+		transitive = false
 	}
 
 	testmodImplementation sourceSets.main.output
@@ -53,14 +60,13 @@ dependencies {
 	testRuntimeOnly libs.junit.engine
 }
 
-// FIXME jarjar again
-//jar {
-//	def loaderJarName = "${mod_id}-renderdoc-loader-${version}.jar"
-//	from(projects.sparkweaveCommon.tasks.renderdocJar) {
-//		into "META-INF/jarjar"
-//		rename { loaderJarName }
-//	}
-//}
+jar {
+	def loaderJarName = "${mod_id}-renderdoc-loader-${version}.jar"
+	from(configurations.renderdoc) {
+		into "META-INF/jarjar"
+		rename { loaderJarName }
+	}
+}
 
 test {
 	useJUnitPlatform()

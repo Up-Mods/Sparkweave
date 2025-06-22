@@ -19,7 +19,7 @@ dependencies {
 
 	implementation(projects.sparkweaveCommon) {
 		capabilities {
-			it.requireFeature("renderdocLoader")
+			it.requireFeature("renderdoc-loader")
 		}
 		endorseStrictVersions()
 
@@ -27,7 +27,7 @@ dependencies {
 	}
 	include(projects.sparkweaveCommon) {
 		capabilities {
-			it.requireFeature("renderdocLoader")
+			it.requireFeature("renderdoc-loader")
 		}
 
 		transitive = false

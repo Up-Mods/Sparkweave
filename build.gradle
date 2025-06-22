@@ -35,16 +35,19 @@ subprojects {
 		options.tags = ["reason", "implNote"]
 	}
 
-	base {
-		archivesName = "${rootProject.name}-${project.name}"
-	}
-
 	sourceSets {
 		testmod {
 			java {
 				compileClasspath += main.compileClasspath
 				runtimeClasspath += main.runtimeClasspath
 			}
+		}
+	}
+
+	configurations {
+		renderdoc {
+			canBeConsumed = false
+			canBeResolved = true
 		}
 	}
 
@@ -214,7 +217,7 @@ subprojects {
 	publishing {
 		publications {
 			"mavenJava${project.name}"(MavenPublication) {
-				artifactId = "${rootProject.name}-${project.name}"
+				artifactId = project.name
 				from components.java
 			}
 		}

@@ -99,7 +99,6 @@ processRenderdocResources {
 }
 
 tasks.named("renderdocJar", Jar) {
-	archiveClassifier.set("renderdoc-loader")
 	from sourceSets.renderdoc.output
 
 	manifest {
