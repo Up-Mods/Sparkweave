@@ -10,25 +10,27 @@ configurations {
 }
 
 dependencies {
-	compileOnly project(":Common")
-	interfaceInjectionData project(":Common")
-	accessTransformers project(":Common")
+	compileOnly projects.sparkweaveCommon
+	interfaceInjectionData projects.sparkweaveCommon
+	accessTransformers projects.sparkweaveCommon
 	compileOnly libs.autoservice.annotations
 	annotationProcessor libs.autoservice
 
-	compileOnly(project(":Common")) {
+	compileOnly(projects.sparkweaveCommon) {
 		capabilities {
-			requireCapability("${rootProject.group}:${rootProject.name}-Common-renderdocLoader:${project.version}")
+			it.requireFeature("renderdocLoader")
 		}
 	}
-	localRuntime(project(":Common")) {
+	localRuntime(projects.sparkweaveCommon) {
 		capabilities {
-			requireCapability("${rootProject.group}:${rootProject.name}-Common-renderdocLoader:${project.version}")
+			it.requireFeature("renderdocLoader")
 		}
 	}
 
 	testmodImplementation sourceSets.main.output
-	testmodCompileOnly project(path: ":Common", configuration: "testmod")
+	testmodCompileOnly(projects.sparkweaveCommon) {
+		targetConfiguration = "testmod"
+	}
 	testmodCompileOnly libs.autoservice.annotations
 	testmodAnnotationProcessor libs.autoservice
 
@@ -51,13 +53,14 @@ dependencies {
 	testRuntimeOnly libs.junit.engine
 }
 
-jar {
-	def loaderJarName = "${mod_id}-renderdoc-loader-${version}.jar"
-	from(project(":Common").tasks.renderdocJar) {
-		into "META-INF/jarjar"
-		rename { loaderJarName }
-	}
-}
+// FIXME jarjar again
+//jar {
+//	def loaderJarName = "${mod_id}-renderdoc-loader-${version}.jar"
+//	from(projects.sparkweaveCommon.tasks.renderdocJar) {
+//		into "META-INF/jarjar"
+//		rename { loaderJarName }
+//	}
+//}
 
 test {
 	useJUnitPlatform()
@@ -76,16 +79,16 @@ neoForge {
 		// but multi mod projects should define one per mod
 		"${mod_id}" {
 			sourceSet(sourceSets.main)
-			sourceSet(project(":Common").sourceSets.main)
+			sourceSet(projects.sparkweaveCommon.dependencyProject.sourceSets.main)
 		}
 
 		"${mod_id}_renderdoc_loader" {
-			sourceSet(project(":Common").sourceSets.renderdoc)
+			sourceSet(projects.sparkweaveCommon.dependencyProject.sourceSets.maybeCreate("renderdoc"))
 		}
 
 		"${project.mod_id}_testmod" {
 			sourceSet(sourceSets.testmod)
-			sourceSet(project(":Common").sourceSets.testmod)
+			sourceSet(projects.sparkweaveCommon.dependencyProject.sourceSets.testmod)
 		}
 	}
 
@@ -163,33 +166,33 @@ neoForge {
 sourceSets.testmod.resources { srcDir "src/testmod/generated" }
 
 tasks.named("compileJava", JavaCompile) {
-	source project(":Common").sourceSets.main.allJava
+	source projects.sparkweaveCommon.dependencyProject.sourceSets.main.allJava
 }
 
 tasks.named("compileTestJava", JavaCompile) {
-	source project(":Common").sourceSets.test.allJava
+	source projects.sparkweaveCommon.dependencyProject.sourceSets.test.allJava
 }
 
 tasks.named("compileTestmodJava", JavaCompile) {
-	source project(":Common").sourceSets.testmod.allJava
+	source projects.sparkweaveCommon.dependencyProject.sourceSets.testmod.allJava
 }
 
 tasks.named("javadoc", Javadoc) {
-	source project(":Common").sourceSets.main.allJava
+	source projects.sparkweaveCommon.dependencyProject.sourceSets.main.allJava
 }
 
 tasks.named("sourcesJar", Jar) {
-	from project(":Common").sourceSets.main.allSource
+	from projects.sparkweaveCommon.dependencyProject.sourceSets.main.allSource
 }
 
 processResources {
-	from project(":Common").sourceSets.main.resources
+	from projects.sparkweaveCommon.dependencyProject.sourceSets.main.resources
 }
 
 processTestResources {
-	from project(":Common").sourceSets.test.resources
+	from projects.sparkweaveCommon.dependencyProject.sourceSets.test.resources
 }
 
 processTestmodResources {
-	from project(":Common").sourceSets.testmod.resources
+	from projects.sparkweaveCommon.dependencyProject.sourceSets.testmod.resources
 }

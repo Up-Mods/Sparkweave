@@ -9,7 +9,7 @@ dependencies {
 		it.officialMojangMappings()
 		it.parchment("org.parchmentmc.data:parchment-${libs.versions.parchment.minecraft.get()}:${libs.versions.parchment.mappings.get()}@zip")
 	})
-	compileOnly project(":Common")
+	compileOnly projects.sparkweaveCommon
 
 	compileOnly libs.autoservice.annotations
 	annotationProcessor libs.autoservice
@@ -17,24 +17,26 @@ dependencies {
 	modImplementation libs.fabric.loader
 	modImplementation libs.fabric.api
 
-	implementation(project(":Common")) {
+	implementation(projects.sparkweaveCommon) {
 		capabilities {
-			requireCapability("${rootProject.group}:${rootProject.name}-Common-renderdocLoader:${project.version}")
+			it.requireFeature("renderdocLoader")
 		}
 		endorseStrictVersions()
 
 		transitive = false
 	}
-	include(project(":Common")) {
+	include(projects.sparkweaveCommon) {
 		capabilities {
-			requireCapability("${rootProject.group}:${rootProject.name}-Common-renderdocLoader:${project.version}")
+			it.requireFeature("renderdocLoader")
 		}
 
 		transitive = false
 	}
 
 	testmodImplementation sourceSets.main.output
-	testmodCompileOnly project(path: ":Common", configuration: "testmod")
+	testmodCompileOnly(projects.sparkweaveCommon) {
+		targetConfiguration = "testmod"
+	}
 	testmodCompileOnly libs.autoservice.annotations
 	testmodAnnotationProcessor libs.autoservice
 
@@ -69,17 +71,18 @@ test {
 	useJUnitPlatform()
 }
 
+def rp = rootProject
 loom {
 	mods {
 		"${mod_id}" {
 			// Tell Loom about each source set used by your mod here. This ensures that your mod's classes are properly transformed by Loader.
 			sourceSet sourceSets.main
-			sourceSet project(":Common").sourceSets.main
+			sourceSet projects.sparkweaveCommon.dependencyProject.sourceSets.main
 		}
 
 		"${mod_id}_testmod" {
 			sourceSet sourceSets.testmod
-			sourceSet project(":Common").sourceSets.testmod
+			sourceSet projects.sparkweaveCommon.dependencyProject.sourceSets.testmod
 		}
 	}
 
@@ -186,33 +189,33 @@ tasks.runDatagen.dependsOn(tasks.generateDatagenDir)
 sourceSets.testmod.resources { srcDir "src/testmod/generated" }
 
 tasks.named("compileJava", JavaCompile) {
-	source project(":Common").sourceSets.main.allJava
+	source projects.sparkweaveCommon.dependencyProject.sourceSets.main.allJava
 }
 
 tasks.named("compileTestJava", JavaCompile) {
-	source project(":Common").sourceSets.test.allJava
+	source projects.sparkweaveCommon.dependencyProject.sourceSets.test.allJava
 }
 
 tasks.named("compileTestmodJava", JavaCompile).configure {
-	source project(":Common").sourceSets.testmod.allJava
+	source projects.sparkweaveCommon.dependencyProject.sourceSets.testmod.allJava
 }
 
 tasks.named("javadoc", Javadoc).configure {
-	source project(":Common").sourceSets.main.allJava
+	source projects.sparkweaveCommon.dependencyProject.sourceSets.main.allJava
 }
 
 tasks.named("sourcesJar", Jar) {
-	from project(":Common").sourceSets.main.allSource
+	from projects.sparkweaveCommon.dependencyProject.sourceSets.main.allSource
 }
 
 processResources {
-	from project(":Common").sourceSets.main.resources
+	from projects.sparkweaveCommon.dependencyProject.sourceSets.main.resources
 }
 
 processTestResources {
-	from project(":Common").sourceSets.test.resources
+	from projects.sparkweaveCommon.dependencyProject.sourceSets.test.resources
 }
 
 processTestmodResources {
-	from project(":Common").sourceSets.testmod.resources
+	from projects.sparkweaveCommon.dependencyProject.sourceSets.testmod.resources
 }

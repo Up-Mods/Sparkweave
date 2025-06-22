@@ -5,7 +5,7 @@ plugins {
 neoForge.neoFormVersion = libs.versions.neoform.get()
 
 sourceSets {
-	create("renderdoc")
+	maybeCreate("renderdoc")
 }
 
 dependencies {
@@ -66,7 +66,6 @@ configurations {
 
 java {
 	registerFeature("renderdocLoader") {
-		capability("${rootProject.group}", "${rootProject.name}-${project.name}-renderdocLoader", "${project.version}")
 		usingSourceSet(sourceSets.renderdoc)
 	}
 }
