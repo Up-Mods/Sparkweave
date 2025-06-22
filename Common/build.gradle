@@ -69,6 +69,12 @@ configurations {
 	}
 }
 
+java {
+	registerFeature("renderdocLoader") {
+		usingSourceSet(sourceSets.renderdoc)
+	}
+}
+
 processRenderdocResources {
 	filteringCharset = "UTF-8"
 
@@ -97,7 +103,7 @@ processRenderdocResources {
 	inputs.properties(expandProps)
 }
 
-tasks.register("renderdocJar", Jar) {
+tasks.named("renderdocJar", Jar) {
 	archiveClassifier.set("renderdoc-loader")
 	from sourceSets.renderdoc.output
 
