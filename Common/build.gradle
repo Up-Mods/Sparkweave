@@ -62,15 +62,11 @@ configurations {
 		canBeResolved = false
 		canBeConsumed = true
 	}
-
-	renderdoc {
-		canBeResolved = false
-		canBeConsumed = true
-	}
 }
 
 java {
 	registerFeature("renderdocLoader") {
+		capability("${rootProject.group}", "${rootProject.name}-${project.name}-renderdocLoader", "${project.version}")
 		usingSourceSet(sourceSets.renderdoc)
 	}
 }
@@ -124,15 +120,5 @@ tasks.assemble.dependsOn(tasks.renderdocJar)
 artifacts {
 	testmod(sourceSets.testmod.output.classesDirs.singleFile) {
 		builtBy testmodClasses
-	}
-
-	add("renderdoc", tasks.renderdocJar)
-}
-
-publishing {
-	publications {
-		"mavenJava${project.name}"(MavenPublication) {
-			artifact tasks.renderdocJar
-		}
 	}
 }

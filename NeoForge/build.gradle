@@ -16,8 +16,16 @@ dependencies {
 	compileOnly libs.autoservice.annotations
 	annotationProcessor libs.autoservice
 
-	compileOnly project(path: ":Common", configuration: "renderdoc")
-	localRuntime project(path: ":Common", configuration: "renderdoc")
+	compileOnly(project(":Common")) {
+		capabilities {
+			requireCapability("${rootProject.group}:${rootProject.name}-Common-renderdocLoader:${project.version}")
+		}
+	}
+	localRuntime(project(":Common")) {
+		capabilities {
+			requireCapability("${rootProject.group}:${rootProject.name}-Common-renderdocLoader:${project.version}")
+		}
+	}
 
 	testmodImplementation sourceSets.main.output
 	testmodCompileOnly project(path: ":Common", configuration: "testmod")
