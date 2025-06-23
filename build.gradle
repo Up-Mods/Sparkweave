@@ -219,6 +219,10 @@ subprojects {
 			"mavenJava${project.name}"(MavenPublication) {
 				artifactId = project.name
 				from components.java
+
+				suppressPomMetadataWarningsFor("renderdocApiElements")
+				suppressPomMetadataWarningsFor("renderdocRuntimeElements")
+				suppressPomMetadataWarningsFor("runtimeElements")
 			}
 		}
 	}

@@ -50,14 +50,14 @@ dependencies {
 	modCompileOnly(variantOf(libs.emi.fabric) { classifier 'api' }) {
 		transitive = false
 	}
-	modLocalRuntime (libs.emi.fabric) {
+	modLocalRuntime(libs.emi.fabric) {
 		transitive = false
 	}
 
-	modCompileOnly (libs.modmenu.fabric) {
+	modCompileOnly(libs.modmenu.fabric) {
 		transitive = false
 	}
-	modLocalRuntime (libs.modmenu.fabric) {
+	modLocalRuntime(libs.modmenu.fabric) {
 		transitive = false
 	}
 
@@ -187,6 +187,35 @@ tasks.register('generateDatagenDir') {
 tasks.ideaSyncTask.finalizedBy(tasks.generateDatagenDir)
 tasks.runDatagen.dependsOn(tasks.generateDatagenDir)
 sourceSets.testmod.resources { srcDir "src/testmod/generated" }
+
+publishing {
+	publications {
+		"mavenJava${project.name}"(MavenPublication) {
+			// Use project.provider to make it configuration-cache safe
+			def projectGroup = projects.sparkweaveCommon.group
+			def projectName = projects.sparkweaveCommon.name
+			pom.withXml {
+				def dependenciesNode = asNode().get("dependencies")
+				if (dependenciesNode.isEmpty()) {
+					dependenciesNode = asNode().appendNode('dependencies')
+				} else {
+					dependenciesNode = dependenciesNode.get(0)
+				}
+
+				def dependencyNode = dependenciesNode.dependency.find { node ->
+					node.groupId.text() == projectGroup && node.artifactId.text() == projectName
+				}
+				if (dependencyNode == null) {
+					dependencyNode = dependenciesNode.appendNode('dependency')
+					dependencyNode.appendNode('groupId', projectGroup)
+					dependencyNode.appendNode('artifactId', projectName)
+					dependencyNode.appendNode('classifier', 'renderdoc')
+				}
+				dependencyNode.appendNode('classifier', 'renderdoc')
+			}
+		}
+	}
+}
 
 tasks.named("compileJava", JavaCompile) {
 	source projects.sparkweaveCommon.dependencyProject.sourceSets.main.allJava
