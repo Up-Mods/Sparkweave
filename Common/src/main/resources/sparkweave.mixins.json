@@ -11,7 +11,8 @@
   ],
   "client": [
     "client.LecternRendererMixin",
-    "client.RenderLayerMixin"
+    "client.RenderLayerMixin",
+    "client.debug.AbstractContainerScreenMixin"
   ],
   "injectors": {
     "defaultRequire": 1
