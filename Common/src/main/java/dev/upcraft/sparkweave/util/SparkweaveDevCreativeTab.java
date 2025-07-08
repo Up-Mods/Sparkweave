@@ -24,6 +24,7 @@ public class SparkweaveDevCreativeTab {
 				output.accept(LightBlock.setLightOnStack(new ItemStack(Items.LIGHT), light));
 			}
 
+			output.accept(Items.DEBUG_STICK);
 
 		}).build();
 	}
