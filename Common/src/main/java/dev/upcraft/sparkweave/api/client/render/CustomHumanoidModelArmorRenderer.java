@@ -20,7 +20,7 @@ public abstract class CustomHumanoidModelArmorRenderer<E extends LivingEntity, M
 	protected CustomHumanoidModelArmorRenderer() {
 	}
 
-	protected abstract void setPartVisibility(A model, E entity, ItemStack stack, EquipmentSlot slot);
+	protected abstract void setPartVisibility(A model, M contextModel, E entity, ItemStack stack, EquipmentSlot slot);
 
 	protected abstract A getArmorModel(E entity, ItemStack stack, EquipmentSlot slot);
 
@@ -29,7 +29,7 @@ public abstract class CustomHumanoidModelArmorRenderer<E extends LivingEntity, M
 		A armorModel = this.getArmorModel(entity, stack, slot);
 		contextModel.copyPropertiesTo(armorModel);
 		armorModel.setAllVisible(false);
-		this.setPartVisibility(armorModel, entity, stack, slot);
+		this.setPartVisibility(armorModel, contextModel, entity, stack, slot);
 
 		int dyeColor = stack.is(ItemTags.DYEABLE) ? FastColor.ARGB32.opaque(DyedItemColor.getOrDefault(stack, -6265536)) : -1;
 
