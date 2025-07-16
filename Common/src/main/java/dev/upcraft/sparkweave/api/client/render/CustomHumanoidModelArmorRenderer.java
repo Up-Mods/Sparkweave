@@ -31,7 +31,7 @@ public abstract class CustomHumanoidModelArmorRenderer<E extends LivingEntity, M
 		armorModel.setAllVisible(false);
 		this.setPartVisibility(armorModel, contextModel, entity, stack, slot);
 
-		int dyeColor = stack.is(ItemTags.DYEABLE) ? FastColor.ARGB32.opaque(DyedItemColor.getOrDefault(stack, -6265536)) : -1;
+		int dyeColor = stack.is(ItemTags.DYEABLE) ? FastColor.ARGB32.opaque(DyedItemColor.getOrDefault(stack, 0xFFA06540)) : 0xFFFFFFFF;
 
 		renderModelPart(matrices, bufferSource, stack, entity, slot, light, dyeColor, contextModel, armorModel);
 	}
