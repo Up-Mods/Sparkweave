@@ -6,40 +6,42 @@ parchment_minecraft = "1.21.1"
 parchment_mappings = "2024.11.17"
 
 # https://projects.neoforged.net/neoforged/moddevgradle
-moddevgradle = "2.0.80"
+moddevgradle = "2.0.107"
 # https://projects.neoforged.net/neoforged/neoform
 neoform = "1.21.1-20240808.144430"
 
 # NeoForge
 # https://projects.neoforged.net/neoforged/neoforge
-neoforge = "21.1.148"
+neoforge = "21.1.209"
 # https://projects.neoforged.net/neoforged/fancymodloader
 # MUST match the version that neoforge uses! https://github.com/neoforged/NeoForge/blob/1.21.1/gradle.properties
-fancymodloader = "4.0.39"
+fancymodloader = "4.0.41"
 
 # Fabric
 # https://fabricmc.net/develop
-fabric_loom = "1.10.5" # https://maven.fabricmc.net/fabric-loom/fabric-loom.gradle.plugin
-fabric_loader = "0.16.13"
-fabric_api = "0.115.4+1.21.1"
+fabric_loom = "1.11.8" # https://maven.fabricmc.net/fabric-loom/fabric-loom.gradle.plugin
+fabric_loader = "0.17.2"
+fabric_api = "0.116.6+1.21.1"
 
 # Minecraft dependencies
-jetbrains_annotations = "26.0.2"
-mixin = "0.15.5+mixin.0.8.7"
-mixin_extras = "0.4.1"
-asm = "9.7.1"
+jetbrains_annotations = "26.0.2-1"
+mixin = "0.16.3+mixin.0.8.7"
+mixin_extras = "0.5.0"
+asm = "9.8"
+jna = "5.14.0"
 
 # Other dependencies
-appdirs = "1.2.1"
+appdirs = "1.4.0"
 autoservice = "1.1.1"
-junit = "5.11.3"
+junit = "5.13.4"
 
 # Mods
-emi = "1.1.19+1.21.1"
+# https://modrinth.com/mod/emi/versions
+emi = "1.1.22+1.21.1"
 # https://modrinth.com/mod/modmenu/versions
 modmenu = "11.0.3"
-# https://beehive.sh
-resourcefulconfig = "3.0.9"
+# https://beehive.sh/mod/resourcefulconfig/versions
+resourcefulconfig = "3.0.11"
 
 [libraries]
 # NeoForge
@@ -60,6 +62,7 @@ asm_analysis = { module = "org.ow2.asm:asm-analysis", version.ref = "asm" }
 asm_commons = { module = "org.ow2.asm:asm-commons", version.ref = "asm" }
 asm_tree = { module = "org.ow2.asm:asm-tree", version.ref = "asm" }
 asm_util = { module = "org.ow2.asm:asm-util", version.ref = "asm" }
+jna = { module = "net.java.dev.jna:jna-platform", version.ref = "jna" }
 jetbrains_annotations = { module = "org.jetbrains:annotations", version.ref = "jetbrains_annotations" }
 
 # Other dependencies

@@ -126,7 +126,7 @@ neoForge {
 			loadedMods.set([mods."${mod_id}"])
 		}
 
-		clientRenderDoc {
+		clientRenderDocLoader {
 			client()
 			devLogin = true
 			gameDirectory = project.file('run')

@@ -22,6 +22,11 @@ subprojects {
 	project.group = rootProject.group
 	project.version = rootProject.version
 
+	// FIXME workaround for appdirs transitively requiring newer JNA but we are locked due to MC
+	configurations.configureEach {
+		resolutionStrategy.force(libs.jna)
+	}
+
 	java {
 		toolchain {
 			languageVersion = JavaLanguageVersion.of(javaVersion)
