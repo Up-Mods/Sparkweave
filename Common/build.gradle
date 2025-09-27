@@ -9,6 +9,8 @@ sourceSets {
 }
 
 dependencies {
+	implementation(platform(libs.neoforge.mcdeps))
+
 	compileOnly libs.bundles.mixin
 	compileOnly libs.jetbrains.annotations
 	compileOnly libs.autoservice.annotations
