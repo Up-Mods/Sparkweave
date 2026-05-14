@@ -6,34 +6,34 @@ parchment_minecraft = "1.21.1"
 parchment_mappings = "2024.11.17"
 
 # https://projects.neoforged.net/neoforged/moddevgradle
-moddevgradle = "2.0.107"
+moddevgradle = "2.0.141"
 # https://projects.neoforged.net/neoforged/neoform
 neoform = "1.21.1-20240808.144430"
 
 # NeoForge
 # https://projects.neoforged.net/neoforged/neoforge
-neoforge = "21.1.209"
+neoforge = "21.1.228"
 # https://projects.neoforged.net/neoforged/fancymodloader
 # MUST match the version that neoforge uses! https://github.com/neoforged/NeoForge/blob/1.21.1/gradle.properties
-fancymodloader = "4.0.41"
+fancymodloader = "4.0.42"
 
 # Fabric
 # https://fabricmc.net/develop
-fabric_loom = "1.11.8" # https://maven.fabricmc.net/fabric-loom/fabric-loom.gradle.plugin
-fabric_loader = "0.17.2"
-fabric_api = "0.116.6+1.21.1"
+fabric_loom = "1.16.1" # https://maven.fabricmc.net/net/fabricmc/fabric-loom-remap/net.fabricmc.fabric-loom-remap.gradle.plugin/
+fabric_loader = "0.19.2"
+fabric_api = "0.116.11+1.21.1"
 
 # Minecraft dependencies
-jetbrains_annotations = "26.0.2-1"
-mixin = "0.16.3+mixin.0.8.7"
-mixin_extras = "0.5.0"
+jetbrains_annotations = "26.1.0"
+mixin = "0.15.2+mixin.0.8.7"
+mixin_extras = "0.5.3"
 asm = "9.8"
 jna = "5.14.0"
 
 # Other dependencies
-appdirs = "1.4.0"
+appdirs = "1.5.0"
 autoservice = "1.1.1"
-junit = "5.13.4"
+junit = "6.0.3"
 
 # Mods
 # https://modrinth.com/mod/emi/versions
@@ -91,4 +91,5 @@ mixin = ["mixin", "mixin_extras", "asm", "asm_analysis", "asm_commons", "asm_tre
 [plugins]
 moddevgradle = { id = "net.neoforged.moddev", version.ref = "moddevgradle" }
 repositories = { id = "net.neoforged.moddev.repositories", version.ref = "moddevgradle" }
-fabric_loom = { id = "fabric-loom", version.ref = "fabric_loom" }
+fabric_loom_remap = { id = "net.fabricmc.fabric-loom-remap", version.ref = "fabric_loom" }
+fabric_loom_companion = { id = "net.fabricmc.fabric-loom-companion", version.ref = "fabric_loom" }

@@ -1,5 +1,5 @@
 plugins {
-	alias libs.plugins.fabric.loom
+	id 'net.fabricmc.fabric-loom-remap'
 	alias libs.plugins.repositories
 }
 
@@ -9,7 +9,7 @@ dependencies {
 		it.officialMojangMappings()
 		it.parchment("org.parchmentmc.data:parchment-${libs.versions.parchment.minecraft.get()}:${libs.versions.parchment.mappings.get()}@zip")
 	})
-	compileOnly projects.sparkweaveCommon
+	compileOnly project(":Sparkweave-Common")
 
 	compileOnly libs.autoservice.annotations
 	annotationProcessor libs.autoservice
@@ -17,7 +17,7 @@ dependencies {
 	modImplementation libs.fabric.loader
 	modImplementation libs.fabric.api
 
-	implementation(projects.sparkweaveCommon) {
+	implementation(project(":Sparkweave-Common")) {
 		capabilities {
 			it.requireFeature("renderdoc-loader")
 		}
@@ -25,7 +25,7 @@ dependencies {
 
 		transitive = false
 	}
-	include(projects.sparkweaveCommon) {
+	include(project(":Sparkweave-Common")) {
 		capabilities {
 			it.requireFeature("renderdoc-loader")
 		}
@@ -34,7 +34,7 @@ dependencies {
 	}
 
 	testmodImplementation sourceSets.main.output
-	testmodCompileOnly(projects.sparkweaveCommon) {
+	testmodCompileOnly(project(":Sparkweave-Common")) {
 		targetConfiguration = "testmod"
 	}
 	testmodCompileOnly libs.autoservice.annotations
@@ -71,18 +71,17 @@ test {
 	useJUnitPlatform()
 }
 
-def rp = rootProject
 loom {
 	mods {
 		"${mod_id}" {
 			// Tell Loom about each source set used by your mod here. This ensures that your mod's classes are properly transformed by Loader.
 			sourceSet sourceSets.main
-			sourceSet projects.sparkweaveCommon.dependencyProject.sourceSets.main
+			sourceSet project(":Sparkweave-Common").sourceSets.main
 		}
 
 		"${mod_id}_testmod" {
 			sourceSet sourceSets.testmod
-			sourceSet projects.sparkweaveCommon.dependencyProject.sourceSets.testmod
+			sourceSet project(":Sparkweave-Common").sourceSets.testmod
 		}
 	}
 
@@ -192,8 +191,8 @@ publishing {
 	publications {
 		"mavenJava${project.name}"(MavenPublication) {
 			// Use project.provider to make it configuration-cache safe
-			def projectGroup = projects.sparkweaveCommon.group
-			def projectName = projects.sparkweaveCommon.name
+			def projectGroup = project(":Sparkweave-Common").group
+			def projectName = project(":Sparkweave-Common").name
 			pom.withXml {
 				def dependenciesNode = asNode().get("dependencies")
 				if (dependenciesNode.isEmpty()) {
@@ -218,33 +217,33 @@ publishing {
 }
 
 tasks.named("compileJava", JavaCompile) {
-	source projects.sparkweaveCommon.dependencyProject.sourceSets.main.allJava
+	source project(":Sparkweave-Common").sourceSets.main.allJava
 }
 
 tasks.named("compileTestJava", JavaCompile) {
-	source projects.sparkweaveCommon.dependencyProject.sourceSets.test.allJava
+	source project(":Sparkweave-Common").sourceSets.test.allJava
 }
 
 tasks.named("compileTestmodJava", JavaCompile).configure {
-	source projects.sparkweaveCommon.dependencyProject.sourceSets.testmod.allJava
+	source project(":Sparkweave-Common").sourceSets.testmod.allJava
 }
 
 tasks.named("javadoc", Javadoc).configure {
-	source projects.sparkweaveCommon.dependencyProject.sourceSets.main.allJava
+	source project(":Sparkweave-Common").sourceSets.main.allJava
 }
 
 tasks.named("sourcesJar", Jar) {
-	from projects.sparkweaveCommon.dependencyProject.sourceSets.main.allSource
+	from project(":Sparkweave-Common").sourceSets.main.allSource
 }
 
 processResources {
-	from projects.sparkweaveCommon.dependencyProject.sourceSets.main.resources
+	from project(":Sparkweave-Common").sourceSets.main.resources
 }
 
 processTestResources {
-	from projects.sparkweaveCommon.dependencyProject.sourceSets.test.resources
+	from project(":Sparkweave-Common").sourceSets.test.resources
 }
 
 processTestmodResources {
-	from projects.sparkweaveCommon.dependencyProject.sourceSets.testmod.resources
+	from project(":Sparkweave-Common").sourceSets.testmod.resources
 }
