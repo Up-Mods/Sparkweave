@@ -11,7 +11,8 @@ public class Services {
 	private static final Logger LOGGER = SparkweaveLoggerFactory.getLogger("Sparkweave Engine/ServiceLoader");
 
 	public static <T> T getService(Class<T> serviceClass) {
-		T service = ServiceLoader.load(serviceClass).findFirst().orElseThrow(() -> new IllegalStateException("No platform implementation found for " + serviceClass.getName()));
+		// explicitly pass the class loader so we don't fall back to the service class loader
+		T service = ServiceLoader.load(serviceClass, Services.class.getClassLoader()).findFirst().orElseThrow(() -> new IllegalStateException("No platform implementation found for " + serviceClass.getName()));
 		LOGGER.debug("Loaded {} for service {}", service.getClass().getName(), serviceClass.getName());
 		return service;
 	}
