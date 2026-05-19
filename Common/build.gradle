@@ -29,7 +29,7 @@ dependencies {
 	testCompileOnly libs.junit.api
 	testCompileOnly libs.neoforge.testframework
 
-	renderdocImplementation platform(libs.neoforge.mcdeps)
+	renderdocImplementation libs.neoforge.mcdeps
 	renderdocCompileOnly libs.autoservice.annotations
 	renderdocAnnotationProcessor libs.autoservice
 	renderdocImplementation libs.slf4j.api
