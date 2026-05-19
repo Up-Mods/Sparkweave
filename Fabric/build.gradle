@@ -17,22 +17,6 @@ dependencies {
 	modImplementation libs.fabric.loader
 	modImplementation libs.fabric.api
 
-	implementation(project(":Sparkweave-Common")) {
-		capabilities {
-			it.requireFeature("renderdoc-loader")
-		}
-		endorseStrictVersions()
-
-		transitive = false
-	}
-	include(project(":Sparkweave-Common")) {
-		capabilities {
-			it.requireFeature("renderdoc-loader")
-		}
-
-		transitive = false
-	}
-
 	testmodImplementation sourceSets.main.output
 	testmodCompileOnly(project(":Sparkweave-Common")) {
 		targetConfiguration = "testmod"
@@ -87,10 +71,6 @@ loom {
 
 	accessWidenerPath.set(file("src/main/resources/${mod_id}.accesswidener"))
 
-	mixin {
-		useLegacyMixinAp.set(false)
-	}
-
 	runs {
 		configureEach {
 			ideConfigGenerated(true)
@@ -109,29 +89,6 @@ loom {
 
 			if (project.hasProperty('mc_username')) {
 				programArg("--username=${project.findProperty('mc_username')}")
-			}
-
-			if (project.hasProperty('mc_java_agent_path')) {
-				vmArg("-javaagent:${project.findProperty('mc_java_agent_path')}")
-			}
-		}
-
-		clientRenderDocLoader {
-			client()
-			setConfigName("Fabric ClientRenderDocLoader")
-			runDir("run")
-			property("${project.mod_id}.debug.render.load_renderdoc", 'true')
-
-			if (project.hasProperty('mc_uuid')) {
-				programArg("--uuid=${project.findProperty('mc_uuid')}")
-			}
-
-			if (project.hasProperty('mc_username')) {
-				programArg("--username=${project.findProperty('mc_username')}")
-			}
-
-			if (project.hasProperty('mc_java_agent_path')) {
-				vmArg("-javaagent:${project.findProperty('mc_java_agent_path')}")
 			}
 		}
 
@@ -186,35 +143,6 @@ tasks.register('generateDatagenDir') {
 tasks.ideaSyncTask.finalizedBy(tasks.generateDatagenDir)
 tasks.runDatagen.dependsOn(tasks.generateDatagenDir)
 sourceSets.testmod.resources { srcDir "src/testmod/generated" }
-
-publishing {
-	publications {
-		"mavenJava${project.name}"(MavenPublication) {
-			// Use project.provider to make it configuration-cache safe
-			def projectGroup = project(":Sparkweave-Common").group
-			def projectName = project(":Sparkweave-Common").name
-			pom.withXml {
-				def dependenciesNode = asNode().get("dependencies")
-				if (dependenciesNode.isEmpty()) {
-					dependenciesNode = asNode().appendNode('dependencies')
-				} else {
-					dependenciesNode = dependenciesNode.get(0)
-				}
-
-				def dependencyNode = dependenciesNode.dependency.find { node ->
-					node.groupId.text() == projectGroup && node.artifactId.text() == projectName
-				}
-				if (dependencyNode == null) {
-					dependencyNode = dependenciesNode.appendNode('dependency')
-					dependencyNode.appendNode('groupId', projectGroup)
-					dependencyNode.appendNode('artifactId', projectName)
-					dependencyNode.appendNode('classifier', 'renderdoc')
-				}
-				dependencyNode.appendNode('classifier', 'renderdoc')
-			}
-		}
-	}
-}
 
 tasks.named("compileJava", JavaCompile) {
 	source project(":Sparkweave-Common").sourceSets.main.allJava

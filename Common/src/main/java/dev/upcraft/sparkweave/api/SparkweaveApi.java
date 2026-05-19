@@ -3,7 +3,6 @@ package dev.upcraft.sparkweave.api;
 import dev.upcraft.sparkweave.SparkweaveMod;
 import dev.upcraft.sparkweave.api.platform.Env;
 import dev.upcraft.sparkweave.api.platform.Services;
-import dev.upcraft.sparkweave.renderdoc.client.RenderDocHelper;
 import org.apache.logging.log4j.Level;
 
 public class SparkweaveApi {
@@ -22,10 +21,9 @@ public class SparkweaveApi {
 
 	public static class Client {
 
-		/**
-		 * @see RenderDocHelper
-		 */
-		public static final boolean LOAD_RENDERDOC = Env.getBool("debug.render.load_renderdoc", SparkweaveMod.MODID);
+		// TODO remove in 26.1
+		@Deprecated(forRemoval = true)
+		public static final boolean LOAD_RENDERDOC = false;
 
 		public static final boolean LOG_MISSING_TRANSLATIONS = DEVELOPMENT_ENVIRONMENT || Env.getBool("debug.log.missing_translations", SparkweaveMod.MODID);
 

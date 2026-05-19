@@ -58,7 +58,6 @@ jobs:
           name: ${{ github.event.repository.name }}-Common-${{ env.TAG }}
           path: |
             Common/build/libs/*.jar
-            !Common/build/libs/*-renderdoc-loader.jar
       - name: Upload build artifacts (Fabric)
         continue-on-error: true
         uses: actions/upload-artifact@v4
@@ -80,7 +79,6 @@ jobs:
             **/build/libs/*.jar
             !**/build/libs/*-sources.jar
             !**/build/libs/*-javadoc.jar
-            !**/build/libs/*-renderdoc-loader.jar
 
   publish_github:
     name: Publish (GitHub Releases)

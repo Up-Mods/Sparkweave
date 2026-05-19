@@ -50,13 +50,6 @@ subprojects {
 		}
 	}
 
-	configurations {
-		renderdoc {
-			canBeConsumed = false
-			canBeResolved = true
-		}
-	}
-
 	jar {
 		from(rootProject.file("LICENSE.md")) {
 			rename "LICENSE.md", "LICENSE_${rootProject.mod_id}.md"
@@ -224,10 +217,6 @@ subprojects {
 		publications {
 			"mavenJava${project.name}"(MavenPublication) {
 				from components.java
-
-				suppressPomMetadataWarningsFor("renderdocApiElements")
-				suppressPomMetadataWarningsFor("renderdocRuntimeElements")
-				suppressPomMetadataWarningsFor("runtimeElements")
 			}
 		}
 	}

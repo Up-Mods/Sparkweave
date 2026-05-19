@@ -16,24 +16,6 @@ dependencies {
 	compileOnly libs.autoservice.annotations
 	annotationProcessor libs.autoservice
 
-	compileOnly(project(":Sparkweave-Common")) {
-		capabilities {
-			it.requireFeature("renderdoc-loader")
-		}
-	}
-	localRuntime(project(":Sparkweave-Common")) {
-		capabilities {
-			it.requireFeature("renderdoc-loader")
-		}
-	}
-	renderdoc(project(":Sparkweave-Common")) {
-		capabilities {
-			it.requireFeature("renderdoc-loader")
-		}
-		endorseStrictVersions()
-		transitive = false
-	}
-
 	testmodImplementation sourceSets.main.output
 	testmodCompileOnly(project(":Sparkweave-Common")) {
 		targetConfiguration = "testmod"
@@ -60,14 +42,6 @@ dependencies {
 	testRuntimeOnly libs.junit.engine
 }
 
-jar {
-	def loaderJarName = "${mod_id}-renderdoc-loader-${version}.jar"
-	from(configurations.renderdoc) {
-		into "META-INF/jarjar"
-		rename { loaderJarName }
-	}
-}
-
 test {
 	useJUnitPlatform()
 }
@@ -88,10 +62,6 @@ neoForge {
 			sourceSet(project(":Sparkweave-Common").sourceSets.main)
 		}
 
-		"${mod_id}_renderdoc_loader" {
-			sourceSet(project(":Sparkweave-Common").sourceSets.maybeCreate("renderdoc"))
-		}
-
 		"${project.mod_id}_testmod" {
 			sourceSet(sourceSets.testmod)
 			sourceSet(project(":Sparkweave-Common").sourceSets.testmod)
@@ -110,37 +80,22 @@ neoForge {
 			logLevel = org.slf4j.event.Level.DEBUG
 			systemProperty 'forge.logging.markers', 'REGISTRIES'
 			systemProperty 'sparkweave.debug', 'true'
-
-			if (project.hasProperty('mc_java_agent_path')) {
-				jvmArgument("-javaagent:${project.findProperty('mc_java_agent_path')}")
-			}
 		}
 
 		client {
 			client()
 			devLogin = true
-			gameDirectory = project.file('run')
-			systemProperty 'neoforge.enabledGameTestNamespaces', project.mod_id
+			gameDirectory = file('run')
+			systemProperty 'neoforge.enabledGameTestNamespaces', "${mod_id}"
 
 			sourceSet = sourceSets.main
 			loadedMods.set([mods."${mod_id}"])
 		}
 
-		clientRenderDocLoader {
-			client()
-			devLogin = true
-			gameDirectory = project.file('run')
-			systemProperty 'neoforge.enabledGameTestNamespaces', project.mod_id
-			systemProperty "${project.mod_id}.debug.render.load_renderdoc", 'true'
-
-			sourceSet = sourceSets.main
-			loadedMods.set([mods."${mod_id}", mods."${mod_id}_renderdoc_loader"])
-		}
-
 		server {
 			server()
-			gameDirectory = project.file('run')
-			systemProperty 'neoforge.enabledGameTestNamespaces', project.mod_id
+			gameDirectory = file('run')
+			systemProperty 'neoforge.enabledGameTestNamespaces', "${mod_id}"
 
 			sourceSet = sourceSets.main
 			loadedMods.set([mods."${mod_id}"])
@@ -151,8 +106,8 @@ neoForge {
 		testmodClient {
 			client()
 			devLogin = true
-			gameDirectory = project.file('run/testmod')
-			systemProperty 'neoforge.enabledGameTestNamespaces', "${project.mod_id}_testmod"
+			gameDirectory = file('run/testmod')
+			systemProperty 'neoforge.enabledGameTestNamespaces', "${mod_id}_testmod"
 
 			sourceSet = sourceSets.testmod
 			loadedMods.set([mods."${mod_id}", mods."${mod_id}_testmod"])

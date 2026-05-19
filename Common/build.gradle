@@ -5,16 +5,10 @@ plugins {
 
 neoForge.neoFormVersion = libs.versions.neoform.get()
 
-sourceSets {
-	maybeCreate("renderdoc")
-}
-
 dependencies {
 	compileOnly libs.bundles.mixin
 	compileOnly libs.jetbrains.annotations
 	compileOnly libs.autoservice.annotations
-
-	compileOnly sourceSets.renderdoc.output
 
 	compileOnly libs.appdirs
 
@@ -28,12 +22,6 @@ dependencies {
 
 	testCompileOnly libs.junit.api
 	testCompileOnly libs.neoforge.testframework
-
-	renderdocImplementation libs.neoforge.mcdeps
-	renderdocCompileOnly libs.autoservice.annotations
-	renderdocAnnotationProcessor libs.autoservice
-	renderdocImplementation libs.slf4j.api
-	renderdocCompileOnly libs.neoforge.fancymodloader
 }
 
 neoForge {
@@ -64,57 +52,6 @@ configurations {
 		canBeConsumed = true
 	}
 }
-
-java {
-	registerFeature("renderdocLoader") {
-		usingSourceSet(sourceSets.renderdoc)
-	}
-}
-
-processRenderdocResources {
-	filteringCharset = "UTF-8"
-
-	def expandProps = [
-		"version"              : version,
-		"maven_group_id"       : maven_group_id,
-		"mod_id"               : mod_id,
-		"mod_display_name"     : mod_display_name,
-		"mod_description"      : mod_description,
-		"sources_url"          : sources_url,
-		"issues_url"           : issues_url,
-		"license_url"          : license_url,
-		"discord_url"          : discord_url,
-		"homepage_url"         : homepage_url,
-		"curseforge_id"        : curseforge_id,
-		"modrinth_id"          : modrinth_id,
-
-		"minecraft_version"    : libs.versions.minecraft.get(),
-		"neoforge_version"     : libs.versions.neoforge.get(),
-		"fabric_loader_version": libs.versions.fabric.loader.get()
-	]
-
-	filesMatching(['*.mod.json', 'META-INF/neoforge.mods.toml', '*.mixins.json']) {
-		expand expandProps
-	}
-	inputs.properties(expandProps)
-}
-
-tasks.named("renderdocJar", Jar) {
-	from sourceSets.renderdoc.output
-
-	manifest {
-		attributes([
-			'Specification-Title'     : rootProject.name,
-			'Specification-Version'   : project.version,
-			'Implementation-Title'    : "${rootProject.name}-${project.name}-renderdoc-loader",
-			'Maven-Artifact'          : "${maven_group_id}:${rootProject.name}-${project.name}:${project.version}:renderdoc-loader",
-			'Implementation-Version'  : project.version,
-			'Built-On-Java'           : "${System.getProperty('java.vm.version')} (${System.getProperty('java.vm.vendor')})",
-			'Built-On-Minecraft'      : libs.versions.minecraft.get()
-		])
-	}
-}
-tasks.assemble.dependsOn(tasks.renderdocJar)
 
 artifacts {
 	testmod(sourceSets.testmod.output.classesDirs.singleFile) {
