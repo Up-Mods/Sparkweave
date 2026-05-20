@@ -39,8 +39,8 @@ public class FabricRegistrySupplier<R, T extends R> implements RegistrySupplier<
 		var object = getOrCreateObject();
 		Registry.register(registry, this.getRegistryKey(), object);
 		var entryHolder = registry.getHolderOrThrow(this.getRegistryKey());
-		if(entryHolder instanceof Holder.Reference<R> reference && (reference.type != Holder.Reference.Type.INTRUSIVE || reference.value == null)) {
-			reference.bindValue(this.value);
+		if(entryHolder.type != Holder.Reference.Type.INTRUSIVE || entryHolder.value == null) {
+			entryHolder.bindValue(this.value);
 		}
 		this.holder = entryHolder;
 	}

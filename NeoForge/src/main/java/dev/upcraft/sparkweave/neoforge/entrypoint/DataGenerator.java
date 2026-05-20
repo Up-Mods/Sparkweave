@@ -21,7 +21,7 @@ import org.apache.logging.log4j.Logger;
 
 import java.util.*;
 
-@EventBusSubscriber(modid = SparkweaveMod.MODID, bus = EventBusSubscriber.Bus.MOD)
+@EventBusSubscriber(modid = SparkweaveMod.MODID)
 public class DataGenerator {
 
 	private static final Logger LOGGER = SparkweaveLoggerFactory.getLogger();
