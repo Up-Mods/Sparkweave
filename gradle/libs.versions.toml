@@ -1,5 +1,6 @@
 [versions]
 minecraft = "1.21.1"
+java = "21"
 
 # https://parchmentmc.org/docs/getting-started
 parchment_minecraft = "1.21.1"
@@ -90,6 +91,5 @@ mixin = ["mixin", "mixin_extras", "asm", "asm_analysis", "asm_commons", "asm_tre
 
 [plugins]
 moddevgradle = { id = "net.neoforged.moddev", version.ref = "moddevgradle" }
-repositories = { id = "net.neoforged.moddev.repositories", version.ref = "moddevgradle" }
+fabric_loom = { id = "net.fabricmc.fabric-loom", version.ref = "fabric_loom" }
 fabric_loom_remap = { id = "net.fabricmc.fabric-loom-remap", version.ref = "fabric_loom" }
-fabric_loom_companion = { id = "net.fabricmc.fabric-loom-companion", version.ref = "fabric_loom" }

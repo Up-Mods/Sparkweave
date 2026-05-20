@@ -18,6 +18,9 @@ plugins {
 }
 
 rootProject.name = "Sparkweave"
+
+includeBuild("build-logic")
+
 listOf("Common", "Fabric", "NeoForge").forEach {
     include(it)
     project(":$it").name = "${rootProject.name}-$it"
