@@ -1,18 +1,25 @@
-package dev.upcraft.sparkweave.neoforge.event.client;
+package dev.upcraft.sparkweave.neoforge.entrypoint;
 
 import dev.upcraft.sparkweave.SparkweaveMod;
+import dev.upcraft.sparkweave.api.SparkweaveApi;
 import dev.upcraft.sparkweave.api.client.event.*;
+import dev.upcraft.sparkweave.api.client.event.RegisterMenuScreensEvent;
+import dev.upcraft.sparkweave.api.client.render.DebugRenderer;
 import dev.upcraft.sparkweave.client.event.RegisterItemPropertiesEventImpl;
 import dev.upcraft.sparkweave.neoforge.impl.registry.RegisterParticleFactoriesEventImpl;
+import dev.upcraft.sparkweave.validation.TranslationChecker;
+import net.minecraft.client.Minecraft;
+import net.minecraft.resources.ResourceLocation;
+import net.minecraft.server.packs.resources.ResourceManager;
+import net.minecraft.server.packs.resources.ResourceManagerReloadListener;
 import net.neoforged.api.distmarker.Dist;
 import net.neoforged.bus.api.SubscribeEvent;
 import net.neoforged.fml.common.EventBusSubscriber;
 import net.neoforged.fml.event.lifecycle.FMLClientSetupEvent;
-import net.neoforged.neoforge.client.event.EntityRenderersEvent;
-import net.neoforged.neoforge.client.event.RegisterParticleProvidersEvent;
+import net.neoforged.neoforge.client.event.*;
 
-@EventBusSubscriber(value = Dist.CLIENT, modid = SparkweaveMod.MODID, bus = EventBusSubscriber.Bus.MOD)
-public class ClientModBusEvents {
+@EventBusSubscriber(modid = SparkweaveMod.MODID, value = Dist.CLIENT)
+public class Client {
 
 	@SubscribeEvent
 	public static void onClientSetup(FMLClientSetupEvent event) {
@@ -46,5 +53,41 @@ public class ClientModBusEvents {
 	@SubscribeEvent
 	public static void onRegisterEntityLayers(EntityRenderersEvent.AddLayers event) {
 		RegisterCustomArmorRenderersEvent.EVENT.invoker().registerCustomArmorRenderers(new RegisterCustomArmorRenderersEvent());
+	}
+
+	@SubscribeEvent
+	public static void onClientPreTick(ClientTickEvent.Pre event) {
+		ClientTickEvents.START_TICK.invoker().startTick(Minecraft.getInstance());
+	}
+
+	@SubscribeEvent
+	public static void onClientPostTick(ClientTickEvent.Post event) {
+		ClientTickEvents.END_TICK.invoker().endTick(Minecraft.getInstance());
+	}
+
+	@SubscribeEvent
+	public static void onRegisterReloadListeners(RegisterClientReloadListenersEvent event) {
+		if(SparkweaveApi.Client.LOG_MISSING_TRANSLATIONS) {
+			event.registerReloadListener(new ResourceManagerReloadListener() {
+				private final ResourceLocation ID = SparkweaveMod.id("translation_checker");
+
+				@Override
+				public String getName() {
+					return ID.toString();
+				}
+
+				@Override
+				public void onResourceManagerReload(ResourceManager resourceManager) {
+					TranslationChecker.validate();
+				}
+			});
+		}
+	}
+
+	@SubscribeEvent
+	public static void onRenderWorld(RenderLevelStageEvent event) {
+		if (event.getStage() == RenderLevelStageEvent.Stage.AFTER_ENTITIES) {
+			DebugRenderer.render(event.getPoseStack(), event.getLevelRenderer().renderBuffers.bufferSource(), event.getCamera());
+		}
 	}
 }

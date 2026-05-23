@@ -5,15 +5,32 @@ import dev.upcraft.sparkweave.api.annotation.CalledByReflection;
 import dev.upcraft.sparkweave.api.entrypoint.ClientEntryPoint;
 import dev.upcraft.sparkweave.api.entrypoint.DedicatedServerEntryPoint;
 import dev.upcraft.sparkweave.api.entrypoint.MainEntryPoint;
+import dev.upcraft.sparkweave.api.event.CommandEvents;
+import dev.upcraft.sparkweave.api.event.RegisterCustomLecternMenuEvent;
 import dev.upcraft.sparkweave.api.logging.SparkweaveLoggerFactory;
 import dev.upcraft.sparkweave.api.platform.services.RegistryService;
+import dev.upcraft.sparkweave.api.registry.block.BlockItemProvider;
 import dev.upcraft.sparkweave.entrypoint.EntrypointHelper;
+import dev.upcraft.sparkweave.event.EntityTickEventsImpl;
 import dev.upcraft.sparkweave.registry.SparkweaveCommandArgumentTypes;
+import dev.upcraft.sparkweave.scheduler.ScheduledTaskQueue;
+import net.minecraft.core.registries.BuiltInRegistries;
+import net.minecraft.core.registries.Registries;
 import net.neoforged.bus.api.IEventBus;
+import net.neoforged.bus.api.SubscribeEvent;
+import net.neoforged.fml.common.EventBusSubscriber;
 import net.neoforged.fml.common.Mod;
+import net.neoforged.fml.event.lifecycle.FMLCommonSetupEvent;
 import net.neoforged.fml.loading.FMLEnvironment;
+import net.neoforged.neoforge.event.RegisterCommandsEvent;
+import net.neoforged.neoforge.event.server.ServerStartingEvent;
+import net.neoforged.neoforge.event.server.ServerStoppedEvent;
+import net.neoforged.neoforge.event.tick.EntityTickEvent;
+import net.neoforged.neoforge.event.tick.ServerTickEvent;
+import net.neoforged.neoforge.registries.RegisterEvent;
 
 @CalledByReflection
+@EventBusSubscriber(modid = SparkweaveMod.MODID)
 @Mod(SparkweaveMod.MODID)
 public class Main {
 
@@ -31,5 +48,57 @@ public class Main {
 		}
 
 		SparkweaveLoggerFactory.getLogger().debug("System initialized!");
+	}
+
+	@SubscribeEvent
+	public static void processBlockItems(RegisterEvent event) {
+		if (event.getRegistryKey() == Registries.ITEM) {
+			BuiltInRegistries.BLOCK.entrySet().forEach(entry -> {
+				if (entry.getValue() instanceof BlockItemProvider provider) {
+					event.register(Registries.ITEM, entry.getKey().location(), provider::createItem);
+				}
+			});
+		}
+	}
+
+	@SubscribeEvent
+	public static void onCommonSetup(FMLCommonSetupEvent event) {
+		event.enqueueWork(() -> {
+			RegisterCustomLecternMenuEvent.EVENT.invoker().registerLecternMenus(new RegisterCustomLecternMenuEvent());
+		});
+	}
+
+	@SubscribeEvent
+	public static void onServerStart(ServerStartingEvent event) {
+		ScheduledTaskQueue.onServerStarting(event.getServer());
+	}
+
+	@SubscribeEvent
+	public static void onServerStopped(ServerStoppedEvent event) {
+		ScheduledTaskQueue.onServerStopped();
+	}
+
+	@SubscribeEvent
+	public static void onServerTick(ServerTickEvent.Pre event) {
+		ScheduledTaskQueue.onServerTick();
+	}
+
+	@SubscribeEvent
+	public static void onRegisterCommands(RegisterCommandsEvent event) {
+		CommandEvents.REGISTER.invoker().registerCommands(event.getDispatcher(), event.getBuildContext(), event.getCommandSelection());
+	}
+
+	@SubscribeEvent
+	public static void preEntityTick(EntityTickEvent.Pre event) {
+		var entity = event.getEntity();
+		if(EntityTickEventsImpl.getStartHandler(entity.getClass()).invoker().startTick(entity, entity.level())) {
+			event.setCanceled(true);
+		}
+	}
+
+	@SubscribeEvent
+	public static void postEntityTick(EntityTickEvent.Post event) {
+		var entity = event.getEntity();
+		EntityTickEventsImpl.getEndHandler(entity.getClass()).invoker().endTick(entity, entity.level());
 	}
 }
