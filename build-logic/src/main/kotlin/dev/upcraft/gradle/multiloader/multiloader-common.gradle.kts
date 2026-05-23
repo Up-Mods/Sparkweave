@@ -2,7 +2,6 @@
 
 package dev.upcraft.gradle.multiloader
 
-import org.gradle.kotlin.dsl.get
 import kotlin.time.Clock
 import kotlin.time.ExperimentalTime
 import kotlin.time.Instant
@@ -29,12 +28,10 @@ libs.findLibrary("jna").ifPresent {
     }
 }
 
-sourceSets {
-    register("testmod") {
-        java {
-            compileClasspath += sourceSets["main"].compileClasspath
-            runtimeClasspath += sourceSets["main"].runtimeClasspath
-        }
+val testmod = sourceSets.register("testmod") {
+    java {
+        compileClasspath += sourceSets["main"].compileClasspath
+        runtimeClasspath += sourceSets["main"].runtimeClasspath
     }
 }
 
@@ -121,8 +118,12 @@ java {
     }
 
     withSourcesJar()
-    if(project.javadocEnabled) {
+    if (project.javadocEnabled) {
         withJavadocJar()
+    }
+
+    registerFeature("testmod") {
+        usingSourceSet(testmod.get())
     }
 }
 
@@ -136,20 +137,22 @@ tasks.named<Jar>("jar").configure {
         rename("LICENSE.md", "LICENSE_${rootProject.name}.md")
     }
 
-    manifest.attributes(mapOf<String, Any>(
-        "Specification-Title" to rootProject.name,
-        "Specification-Vendor" to "Up",
-        "Specification-Version" to archiveVersion,
+    manifest.attributes(
+        mapOf<String, Any>(
+            "Specification-Title" to rootProject.name,
+            "Specification-Vendor" to "Up",
+            "Specification-Version" to archiveVersion,
 
-        "Implementation-Title" to "${rootProject.name}-${project.name}",
-        "Implementation-Vendor" to "Up",
-        "Implementation-Version" to archiveVersion,
-        "Implementation-Timestamp" to now.toString(),
-        "Timestamp" to now.toEpochMilliseconds(),
+            "Implementation-Title" to "${rootProject.name}-${project.name}",
+            "Implementation-Vendor" to "Up",
+            "Implementation-Version" to archiveVersion,
+            "Implementation-Timestamp" to now.toString(),
+            "Timestamp" to now.toEpochMilliseconds(),
 
-        "Built-On-Java" to "${providers.systemProperty("java.vm.version").orNull} (${providers.systemProperty("java.vm.vendor").orNull})",
-        "Built-On-Minecraft" to minecraftVersion
-    ))
+            "Built-On-Java" to "${providers.systemProperty("java.vm.version").orNull} (${providers.systemProperty("java.vm.vendor").orNull})",
+            "Built-On-Minecraft" to minecraftVersion
+        )
+    )
 }
 
 tasks.named<Jar>("sourcesJar").configure {
@@ -187,16 +190,15 @@ publishing {
 // Declare capabilities on the outgoing configurations.
 // Read more about capabilities here: https://docs.gradle.org/current/userguide/component_capabilities.html#sec:declaring-additional-capabilities-for-a-local-component
 val cfgs = mutableListOf("apiElements", "runtimeElements", "sourcesElements")
-if(project.javadocEnabled) {
+if (project.javadocEnabled) {
     cfgs.add("javadocElements")
 }
 
 cfgs.forEach { variant ->
     configurations.named(variant).configure {
         outgoing {
+            capability("$group:${project.name}:$version")
             capability("$group:${rootProject.name}:$version")
-            capability("$group:${rootProject.name}-${minecraftVersion}:$version")
-            capability("$group:${project.name}-${minecraftVersion}:$version")
         }
     }
 
