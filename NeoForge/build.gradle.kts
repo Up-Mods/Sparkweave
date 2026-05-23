@@ -22,9 +22,6 @@ dependencies {
 	annotationProcessor(libs.autoservice)
 
 	testmodImplementation(sourceSets["main"].output)
-	testmodCompileOnly(project(":Sparkweave-Common")) {
-		targetConfiguration = "testmod"
-	}
 	testmodCompileOnly(libs.autoservice.annotations)
 	testmodAnnotationProcessor(libs.autoservice)
 

@@ -49,8 +49,16 @@ neoForge {
     addModdingDependenciesTo(sourceSets["test"])
 }
 
-val commonJava by configurations.consumable("commonJava") { isCanBeResolved = false }
-val commonResources by configurations.consumable("commonResources") { isCanBeResolved = false }
+val commonJava by configurations.consumable("commonJava")
+val commonResources by configurations.consumable("commonResources")
 
-val testmodCommonJava by configurations.consumable("testmodCommonJava") { isCanBeResolved = false }
-val testmodCommonResources by configurations.consumable("testmodCommonResources") { isCanBeResolved = false }
+val testmodCommonJava by configurations.consumable("testmodCommonJava")
+val testmodCommonResources by configurations.consumable("testmodCommonResources")
+
+artifacts {
+    add(commonJava.name, sourceSets["main"].java.sourceDirectories.singleFile)
+    add(commonResources.name, sourceSets["main"].resources.sourceDirectories.singleFile)
+
+    add(testmodCommonJava.name, sourceSets["testmod"].java.sourceDirectories.singleFile)
+    add(testmodCommonResources.name, sourceSets["testmod"].resources.sourceDirectories.singleFile)
+}

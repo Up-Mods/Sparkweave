@@ -6,7 +6,6 @@ import org.gradle.kotlin.dsl.get
 import kotlin.time.Clock
 import kotlin.time.ExperimentalTime
 import kotlin.time.Instant
-import kotlin.time.toJavaInstant
 
 plugins {
     `java-library`
