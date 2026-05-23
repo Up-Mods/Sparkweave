@@ -1,5 +1,6 @@
 package dev.upcraft.gradle.multiloader
 
+import gradle.kotlin.dsl.accessors._3c984467cfe6063166439ec0710b6c00.sourceSets
 import gradle.kotlin.dsl.accessors._3c984467cfe6063166439ec0710b6c00.versionCatalogs
 import org.gradle.api.Project
 import org.gradle.api.artifacts.Configuration
@@ -21,16 +22,25 @@ val loaderAttribute = Attribute.of("io.github.mcgradleconventions.loader", Strin
  * [MC Gradle Conventions](https://github.com/mcgradleconventions)
  */
 public fun Project.applyMcGradleConventions(loader: String, configurations: List<String>? = null) {
-    val cfgs = configurations ?: listOf(
-        "apiElements",
-        "runtimeElements",
-        "sourcesElements",
-        "includeInternal",
-        "modCompileClasspath",
-        "javadocElements"
-    )
-
     afterEvaluate {
+        val cfgs = buildList {
+            if(configurations != null) {
+                addAll(configurations)
+            }
+            else {
+                add("apiElements")
+                add("runtimeElements")
+                add("sourcesElements")
+                add("includeInternal")
+                add("modCompileClasspath")
+                add("javadocElements")
+            }
+
+            sourceSets.forEach {
+                add(it.compileClasspathConfigurationName)
+                add(it.runtimeClasspathConfigurationName)
+            }
+        }
         cfgs.forEach {
             this.configurations.findByName(it)?.attributes {
                 attribute(loaderAttribute, loader)
