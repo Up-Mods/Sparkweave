@@ -189,17 +189,10 @@ publishing {
 
 // Declare capabilities on the outgoing configurations.
 // Read more about capabilities here: https://docs.gradle.org/current/userguide/component_capabilities.html#sec:declaring-additional-capabilities-for-a-local-component
-val cfgs = mutableListOf("apiElements", "runtimeElements", "sourcesElements")
-if (project.javadocEnabled) {
-    cfgs.add("javadocElements")
-}
-
-cfgs.forEach { variant ->
-    configurations.named(variant).configure {
-        outgoing {
-            capability("$group:${project.name}:$version")
-            capability("$group:${rootProject.name}:$version")
-        }
+listOf("apiElements", "runtimeElements", "sourcesElements", "javadocElements").forEach { variant ->
+    configurations.findByName(variant)?.outgoing {
+        capability("$group:${project.name}:$version")
+        capability("$group:${rootProject.name}:$version")
     }
 
     publishing {

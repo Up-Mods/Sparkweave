@@ -17,43 +17,24 @@ import kotlin.jvm.optionals.getOrNull
 
 val loaderAttribute = Attribute.of("io.github.mcgradleconventions.loader", String::class.java)
 
-val defaultConfigurationNames = listOf(
-    "apiElements",
-    "runtimeElements",
-    "sourcesElements",
-    "javadocElements",
-    "includeInternal",
-    "modCompileClasspath"
-)
-
 /**
  * [MC Gradle Conventions](https://github.com/mcgradleconventions)
  */
-public fun Project.applyLoaderAttribute(value: String, variants: Iterable<String> = defaultConfigurationNames) {
-    variants.forEach { variant ->
-        configurations.named(variant).configure {
-            attributes {
-                attribute(loaderAttribute, value)
+public fun Project.applyMcGradleConventions(loader: String, configurations: List<String>? = null) {
+    val cfgs = configurations ?: listOf(
+        "apiElements",
+        "runtimeElements",
+        "sourcesElements",
+        "includeInternal",
+        "modCompileClasspath",
+        "javadocElements"
+    )
+
+    afterEvaluate {
+        cfgs.forEach {
+            this.configurations.findByName(it)?.attributes {
+                attribute(loaderAttribute, loader)
             }
-        }
-    }
-}
-
-public fun <T : HasAttributes> HasConfigurableAttributes<T>.forLoader(value: String) {
-    attributes {
-        attribute(loaderAttribute, value)
-    }
-}
-
-public fun Project.applyMcGradleConventions(loader: String) {
-    val cfgs = mutableListOf("apiElements", "runtimeElements", "sourcesElements")
-    if(project.javadocEnabled) {
-        cfgs.add("javadocElements")
-    }
-
-    cfgs.forEach {
-        configurations.named(it) {
-            forLoader(loader)
         }
     }
 }

@@ -1,9 +1,13 @@
 @file:Suppress("UnstableApiUsage")
 
+import dev.upcraft.gradle.multiloader.applyMcGradleConventions
+
+
 plugins {
     id("dev.upcraft.gradle.multiloader.multiloader-loader")
     id("net.fabricmc.fabric-loom-remap")
 }
+applyMcGradleConventions("fabric")
 
 val modId: String = property("mod_id").toString()
 

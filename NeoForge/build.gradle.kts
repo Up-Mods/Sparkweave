@@ -1,7 +1,10 @@
+import dev.upcraft.gradle.multiloader.applyMcGradleConventions
+
 plugins {
 	id("dev.upcraft.gradle.multiloader.multiloader-loader")
     id("net.neoforged.moddev")
 }
+applyMcGradleConventions("neoforge")
 
 val modId: String = property("mod_id").toString()
 
