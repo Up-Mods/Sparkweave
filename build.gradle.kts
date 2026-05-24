@@ -9,6 +9,7 @@ import kotlin.time.toJavaInstant
 plugins {
     idea
     `maven-publish`
+    alias(libs.plugins.idea.ext)
     alias(libs.plugins.moddevgradle) apply false
     alias(libs.plugins.fabric.loom.remap) apply false
 }

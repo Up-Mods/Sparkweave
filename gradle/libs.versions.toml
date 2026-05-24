@@ -24,6 +24,8 @@ fabric_loom = "1.16.2" # https://maven.fabricmc.net/net/fabricmc/fabric-loom-rem
 fabric_loader = "0.19.2"
 fabric_api = "0.116.11+1.21.1"
 
+idea_ext = "1.4.1"
+
 # Minecraft dependencies
 jetbrains_annotations = "26.1.0"
 mixin = "0.15.2+mixin.0.8.7"
@@ -93,3 +95,4 @@ mixin = ["mixin", "mixin_extras", "asm", "asm_analysis", "asm_commons", "asm_tre
 moddevgradle = { id = "net.neoforged.moddev", version.ref = "moddevgradle" }
 fabric_loom = { id = "net.fabricmc.fabric-loom", version.ref = "fabric_loom" }
 fabric_loom_remap = { id = "net.fabricmc.fabric-loom-remap", version.ref = "fabric_loom" }
+idea_ext = { id = "org.jetbrains.gradle.plugin.idea-ext", version.ref = "idea_ext" }
