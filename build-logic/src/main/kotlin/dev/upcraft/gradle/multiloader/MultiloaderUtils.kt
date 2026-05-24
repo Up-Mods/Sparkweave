@@ -76,15 +76,15 @@ public fun ProcessResources.configureModProperties() {
         "version" to project.version,
         "maven_group_id" to project.group,
         "mod_id" to project.property("mod_id"),
-        "mod_display_name" to project.property("mod_display_name"),
-        "mod_description" to project.property("mod_description"),
-        "sources_url" to project.property("sources_url"),
-        "issues_url" to project.property("issues_url"),
-        "license_url" to project.property("license_url"),
-        "discord_url" to project.property("discord_url"),
-        "homepage_url" to project.property("homepage_url"),
-        "curseforge_id" to project.property("curseforge_id"),
-        "modrinth_id" to project.property("modrinth_id"),
+        "mod_display_name" to project.providers.gradleProperty("mod_display_name").get(),
+        "mod_description" to project.providers.gradleProperty("mod_description").get(),
+        "sources_url" to project.providers.gradleProperty("sources_url").get(),
+        "issues_url" to project.providers.gradleProperty("issues_url").get(),
+        "license_url" to project.providers.gradleProperty("license_url").get(),
+        "discord_url" to project.providers.gradleProperty("discord_url").get(),
+        "homepage_url" to project.providers.gradleProperty("homepage_url").get(),
+        "curseforge_id" to project.providers.gradleProperty("curseforge_id").get(),
+        "modrinth_id" to project.providers.gradleProperty("modrinth_id").get(),
 
         "java_version" to libs.findVersion("java").orElseThrow(),
         "minecraft_version" to libs.findVersion("minecraft").orElseThrow(),
@@ -103,4 +103,4 @@ public fun ProcessResources.configureModProperties() {
     inputs.properties(expandProps)
 }
 
-internal val Project.javadocEnabled get() = property("dev.upcraft.gradle.multiloader.enableJavadoc").toString().toBoolean()
+internal val Project.javadocEnabled get() = providers.gradleProperty("dev.upcraft.gradle.multiloader.enableJavadoc").orNull.toBoolean()

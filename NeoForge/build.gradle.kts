@@ -6,7 +6,7 @@ plugins {
 }
 applyMcGradleConventions("neoforge")
 
-val modId: String = property("mod_id").toString()
+val modId = providers.gradleProperty("mod_id").get()
 
 // need this before dependencies because it configures the plugin and creates additionalRuntimeClasspath configuration
 neoForge.version = libs.versions.neoforge.get()

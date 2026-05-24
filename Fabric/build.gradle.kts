@@ -9,7 +9,7 @@ plugins {
 }
 applyMcGradleConventions("fabric")
 
-val modId: String = property("mod_id").toString()
+val modId: String = providers.gradleProperty("mod_id").get()
 
 dependencies {
     minecraft(libs.minecraft)
