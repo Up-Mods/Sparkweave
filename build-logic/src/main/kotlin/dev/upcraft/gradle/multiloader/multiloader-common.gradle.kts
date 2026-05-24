@@ -11,7 +11,6 @@ plugins {
     `maven-publish`
 }
 
-group = rootProject.group
 version = rootProject.version
 
 val libs = versionCatalogs.named("libs")

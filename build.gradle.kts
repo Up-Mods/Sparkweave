@@ -13,8 +13,6 @@ plugins {
     alias(libs.plugins.fabric.loom.remap) apply false
 }
 
-group = property("maven_group_id").toString()
-
 val now = Instant.fromEpochSeconds(Clock.System.now().epochSeconds).toJavaInstant()
 val formatter: DateTimeFormatter = DateTimeFormatter.ofPattern("yy.Md.Hm")
 val buildTime = providers.environmentVariable("BUILD_TIME").orElse(provider { formatter.format(now) })
