@@ -82,13 +82,6 @@ repositories {
         name = "NeoForge"
     }
 
-    maven(uri("https://repo.spongepowered.org/repository/maven-public")) {
-        name = "Sponge"
-        content {
-            includeGroupAndSubgroups("org.spongepowered")
-        }
-    }
-
     maven(uri("https://maven.uuid.gg/releases"))
 
     // third party maven repositories
