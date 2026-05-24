@@ -20,7 +20,7 @@ fancymodloader = "4.0.42"
 
 # Fabric
 # https://fabricmc.net/develop
-fabric_loom = "1.16.1" # https://maven.fabricmc.net/net/fabricmc/fabric-loom-remap/net.fabricmc.fabric-loom-remap.gradle.plugin/
+fabric_loom = "1.16.2" # https://maven.fabricmc.net/net/fabricmc/fabric-loom-remap/net.fabricmc.fabric-loom-remap.gradle.plugin/
 fabric_loader = "0.19.2"
 fabric_api = "0.116.11+1.21.1"
 
