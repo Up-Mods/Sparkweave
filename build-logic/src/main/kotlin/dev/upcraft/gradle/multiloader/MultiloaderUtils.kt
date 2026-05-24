@@ -9,6 +9,7 @@ import org.gradle.api.artifacts.ModuleDependency
 import org.gradle.api.artifacts.VersionCatalog
 import org.gradle.api.artifacts.VersionCatalogsExtension
 import org.gradle.api.attributes.Attribute
+import org.gradle.api.attributes.AttributeContainer
 import org.gradle.api.attributes.HasAttributes
 import org.gradle.api.attributes.HasConfigurableAttributes
 import org.gradle.kotlin.dsl.getByType
@@ -21,7 +22,20 @@ val loaderAttribute = Attribute.of("io.github.mcgradleconventions.loader", Strin
 /**
  * [MC Gradle Conventions](https://github.com/mcgradleconventions)
  */
-public fun Project.applyMcGradleConventions(loader: String, configurations: List<String>? = null) {
+public fun Project.applyMcGradleConventions(loader: String, configurations: Collection<String>? = null) {
+    if(configurations == null) {
+        // TODO fix plugin ID when updating to 26.1
+        pluginManager.withPlugin("net.fabricmc.fabric-loom-remap") {
+            listOf("includeInternal", "modCompileClasspath").forEach {
+                project.configurations.named(it).configure {
+                    attributes {
+                        loaderAttribute(loader)
+                    }
+                }
+            }
+        }
+    }
+
     afterEvaluate {
         val cfgs = buildList {
             if(configurations != null) {
@@ -31,9 +45,10 @@ public fun Project.applyMcGradleConventions(loader: String, configurations: List
                 add("apiElements")
                 add("runtimeElements")
                 add("sourcesElements")
-                add("includeInternal")
-                add("modCompileClasspath")
-                add("javadocElements")
+
+                if(javadocEnabled) {
+                    add("javadocElements")
+                }
             }
 
             sourceSets.forEach {
@@ -42,11 +57,17 @@ public fun Project.applyMcGradleConventions(loader: String, configurations: List
             }
         }
         cfgs.forEach {
-            this.configurations.findByName(it)?.attributes {
-                attribute(loaderAttribute, loader)
+            this.configurations.named(it).configure {
+                attributes {
+                    loaderAttribute(loader)
+                }
             }
         }
     }
+}
+
+public fun AttributeContainer.loaderAttribute(loader: String) {
+    attribute(loaderAttribute, loader)
 }
 
 public fun ProcessResources.configureModProperties() {

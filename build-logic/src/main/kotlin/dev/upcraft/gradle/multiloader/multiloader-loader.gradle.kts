@@ -16,11 +16,12 @@ val testmodCommonResourcesDep by configurations.dependencyScope("testmodCommonRe
 val testmodCommonResources by configurations.resolvable("testmodCommonResources") { extendsFrom(testmodCommonResourcesDep) }
 
 dependencies {
-    compileOnly(project(":${rootProject.name}-Common"))
+    compileOnly(project(":${rootProject.name}-Common")) {
+        attributes { loaderAttribute("common") }
+    }
     "testmodCompileOnly"(project(":${rootProject.name}-Common")) {
-        capabilities {
-            requireFeature("testmod")
-        }
+        attributes { loaderAttribute("common") }
+        capabilities { requireFeature("testmod") }
     }
 
     commonJavaDep(project(":${rootProject.name}-Common", "commonJava"))
