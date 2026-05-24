@@ -11,6 +11,9 @@ plugins {
     `maven-publish`
 }
 
+group = rootProject.group
+version = rootProject.version
+
 val libs = versionCatalogs.named("libs")
 
 val minecraftVersion: String = libs.findVersion("minecraft").orElseThrow().toString()
