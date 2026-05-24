@@ -11,12 +11,8 @@ val modId = providers.gradleProperty("mod_id").get()
 // need this before dependencies because it configures the plugin and creates additionalRuntimeClasspath configuration
 neoForge.version = libs.versions.neoforge.get()
 
-val localRuntime by configurations.register("localRuntime") {
-
-}
-configurations.runtimeClasspath.configure {
-    extendsFrom(localRuntime)
-}
+val localRuntime by configurations.dependencyScope("localRuntime")
+configurations.runtimeClasspath.configure { extendsFrom(localRuntime) }
 
 dependencies {
 	interfaceInjectionData(project(":Sparkweave-Common"))
