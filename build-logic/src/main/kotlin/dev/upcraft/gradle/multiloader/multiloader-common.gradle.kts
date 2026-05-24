@@ -99,7 +99,9 @@ repositories {
 }
 
 dependencies {
-
+    testImplementation(libs.findLibrary("junit_api").orElseThrow())
+    testRuntimeOnly(libs.findLibrary("junit_launcher").orElseThrow())
+    testRuntimeOnly(libs.findLibrary("junit_engine").orElseThrow())
 }
 
 base {

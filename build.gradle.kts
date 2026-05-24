@@ -25,7 +25,7 @@ val buildNumber = tag.orElse(providers.environmentVariable("BUILD_NUMBER").map {
 version = tag.orElse(provider { buildString {
     append("${libs.versions.minecraft.get()}-development")
     if(isPreviewBuild && !tag.isPresent) {
-        append(buildNumber.map { "+${it}" }.orElse("").get())
+        append(buildNumber.map { "+${it}" }.getOrElse(""))
     }
 } }).get()
 

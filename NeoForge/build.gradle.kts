@@ -38,10 +38,7 @@ dependencies {
 	})
 	localRuntime(libs.emi.neoforge)
 
-	testImplementation(libs.junit.api)
 	testImplementation(libs.neoforge.testframework)
-	testRuntimeOnly(libs.junit.launcher)
-	testRuntimeOnly(libs.junit.engine)
 }
 
 neoForge {
