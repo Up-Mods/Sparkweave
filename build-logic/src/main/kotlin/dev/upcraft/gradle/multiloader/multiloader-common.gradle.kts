@@ -146,7 +146,7 @@ tasks.named<Jar>("jar").configure {
             "Specification-Vendor" to "Up",
             "Specification-Version" to archiveVersion,
 
-            "Implementation-Title" to "${rootProject.name}-${project.name}",
+            "Implementation-Title" to project.name,
             "Implementation-Vendor" to "Up",
             "Implementation-Version" to archiveVersion,
             "Implementation-Timestamp" to now.toString(),
