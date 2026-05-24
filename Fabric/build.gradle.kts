@@ -1,10 +1,14 @@
 @file:Suppress("UnstableApiUsage")
 
 import dev.upcraft.gradle.multiloader.applyMcGradleConventions
+import net.fabricmc.loom.task.LoomTasks
+import org.jetbrains.gradle.ext.runConfigurations
+import org.jetbrains.gradle.ext.settings
 
 
 plugins {
     id("dev.upcraft.gradle.multiloader.multiloader-loader")
+    id("org.jetbrains.gradle.plugin.idea-ext")
     id("net.fabricmc.fabric-loom-remap")
 }
 applyMcGradleConventions("fabric")
@@ -72,12 +76,6 @@ loom {
     accessWidenerPath.set(file("src/main/resources/${modId}.accesswidener"))
 
     runs {
-        configureEach {
-            ideConfigGenerated(true)
-            property("sparkweave.debug", "true")
-            property("mixin.debug", "true")
-        }
-
         named("client") {
             client()
             configName = "Fabric Client"
@@ -94,7 +92,7 @@ loom {
 
         create("testmodClient") {
             client()
-            configName = "Fabric Testmod Client"
+            configName = "Fabric TestmodClient"
             runDir("run/testmod")
             source(sourceSets["testmod"])
 
@@ -115,7 +113,7 @@ loom {
 
         create("datagen") {
             client()
-            configName = "Fabric Data Generation"
+            configName = "Fabric TestmodData"
 
             source(sourceSets["testmod"])
 
@@ -124,6 +122,20 @@ loom {
             property("fabric-api.datagen.output-dir", file("src/testmod/generated").absolutePath)
             property("sparkweave.datagen.mods", "${modId}, ${modId}_testmod")
             runDir("build/datagen")
+        }
+
+        configureEach {
+            isIdeConfigGenerated = false
+            appendProjectPathToConfigName = false
+            property("sparkweave.debug", "true")
+            property("mixin.debug", "true")
+
+            makeRunDir()
+
+            rootProject.idea.project.settings.runConfigurations.create<org.jetbrains.gradle.ext.Gradle>(configName) {
+                taskNames = listOf(LoomTasks.getRunConfigTaskName(this@configureEach))
+                setProject(project)
+            }
         }
     }
 }

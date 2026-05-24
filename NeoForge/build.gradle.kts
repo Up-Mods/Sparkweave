@@ -1,4 +1,5 @@
 import dev.upcraft.gradle.multiloader.applyMcGradleConventions
+import org.gradle.internal.extensions.stdlib.capitalized
 
 plugins {
 	id("dev.upcraft.gradle.multiloader.multiloader-loader")
@@ -73,12 +74,6 @@ neoForge {
 	}
 
     runs {
-        configureEach {
-			logLevel = org.slf4j.event.Level.DEBUG
-			systemProperty("forge.logging.markers", "REGISTRIES")
-			systemProperty("sparkweave.debug", "true")
-		}
-
         register("client") {
             client()
             devLogin = true
@@ -124,6 +119,14 @@ neoForge {
             )
             sourceSet = sourceSets["testmod"]
             loadedMods = listOf(mods[modId], mods["${modId}_testmod"])
+        }
+
+        configureEach {
+            logLevel = org.slf4j.event.Level.DEBUG
+            systemProperty("forge.logging.markers", "REGISTRIES")
+            systemProperty("sparkweave.debug", "true")
+
+            ideName = "NeoForge ${name.capitalized()}"
         }
     }
 }
