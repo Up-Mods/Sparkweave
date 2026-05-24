@@ -137,6 +137,6 @@ val generateDatagenDir = tasks.register("generateDatagenDir") {
     }
 }
 
-tasks.named("ideaSyncTask").configure { finalizedBy(generateDatagenDir) }
+tasks.named("ideaSyncTask").configure { dependsOn(generateDatagenDir) }
 tasks.named("runDatagen").configure { dependsOn(generateDatagenDir) }
 sourceSets["testmod"].resources { srcDir("src/testmod/generated") }
