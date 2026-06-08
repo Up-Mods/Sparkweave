@@ -125,13 +125,15 @@ loom {
         }
 
         configureEach {
-            isIdeConfigGenerated = false
             appendProjectPathToConfigName = false
             property("sparkweave.debug", "true")
             property("mixin.debug", "true")
 
             makeRunDir()
 
+            // register as Gradle runs instead of IDEA runs
+            // https://github.com/FabricMC/fabric-loom/issues/1349
+            isIdeConfigGenerated = false
             rootProject.idea.project.settings.runConfigurations.create<org.jetbrains.gradle.ext.Gradle>(configName) {
                 taskNames = listOf(LoomTasks.getRunConfigTaskName(this@configureEach))
                 setProject(project)
