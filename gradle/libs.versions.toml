@@ -36,7 +36,7 @@ jna = "5.14.0"
 # Other dependencies
 appdirs = "1.5.0"
 autoservice = "1.1.1"
-junit = "6.0.3"
+junit = "6.1.0"
 
 # Mods
 # https://modrinth.com/mod/emi/versions
