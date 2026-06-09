@@ -43,7 +43,7 @@ jobs:
       - name: Build with Gradle
         env:
           BUILD_TIME: ${{ steps.current-time.outputs.formattedTime }}
-        run: ./gradlew assemble --rerun-tasks
+        run: ./gradlew assemble
       - name: Maven Release
         if: ${{ env.MAVEN_UPLOAD_URL }}
         env:
@@ -72,6 +72,8 @@ jobs:
           name: ${{ github.event.repository.name }}-NeoForge-${{ env.TAG }}
           path: |
             NeoForge/build/libs/*.jar
+
+      # Attest
       - name: Generate build attestation
         uses: actions/attest-build-provenance@v2
         with:
