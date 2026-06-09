@@ -14,13 +14,9 @@ plugins {
     alias(libs.plugins.fabric.loom.remap) apply false
 }
 
-val now = Instant.fromEpochSeconds(Clock.System.now().epochSeconds).toJavaInstant()
-val formatter: DateTimeFormatter = DateTimeFormatter.ofPattern("yy.Md.Hm")
-val buildTime = providers.environmentVariable("BUILD_TIME").orElse(provider { formatter.format(now) })
-
 val tag = providers.environmentVariable("TAG")
 val isPreviewBuild = tag.orNull?.matches(Regex(".+-.+")) ?: false
-val buildNumber = tag.orElse(providers.environmentVariable("BUILD_NUMBER").map { "build.${it}" }.orElse(buildTime))
+val buildNumber = tag.orElse(providers.environmentVariable("BUILD_NUMBER").map { "build.${it}" })
 
 version = tag.orElse(provider { buildString {
     append("${libs.versions.minecraft.get()}-development")

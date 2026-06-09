@@ -2,9 +2,7 @@
 
 package dev.upcraft.gradle.multiloader
 
-import kotlin.time.Clock
 import kotlin.time.ExperimentalTime
-import kotlin.time.Instant
 
 plugins {
     `java-library`
@@ -21,7 +19,7 @@ println("Minecraft: $minecraftVersion")
 val javaVersion = libs.findVersion("java").orElseThrow().toString().toInt()
 println("Java: $javaVersion")
 
-val now = Instant.fromEpochSeconds(Clock.System.now().epochSeconds)
+val now = providers.of(BuildTimeValueSource::class) {}
 
 // FIXME workaround for appdirs transitively requiring newer JNA but we are locked due to MC
 libs.findLibrary("jna").ifPresent {
@@ -129,10 +127,18 @@ tasks.withType<JavaCompile>().configureEach {
     options.compilerArgs.add("-Xlint:unchecked")
 }
 
+val tmpManifest = tasks.register<BuildTimeManifestTask>("createManifestTimestamp") {
+    buildTime = now
+}
+
 tasks.named<Jar>("jar").configure {
+
     from(rootProject.file("LICENSE.md")) {
         rename("LICENSE.md", "LICENSE_${rootProject.name}.md")
     }
+
+    manifest.from(tmpManifest.get().manifestPath.get())
+    dependsOn(tmpManifest)
 
     manifest.attributes(
         mapOf<String, Any>(
@@ -143,8 +149,6 @@ tasks.named<Jar>("jar").configure {
             "Implementation-Title" to project.name,
             "Implementation-Vendor" to "Up",
             "Implementation-Version" to archiveVersion,
-            "Implementation-Timestamp" to now.toString(),
-            "Timestamp" to now.toEpochMilliseconds(),
 
             "Built-On-Java" to "${providers.systemProperty("java.vm.version").orNull} (${providers.systemProperty("java.vm.vendor").orNull})",
             "Built-On-Minecraft" to minecraftVersion
