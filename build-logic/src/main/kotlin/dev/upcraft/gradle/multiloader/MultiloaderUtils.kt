@@ -15,8 +15,7 @@ val loaderAttribute = Attribute.of("io.github.mcgradleconventions.loader", Strin
  */
 public fun Project.applyMcGradleConventions(loader: String, configurations: Collection<String>? = null) {
     if(configurations == null) {
-        // TODO fix plugin ID when updating to 26.1
-        pluginManager.withPlugin("net.fabricmc.fabric-loom-remap") {
+        pluginManager.withPlugin("net.fabricmc.fabric-loom") {
             listOf("includeInternal", "modCompileClasspath").forEach {
                 project.configurations.named(it).configure {
                     attributes {

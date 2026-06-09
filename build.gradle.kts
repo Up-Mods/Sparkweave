@@ -7,7 +7,7 @@ plugins {
     `maven-publish`
     alias(libs.plugins.idea.ext)
     alias(libs.plugins.moddevgradle) apply false
-    alias(libs.plugins.fabric.loom.remap) apply false
+    alias(libs.plugins.fabric.loom) apply false
 }
 
 val tag = providers.environmentVariable("TAG")

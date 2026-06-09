@@ -9,7 +9,7 @@ import org.jetbrains.gradle.ext.settings
 plugins {
     id("dev.upcraft.gradle.multiloader.multiloader-loader")
     id("org.jetbrains.gradle.plugin.idea-ext")
-    id("net.fabricmc.fabric-loom-remap")
+    id("net.fabricmc.fabric-loom")
 }
 applyMcGradleConventions("fabric")
 
@@ -17,39 +17,35 @@ val modId: String = providers.gradleProperty("mod_id").get()
 
 dependencies {
     minecraft(libs.minecraft)
-    mappings(loom.layered {
-        officialMojangMappings()
-        parchment("org.parchmentmc.data:parchment-${libs.versions.parchment.minecraft.get()}:${libs.versions.parchment.mappings.get()}@zip")
-    })
 
     compileOnly(libs.autoservice.annotations)
     annotationProcessor(libs.autoservice)
 
-    modImplementation(libs.fabric.loader)
-    modImplementation(libs.fabric.api)
+    implementation(libs.fabric.loader)
+    implementation(libs.fabric.api)
 
     testmodImplementation(sourceSets["main"].output)
     testmodCompileOnly(libs.autoservice.annotations)
     testmodAnnotationProcessor(libs.autoservice)
 
-//	modImplementation(libs.resourcefulconfig.fabric) {
+//	implementation(libs.resourcefulconfig.fabric) {
 //      isTransitive = false
 //	}
 
     implementation(libs.appdirs)
     include(libs.appdirs)
 
-    modCompileOnly(variantOf(libs.emi.fabric) { classifier("api") }) {
-        isTransitive = false
-    }
-    modLocalRuntime(libs.emi.fabric) {
-        isTransitive = false
-    }
+//    compileOnly(variantOf(libs.emi.fabric) { classifier("api") }) {
+//        isTransitive = false
+//    }
+//    localRuntime(libs.emi.fabric) {
+//        isTransitive = false
+//    }
 
-    modCompileOnly(libs.modmenu.fabric) {
+    compileOnly(libs.modmenu.fabric) {
         isTransitive = false
     }
-    modLocalRuntime(libs.modmenu.fabric) {
+    localRuntime(libs.modmenu.fabric) {
         isTransitive = false
     }
 

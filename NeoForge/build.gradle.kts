@@ -30,25 +30,19 @@ dependencies {
 //	implementation(libs.resourcefulconfig.neoforge)
 
 	implementation(libs.appdirs)
-	"additionalRuntimeClasspath"(libs.appdirs)
 	"jarJar"(libs.appdirs) {
 		isTransitive = false
 	}
 
-	compileOnly(variantOf(libs.emi.neoforge) {
-		classifier("api")
-	})
-	localRuntime(libs.emi.neoforge)
+//	compileOnly(variantOf(libs.emi.neoforge) {
+//		classifier("api")
+//	})
+//	localRuntime(libs.emi.neoforge)
 
 	testImplementation(libs.neoforge.testframework)
 }
 
 neoForge {
-	parchment {
-		minecraftVersion = libs.versions.parchment.minecraft.get()
-		mappingsVersion = libs.versions.parchment.mappings.get()
-	}
-
 	mods {
 		// define mod <-> source bindings
 		// these are used to tell the game which sources are for which mod
@@ -105,7 +99,7 @@ neoForge {
         }
 
         register("testmodData") {
-            data() // TODO set to clientData() in 26.1
+            clientData()
             gameDirectory = file("run/testmod_data")
 
             programArguments.addAll(

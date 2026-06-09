@@ -19,9 +19,9 @@ dependencies {
     compileOnly(libs.appdirs)
 
 //	compileOnly(libs.resourcefulconfig)
-    compileOnly(variantOf(libs.emi) {
-        classifier("api")
-    })
+//    compileOnly(variantOf(libs.emi) {
+//        classifier("api")
+//    })
 
     testmodCompileOnly(libs.autoservice.annotations)
     testmodImplementation(sourceSets["main"].output)
@@ -31,11 +31,6 @@ dependencies {
 }
 
 neoForge {
-    parchment {
-        minecraftVersion = libs.versions.parchment.minecraft.get()
-        mappingsVersion = libs.versions.parchment.mappings.get()
-    }
-
     accessTransformers {
         val atFile = file("src/main/resources/META-INF/accesstransformer.cfg")
         from(atFile)

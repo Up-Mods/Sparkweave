@@ -39,17 +39,6 @@ val testmod = sourceSets.register("testmod") {
 repositories {
     mavenCentral()
 
-    exclusiveContent {
-        forRepository {
-            maven(uri("https://maven.parchmentmc.org")) {
-                name = "ParchmentMC"
-            }
-        }
-        filter {
-            includeGroupAndSubgroups("org.parchmentmc")
-        }
-    }
-
     // mod platforms
     exclusiveContent {
         forRepository {
