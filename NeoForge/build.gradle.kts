@@ -1,3 +1,5 @@
+@file:Suppress("UnstableApiUsage")
+
 import dev.upcraft.gradle.multiloader.applyMcGradleConventions
 import org.gradle.internal.extensions.stdlib.capitalized
 

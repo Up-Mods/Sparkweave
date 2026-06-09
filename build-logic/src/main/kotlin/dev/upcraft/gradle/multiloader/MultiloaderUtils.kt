@@ -3,18 +3,9 @@ package dev.upcraft.gradle.multiloader
 import gradle.kotlin.dsl.accessors._3c984467cfe6063166439ec0710b6c00.sourceSets
 import gradle.kotlin.dsl.accessors._3c984467cfe6063166439ec0710b6c00.versionCatalogs
 import org.gradle.api.Project
-import org.gradle.api.artifacts.Configuration
-import org.gradle.api.artifacts.DependencyScopeConfiguration
-import org.gradle.api.artifacts.ModuleDependency
-import org.gradle.api.artifacts.VersionCatalog
-import org.gradle.api.artifacts.VersionCatalogsExtension
 import org.gradle.api.attributes.Attribute
 import org.gradle.api.attributes.AttributeContainer
-import org.gradle.api.attributes.HasAttributes
-import org.gradle.api.attributes.HasConfigurableAttributes
-import org.gradle.kotlin.dsl.getByType
 import org.gradle.language.jvm.tasks.ProcessResources
-import kotlin.collections.mapOf
 import kotlin.jvm.optionals.getOrNull
 
 val loaderAttribute = Attribute.of("io.github.mcgradleconventions.loader", String::class.java)

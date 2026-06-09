@@ -1,4 +1,5 @@
 @file:OptIn(ExperimentalTime::class)
+@file:Suppress("UnstableApiUsage")
 
 package dev.upcraft.gradle.multiloader
 
@@ -128,6 +129,7 @@ tasks.withType<JavaCompile>().configureEach {
 }
 
 val tmpManifest = tasks.register<BuildTimeManifestTask>("createManifestTimestamp") {
+    description = "Create manifest file with build timestamp"
     buildTime = now
 }
 

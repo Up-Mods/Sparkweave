@@ -1,3 +1,5 @@
+@file:Suppress("UnstableApiUsage")
+
 package dev.upcraft.gradle.multiloader
 
 plugins {

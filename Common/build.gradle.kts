@@ -2,7 +2,6 @@
 
 import dev.upcraft.gradle.multiloader.applyMcGradleConventions
 
-
 plugins {
     id("dev.upcraft.gradle.multiloader.multiloader-common")
     id("net.fabricmc.fabric-loom-companion")
