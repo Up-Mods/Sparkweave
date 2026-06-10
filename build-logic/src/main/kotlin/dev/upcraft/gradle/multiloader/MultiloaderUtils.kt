@@ -66,7 +66,7 @@ public fun ProcessResources.configureModProperties() {
     val expandProps = mapOf(
         "version" to project.version,
         "maven_group_id" to project.group,
-        "mod_id" to project.property("mod_id"),
+        "mod_id" to project.providers.gradleProperty("mod_id").get(),
         "mod_display_name" to project.providers.gradleProperty("mod_display_name").get(),
         "mod_description" to project.providers.gradleProperty("mod_description").get(),
         "sources_url" to project.providers.gradleProperty("sources_url").get(),
