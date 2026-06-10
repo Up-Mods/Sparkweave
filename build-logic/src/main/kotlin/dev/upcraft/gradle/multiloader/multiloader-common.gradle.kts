@@ -104,7 +104,7 @@ dependencies {
 }
 
 base {
-    archivesName = "${rootProject.name}-${project.name}-${minecraftVersion}"
+    archivesName = "${project.name}-${minecraftVersion}"
 }
 
 java {
