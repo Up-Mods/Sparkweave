@@ -40,6 +40,5 @@ providers.environmentVariable("MAVEN_UPLOAD_URL").orNull?.let { url ->
 idea {
 	module {
 		isDownloadSources = true
-		isDownloadJavadoc = true
 	}
 }
