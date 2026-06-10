@@ -26,17 +26,14 @@ listOf("Common", "Fabric", "NeoForge").forEach {
     project(":$it").name = "${rootProject.name}-$it"
 }
 
-val env: Map<String, String?> = System.getenv()
-
 buildCache {
     remote<HttpBuildCache> {
         url = uri("https://ci-cache.uuid.gg/cache")
-        if (env["CI"] == "true" && env["GRADLE_BUILD_CACHE_USER"] != null && env["GRADLE_BUILD_CACHE_TOKEN"] != null) {
-            isPush = true
-            credentials {
-                username = env["GRADLE_BUILD_CACHE_USER"]
-                password = env["GRADLE_BUILD_CACHE_TOKEN"]
-            }
+        val pass = providers.environmentVariable("GRADLE_BUILD_CACHE_TOKEN")
+        isPush = providers.environmentVariable("CI").orNull.toBoolean() && pass.isPresent
+        credentials {
+            username = providers.environmentVariable("GRADLE_BUILD_CACHE_USER").orNull
+            password = pass.orNull
         }
     }
 }
