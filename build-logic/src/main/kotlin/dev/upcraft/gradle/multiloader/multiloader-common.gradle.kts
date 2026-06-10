@@ -128,7 +128,7 @@ tasks.named<Jar>("jar").configure {
         rename("LICENSE.md", "LICENSE_${rootProject.name}.md")
     }
 
-    manifest.from(tmpManifest.get().manifestPath.get())
+    manifest.from(tmpManifest.flatMap { it.manifestPath })
     dependsOn(tmpManifest)
 
     manifest.attributes(
