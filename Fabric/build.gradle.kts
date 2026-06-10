@@ -15,7 +15,21 @@ applyMcGradleConventions("fabric")
 
 val modId: String = providers.gradleProperty("mod_id").get()
 
+repositories {
+    exclusiveContent {
+        forRepository {
+            maven(uri("https://maven.covers1624.net")) {
+                name = "Covers1624"
+            }
+        }
+        filter {
+            includeGroup("net.covers1624")
+        }
+    }
+}
+
 dependencies {
+    localRuntime(libs.devlogin)
     minecraft(libs.minecraft)
 
     compileOnly(libs.autoservice.annotations)
@@ -74,31 +88,19 @@ loom {
     runs {
         named("client") {
             client()
+            programArgs.addAll(listOf("--launch_target", "net.fabricmc.loader.impl.launch.knot.KnotClient"))
+            mainClass = "net.covers1624.devlogin.DevLogin"
             configName = "Fabric Client"
-            runDir("run")
-
-            if (project.hasProperty("mc_uuid")) {
-                programArg("--uuid=${project.findProperty("mc_uuid")}")
-            }
-
-            if (project.hasProperty("mc_username")) {
-                programArg("--username=${project.findProperty("mc_username")}")
-            }
+            runDir("run/client")
         }
 
         create("testmodClient") {
             client()
+            programArgs.addAll(listOf("--launch_target", "net.fabricmc.loader.impl.launch.knot.KnotClient"))
+            mainClass = "net.covers1624.devlogin.DevLogin"
             configName = "Fabric TestmodClient"
             runDir("run/testmod")
             source(sourceSets["testmod"])
-
-            if (project.hasProperty("mc_uuid")) {
-                programArg("--uuid=${project.findProperty("mc_uuid")}")
-            }
-
-            if (project.hasProperty("mc_username")) {
-                programArg("--username=${project.findProperty("mc_username")}")
-            }
         }
 
         named("server") {
