@@ -1,7 +1,7 @@
 @file:Suppress("UnstableApiUsage")
 
 import dev.upcraft.gradle.multiloader.applyMcGradleConventions
-import org.gradle.internal.extensions.stdlib.capitalized
+import java.util.*
 
 plugins {
 	id("dev.upcraft.gradle.multiloader.multiloader-loader")
@@ -125,7 +125,7 @@ neoForge {
             systemProperty("forge.logging.markers", "REGISTRIES")
             systemProperty("sparkweave.debug", "true")
 
-            ideName = "NeoForge ${name.capitalized()}"
+            ideName = "NeoForge ${name.replaceFirstChar { it.titlecase(Locale.ROOT) }}"
         }
     }
 }
