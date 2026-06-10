@@ -24,6 +24,8 @@ fabric_loom = "1.16.2" # https://maven.fabricmc.net/net/fabricmc/fabric-loom-rem
 fabric_loader = "0.19.2"
 fabric_api = "0.116.11+1.21.1"
 
+# https://maven.covers1624.net/service/rest/repository/browse/maven-hosted/net/covers1624/DevLogin/
+devlogin = "0.1.0.5"
 idea_ext = "1.4.1"
 
 # Minecraft dependencies
@@ -55,6 +57,7 @@ neoforge_fancymodloader = { module = "net.neoforged.fancymodloader:loader", vers
 # Fabric
 fabric_loader = { module = "net.fabricmc:fabric-loader", version.ref = "fabric_loader" }
 fabric_api = { module = "net.fabricmc.fabric-api:fabric-api", version.ref = "fabric_api" }
+devlogin = { module = "net.covers1624:DevLogin", version.ref = "devlogin" }
 
 # Minecraft dependencies
 minecraft = { module = "com.mojang:minecraft", version.ref = "minecraft" }
