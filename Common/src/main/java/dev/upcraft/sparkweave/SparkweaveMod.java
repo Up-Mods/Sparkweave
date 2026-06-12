@@ -1,5 +1,6 @@
 package dev.upcraft.sparkweave;
 
+import com.google.auto.service.AutoService;
 import dev.upcraft.sparkweave.api.SparkweaveApi;
 import dev.upcraft.sparkweave.api.entrypoint.MainEntryPoint;
 import dev.upcraft.sparkweave.api.event.CommandEvents;
@@ -16,6 +17,7 @@ import org.apache.commons.lang3.Validate;
 import java.util.List;
 import java.util.stream.Stream;
 
+@AutoService(MainEntryPoint.class)
 public class SparkweaveMod implements MainEntryPoint {
 
 	public static final String MODID = "sparkweave";
