@@ -7,11 +7,11 @@
   "mixins": [
     "AbstractContainerMenuMixin",
     "DeferredHolderMixin",
-    "DeferredRegisterMixin",
-    "client.RegisterMenuScreensEventMixin"
+    "DeferredRegisterMixin"
   ],
   "client": [
-    "client.HumanoidArmorLayerMixin",
+    "client.RegisterMenuScreensEventMixin",
+    "client.renderstateext.BaseRenderStateMixin",
     "client.RegisterRenderersEventMixin"
   ],
   "injectors": {
