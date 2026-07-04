@@ -35,19 +35,6 @@ public class CreativeTabHelper {
 		return RANDOM_SOURCE;
 	}
 
-	/**
-	 * @deprecated Use {@link #addRegistryEntries(CreativeModeTab.ItemDisplayParameters, CreativeModeTab.Output, RegistryHandler)} instead
-	 */
-	@Deprecated(since = "0.105.0", forRemoval = true)
-	public static <T extends ItemLike> void addRegistryEntries(CreativeModeTab.Output collector, RegistryHandler<T> itemProvider) {
-		itemProvider.stream().forEach(supplier -> collector.accept(supplier.get()));
-	}
-
-	@Deprecated(forRemoval = true, since = "0.502.0-alpha.1")
-	public static CreativeModeTab.Builder newBuilder() {
-		return HELPER.newCreativeTabBuilder();
-	}
-
 	public static CreativeModeTab.Builder newBuilder(Component title) {
 		return HELPER.newCreativeTabBuilder(title);
 	}

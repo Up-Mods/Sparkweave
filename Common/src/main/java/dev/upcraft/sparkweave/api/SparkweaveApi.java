@@ -21,10 +21,6 @@ public class SparkweaveApi {
 
 	public static class Client {
 
-		// TODO remove in 26.1
-		@Deprecated(forRemoval = true)
-		public static final boolean LOAD_RENDERDOC = false;
-
 		public static final boolean LOG_MISSING_TRANSLATIONS = DEVELOPMENT_ENVIRONMENT || Env.getBool("debug.log.missing_translations", SparkweaveMod.MODID);
 
 		public static final boolean RENDER_SLOT_NUMBERS = DEBUG_MODE || Env.getBool("debug.render.slotnumber", SparkweaveMod.MODID);
