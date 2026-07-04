@@ -29,8 +29,6 @@ jobs:
           distribution: 'microsoft'
       - name: Setup Gradle
         uses: gradle/actions/setup-gradle@v4
-        with:
-          cache-encryption-key: ${{ secrets.GRADLE_CONFIG_CACHE_ENCRYPTION_KEY }}
       - name: Grant execute permission for gradlew
         run: chmod +x ./gradlew
       - name: Get current time
