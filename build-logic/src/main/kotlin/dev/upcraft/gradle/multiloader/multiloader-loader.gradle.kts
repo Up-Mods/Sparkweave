@@ -6,16 +6,16 @@ plugins {
     id("dev.upcraft.gradle.multiloader.multiloader-common")
 }
 
-val commonJavaDep by configurations.dependencyScope("commonJavaDep")
-val commonJava by configurations.resolvable("commonJava") { extendsFrom(commonJavaDep) }
+val commonJavaDep = configurations.dependencyScope("commonJavaDep")
+val commonJava = configurations.resolvable("commonJava") { extendsFrom(commonJavaDep) }
 
-val commonResourcesDep by configurations.dependencyScope("commonResourcesDep")
-val commonResources by configurations.resolvable("commonResources") { extendsFrom(commonResourcesDep) }
+val commonResourcesDep = configurations.dependencyScope("commonResourcesDep")
+val commonResources = configurations.resolvable("commonResources") { extendsFrom(commonResourcesDep) }
 
-val testmodCommonJavaDep by configurations.dependencyScope("testmodCommonJavaDep")
-val testmodCommonJava by configurations.resolvable("testmodCommonJava") { extendsFrom(testmodCommonJavaDep) }
-val testmodCommonResourcesDep by configurations.dependencyScope("testmodCommonResourcesDep")
-val testmodCommonResources by configurations.resolvable("testmodCommonResources") { extendsFrom(testmodCommonResourcesDep) }
+val testmodCommonJavaDep = configurations.dependencyScope("testmodCommonJavaDep")
+val testmodCommonJava = configurations.resolvable("testmodCommonJava") { extendsFrom(testmodCommonJavaDep) }
+val testmodCommonResourcesDep = configurations.dependencyScope("testmodCommonResourcesDep")
+val testmodCommonResources = configurations.resolvable("testmodCommonResources") { extendsFrom(testmodCommonResourcesDep) }
 
 dependencies {
     compileOnly(project(":${rootProject.name}-Common")) {

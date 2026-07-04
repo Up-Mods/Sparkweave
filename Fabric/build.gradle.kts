@@ -49,12 +49,8 @@ dependencies {
     implementation(libs.appdirs)
     include(libs.appdirs)
 
-//    compileOnly(variantOf(libs.emi.fabric) { classifier("api") }) {
-//        isTransitive = false
-//    }
-//    localRuntime(libs.emi.fabric) {
-//        isTransitive = false
-//    }
+    compileOnly(libs.jei.fabric.api)
+    localRuntime(libs.jei.fabric)
 
     compileOnly(libs.modmenu.fabric) {
         isTransitive = false
@@ -83,56 +79,54 @@ loom {
         }
     }
 
-    accessWidenerPath.set(file("src/main/resources/${modId}.accesswidener"))
+    accessWidenerPath.set(file("src/main/resources/${modId}.classtweaker"))
 
     runs {
         named("client") {
             client()
-            programArgs.addAll(listOf("--launch_target", "net.fabricmc.loader.impl.launch.knot.KnotClient"))
+            programArguments.addAll(listOf("--launch_target", "net.fabricmc.loader.impl.launch.knot.KnotClient"))
             mainClass = "net.covers1624.devlogin.DevLogin"
-            configName = "Fabric Client"
-            runDir("run/client")
+            displayName = "Fabric Client"
+            runDirectory = file("run/client")
         }
 
         create("testmodClient") {
             client()
-            programArgs.addAll(listOf("--launch_target", "net.fabricmc.loader.impl.launch.knot.KnotClient"))
+            programArguments.addAll(listOf("--launch_target", "net.fabricmc.loader.impl.launch.knot.KnotClient"))
             mainClass = "net.covers1624.devlogin.DevLogin"
-            configName = "Fabric TestmodClient"
-            runDir("run/testmod")
-            source(sourceSets["testmod"])
+            displayName = "Fabric TestmodClient"
+            runDirectory = file("run/testmod")
+            sourceSet = "testmod"
         }
 
         named("server") {
             server()
-            configName = "Fabric Server"
-            runDir("run/server")
+            displayName = "Fabric Server"
+            runDirectory = file("run/server")
         }
 
         create("datagen") {
             client()
-            configName = "Fabric TestmodData"
+            displayName = "Fabric TestmodData"
 
-            source(sourceSets["testmod"])
+            sourceSet = "testmod"
 
-            property("fabric-api.datagen")
-            property("fabric-api.datagen.strict-validation", "true") // '--all' sets '--validate' to true as well
-            property("fabric-api.datagen.output-dir", file("src/testmod/generated").absolutePath)
-            property("sparkweave.datagen.mods", "${modId}, ${modId}_testmod")
-            runDir("build/datagen")
+            systemProperties.put("fabric-api.datagen", "true")
+            systemProperties.put("fabric-api.datagen.strict-validation", "true") // '--all' sets '--validate' to true as well
+            systemProperties.put("fabric-api.datagen.output-dir", file("src/testmod/generated").absolutePath)
+            systemProperties.put("sparkweave.datagen.mods", "${modId}, ${modId}_testmod")
+            runDirectory = file("build/datagen")
         }
 
         configureEach {
-            appendProjectPathToConfigName = false
-            property("sparkweave.debug", "true")
-            property("mixin.debug", "true")
-
-            makeRunDir()
+            appendProjectPathToDisplayName = false
+            systemProperties.put("sparkweave.debug", "true")
+            systemProperties.put("mixin.debug", "true")
 
             // register as Gradle runs instead of IDEA runs
             // https://github.com/FabricMC/fabric-loom/issues/1349
-            isIdeConfigGenerated = false
-            rootProject.idea.project.settings.runConfigurations.create<org.jetbrains.gradle.ext.Gradle>(configName) {
+            generateRunConfig = false
+            rootProject.idea.project.settings.runConfigurations.create<org.jetbrains.gradle.ext.Gradle>(displayName.get()) {
                 taskNames = listOf(LoomTasks.getRunConfigTaskName(this@configureEach))
                 setProject(project)
             }

@@ -14,7 +14,7 @@ val modId = providers.gradleProperty("mod_id").get()
 // need this before dependencies because it configures the plugin and creates additionalRuntimeClasspath configuration
 neoForge.version = libs.versions.neoforge.get()
 
-val localRuntime by configurations.dependencyScope("localRuntime")
+val localRuntime = configurations.dependencyScope("localRuntime")
 configurations.runtimeClasspath.configure { extendsFrom(localRuntime) }
 
 dependencies {
@@ -34,10 +34,8 @@ dependencies {
 		isTransitive = false
 	}
 
-//	compileOnly(variantOf(libs.emi.neoforge) {
-//		classifier("api")
-//	})
-//	localRuntime(libs.emi.neoforge)
+    compileOnly(libs.jei.neoforge.api)
+    localRuntime(libs.jei.neoforge)
 
 	testImplementation(libs.neoforge.testframework)
 }

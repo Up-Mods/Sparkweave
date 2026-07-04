@@ -9,16 +9,16 @@ neoform = "26.1.2-1"
 
 # NeoForge
 # https://projects.neoforged.net/neoforged/neoforge
-neoforge = "26.1.2.75"
+neoforge = "26.1.2.76"
 # https://projects.neoforged.net/neoforged/fancymodloader
 # MUST match the version that neoforge uses! https://github.com/neoforged/NeoForge/blob/26.1.x/gradle.properties
 fancymodloader = "11.0.13"
 
 # Fabric
 # https://fabricmc.net/develop
-fabric_loom = "1.16.3" # https://maven.fabricmc.net/net/fabricmc/fabric-loom/net.fabricmc.fabric-loom.gradle.plugin/
+fabric_loom = "1.17.13" # https://maven.fabricmc.net/net/fabricmc/fabric-loom/net.fabricmc.fabric-loom.gradle.plugin/
 fabric_loader = "0.19.3"
-fabric_api = "0.151.0+26.1.2"
+fabric_api = "0.154.0+26.1.2"
 
 # https://maven.covers1624.net/service/rest/repository/browse/maven-hosted/net/covers1624/DevLogin/
 devlogin = "0.1.0.5"
@@ -37,8 +37,8 @@ autoservice = "1.1.1"
 junit = "6.1.0"
 
 # Mods
-# https://modrinth.com/mod/emi/versions
-emi = "1.1.22+1.21.1"
+# https://maven.blamejared.com/mezz/jei/jei-26.1.2-common/
+jei = "29.6.2.38"
 # https://modrinth.com/mod/modmenu/versions
 modmenu = "18.0.0-beta.1"
 # https://beehive.sh/mod/resourcefulconfig/versions
@@ -77,9 +77,11 @@ junit_engine = { module = "org.junit.jupiter:junit-jupiter-engine", version.ref 
 slf4j_api = { module = "org.slf4j:slf4j-api" }
 
 # Mods
-emi = { module = "dev.emi:emi-xplat-mojmap", version.ref = "emi" }
-emi_neoforge = { module = "dev.emi:emi-neoforge", version.ref = "emi" }
-emi_fabric = { module = "dev.emi:emi-fabric", version.ref = "emi" }
+jei_api = { module = "mezz.jei:jei-26.1.2-common-api", version.ref = "jei" }
+jei_fabric = { module = "mezz.jei:jei-26.1.2-fabric", version.ref = "jei" }
+jei_fabric_api = { module = "mezz.jei:jei-26.1.2-fabric-api", version.ref = "jei" }
+jei_neoforge = { module = "mezz.jei:jei-26.1.2-neoforge", version.ref = "jei" }
+jei_neoforge_api = { module = "mezz.jei:jei-26.1.2-neoforge-api", version.ref = "jei" }
 
 modmenu_fabric = { module = "com.terraformersmc:modmenu", version.ref = "modmenu" }
 

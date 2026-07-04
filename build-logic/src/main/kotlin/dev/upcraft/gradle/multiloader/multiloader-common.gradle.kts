@@ -84,16 +84,20 @@ repositories {
     maven(uri("https://maven.terraformersmc.com/releases")) {
         name = "TerraformersMC"
     }
+
+    maven(uri("https://maven.blamejared.com")) {
+        name = "BlameJared"
+    }
+
+    maven((uri("https://modmaven.dev"))) {
+        name = "ModMaven"
+    }
 }
 
 dependencies {
     testImplementation(libs.findLibrary("junit_api").orElseThrow())
     testRuntimeOnly(libs.findLibrary("junit_launcher").orElseThrow())
     testRuntimeOnly(libs.findLibrary("junit_engine").orElseThrow())
-}
-
-base {
-    archivesName = "${project.name}-${minecraftVersion}"
 }
 
 java {

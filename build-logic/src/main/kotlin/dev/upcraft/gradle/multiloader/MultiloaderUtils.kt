@@ -16,11 +16,9 @@ val loaderAttribute = Attribute.of("io.github.mcgradleconventions.loader", Strin
 public fun Project.applyMcGradleConventions(loader: String, configurations: Collection<String>? = null) {
     if(configurations == null) {
         pluginManager.withPlugin("net.fabricmc.fabric-loom") {
-            listOf("includeInternal", "modCompileClasspath").forEach {
-                project.configurations.named(it).configure {
-                    attributes {
-                        loaderAttribute(loader)
-                    }
+            project.configurations.named("modCompileClasspath").configure {
+                attributes {
+                    loaderAttribute(loader)
                 }
             }
         }

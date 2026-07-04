@@ -19,9 +19,7 @@ dependencies {
     compileOnly(libs.appdirs)
 
 //	compileOnly(libs.resourcefulconfig)
-//    compileOnly(variantOf(libs.emi) {
-//        classifier("api")
-//    })
+    compileOnly(libs.jei.api)
 
     testmodCompileOnly(libs.autoservice.annotations)
     testmodImplementation(sourceSets["main"].output)
@@ -47,11 +45,11 @@ neoForge {
     addModdingDependenciesTo(sourceSets["test"])
 }
 
-val commonJava by configurations.consumable("commonJava")
-val commonResources by configurations.consumable("commonResources")
+val commonJava = configurations.consumable("commonJava")
+val commonResources = configurations.consumable("commonResources")
 
-val testmodCommonJava by configurations.consumable("testmodCommonJava")
-val testmodCommonResources by configurations.consumable("testmodCommonResources")
+val testmodCommonResources = configurations.consumable("testmodCommonResources")
+val testmodCommonJava = configurations.consumable("testmodCommonJava")
 
 artifacts {
     add(commonJava.name, sourceSets["main"].java.sourceDirectories.singleFile)
