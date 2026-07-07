@@ -13,16 +13,11 @@ neoForge.neoFormVersion = libs.versions.neoform.get()
 
 dependencies {
     compileOnly(libs.bundles.mixin)
-    compileOnly(libs.jetbrains.annotations)
-    compileOnly(libs.autoservice.annotations)
 
     compileOnly(libs.appdirs)
 
 //	compileOnly(libs.resourcefulconfig)
     compileOnly(libs.jei.api)
-
-    testmodCompileOnly(libs.autoservice.annotations)
-    testmodImplementation(sourceSets["main"].output)
 
     testCompileOnly(libs.junit.api)
     testCompileOnly(libs.neoforge.testframework)

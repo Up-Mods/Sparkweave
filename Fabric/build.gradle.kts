@@ -32,15 +32,8 @@ dependencies {
     localRuntime(libs.devlogin)
     minecraft(libs.minecraft)
 
-    compileOnly(libs.autoservice.annotations)
-    annotationProcessor(libs.autoservice)
-
     implementation(libs.fabric.loader)
     implementation(libs.fabric.api)
-
-    testmodImplementation(sourceSets["main"].output)
-    testmodCompileOnly(libs.autoservice.annotations)
-    testmodAnnotationProcessor(libs.autoservice)
 
 //	implementation(libs.resourcefulconfig.fabric) {
 //      isTransitive = false
@@ -59,10 +52,7 @@ dependencies {
         isTransitive = false
     }
 
-    testImplementation(libs.junit.api)
     testImplementation(libs.neoforge.testframework)
-    testRuntimeOnly(libs.junit.launcher)
-    testRuntimeOnly(libs.junit.engine)
 }
 
 loom {

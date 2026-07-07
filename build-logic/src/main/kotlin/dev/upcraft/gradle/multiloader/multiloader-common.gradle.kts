@@ -95,6 +95,16 @@ repositories {
 }
 
 dependencies {
+    compileOnly(libs.findLibrary("jetbrains_annotations").orElseThrow())
+    compileOnly(libs.findLibrary("jspecify").orElseThrow())
+
+    compileOnly(libs.findLibrary("autoservice_annotations").orElseThrow())
+    annotationProcessor(libs.findLibrary("autoservice").orElseThrow())
+
+    "testmodCompileOnly"(libs.findLibrary("autoservice_annotations").orElseThrow())
+    "testmodAnnotationProcessor"(libs.findLibrary("autoservice").orElseThrow())
+    "testmodImplementation"(sourceSets["main"].output)
+
     testImplementation(libs.findLibrary("junit_api").orElseThrow())
     testRuntimeOnly(libs.findLibrary("junit_launcher").orElseThrow())
     testRuntimeOnly(libs.findLibrary("junit_engine").orElseThrow())

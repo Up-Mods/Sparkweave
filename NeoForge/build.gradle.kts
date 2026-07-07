@@ -20,12 +20,6 @@ configurations.runtimeClasspath.configure { extendsFrom(localRuntime) }
 dependencies {
 	interfaceInjectionData(project(":${rootProject.name}-Common"))
 	accessTransformers(project(":${rootProject.name}-Common"))
-	compileOnly(libs.autoservice.annotations)
-	annotationProcessor(libs.autoservice)
-
-	testmodImplementation(sourceSets["main"].output)
-	testmodCompileOnly(libs.autoservice.annotations)
-	testmodAnnotationProcessor(libs.autoservice)
 
 //	implementation(libs.resourcefulconfig.neoforge)
 
