@@ -15,7 +15,7 @@ val isPreviewBuild = tag.orNull?.matches(Regex(".+-.+")) ?: false
 val buildNumber = tag.orElse(providers.environmentVariable("BUILD_NUMBER").map { "build.${it}" })
 
 version = tag.orElse(provider { buildString {
-    append("development")
+    append("0.1.0-development")
     if(isPreviewBuild && !tag.isPresent) {
         append(buildNumber.map { "+${it}" }.getOrElse(""))
     }
