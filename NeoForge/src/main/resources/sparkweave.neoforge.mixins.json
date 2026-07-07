@@ -5,7 +5,6 @@
   "plugin": "dev.upcraft.sparkweave.SparkweaveMixinConfigPlugin",
   "compatibilityLevel": "JAVA_${java_version}",
   "mixins": [
-    "AbstractContainerMenuMixin",
     "DeferredHolderMixin",
     "DeferredRegisterMixin",
     "client.command.ClientCommandSourceStackMixin"

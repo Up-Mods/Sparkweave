@@ -7,10 +7,10 @@ import net.minecraft.client.model.geom.ModelPart;
 import net.minecraft.client.model.geom.PartNames;
 import net.minecraft.client.model.geom.PartPose;
 import net.minecraft.client.model.geom.builders.*;
-import net.minecraft.client.renderer.RenderType;
-import net.minecraft.world.entity.LivingEntity;
+import net.minecraft.client.renderer.entity.state.HumanoidRenderState;
+import net.minecraft.client.renderer.rendertype.RenderTypes;
 
-public class MageRobesModel<T extends LivingEntity> extends HumanoidModel<T> {
+public class MageRobesModel<T extends HumanoidRenderState> extends HumanoidModel<T> {
 	public static final ModelLayerLocation MODEL_LAYER = new ModelLayerLocation(SparkweaveTestmod.id("mage_robes"), "main");
 	public final ModelPart closedHood;
 	public final ModelPart cloak;
@@ -23,7 +23,7 @@ public class MageRobesModel<T extends LivingEntity> extends HumanoidModel<T> {
 	public final ModelPart leftShoe;
 
 	public MageRobesModel(ModelPart root) {
-		super(root, RenderType::armorCutoutNoCull);
+		super(root, RenderTypes::armorCutoutNoCull);
 		closedHood = head.getChild("closedHood");
 		cloak = body.getChild("cloak");
 		openHood = cloak.getChild("openHood");

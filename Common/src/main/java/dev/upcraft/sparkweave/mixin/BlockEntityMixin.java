@@ -16,7 +16,8 @@ import org.spongepowered.asm.mixin.injection.At;
 public abstract class BlockEntityMixin {
 	// To hopefully ensure a higher degree of compatibility since LecternBlockEntity doesn't override these methods
 
-	@Shadow protected abstract void saveAdditional(CompoundTag tag, HolderLookup.Provider registries);
+	@Shadow
+	public abstract CompoundTag saveWithoutMetadata(HolderLookup.Provider registries);
 
 	@ModifyReturnValue(method = "getUpdatePacket", at = @At("RETURN"))
 	private Packet<ClientGamePacketListener> setLecternPacket(Packet<ClientGamePacketListener> original) {
@@ -25,8 +26,9 @@ public abstract class BlockEntityMixin {
 
 	@ModifyReturnValue(method = "getUpdateTag", at = @At("RETURN"))
 	private CompoundTag setLecternUpdateTag(CompoundTag original, HolderLookup.Provider provider) {
-		if((Object) this instanceof LecternBlockEntity)
-			saveAdditional(original, provider);
+		if((Object) this instanceof LecternBlockEntity) {
+			return this.saveWithoutMetadata(provider).merge(original);
+		}
 
 		return original;
 	}
