@@ -13,26 +13,26 @@ import java.util.stream.Stream;
  * A Simple event system.
  * @implNote The event system is designed to be as simple as possible, and is not thread safe.
  */
-public class EventFactoryImpl<T> implements Event<T> {
+public class EventFactoryImpl<S, T extends S> implements Event<T> {
 
-	private final Class<T> type;
+	private final Class<S> storageType;
 	private final Function<T[], T> invokerFactory;
-	private T[] listeners;
+	private S[] listeners;
 	private T invoker;
 
-	private EventFactoryImpl(Class<T> type, Function<T[], T> invokerFactory) {
-		this.type = type;
+	private EventFactoryImpl(Class<S> storageType, Function<T[], T> invokerFactory) {
+		this.storageType = storageType;
 		this.invokerFactory = invokerFactory;
 		this.listeners = makeArray(0);
 		setupInvoker();
 	}
 
-	public static <T> Event<T> create(Class<T> type, Function<T[], T> invokerFactory) {
-		return new EventFactoryImpl<>(type, invokerFactory);
+	public static <S, T extends S> Event<T> create(Class<S> storageType, Function<T[], T> invokerFactory) {
+		return new EventFactoryImpl<>(storageType, invokerFactory);
 	}
 
-	public static <T> Event<T> create(Class<T> type, T emptyInvoker, Function<T[], T> invokerFactory) {
-		return new EventFactoryImpl<>(type, listeners -> switch (listeners.length) {
+	public static <S, T extends S> Event<T> create(Class<S> storageType, T emptyInvoker, Function<T[], T> invokerFactory) {
+		return new EventFactoryImpl<>(storageType, listeners -> switch (listeners.length) {
 			case 0 -> emptyInvoker;
 			case 1 -> listeners[0];
 			default -> invokerFactory.apply(listeners);
@@ -41,7 +41,7 @@ public class EventFactoryImpl<T> implements Event<T> {
 
 	@Override
 	public void register(T listener) {
-		Preconditions.checkArgument(type.isInstance(listener), "Listener is not of the correct type, must extend " + type.getName());
+		Preconditions.checkArgument(storageType.isInstance(listener), "Listener is not of the correct type, must extend " + storageType.getName());
 		Preconditions.checkArgument(Stream.of(listeners).noneMatch(it -> it == listener), "Listener is already registered");
 
 		listeners = Arrays.copyOf(listeners, listeners.length + 1);
@@ -52,7 +52,7 @@ public class EventFactoryImpl<T> implements Event<T> {
 
 	@Override
 	public void unregister(T listener) {
-		if (!type.isInstance(listener)) {
+		if (!storageType.isInstance(listener)) {
 			return;
 		}
 
@@ -68,13 +68,14 @@ public class EventFactoryImpl<T> implements Event<T> {
 		setupInvoker();
 	}
 
+	@SuppressWarnings("unchecked")
 	private void setupInvoker() {
-		invoker = invokerFactory.apply(listeners);
+		invoker = invokerFactory.apply((T[]) listeners);
 	}
 
 	@SuppressWarnings("unchecked")
-	private T[] makeArray(int size) {
-		return (T[]) Array.newInstance(type, size);
+	private S[] makeArray(int size) {
+		return (S[]) Array.newInstance(storageType, size);
 	}
 
 	@Override

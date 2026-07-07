@@ -30,12 +30,12 @@ public class NeoDataGenerationContext implements DataGenerationContext {
 
 	@Override
 	public boolean includeClient() {
-		return event.includeClient();
+		return event instanceof GatherDataEvent.Client;
 	}
 
 	@Override
 	public boolean includeServer() {
-		return event.includeServer();
+		return event instanceof GatherDataEvent.Server;
 	}
 
 	@Override

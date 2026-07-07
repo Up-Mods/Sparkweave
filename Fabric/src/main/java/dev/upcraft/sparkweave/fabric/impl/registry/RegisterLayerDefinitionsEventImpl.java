@@ -1,7 +1,7 @@
 package dev.upcraft.sparkweave.fabric.impl.registry;
 
 import dev.upcraft.sparkweave.api.client.event.RegisterLayerDefinitionsEvent;
-import net.fabricmc.fabric.api.client.rendering.v1.EntityModelLayerRegistry;
+import net.fabricmc.fabric.api.client.rendering.v1.ModelLayerRegistry;
 import net.minecraft.client.model.geom.ModelLayerLocation;
 import net.minecraft.client.model.geom.builders.LayerDefinition;
 
@@ -11,6 +11,6 @@ public class RegisterLayerDefinitionsEventImpl implements RegisterLayerDefinitio
 
 	@Override
 	public void registerModelLayers(ModelLayerLocation layerLocation, Supplier<LayerDefinition> supplier) {
-		EntityModelLayerRegistry.registerModelLayer(layerLocation, supplier::get);
+		ModelLayerRegistry.registerModelLayer(layerLocation, supplier::get);
 	}
 }

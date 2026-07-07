@@ -6,7 +6,6 @@ import com.mojang.serialization.MapCodec;
 import com.mojang.serialization.codecs.RecordCodecBuilder;
 import io.netty.buffer.ByteBuf;
 import net.minecraft.network.codec.StreamCodec;
-import net.minecraft.util.FastColor;
 import net.minecraft.util.Mth;
 import net.minecraft.util.StringRepresentable;
 import org.joml.Vector3f;
@@ -184,7 +183,7 @@ public class Color {
 	 * interpolate RGB components directly, for parity with Mojang's color interpolation.
 	 * <br>For smoother visuals use {@link #lerp(Color, float)}
 	 *
-	 * @see FastColor.ARGB32#lerp(float, int, int)
+	 * @see net.minecraft.util.ARGB#srgbLerp(float, int, int)
 	 */
 	public Color lerpDirect(Color other, float delta) {
 		var red = Mth.lerpInt(delta, red(), other.red());

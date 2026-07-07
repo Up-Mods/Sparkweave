@@ -7,7 +7,7 @@ import dev.upcraft.sparkweave.api.datagen.provider.SparkweaveDynamicRegistryEntr
 import dev.upcraft.sparkweave.api.datagen.provider.SparkweaveLanguageProvider;
 import dev.upcraft.sparkweave.fabric.mixin.datagen.PackGeneratorAccessor;
 import net.fabricmc.fabric.api.datagen.v1.FabricDataGenerator;
-import net.fabricmc.fabric.api.datagen.v1.FabricDataOutput;
+import net.fabricmc.fabric.api.datagen.v1.FabricPackOutput;
 import net.minecraft.core.HolderLookup;
 import net.minecraft.data.DataProvider;
 
@@ -38,7 +38,7 @@ public class FabricBuiltinPack implements Pack {
 		T provider = factory.apply(output);
 
 		if (enabled.test(context)) {
-			pack.addProvider((FabricDataOutput fabricOutput) -> provider);
+			pack.addProvider((FabricPackOutput fabricOutput) -> provider);
 		}
 
 		if(!hasTranslations && provider instanceof SparkweaveLanguageProvider languageProvider && languageProvider.isDefaultLanguage()) {

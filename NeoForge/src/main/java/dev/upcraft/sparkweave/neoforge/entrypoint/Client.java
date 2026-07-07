@@ -1,32 +1,24 @@
 package dev.upcraft.sparkweave.neoforge.entrypoint;
 
+import com.mojang.brigadier.CommandDispatcher;
 import dev.upcraft.sparkweave.SparkweaveMod;
 import dev.upcraft.sparkweave.api.SparkweaveApi;
+import dev.upcraft.sparkweave.api.client.command.ClientCommandSource;
 import dev.upcraft.sparkweave.api.client.event.*;
 import dev.upcraft.sparkweave.api.client.event.RegisterMenuScreensEvent;
+import dev.upcraft.sparkweave.api.client.event.RegisterParticleProvidersEvent;
 import dev.upcraft.sparkweave.api.client.render.DebugRenderer;
-import dev.upcraft.sparkweave.client.event.RegisterItemPropertiesEventImpl;
-import dev.upcraft.sparkweave.neoforge.impl.registry.RegisterParticleFactoriesEventImpl;
+import dev.upcraft.sparkweave.neoforge.impl.registry.RegisterParticleProvidersEventImpl;
 import dev.upcraft.sparkweave.validation.TranslationChecker;
 import net.minecraft.client.Minecraft;
-import net.minecraft.resources.ResourceLocation;
-import net.minecraft.server.packs.resources.ResourceManager;
 import net.minecraft.server.packs.resources.ResourceManagerReloadListener;
 import net.neoforged.api.distmarker.Dist;
 import net.neoforged.bus.api.SubscribeEvent;
 import net.neoforged.fml.common.EventBusSubscriber;
-import net.neoforged.fml.event.lifecycle.FMLClientSetupEvent;
 import net.neoforged.neoforge.client.event.*;
 
 @EventBusSubscriber(modid = SparkweaveMod.MODID, value = Dist.CLIENT)
 public class Client {
-
-	@SubscribeEvent
-	public static void onClientSetup(FMLClientSetupEvent event) {
-		event.enqueueWork(() -> {
-			RegisterItemPropertiesEvent.EVENT.invoker().registerItemProperties(new RegisterItemPropertiesEventImpl());
-		});
-	}
 
 	@SubscribeEvent
 	public static void onRegisterMenuScreens(net.neoforged.neoforge.client.event.RegisterMenuScreensEvent event) {
@@ -41,8 +33,8 @@ public class Client {
 	}
 
 	@SubscribeEvent
-	public static void onRegisterParticles(RegisterParticleProvidersEvent event) {
-		RegisterParticleFactoriesEvent.EVENT.invoker().registerParticleFactories(new RegisterParticleFactoriesEventImpl(event));
+	public static void onRegisterParticles(net.neoforged.neoforge.client.event.RegisterParticleProvidersEvent event) {
+		RegisterParticleProvidersEvent.EVENT.invoker().registerParticleFactories(new RegisterParticleProvidersEventImpl(event));
 	}
 
 	@SubscribeEvent
@@ -52,7 +44,14 @@ public class Client {
 
 	@SubscribeEvent
 	public static void onRegisterEntityLayers(EntityRenderersEvent.AddLayers event) {
-		RegisterCustomArmorRenderersEvent.EVENT.invoker().registerCustomArmorRenderers(new RegisterCustomArmorRenderersEvent());
+		//FIXME
+//		RegisterCustomArmorRenderersEvent.EVENT.invoker().registerCustomArmorRenderers(new RegisterCustomArmorRenderersEvent());
+	}
+
+	@SuppressWarnings("unchecked")
+	@SubscribeEvent
+	public static void onRegisterClientCommands(RegisterClientCommandsEvent event) {
+		ClientCommandEvents.REGISTER.invoker().registerClientCommands((CommandDispatcher<ClientCommandSource>)(Object) event.getDispatcher(), event.getBuildContext());
 	}
 
 	@SubscribeEvent
@@ -66,28 +65,29 @@ public class Client {
 	}
 
 	@SubscribeEvent
-	public static void onRegisterReloadListeners(RegisterClientReloadListenersEvent event) {
+	public static void onRegisterReloadListeners(AddClientReloadListenersEvent event) {
 		if(SparkweaveApi.Client.LOG_MISSING_TRANSLATIONS) {
-			event.registerReloadListener(new ResourceManagerReloadListener() {
-				private final ResourceLocation ID = SparkweaveMod.id("translation_checker");
-
-				@Override
-				public String getName() {
-					return ID.toString();
-				}
-
-				@Override
-				public void onResourceManagerReload(ResourceManager resourceManager) {
-					TranslationChecker.validate();
-				}
-			});
+			event.addListener(SparkweaveMod.id("translation_checker"), (ResourceManagerReloadListener) _ -> TranslationChecker.validate());
 		}
 	}
 
 	@SubscribeEvent
-	public static void onRenderWorld(RenderLevelStageEvent event) {
-		if (event.getStage() == RenderLevelStageEvent.Stage.AFTER_ENTITIES) {
-			DebugRenderer.render(event.getPoseStack(), event.getLevelRenderer().renderBuffers.bufferSource(), event.getCamera());
-		}
+	public static void onRenderWorld(RenderLevelStageEvent.AfterTranslucentBlocks event) {
+		DebugRenderer.render(event.getPoseStack(), event.getLevelRenderer().renderBuffers.bufferSource(), event.getLevelRenderState());
+	}
+
+	@SubscribeEvent
+	public static void registerRangeSelectItemModelProperties(RegisterRangeSelectItemModelPropertyEvent event) {
+		RegisterItemModelPropertiesEvent.RANGED.invoker().registerProperties(event::register);
+	}
+
+	@SubscribeEvent
+	public static void registerConditionalSelectItemModelProperties(RegisterConditionalItemModelPropertyEvent event) {
+		RegisterItemModelPropertiesEvent.CONDITIONAL.invoker().registerProperties(event::register);
+	}
+
+	@SubscribeEvent
+	public static void registerSpecialItemModelProperties(RegisterSelectItemModelPropertyEvent event) {
+		RegisterItemModelPropertiesEvent.SELECT.invoker().registerProperties(event::register);
 	}
 }

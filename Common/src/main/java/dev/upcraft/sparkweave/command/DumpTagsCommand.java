@@ -31,7 +31,7 @@ public class DumpTagsCommand {
 
 	public static void register(LiteralArgumentBuilder<CommandSourceStack> $) {
 		$.then(Commands.literal("dump_tags")
-			.requires(src -> src.hasPermission(Commands.LEVEL_OWNERS))
+			.requires(src -> Commands.LEVEL_OWNERS.check(src.permissions()))
 			.executes(DumpTagsCommand::dumpAllTags)
 			.then(Commands.argument("type", RegistryArgumentType.registry())
 				.executes(ctx -> dumpTags(ctx, RegistryArgumentType.getRegistry(ctx, "type")))
@@ -45,19 +45,19 @@ public class DumpTagsCommand {
 	private static int dumpAllTags(CommandContext<CommandSourceStack> ctx) throws CommandSyntaxException {
 		var player = ctx.getSource().getPlayerOrException();
 		var registryAccess = ctx.getSource().getServer().registries().compositeAccess();
-		var registries = registryAccess.listRegistries().toList();
+		var registries = registryAccess.listRegistryKeys().toList();
 		var dir = Services.PLATFORM.getGameDir().resolve(SparkweaveMod.MODID).resolve("tag_export");
 
 		for (ResourceKey<? extends Registry<?>> registryKey : registries) {
-			var registry = registryAccess.registry(registryKey).orElseThrow();
+			var registry = registryAccess.lookupOrThrow(registryKey);
 			saveTags(registry, dir);
 		}
 
-		if (ctx.getSource().getServer().isSingleplayerOwner(player.getGameProfile())) {
+		if (ctx.getSource().getServer().isSingleplayerOwner(player.nameAndId())) {
 			var path = Component.literal(dir.toString()).withStyle(style -> style
 				.applyFormats(ChatFormatting.BLUE, ChatFormatting.UNDERLINE)
-				.withHoverEvent(new HoverEvent(HoverEvent.Action.SHOW_TEXT, Component.translatable("chat.sparkweave.open_folder")))
-				.withClickEvent(new ClickEvent(ClickEvent.Action.OPEN_FILE, dir.toString()))
+				.withHoverEvent(new HoverEvent.ShowText(Component.translatable("chat.sparkweave.open_folder")))
+				.withClickEvent(new ClickEvent.OpenFile(dir.toString()))
 			);
 
 			//TODO directly send to client to bypass message click event filtering
@@ -72,22 +72,22 @@ public class DumpTagsCommand {
 	private static int dumpTags(CommandContext<CommandSourceStack> ctx, Registry<?> registry) throws CommandSyntaxException {
 		var dir = Services.PLATFORM.getGameDir().resolve(SparkweaveMod.MODID).resolve("tag_export");
 		saveTags(registry, dir);
-		CommandHelper.sendPathResult(ctx, dir.resolve(registry.key().location().getNamespace()).resolve(registry.key().location().getPath()), () -> Component.translatable("commands.sparkweave.debug.dump_tags.success", registry.key().location()), path -> Component.translatable("commands.sparkweave.debug.dump_tags.success_path", registry.key().location(), path));
+		CommandHelper.sendPathResult(ctx, dir.resolve(registry.key().identifier().getNamespace()).resolve(registry.key().identifier().getPath()), () -> Component.translatable("commands.sparkweave.debug.dump_tags.success", registry.key().identifier()), path -> Component.translatable("commands.sparkweave.debug.dump_tags.success_path", registry.key().identifier(), path));
 		return Command.SINGLE_SUCCESS;
 	}
 
 	private static void saveTags(Registry<?> registry, Path dir) throws CommandSyntaxException {
-		Path rootDir = dir.resolve(registry.key().location().getNamespace()).resolve(registry.key().location().getPath());
+		Path rootDir = dir.resolve(registry.key().identifier().getNamespace()).resolve(registry.key().identifier().getPath());
 
 		var tags = registry.getTags().toList();
 		for (var tagPair : tags) {
-			var name = tagPair.getFirst().location();
+			var name = tagPair.key().location();
 			var outputFile = rootDir.resolve(name.getNamespace()).resolve(name.getPath() + ".json");
 
 			var json = new JsonObject();
 			var array = new JsonArray();
-			tagPair.getSecond().stream()
-				.map(holder -> holder.unwrap().map(k -> k.location().toString(), Object::toString))
+			tagPair.stream()
+				.map(holder -> holder.unwrap().map(k -> k.identifier().toString(), Object::toString))
 				.forEach(array::add);
 			json.add("values", array);
 

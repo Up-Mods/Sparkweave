@@ -1,12 +1,12 @@
 package dev.upcraft.sparkweave.api.datagen.provider;
 
 import com.mojang.serialization.Lifecycle;
-import net.minecraft.Util;
 import net.minecraft.core.HolderGetter;
 import net.minecraft.core.RegistrySetBuilder;
 import net.minecraft.core.registries.Registries;
 import net.minecraft.data.worldgen.BootstrapContext;
 import net.minecraft.resources.ResourceKey;
+import net.minecraft.util.Util;
 import net.minecraft.world.level.biome.Biome;
 import net.minecraft.world.level.levelgen.carver.ConfiguredWorldCarver;
 import net.minecraft.world.level.levelgen.placement.PlacedFeature;
@@ -37,7 +37,7 @@ public abstract class SparkweaveBiomeProvider extends SparkweaveDynamicRegistryE
 
 		public void register(ResourceKey<Biome> key, Biome value, Lifecycle lifecycle, String name) {
 			bootstrapContext.register(key, value, lifecycle);
-			addTranslation(Util.makeDescriptionId("biome", key.location()), name);
+			addTranslation(Util.makeDescriptionId("biome", key.identifier()), name);
 		}
 
 		public void register(ResourceKey<Biome> key, Biome value, String name) {

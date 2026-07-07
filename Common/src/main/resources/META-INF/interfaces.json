@@ -1,5 +1,23 @@
 {
+  "net/minecraft/world/level/block/entity/LecternBlockEntity": [
+    "dev/upcraft/sparkweave/api/ext/LecternBlockEntityExt"
+  ],
   "net/minecraft/core/RegistrySetBuilder": [
     "dev/upcraft/sparkweave/api/ext/datagen/RegistrySetBuilderExt"
+  ],
+  "net/minecraft/client/Minecraft": [
+    "dev/upcraft/sparkweave/api/client/ext/MinecraftExt"
+  ],
+  "net/minecraft/client/renderer/entity/layers/RenderLayer": [
+    "dev/upcraft/sparkweave/api/client/ext/RenderLayerExt"
+  ],
+  "net/minecraft/client/renderer/blockentity/state/BlockEntityRenderState": [
+    "dev/upcraft/sparkweave/api/client/ext/RenderStateExt"
+  ],
+  "net/minecraft/client/renderer/entity/state/EntityRenderState": [
+    "dev/upcraft/sparkweave/api/client/ext/RenderStateExt"
+  ],
+  "net/minecraft/world/item/crafting/RecipeManager": [
+    "dev/upcraft/sparkweave/api/ext/RecipeManagerExt"
   ]
 }

@@ -7,12 +7,13 @@
   "mixins": [
     "AbstractContainerMenuMixin",
     "DeferredHolderMixin",
-    "DeferredRegisterMixin"
+    "DeferredRegisterMixin",
+    "client.command.ClientCommandSourceStackMixin"
   ],
   "client": [
     "client.RegisterMenuScreensEventMixin",
-    "client.renderstateext.BaseRenderStateMixin",
-    "client.RegisterRenderersEventMixin"
+    "client.RegisterRenderersEventMixin",
+    "client.renderstateext.BaseRenderStateMixin"
   ],
   "injectors": {
     "defaultRequire": 1

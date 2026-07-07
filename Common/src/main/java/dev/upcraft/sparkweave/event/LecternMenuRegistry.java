@@ -22,17 +22,13 @@ import java.util.function.Supplier;
 public class LecternMenuRegistry {
 	private static final Map<Item, MenuProviderFactory> FACTORIES = new Object2ObjectOpenHashMap<>();
 
-	public static void register(MenuProviderFactory factory, Supplier<? extends ItemLike> itemLike) {
+	public static void register(Supplier<? extends ItemLike> itemLike, MenuProviderFactory factory) {
 		Preconditions.checkNotNull(itemLike, "Item for menu is null or doesn't exist");
 		Item item = Preconditions.checkNotNull(itemLike.get().asItem(), "Item for menu is null or doesn't exist");
 
 		if(FACTORIES.putIfAbsent(item, factory) != null) {
 			throw new IllegalArgumentException("Custom lectern menu already exists for " + BuiltInRegistries.ITEM.getKey(item));
 		}
-	}
-
-	public static void register(MenuProviderFactory factory, ItemLike item) {
-		register(factory, () -> item);
 	}
 
 	public static Set<Item> validItems() {

@@ -1,19 +1,19 @@
-package dev.upcraft.sparkweave.fabric.client.consent;
+package dev.upcraft.sparkweave.client.consent;
 
-import net.minecraft.client.gui.GuiGraphics;
+import net.minecraft.client.gui.GuiGraphicsExtractor;
 import net.minecraft.client.gui.screens.Screen;
 import net.minecraft.network.chat.Component;
-import net.minecraft.resources.ResourceLocation;
+import net.minecraft.resources.Identifier;
 
 import java.util.List;
 
 public class ConsentScreen extends Screen {
 
 	private static final Component TITLE = Component.translatable("screen.sparkweave.consent.title");
-	private final List<ResourceLocation> permissions;
+	private final List<Identifier> permissions;
 	private final boolean explicit;
 
-	public ConsentScreen(List<ResourceLocation> permissions, boolean explicit) {
+	public ConsentScreen(List<Identifier> permissions, boolean explicit) {
 		super(TITLE);
 		this.permissions = permissions;
 		this.explicit = explicit;
@@ -27,9 +27,8 @@ public class ConsentScreen extends Screen {
 	}
 
 	@Override
-	public void render(GuiGraphics guiGraphics, int mouseX, int mouseY, float delta) {
-		this.renderBackground(guiGraphics, mouseX, mouseY, delta);
-		super.render(guiGraphics, mouseX, mouseY, delta);
+	public void extractRenderState(GuiGraphicsExtractor graphics, int mouseX, int mouseY, float a) {
+		super.extractRenderState(graphics, mouseX, mouseY, a);
 		System.out.println("rendering screen");
 	}
 

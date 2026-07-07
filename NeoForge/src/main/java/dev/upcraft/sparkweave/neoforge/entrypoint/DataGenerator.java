@@ -10,10 +10,10 @@ import dev.upcraft.sparkweave.datagen.DynamicRegistryBuilderImpl;
 import dev.upcraft.sparkweave.entrypoint.EntrypointHelper;
 import dev.upcraft.sparkweave.neoforge.impl.datagen.NeoBuiltinEntriesProvider;
 import dev.upcraft.sparkweave.neoforge.impl.datagen.NeoDataGenerationContext;
-import net.minecraft.Util;
 import net.minecraft.core.RegistrySetBuilder;
 import net.minecraft.data.DataProvider;
 import net.minecraft.data.PackOutput;
+import net.minecraft.util.Util;
 import net.neoforged.bus.api.SubscribeEvent;
 import net.neoforged.fml.common.EventBusSubscriber;
 import net.neoforged.neoforge.data.event.GatherDataEvent;
@@ -27,11 +27,11 @@ public class DataGenerator {
 	private static final Logger LOGGER = SparkweaveLoggerFactory.getLogger();
 
 	@SubscribeEvent
-	public static void onDataGeneration(GatherDataEvent event) {
+	public static void onDataGeneration(GatherDataEvent.Server event) { // FIXME handle client event
 		var rootGenerator = event.getGenerator();
 
 		Set<String> mods = Util.make(() -> {
-			var modIDs = new TreeSet<>(event.getMods());
+			var modIDs = new TreeSet<String>(); // FIXME event.getMods()
 			if (modIDs.isEmpty()) {
 				throw new IllegalArgumentException("[Sparkweave] No --mod parameter provided! please define which mod(s) to generate data for!");
 			}
@@ -57,7 +57,7 @@ public class DataGenerator {
 			}
 		});
 
-		var registriesFuture = rootGenerator.addProvider(event.includeServer(), (DataProvider.Factory<NeoBuiltinEntriesProvider>) (PackOutput output) -> new NeoBuiltinEntriesProvider(output, event.getLookupProvider(), registrySetBuilder, mods, dynamicProviders)).getRegistryProvider();
+		var registriesFuture = rootGenerator.addProvider(/*TODO event.includeServer()*/ true, (DataProvider.Factory<NeoBuiltinEntriesProvider>) (PackOutput output) -> new NeoBuiltinEntriesProvider(output, event.getLookupProvider(), registrySetBuilder, mods, dynamicProviders)).getRegistryProvider();
 
 		// need to wait here so all the data is ready before we proceed!
 		registriesFuture.join();

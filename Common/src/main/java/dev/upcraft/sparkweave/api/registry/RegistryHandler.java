@@ -2,8 +2,8 @@ package dev.upcraft.sparkweave.api.registry;
 
 import dev.upcraft.sparkweave.api.platform.services.RegistryService;
 import net.minecraft.core.Registry;
+import net.minecraft.resources.Identifier;
 import net.minecraft.resources.ResourceKey;
-import net.minecraft.resources.ResourceLocation;
 import org.jetbrains.annotations.Nullable;
 
 import java.util.List;
@@ -22,7 +22,7 @@ public interface RegistryHandler<T> extends Consumer<RegistryService> {
 
 	<S extends T> RegistrySupplier<S> register(ResourceKey<T> id, Supplier<S> factory);
 
-	Map<ResourceLocation, RegistrySupplier<? extends T>> values();
+	Map<Identifier, RegistrySupplier<? extends T>> values();
 
 	List<RegistrySupplier<? extends T>> getEntriesOrdered();
 
@@ -34,7 +34,7 @@ public interface RegistryHandler<T> extends Consumer<RegistryService> {
 	 * @param sync         Whether the registry int IDs should be synchronized to each client
 	 * @param defaultEntry The default entry for the registry. if {@code null} this method will return a {@link net.minecraft.core.MappedRegistry}, otherwise a {@link net.minecraft.core.DefaultedRegistry}
 	 */
-	Registry<T> createNewRegistry(boolean sync, @Nullable ResourceLocation defaultEntry);
+	Registry<T> createNewRegistry(boolean sync, @Nullable Identifier defaultEntry);
 
 	default Registry<T> createNewRegistry(boolean sync) {
 		return createNewRegistry(sync, null);

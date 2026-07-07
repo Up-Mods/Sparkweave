@@ -4,8 +4,8 @@ import dev.upcraft.sparkweave.api.registry.RegistryHelper;
 import dev.upcraft.sparkweave.api.registry.RegistrySupplier;
 import net.minecraft.core.Holder;
 import net.minecraft.core.Registry;
+import net.minecraft.resources.Identifier;
 import net.minecraft.resources.ResourceKey;
-import net.minecraft.resources.ResourceLocation;
 import net.minecraft.tags.TagKey;
 import org.jetbrains.annotations.Nullable;
 
@@ -38,9 +38,9 @@ public class FabricRegistrySupplier<R, T extends R> implements RegistrySupplier<
 		this.registry = registry;
 		var object = getOrCreateObject();
 		Registry.register(registry, this.getRegistryKey(), object);
-		var entryHolder = registry.getHolderOrThrow(this.getRegistryKey());
+		var entryHolder = registry.getOrThrow(this.getRegistryKey());
 		if(entryHolder.type != Holder.Reference.Type.INTRUSIVE || entryHolder.value == null) {
-			entryHolder.bindValue(this.value);
+			entryHolder.bindValue(object);
 		}
 		this.holder = entryHolder;
 	}
@@ -49,7 +49,7 @@ public class FabricRegistrySupplier<R, T extends R> implements RegistrySupplier<
 	@Override
 	public T get() {
 		if (value == null) {
-			value = (T) Objects.requireNonNull(getRegistry().get(this.id.location()), "Registry supplier called too early: " + this.getId());
+			value = (T) Objects.requireNonNull(getRegistry().get(this.id.identifier()), "Registry supplier called too early: " + this.getId());
 		}
 		return value;
 	}
@@ -66,8 +66,8 @@ public class FabricRegistrySupplier<R, T extends R> implements RegistrySupplier<
 	}
 
 	@Override
-	public ResourceLocation getId() {
-		return this.id.location();
+	public Identifier getId() {
+		return this.id.identifier();
 	}
 
 	@SuppressWarnings("unchecked")
@@ -88,7 +88,7 @@ public class FabricRegistrySupplier<R, T extends R> implements RegistrySupplier<
 	@Override
 	public Holder<R> holder() {
 		if (holder == null) {
-			holder = registry.getHolder(getRegistryKey()).orElseGet(() -> {
+			holder = registry.get(getRegistryKey()).orElseGet(() -> {
 				if(registry instanceof FabricRegistryHack<?>) {
 					return ((FabricRegistryHack<R>) registry).sparkweave$createHolder(getRegistryKey(), this::getOrCreateObject);
 				}
@@ -110,6 +110,6 @@ public class FabricRegistrySupplier<R, T extends R> implements RegistrySupplier<
 
 	@Override
 	public int hashCode() {
-		return Objects.hash(this.id.registry(), this.id.location());
+		return Objects.hash(this.id.registry(), this.id.identifier());
 	}
 }

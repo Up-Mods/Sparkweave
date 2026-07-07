@@ -2,8 +2,8 @@ package dev.upcraft.sparkweave.api.registry;
 
 import net.minecraft.core.Holder;
 import net.minecraft.core.Registry;
+import net.minecraft.resources.Identifier;
 import net.minecraft.resources.ResourceKey;
-import net.minecraft.resources.ResourceLocation;
 import net.minecraft.tags.TagKey;
 
 import java.util.function.Supplier;
@@ -28,7 +28,7 @@ public interface RegistrySupplier<T> extends Supplier<T> {
 
 	boolean matches(TagKey<? super T> tag);
 
-	ResourceLocation getId();
+	Identifier getId();
 
 	ResourceKey<? super T> getRegistryKey();
 

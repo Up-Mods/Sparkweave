@@ -9,7 +9,7 @@ import net.minecraft.data.CachedOutput;
 import net.minecraft.data.DataProvider;
 import net.minecraft.data.PackOutput;
 import net.minecraft.locale.Language;
-import net.minecraft.resources.ResourceLocation;
+import net.minecraft.resources.Identifier;
 
 import java.util.Collections;
 import java.util.Map;
@@ -46,7 +46,7 @@ public abstract class SparkweaveLanguageProvider implements DataProvider {
 			generateTranslations(registries, builder);
 
 			var pathProvider = output.createPathProvider(PackOutput.Target.RESOURCE_PACK, "lang");
-			var outputPath = pathProvider.json(ResourceLocation.fromNamespaceAndPath(output.getModContainer().metadata().id(), languageCode));
+			var outputPath = pathProvider.json(Identifier.fromNamespaceAndPath(output.getModContainer().metadata().id(), languageCode));
 			return DataProvider.saveStable(cachedOutput, registries, LANGUAGE_FILE_CODEC, builder.build(), outputPath);
 		});
 	}

@@ -1,21 +1,26 @@
 package dev.upcraft.sparkweave.client.event;
 
 import com.google.common.base.Preconditions;
+import dev.upcraft.sparkweave.SparkweaveMod;
 import dev.upcraft.sparkweave.api.client.render.LecternItemRenderer;
 import it.unimi.dsi.fastutil.objects.Object2ObjectOpenHashMap;
-import net.minecraft.client.Minecraft;
 import net.minecraft.client.renderer.blockentity.BlockEntityRendererProvider;
 import net.minecraft.core.registries.BuiltInRegistries;
+import net.minecraft.util.context.ContextKey;
 import net.minecraft.world.item.Item;
 import net.minecraft.world.item.ItemStack;
 import net.minecraft.world.level.ItemLike;
+import org.jspecify.annotations.Nullable;
 
 import java.util.Map;
-import java.util.Optional;
 import java.util.function.Supplier;
 
-public class LecternItemRendererRegistry {
-	private static final Map<Item, Optional<LecternItemRenderer>> RENDERERS = new Object2ObjectOpenHashMap<>();
+public class LecternItemRendererRegistryImpl {
+
+	public static final ContextKey<LecternItemRenderer<?>> ITEM_RENDERER_KEY = new ContextKey<>(SparkweaveMod.id("lectern_item_renderer"));
+	public static final ContextKey<Object> ITEM_RENDERER_DATA_KEY = new ContextKey<>(SparkweaveMod.id("lectern_item_renderer_data"));
+
+	private static final Map<Item, LecternItemRenderer<?>> RENDERERS = new Object2ObjectOpenHashMap<>();
 	private static final Map<Item, LecternItemRenderer.Factory> FACTORIES = new Object2ObjectOpenHashMap<>();
 
 	public static void register(LecternItemRenderer.Factory factory, Supplier<? extends ItemLike> itemLike) {
@@ -27,20 +32,22 @@ public class LecternItemRendererRegistry {
 		}
 	}
 
-	public static Optional<LecternItemRenderer> get(ItemStack stack) {
+	public static void onResourceManagerReload(BlockEntityRendererProvider.Context context) {
+		RENDERERS.clear();
+		FACTORIES.forEach((item, factory) -> {
+			var renderer = factory.create(context);
+			if(renderer != null) {
+				RENDERERS.put(item, renderer);
+			}
+		});
+	}
+
+	@Nullable
+	public static LecternItemRenderer<?> get(ItemStack stack) {
 		if(stack.isEmpty()) {
-			return Optional.empty();
+			return null;
 		}
 
-		return RENDERERS.computeIfAbsent(stack.getItem(), key -> {
-			var factory = FACTORIES.get(key);
-			if(factory == null) {
-				return Optional.empty();
-			}
-
-			var mc = Minecraft.getInstance();
-			var ctx = new BlockEntityRendererProvider.Context(mc.getBlockEntityRenderDispatcher(), mc.getBlockRenderer(), mc.getItemRenderer(), mc.getEntityRenderDispatcher(), mc.getEntityModels(), mc.font);
-			return Optional.ofNullable(factory.create(ctx));
-		});
+		return RENDERERS.get(stack.getItem());
 	}
 }

@@ -11,8 +11,6 @@ public class Debug {
 		RuntimeEnvironmentType.CLIENT.orElseThrow();
 	}
 
-	public static final long SINGLE_TICK_DURATION = 50L;
-
 	public static void setColor(int red, int green, int blue) {
 		setColor(red, green, blue, 255);
 	}

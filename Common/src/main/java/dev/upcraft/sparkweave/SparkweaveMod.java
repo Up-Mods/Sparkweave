@@ -11,7 +11,7 @@ import dev.upcraft.sparkweave.command.SparkweaveCommandRoot;
 import dev.upcraft.sparkweave.registry.SparkweavePlacementModifiers;
 import dev.upcraft.sparkweave.util.SparkweaveDevCreativeTab;
 import net.minecraft.core.registries.Registries;
-import net.minecraft.resources.ResourceLocation;
+import net.minecraft.resources.Identifier;
 import org.apache.commons.lang3.Validate;
 
 import java.util.List;
@@ -36,11 +36,11 @@ public class SparkweaveMod implements MainEntryPoint {
 		SparkweavePlacementModifiers.MODIFIERS.accept(registryService);
 	}
 
-	public static ResourceLocation id(String path) {
-		return ResourceLocation.fromNamespaceAndPath(MODID, path);
+	public static Identifier id(String path) {
+		return Identifier.fromNamespaceAndPath(MODID, path);
 	}
 
-	public static List<ResourceLocation> ids(String... paths) {
+	public static List<Identifier> ids(String... paths) {
 		Validate.notEmpty(paths, "Must provide at least 1 ID!");
 		return Stream.of(paths).map(SparkweaveMod::id).toList();
 	}

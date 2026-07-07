@@ -3,8 +3,8 @@ package dev.upcraft.sparkweave.neoforge.mixin;
 import dev.upcraft.sparkweave.api.registry.RegistryHandler;
 import dev.upcraft.sparkweave.api.registry.RegistrySupplier;
 import net.minecraft.core.Registry;
+import net.minecraft.resources.Identifier;
 import net.minecraft.resources.ResourceKey;
-import net.minecraft.resources.ResourceLocation;
 import net.neoforged.neoforge.registries.DeferredHolder;
 import net.neoforged.neoforge.registries.DeferredRegister;
 import net.neoforged.neoforge.registries.RegistryBuilder;
@@ -48,16 +48,16 @@ public abstract class DeferredRegisterMixin<T> {
 
 	@SuppressWarnings("unchecked")
 	public <S extends T> RegistrySupplier<S> handler$register(ResourceKey<T> id, Supplier<S> factory) {
-		if(!this.getNamespace().equals(id.location().getNamespace())) {
+		if(!this.getNamespace().equals(id.identifier().getNamespace())) {
 			throw new IllegalArgumentException("Cannot register %s because namespace does not match the expected value %s".formatted(id, this.getNamespace()));
 		}
 
-		return (RegistrySupplier<S>) register(id.location().getPath(), factory);
+		return (RegistrySupplier<S>) register(id.identifier().getPath(), factory);
 	}
 
 	@SuppressWarnings("unchecked")
-	public Map<ResourceLocation, RegistrySupplier<? extends T>> handler$values() {
-		return (Map<ResourceLocation, RegistrySupplier<? extends T>>) (Object) this.getEntries().stream().collect(Collectors.toMap(DeferredHolder::getId, UnaryOperator.identity()));
+	public Map<Identifier, RegistrySupplier<? extends T>> handler$values() {
+		return (Map<Identifier, RegistrySupplier<? extends T>>) (Object) this.getEntries().stream().collect(Collectors.toMap(DeferredHolder::getId, UnaryOperator.identity()));
 	}
 
 	@SuppressWarnings("unchecked")
@@ -73,7 +73,7 @@ public abstract class DeferredRegisterMixin<T> {
 	@Invoker("getRegistryKey")
 	public abstract ResourceKey<Registry<T>> handler$registry();
 
-	public Registry<T> handler$createNewRegistry(boolean synced, @Nullable ResourceLocation defaultEntry) {
+	public Registry<T> handler$createNewRegistry(boolean synced, @Nullable Identifier defaultEntry) {
 		return this.makeRegistry(builder -> {
 			if(defaultEntry != null) {
 				builder.defaultKey(defaultEntry);

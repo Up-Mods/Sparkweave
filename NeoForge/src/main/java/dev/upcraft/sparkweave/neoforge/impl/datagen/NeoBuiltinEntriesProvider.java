@@ -35,6 +35,6 @@ public class NeoBuiltinEntriesProvider extends DatapackBuiltinEntriesProvider {
 
 	@Override
 	public String getName() {
-		return "Sparkweave Registries";
+		return "Registries";
 	}
 }

@@ -2,18 +2,18 @@ package dev.upcraft.sparkweave.fabric.entrypoint;
 
 import dev.upcraft.sparkweave.SparkweaveMod;
 import dev.upcraft.sparkweave.api.datagen.DataGenerationContext;
-import dev.upcraft.sparkweave.datagen.DynamicRegistryBuilderImpl;
 import dev.upcraft.sparkweave.api.datagen.provider.SparkweaveDynamicRegistryEntryProvider;
 import dev.upcraft.sparkweave.api.entrypoint.DataGenerationEntryPoint;
 import dev.upcraft.sparkweave.api.logging.SparkweaveLoggerFactory;
 import dev.upcraft.sparkweave.api.platform.ModContainer;
+import dev.upcraft.sparkweave.datagen.DynamicRegistryBuilderImpl;
 import dev.upcraft.sparkweave.entrypoint.EntrypointHelper;
 import dev.upcraft.sparkweave.fabric.impl.datagen.FabricBuiltinEntriesProvider;
 import dev.upcraft.sparkweave.fabric.impl.datagen.FabricDataGenerationContext;
 import net.fabricmc.fabric.api.datagen.v1.DataGeneratorEntrypoint;
 import net.fabricmc.fabric.api.datagen.v1.FabricDataGenerator;
-import net.minecraft.Util;
 import net.minecraft.core.RegistrySetBuilder;
+import net.minecraft.util.Util;
 import org.apache.logging.log4j.Logger;
 
 import java.util.*;

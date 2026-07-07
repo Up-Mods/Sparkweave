@@ -12,6 +12,6 @@ public interface ArgumentTypeInfosAccessor {
 
 	@Accessor("BY_CLASS")
 	static Map<Class<?>, ArgumentTypeInfo<?, ?>> sparkweave$getByClass() {
-		throw new UnsupportedOperationException("Mixin not transformed");
+		throw new AssertionError("Mixin not transformed");
 	}
 }

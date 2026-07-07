@@ -3,21 +3,16 @@ package dev.upcraft.sparkweave.platform;
 import dev.upcraft.sparkweave.api.platform.ModContainer;
 import dev.upcraft.sparkweave.api.platform.ModMetadata;
 
-import java.nio.file.Path;
-import java.util.List;
-import java.util.Optional;
-import java.util.function.Function;
-
 public class SimpleModContainer implements ModContainer {
 
 	private final ModMetadata metadata;
-	private final List<Path> rootPaths;
-	private final Function<String, Optional<Path>> pathFinder;
+//	private final List<Path> rootPaths;
+//	private final Function<String, Optional<Path>> pathFinder;
 
-	public SimpleModContainer(ModMetadata metadata, List<Path> rootPaths, Function<String, Optional<Path>> pathFinder) {
+	public SimpleModContainer(ModMetadata metadata/*, List<Path> rootPaths, Function<String, Optional<Path>> pathFinder*/) {
 		this.metadata = metadata;
-		this.rootPaths = rootPaths;
-		this.pathFinder = pathFinder;
+//		this.rootPaths = rootPaths;
+//		this.pathFinder = pathFinder;
 	}
 
 	@Override
@@ -25,13 +20,13 @@ public class SimpleModContainer implements ModContainer {
 		return metadata;
 	}
 
-	@Override
-	public List<Path> rootPaths() {
-		return rootPaths;
-	}
-
-	@Override
-	public Optional<Path> findPath(String path) {
-		return pathFinder.apply(path);
-	}
+//	@Override
+//	public List<Path> rootPaths() {
+//		return rootPaths;
+//	}
+//
+//	@Override
+//	public Optional<Path> findPath(String path) {
+//		return pathFinder.apply(path);
+//	}
 }

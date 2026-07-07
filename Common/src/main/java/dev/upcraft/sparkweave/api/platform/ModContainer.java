@@ -1,14 +1,13 @@
 package dev.upcraft.sparkweave.api.platform;
 
-import java.nio.file.Path;
-import java.util.List;
-import java.util.Optional;
-
 public interface ModContainer {
 
 	ModMetadata metadata();
 
-	List<Path> rootPaths();
-
-	Optional<Path> findPath(String path);
+// TODO re-implement mod resources
+//	List<Path> rootPaths();
+//
+//	Optional<URL> findResource(String path);
+//
+//	Optional<InputStream> getStream(String path);
 }

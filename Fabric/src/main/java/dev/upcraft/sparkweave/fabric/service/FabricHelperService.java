@@ -5,7 +5,7 @@ import com.mojang.brigadier.arguments.ArgumentType;
 import dev.upcraft.sparkweave.api.annotation.CalledByReflection;
 import dev.upcraft.sparkweave.api.platform.services.SparkweaveHelperService;
 import dev.upcraft.sparkweave.fabric.mixin.ArgumentTypeInfosAccessor;
-import net.fabricmc.fabric.api.itemgroup.v1.FabricItemGroup;
+import net.fabricmc.fabric.api.creativetab.v1.FabricCreativeModeTab;
 import net.minecraft.commands.synchronization.ArgumentTypeInfo;
 import net.minecraft.network.chat.Component;
 import net.minecraft.world.item.CreativeModeTab;
@@ -20,7 +20,7 @@ public class FabricHelperService implements SparkweaveHelperService {
 
 	@Override
 	public CreativeModeTab.Builder newCreativeTabBuilder(Component title) {
-		return FabricItemGroup.builder().title(title);
+		return FabricCreativeModeTab.builder().title(title);
 	}
 
 	@Override

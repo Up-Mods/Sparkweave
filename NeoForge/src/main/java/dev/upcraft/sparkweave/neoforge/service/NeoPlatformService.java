@@ -2,6 +2,7 @@ package dev.upcraft.sparkweave.neoforge.service;
 
 import com.google.auto.service.AutoService;
 import com.google.common.base.Suppliers;
+import com.google.common.collect.ImmutableList;
 import dev.upcraft.sparkweave.api.annotation.CalledByReflection;
 import dev.upcraft.sparkweave.api.platform.ModContainer;
 import dev.upcraft.sparkweave.api.platform.RuntimeEnvironmentType;
@@ -13,34 +14,32 @@ import dev.upcraft.sparkweave.platform.SimpleModContainer;
 import net.minecraft.SharedConstants;
 import net.neoforged.fml.ModList;
 import net.neoforged.fml.loading.FMLEnvironment;
+import net.neoforged.fml.loading.FMLLoader;
 import net.neoforged.fml.loading.FMLPaths;
-import net.neoforged.fml.loading.LoadingModList;
-import net.neoforged.neoforge.internal.versions.neoforge.NeoForgeVersion;
+import net.neoforged.neoforge.common.NeoForgeVersion;
 import org.jetbrains.annotations.Nullable;
 import org.spongepowered.asm.util.JavaVersion;
 import oshi.SystemInfo;
 
 import java.nio.file.Path;
-import java.util.List;
-import java.util.NoSuchElementException;
-import java.util.Optional;
+import java.util.*;
 import java.util.function.Supplier;
 import java.util.stream.Collectors;
 
 @AutoService(PlatformService.class)
 public class NeoPlatformService extends BasePlatformService implements PlatformService {
 
-//	private static final Set<String> SENSITIVE_ARGS = Set.of(
-//		"accesstoken",
-//		"clientid",
-//		"profileproperties",
-//		"proxypass",
-//		"proxyuser",
-//		"username",
-//		"userproperties",
-//		"uuid",
-//		"xuid"
-//	);
+	private static final Set<String> SENSITIVE_ARGS = Set.of(
+		"accesstoken",
+		"clientid",
+		"profileproperties",
+		"proxypass",
+		"proxyuser",
+		"username",
+		"userproperties",
+		"uuid",
+		"xuid"
+	);
 
 	private final Supplier<String> userAgent = Suppliers.memoize(() -> {
 		var info = new SystemInfo();
@@ -49,7 +48,7 @@ public class NeoPlatformService extends BasePlatformService implements PlatformS
 		var platformName = getPlatformName();
 		var platformVersion = NeoForgeVersion.getVersion();
 
-		var mcVersion = SharedConstants.getCurrentVersion().getName();
+		var mcVersion = SharedConstants.getCurrentVersion().id();
 
 		var jvmVendor = System.getProperty("java.vm.vendor");
 		var jvmVersion = Runtime.version().toString();
@@ -78,7 +77,7 @@ public class NeoPlatformService extends BasePlatformService implements PlatformS
 
 	@Override
 	public boolean isDevelopmentEnvironment() {
-		return !FMLEnvironment.production;
+		return !FMLEnvironment.isProduction();
 	}
 
 	@Override
@@ -95,13 +94,14 @@ public class NeoPlatformService extends BasePlatformService implements PlatformS
 	public Optional<ModContainer> getModContainer(String modid) {
 		var modList = ModList.get();
 		if(modList == null) { // ModList not loaded yet
-			@Nullable var modFile = LoadingModList.get().getModFileById(modid);
+			@Nullable var modFile = FMLLoader.getCurrent().getLoadingModList().getModFileById(modid);
 			if(modFile == null) {
 				return Optional.empty();
 			}
 
 			var meta = new NeoForgeModMetadata(modFile.getMods().stream().filter(it -> modid.equals(it.getModId())).findFirst().orElseThrow(() -> new NoSuchElementException("LoadingModList did not contain mod with ID '%s'!".formatted(modid))));
-			return Optional.of(new SimpleModContainer(meta, List.of(modFile.getFile().getSecureJar().getRootPath()), path -> Optional.ofNullable(modFile.getFile().getSecureJar().getPath(path))));
+
+			return Optional.of(new SimpleModContainer(meta));
 		}
 
 		return modList.getModContainerById(modid).map(NeoforgeModContainer::of);
@@ -115,7 +115,7 @@ public class NeoPlatformService extends BasePlatformService implements PlatformS
 
 	@Override
 	public RuntimeEnvironmentType getEnvironmentType() {
-		return switch (FMLEnvironment.dist) {
+		return switch (FMLEnvironment.getDist()) {
 			case CLIENT -> RuntimeEnvironmentType.CLIENT;
 			case DEDICATED_SERVER -> RuntimeEnvironmentType.SERVER;
 		};
@@ -123,9 +123,28 @@ public class NeoPlatformService extends BasePlatformService implements PlatformS
 
 	@Override
 	public List<String> getLaunchArguments(boolean hideSensitive) {
-		// FIXME filter sensitive args, perhaps find a better way to get launch args as well
-		// see above for sensitive argument list
-		return new SystemInfo().getOperatingSystem().getCurrentProcess().getArguments();
+		var arguments = FMLLoader.getCurrent().getProgramArgs().getArguments();
+		var list = ImmutableList.<String>builder();
+		args:
+		for (int i = 0; i < arguments.length; i++) {
+			var arg = arguments[i];
+			if(hideSensitive) {
+				for (String sArg : SENSITIVE_ARGS) {
+					var toTest = "--" + sArg;
+					if (arg.equals(toTest)) {
+						continue args;
+					}
+					else if (arg.startsWith(toTest + "=")) {
+						i++; // skip next argument
+						continue args;
+					}
+				}
+			}
+
+			list.add(arg);
+		}
+
+		return list.build();
 	}
 
 	@Override

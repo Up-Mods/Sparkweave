@@ -6,12 +6,12 @@ import java.util.function.Function;
 
 public interface Event<T> {
 
-	static <T> Event<T> create(Class<T> type, Function<T[], T> invokerFactory) {
-		return EventFactoryImpl.create(type, invokerFactory);
+	static <T> Event<T> create(Class<? super T> storageType, Function<T[], T> invokerFactory) {
+		return EventFactoryImpl.create(storageType, invokerFactory);
 	}
 
-	static <T> Event<T> create(Class<T> type, T emptyInvoker, Function<T[], T> invokerFactory) {
-		return EventFactoryImpl.create(type, emptyInvoker, invokerFactory);
+	static <T> Event<T> create(Class<? super T> storageType, T emptyInvoker, Function<T[], T> invokerFactory) {
+		return EventFactoryImpl.create(storageType, emptyInvoker, invokerFactory);
 	}
 
 	void register(T listener);

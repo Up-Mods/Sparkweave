@@ -1,12 +1,12 @@
 package dev.upcraft.sparkweave.api.registry;
 
-import net.minecraft.resources.ResourceLocation;
+import net.minecraft.resources.Identifier;
 
 import java.util.function.BiConsumer;
 
 @FunctionalInterface
-public interface RegistryVisitor<T> extends BiConsumer<ResourceLocation, T> {
+public interface RegistryVisitor<T> extends BiConsumer<Identifier, T> {
 
 	@Override
-	void accept(ResourceLocation id, T t);
+	void accept(Identifier id, T t);
 }

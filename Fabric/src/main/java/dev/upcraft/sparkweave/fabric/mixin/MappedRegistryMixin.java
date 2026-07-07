@@ -68,7 +68,7 @@ public abstract class MappedRegistryMixin<T> implements FabricRegistryHack<T> {
 	@Inject(method = "freeze", at = @At(value = "FIELD", target = "Lnet/minecraft/core/MappedRegistry;frozen:Z", opcode = Opcodes.PUTFIELD, shift = At.Shift.AFTER))
 	private void validateOnFreeze(CallbackInfoReturnable<Registry<T>> cir) {
 		if(!unregisteredHolders.isEmpty()) {
-			throw new IllegalStateException ("Unbound values in registry " + this.key() + ": " + unregisteredHolders.keySet().stream().map(Object::toString).collect(Collectors.joining(",")));
+			throw new IllegalStateException("Unbound values in registry " + this.key() + ": " + unregisteredHolders.keySet().stream().map(Object::toString).collect(Collectors.joining(",")));
 		}
 	}
 }

@@ -1,6 +1,6 @@
 package dev.upcraft.sparkweave.api.platform;
 
-import net.minecraft.resources.ResourceLocation;
+import net.minecraft.resources.Identifier;
 
 import java.util.Set;
 import java.util.TreeSet;
@@ -34,11 +34,11 @@ public class PlatformUtils {
 		}
 
 		// vanilla:
-		return ResourceLocation.isValidNamespace(modid);
+		return Identifier.isValidNamespace(modid);
 	}
 
 	public static void assertValidModId(String modid) {
-		var validVanilla = ResourceLocation.isValidNamespace(modid);
+		var validVanilla = Identifier.isValidNamespace(modid);
 		var validFabric = FABRIC_MOD_ID_PATTERN.asMatchPredicate().test(modid);
 		var validNeoForge = NEOFORGE_MOD_ID_PATTERN.asMatchPredicate().test(modid);
 

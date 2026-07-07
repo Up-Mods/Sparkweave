@@ -8,6 +8,6 @@ import java.util.List;
 public interface RegistrySetBuilderExt {
 
 	default List<? extends ResourceKey<? extends Registry<?>>> getEntryKeys() {
-		throw new UnsupportedOperationException();
+		throw new AssertionError("Implemented in Mixin");
 	}
 }

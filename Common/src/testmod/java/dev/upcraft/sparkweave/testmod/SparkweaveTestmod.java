@@ -11,14 +11,14 @@ import dev.upcraft.sparkweave.testmod.init.TestCreativeTabs;
 import dev.upcraft.sparkweave.testmod.init.TestItems;
 import dev.upcraft.sparkweave.testmod.init.TestStatusEffects;
 import net.minecraft.network.chat.Component;
-import net.minecraft.resources.ResourceLocation;
+import net.minecraft.resources.Identifier;
 import net.minecraft.sounds.SoundEvents;
 import net.minecraft.sounds.SoundSource;
 import net.minecraft.world.MenuProvider;
 import net.minecraft.world.entity.player.Inventory;
 import net.minecraft.world.entity.player.Player;
-import net.minecraft.world.entity.vehicle.Boat;
-import net.minecraft.world.entity.vehicle.Minecart;
+import net.minecraft.world.entity.vehicle.boat.Boat;
+import net.minecraft.world.entity.vehicle.minecart.Minecart;
 import net.minecraft.world.inventory.AbstractContainerMenu;
 import net.minecraft.world.inventory.ChestMenu;
 import net.minecraft.world.inventory.ClickAction;
@@ -41,7 +41,7 @@ public class SparkweaveTestmod implements MainEntryPoint {
 
 		EntityTickEvents.startTick(Boat.class).register((boat, level) -> {
 			if (!level.isClientSide() && boat.getControllingPassenger() instanceof Player player && player.getMainHandItem().is(Items.BEACON)) {
-				player.displayClientMessage(Component.literal("Start of Boat server tick"), true);
+				player.sendOverlayMessage(Component.literal("Start of Boat server tick"));
 			}
 
 			return false;
@@ -49,13 +49,13 @@ public class SparkweaveTestmod implements MainEntryPoint {
 
 		EntityTickEvents.endTick(Minecart.class).register((minecart, level) -> {
 			if (level.isClientSide() && minecart.getFirstPassenger() instanceof Player player && player.getMainHandItem().is(Items.BEACON)) {
-				player.displayClientMessage(Component.literal("End of Minecart client tick"), true);
+				player.sendOverlayMessage(Component.literal("End of Minecart client tick"));
 			}
 		});
 
 		ItemMenuInteractionEvent.EVENT.register((menu, player, level, clickAction, slot, slotStack, cursorStack) -> {
 			if (menu instanceof ChestMenu && clickAction == ClickAction.SECONDARY && slotStack.is(Items.DEEPSLATE_COAL_ORE) && cursorStack.is(Items.DEEPSLATE_EMERALD_ORE) && player.isCrouching()) {
-				player.displayClientMessage(Component.literal("Uh oh stinky"), false);
+				player.sendSystemMessage(Component.literal("Uh oh stinky"));
 				level.playSound(null, player.blockPosition(), SoundEvents.ARROW_HIT_PLAYER, SoundSource.PLAYERS);
 				return true;
 			}
@@ -63,7 +63,7 @@ public class SparkweaveTestmod implements MainEntryPoint {
 			return false;
 		});
 
-		RegisterCustomLecternMenuEvent.EVENT.register(event -> event.register((level, pos, player, blockEntity, stack) -> new MenuProvider() {
+		RegisterCustomLecternMenuEvent.EVENT.register(event -> event.register(TestItems.TEST_ITEM, (_, _, _, _, _) -> new MenuProvider() {
 			@Override
 			public Component getDisplayName() {
 				return Component.empty();
@@ -73,10 +73,10 @@ public class SparkweaveTestmod implements MainEntryPoint {
 			public @Nullable AbstractContainerMenu createMenu(int i, Inventory inventory, Player player) {
 				return MenuType.GENERIC_3x3.create(i, inventory);
 			}
-		}, TestItems.TEST_ITEM));
+		}));
 	}
 
-	public static ResourceLocation id(String path) {
-		return ResourceLocation.fromNamespaceAndPath(MODID, path);
+	public static Identifier id(String path) {
+		return Identifier.fromNamespaceAndPath(MODID, path);
 	}
 }

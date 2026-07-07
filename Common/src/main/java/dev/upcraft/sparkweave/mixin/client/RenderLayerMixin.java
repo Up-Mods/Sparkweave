@@ -1,17 +1,17 @@
 package dev.upcraft.sparkweave.mixin.client;
 
-import dev.upcraft.sparkweave.api.client.render.RenderLayerExtensions;
-import net.minecraft.client.model.HumanoidModel;
+import dev.upcraft.sparkweave.api.client.ext.RenderLayerExt;
+import net.minecraft.client.model.EntityModel;
 import net.minecraft.client.renderer.entity.RenderLayerParent;
 import net.minecraft.client.renderer.entity.layers.RenderLayer;
-import net.minecraft.world.entity.LivingEntity;
+import net.minecraft.client.renderer.entity.state.EntityRenderState;
 import org.spongepowered.asm.mixin.Mixin;
 import org.spongepowered.asm.mixin.gen.Accessor;
 
 @Mixin(RenderLayer.class)
-public abstract class RenderLayerMixin<T extends LivingEntity, M extends HumanoidModel<T>> implements RenderLayerExtensions<T, M> {
+public abstract class RenderLayerMixin<S extends EntityRenderState, M extends EntityModel<? super S>> implements RenderLayerExt<S, M> {
 
 	@Accessor("renderer")
 	@Override
-	public abstract RenderLayerParent<T, M> sparkweave$getParent();
+	public abstract RenderLayerParent<S, M> sparkweave$getParentRenderer();
 }

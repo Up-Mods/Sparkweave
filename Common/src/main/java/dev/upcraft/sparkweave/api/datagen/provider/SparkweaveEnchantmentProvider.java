@@ -1,13 +1,13 @@
 package dev.upcraft.sparkweave.api.datagen.provider;
 
 import com.mojang.serialization.Lifecycle;
-import net.minecraft.Util;
 import net.minecraft.core.HolderGetter;
 import net.minecraft.core.RegistrySetBuilder;
 import net.minecraft.core.registries.Registries;
 import net.minecraft.data.worldgen.BootstrapContext;
 import net.minecraft.network.chat.contents.TranslatableContents;
 import net.minecraft.resources.ResourceKey;
+import net.minecraft.util.Util;
 import net.minecraft.world.damagesource.DamageType;
 import net.minecraft.world.item.Item;
 import net.minecraft.world.item.enchantment.Enchantment;
@@ -43,14 +43,14 @@ public abstract class SparkweaveEnchantmentProvider extends SparkweaveDynamicReg
 			if(value.description().getContents() instanceof TranslatableContents translatableContents) {
 				addTranslation(translatableContents.getKey(), name);
 			} else {
-				LOGGER.warn("Cannot translate enchantment {} as its name is not a translatable component!", key.location());
+				LOGGER.warn("Cannot translate enchantment {} as its name is not a translatable component!", key.identifier());
 			}
 
-			addTranslation(Util.makeDescriptionId("enchantment", key.location()) + ".desc", description);
+			addTranslation(Util.makeDescriptionId("enchantment", key.identifier()) + ".desc", description);
 		}
 
 		public void register(ResourceKey<Enchantment> key, Enchantment.Builder builder, Lifecycle lifecycle, String name, String description) {
-			register(key, builder.build(key.location()), lifecycle, name, description);
+			register(key, builder.build(key.identifier()), lifecycle, name, description);
 		}
 
 		public void register(ResourceKey<Enchantment> key, Enchantment.Builder builder, String name, String description) {

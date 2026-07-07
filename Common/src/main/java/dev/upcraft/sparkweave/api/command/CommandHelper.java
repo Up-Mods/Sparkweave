@@ -13,7 +13,7 @@ import net.minecraft.network.chat.ClickEvent;
 import net.minecraft.network.chat.Component;
 import net.minecraft.network.chat.HoverEvent;
 import net.minecraft.server.MinecraftServer;
-import net.minecraft.world.level.GameRules;
+import net.minecraft.world.level.gamerules.GameRules;
 
 import java.nio.file.Path;
 import java.util.Set;
@@ -38,14 +38,14 @@ public class CommandHelper {
 		var player = ctx.getSource().getPlayer();
 		var server = ctx.getSource().getServer();
 
-		if (player != null && server.isSingleplayerOwner(player.getGameProfile())) {
+		if (player != null && server.isSingleplayerOwner(player.nameAndId())) {
 			var locationString = location.toAbsolutePath().toString();
-			var pathComponent = Component.literal(locationString).withStyle(style -> style.applyFormats(ChatFormatting.BLUE, ChatFormatting.UNDERLINE).withHoverEvent(new HoverEvent(HoverEvent.Action.SHOW_TEXT, Component.translatable("chat.sparkweave.open_folder"))).withClickEvent(new ClickEvent(ClickEvent.Action.OPEN_FILE, locationString)));
+			var pathComponent = Component.literal(locationString).withStyle(style -> style.applyFormats(ChatFormatting.BLUE, ChatFormatting.UNDERLINE).withHoverEvent(new HoverEvent.ShowText(Component.translatable("chat.sparkweave.open_folder"))).withClickEvent(new ClickEvent.OpenFile(locationString)));
 			if(!ctx.getSource().isSilent()) {
 				// TODO send custom packet to bypass restriction on OPEN_FILE click event
 				player.sendSystemMessage(pathMessage.apply(pathComponent));
 			}
-			broadcastToAdmins(server, baseMessage.get(), player.getGameProfile().getId());
+			broadcastToAdmins(server, baseMessage.get(), player.getGameProfile().id());
 		}
 		else {
 			ctx.getSource().sendSystemMessage(baseMessage.get());
@@ -70,10 +70,10 @@ public class CommandHelper {
 	 */
 	public static void broadcastToAdmins(MinecraftServer server, Component message, boolean ignoreSendCommandFeedback, UUID... exclude) {
 		var excludeSet = Set.of(exclude);
-		if (ignoreSendCommandFeedback || server.getGameRules().getBoolean(GameRules.RULE_SENDCOMMANDFEEDBACK)) {
+		if (ignoreSendCommandFeedback || server.getGameRules().get(GameRules.SEND_COMMAND_FEEDBACK)) {
 			for (var serverPlayer : server.getPlayerList().getPlayers()) {
 				var profile = serverPlayer.getGameProfile();
-				if (server.getPlayerList().isOp(serverPlayer.getGameProfile()) && !excludeSet.contains(profile.getId())) {
+				if (server.getPlayerList().isOp(serverPlayer.nameAndId()) && !excludeSet.contains(profile.id())) {
 					serverPlayer.sendSystemMessage(message);
 				}
 			}

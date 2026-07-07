@@ -1,24 +1,35 @@
 package dev.upcraft.sparkweave.api.client.render;
 
 import com.mojang.blaze3d.vertex.PoseStack;
-import net.minecraft.client.renderer.MultiBufferSource;
+import net.minecraft.client.renderer.SubmitNodeCollector;
 import net.minecraft.client.renderer.blockentity.BlockEntityRendererProvider;
-import net.minecraft.world.item.ItemStack;
+import net.minecraft.client.renderer.blockentity.state.LecternRenderState;
+import net.minecraft.client.renderer.feature.ModelFeatureRenderer;
+import net.minecraft.client.renderer.state.level.CameraRenderState;
 import net.minecraft.world.level.block.entity.LecternBlockEntity;
-import net.minecraft.world.level.block.state.BlockState;
-import org.jetbrains.annotations.Nullable;
+import net.minecraft.world.phys.Vec3;
+import org.jspecify.annotations.Nullable;
 
-public abstract class LecternItemRenderer {
-	protected final BlockEntityRendererProvider.Context context;
+public abstract class LecternItemRenderer<T> {
 
-	public LecternItemRenderer(BlockEntityRendererProvider.Context context) {
-		this.context = context;
+	private final Class<T> renderStateType;
+
+	protected LecternItemRenderer(Class<T> renderStateType) {
+		this.renderStateType = renderStateType;
 	}
 
-	public abstract void renderBook(LecternBlockEntity lecternBlockEntity, BlockState blockState, ItemStack itemStack, float partialTick, PoseStack poseStack, MultiBufferSource bufferSource, int packedLight, int packedOverlay);
+	public abstract T createRenderState();
+
+	public abstract void extractRenderState(LecternBlockEntity blockEntity, LecternRenderState baseState, T customState, float partialTicks, Vec3 cameraPosition, ModelFeatureRenderer.@Nullable CrumblingOverlay breakProgress);
+
+	public abstract void submit(LecternRenderState baseState, T customState, PoseStack poseStack, SubmitNodeCollector submitNodeCollector, CameraRenderState camera);
+
+	public Class<T> getRenderStateType() {
+		return this.renderStateType;
+	}
 
 	@FunctionalInterface
 	public interface Factory {
-		@Nullable LecternItemRenderer create(BlockEntityRendererProvider.Context context);
+		@Nullable LecternItemRenderer<?> create(BlockEntityRendererProvider.Context context);
 	}
 }

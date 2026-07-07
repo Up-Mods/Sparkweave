@@ -3,28 +3,47 @@ package dev.upcraft.sparkweave.testmod.client.renderers;
 import com.mojang.blaze3d.vertex.PoseStack;
 import com.mojang.math.Axis;
 import dev.upcraft.sparkweave.api.client.render.LecternItemRenderer;
-import net.minecraft.client.renderer.MultiBufferSource;
+import net.minecraft.client.renderer.SubmitNodeCollector;
 import net.minecraft.client.renderer.blockentity.BlockEntityRendererProvider;
+import net.minecraft.client.renderer.blockentity.state.LecternRenderState;
+import net.minecraft.client.renderer.feature.ModelFeatureRenderer;
+import net.minecraft.client.renderer.item.ItemModelResolver;
+import net.minecraft.client.renderer.item.ItemStackRenderState;
+import net.minecraft.client.renderer.state.level.CameraRenderState;
+import net.minecraft.client.renderer.texture.OverlayTexture;
 import net.minecraft.world.item.ItemDisplayContext;
-import net.minecraft.world.item.ItemStack;
 import net.minecraft.world.level.block.entity.LecternBlockEntity;
-import net.minecraft.world.level.block.state.BlockState;
+import net.minecraft.world.phys.Vec3;
+import org.jspecify.annotations.Nullable;
 
-public class DiamondLecternRenderer extends LecternItemRenderer {
+public class DiamondLecternRenderer extends LecternItemRenderer<DiamondLecternRenderer.RenderState> {
+
+	private final ItemModelResolver itemModelResolver;
+
 	public DiamondLecternRenderer(BlockEntityRendererProvider.Context context) {
-		super(context);
+		super(RenderState.class);
+		itemModelResolver = context.itemModelResolver();
 	}
 
 	@Override
-	public void renderBook(LecternBlockEntity lecternBlockEntity, BlockState blockState, ItemStack itemStack, float partialTick, PoseStack poseStack, MultiBufferSource bufferSource, int packedLight, int packedOverlay) {
-		poseStack.pushPose();
+	public RenderState createRenderState() {
+		return new RenderState();
+	}
 
-		poseStack.translate(0.2, -0.085, 0);
-		poseStack.mulPose(Axis.YP.rotationDegrees(90));
+	@Override
+	public void extractRenderState(LecternBlockEntity blockEntity, LecternRenderState baseState, RenderState customState, float partialTicks, Vec3 cameraPosition, ModelFeatureRenderer.@Nullable CrumblingOverlay breakProgress) {
+		var seed = (int) blockEntity.getBlockPos().asLong();
+		itemModelResolver.updateForTopItem(customState.stack, blockEntity.getBook(), ItemDisplayContext.ON_SHELF, blockEntity.getLevel(), blockEntity.sparkweave$asItemOwner(), seed);
+	}
+
+	@Override
+	public void submit(LecternRenderState baseState, RenderState customState, PoseStack poseStack, SubmitNodeCollector submitNodeCollector, CameraRenderState camera) {
 		poseStack.mulPose(Axis.XN.rotationDegrees(67.5f));
+		poseStack.scale(0.5F, 0.5F, 0.5F);
+		customState.stack.submit(poseStack, submitNodeCollector, baseState.lightCoords, OverlayTexture.NO_OVERLAY, 0);
+	}
 
-		context.getItemRenderer().renderStatic(itemStack, ItemDisplayContext.GROUND, packedLight, packedOverlay, poseStack, bufferSource, lecternBlockEntity.getLevel(), 0);
-
-		poseStack.popPose();
+	public static class RenderState {
+		public final ItemStackRenderState stack = new ItemStackRenderState();
 	}
 }

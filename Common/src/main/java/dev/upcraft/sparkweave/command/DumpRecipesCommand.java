@@ -33,7 +33,7 @@ public class DumpRecipesCommand {
 
 	public static void register(LiteralArgumentBuilder<CommandSourceStack> $, CommandBuildContext buildContext) {
 		$.then(Commands.literal("dump_recipes")
-			.requires(src -> src.hasPermission(Commands.LEVEL_OWNERS))
+			.requires(src -> Commands.LEVEL_OWNERS.check(src.permissions()))
 			.executes(DumpRecipesCommand::dumpAllRecipes)
 			.then(Commands.argument("type", ResourceArgument.resource(buildContext, Registries.RECIPE_TYPE))
 				.executes(ctx -> dumpRecipes(ctx, ResourceArgument.getResource(ctx, "type", Registries.RECIPE_TYPE)))
@@ -48,7 +48,7 @@ public class DumpRecipesCommand {
 		var dir = Services.PLATFORM.getGameDir().resolve(SparkweaveMod.MODID).resolve("recipe_export");
 
 		saveRecipes(ctx, type, dir);
-		CommandHelper.sendPathResult(ctx, dir.resolve(type.key().location().getNamespace()).resolve(type.key().location().getPath()), () -> Component.translatable("commands.sparkweave.debug.dump_recipes.success", type.key().location()), path -> Component.translatable("commands.sparkweave.debug.dump_recipes.success_path", type.key().location(), path));
+		CommandHelper.sendPathResult(ctx, dir.resolve(type.key().identifier().getNamespace()).resolve(type.key().identifier().getPath()), () -> Component.translatable("commands.sparkweave.debug.dump_recipes.success", type.key().identifier()), path -> Component.translatable("commands.sparkweave.debug.dump_recipes.success_path", type.key().identifier(), path));
 		return Command.SINGLE_SUCCESS;
 	}
 
@@ -56,16 +56,17 @@ public class DumpRecipesCommand {
 		var player = ctx.getSource().getPlayerOrException();
 		var dir = Services.PLATFORM.getGameDir().resolve(SparkweaveMod.MODID).resolve("recipe_export");
 
-		var types = ctx.getSource().registryAccess().registryOrThrow(Registries.RECIPE_TYPE).holders().toList();
+		var registryAccess = ctx.getSource().registryAccess().lookupOrThrow(Registries.RECIPE_TYPE);
+		var types = registryAccess.stream().toList();
 		for (var type : types) {
-			saveRecipes(ctx, type, dir);
+			saveRecipes(ctx, registryAccess.wrapAsHolder(type), dir);
 		}
 
-		if (ctx.getSource().getServer().isSingleplayerOwner(player.getGameProfile())) {
+		if (ctx.getSource().getServer().isSingleplayerOwner(player.nameAndId())) {
 			var path = Component.literal(dir.toString()).withStyle(style -> style
 				.applyFormats(ChatFormatting.BLUE, ChatFormatting.UNDERLINE)
-				.withHoverEvent(new HoverEvent(HoverEvent.Action.SHOW_TEXT, Component.translatable("chat.sparkweave.open_folder")))
-				.withClickEvent(new ClickEvent(ClickEvent.Action.OPEN_FILE, dir.toString()))
+				.withHoverEvent(new HoverEvent.ShowText(Component.translatable("chat.sparkweave.open_folder")))
+				.withClickEvent(new ClickEvent.OpenFile(dir.toString()))
 			);
 
 			//TODO directly send to client to bypass message click event filtering
@@ -77,20 +78,23 @@ public class DumpRecipesCommand {
 		return types.size();
 	}
 
-	private static void saveRecipes(CommandContext<CommandSourceStack> ctx, Holder.Reference<RecipeType<?>> holder, Path dir) throws CommandSyntaxException {
+	@SuppressWarnings("unchecked")
+	private static void saveRecipes(CommandContext<CommandSourceStack> ctx, Holder<RecipeType<?>> holder, Path dir) throws CommandSyntaxException {
+		var key = holder.unwrapKey().orElseThrow(() -> TYPE_NOT_FOUND.create(null));
 		if (!holder.isBound()) {
-			throw TYPE_NOT_FOUND.create(holder.key().location());
+			throw TYPE_NOT_FOUND.create(key.identifier());
 		}
 
-		//noinspection unchecked
-		var recipes = ctx.getSource().getServer().getRecipeManager().getAllRecipesFor((RecipeType<Recipe<RecipeInput>>) holder.value());
-		var outputFile = dir.resolve(holder.key().location().getNamespace()).resolve(holder.key().location().getPath() + ".csv");
-		var serializers = ctx.getSource().registryAccess().registryOrThrow(Registries.RECIPE_SERIALIZER);
+		var recipes = ctx.getSource().getServer().getRecipeManager().sparkweave$getAllRecipesForType((RecipeType<Recipe<RecipeInput>>) holder.value());
+		var outputFile = dir.resolve(key.identifier().getNamespace()).resolve(key.identifier().getPath() + ".csv");
+		var serializers = ctx.getSource().registryAccess().lookupOrThrow(Registries.RECIPE_SERIALIZER);
 		try {
 			Files.createDirectories(outputFile.getParent());
 			try (var writer = CSVWriter.create(Files.newOutputStream(outputFile), "namespace", "path", "group", "serializer", "special")) {
 				for (var recipeHolder : recipes) {
-					writer.addRow(recipeHolder.id().getNamespace(), recipeHolder.id().getPath(), recipeHolder.value().getGroup(), serializers.getKey(recipeHolder.value().getSerializer()), recipeHolder.value().isSpecial());
+					var id = recipeHolder.id().identifier();
+					var recipe = recipeHolder.value();
+					writer.addRow(id.getNamespace(), id.getPath(), recipe.group(), serializers.getKey(recipe.getSerializer()), recipe.isSpecial());
 				}
 			}
 		} catch (IOException e) {

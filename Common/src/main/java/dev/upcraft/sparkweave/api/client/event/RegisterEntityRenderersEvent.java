@@ -9,7 +9,7 @@ import java.util.function.Supplier;
 
 public interface RegisterEntityRenderersEvent {
 
-	<T extends Entity> void registerRenderer(Supplier<EntityType<T>> entityType, EntityRendererProvider<T> entityRendererProvider);
+	<ENTITY extends Entity> void registerRenderer(Supplier<EntityType<ENTITY>> entityType, EntityRendererProvider<ENTITY> entityRendererProvider);
 
 	Event<Callback> EVENT = Event.create(Callback.class, callbacks -> event -> {
 		for (Callback callback : callbacks) {

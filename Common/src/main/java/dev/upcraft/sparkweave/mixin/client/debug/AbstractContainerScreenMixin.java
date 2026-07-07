@@ -1,7 +1,8 @@
 package dev.upcraft.sparkweave.mixin.client.debug;
 
+import com.llamalad7.mixinextras.sugar.Local;
 import dev.upcraft.sparkweave.api.SparkweaveApi;
-import net.minecraft.client.gui.GuiGraphics;
+import net.minecraft.client.gui.GuiGraphicsExtractor;
 import net.minecraft.client.gui.screens.Screen;
 import net.minecraft.client.gui.screens.inventory.AbstractContainerScreen;
 import net.minecraft.client.gui.screens.inventory.MenuAccess;
@@ -21,17 +22,17 @@ public abstract class AbstractContainerScreenMixin<T extends AbstractContainerMe
 		throw new UnsupportedOperationException();
 	}
 
-	@Inject(method = "renderSlot", at = @At("RETURN"))
-	private void renderSlotNumbers(GuiGraphics guiGraphics, Slot slot, CallbackInfo ci) {
+	@Inject(method = "extractSlots", at = @At(value = "INVOKE", target = "Lnet/minecraft/client/gui/screens/inventory/AbstractContainerScreen;extractSlot(Lnet/minecraft/client/gui/GuiGraphicsExtractor;Lnet/minecraft/world/inventory/Slot;II)V", shift = At.Shift.AFTER))
+	private void renderSlotNumbers(GuiGraphicsExtractor graphics, int mouseX, int mouseY, CallbackInfo ci, @Local(name = "slot") Slot slot) {
 		if(SparkweaveApi.Client.RENDER_SLOT_NUMBERS) {
-			var poseStack = guiGraphics.pose();
-			poseStack.pushPose();
-			poseStack.translate(slot.x, slot.y, 300);
-			poseStack.scale(0.5F, 0.5F, 1.0F);
-			guiGraphics.drawString(this.font, String.valueOf(slot.index), 2, 2, 0xA7FFFFFF);
+			graphics.nextStratum();
+			var poseStack = graphics.pose();
+			poseStack.pushMatrix();
+			poseStack.scale(0.5F, 0.5F);
+			graphics.text(this.font, String.valueOf(slot.index), 2, 2, 0xA7FFFFFF);
 			// TODO show source container and container slot ID on hover
 //			guiGraphics.drawString(this.font, Component.literal(String.valueOf(slot.index)).append(" ").append(Component.literal(String.valueOf(slot.getContainerSlot())).withStyle(ChatFormatting.YELLOW)), 2, 2, 0xBFFFFFFF);
-			poseStack.popPose();
+			poseStack.popMatrix();
 		}
 	}
 }

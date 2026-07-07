@@ -4,27 +4,27 @@ import dev.upcraft.sparkweave.api.event.Event;
 import dev.upcraft.sparkweave.event.EventFactoryImpl;
 import net.minecraft.client.Minecraft;
 
-public interface ClientTickEvents {
+public class ClientTickEvents {
 
-	Event<StartTick> START_TICK = EventFactoryImpl.create(StartTick.class, (listeners) -> client -> {
+	public static final Event<StartTick> START_TICK = EventFactoryImpl.create(StartTick.class, (listeners) -> client -> {
 		for (StartTick listener : listeners) {
 			listener.startTick(client);
 		}
 	});
 
-	Event<EndTick> END_TICK = EventFactoryImpl.create(EndTick.class, (listeners) -> client -> {
+	public static final Event<EndTick> END_TICK = EventFactoryImpl.create(EndTick.class, (listeners) -> client -> {
 		for (EndTick handler : listeners) {
 			handler.endTick(client);
 		}
 	});
 
 	@FunctionalInterface
-	interface StartTick {
+	public interface StartTick {
 		void startTick(Minecraft client);
 	}
 
 	@FunctionalInterface
-	interface EndTick {
+	public interface EndTick {
 		void endTick(Minecraft client);
 	}
 }

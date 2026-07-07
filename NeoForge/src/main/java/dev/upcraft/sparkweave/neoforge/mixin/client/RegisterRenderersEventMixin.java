@@ -3,6 +3,7 @@ package dev.upcraft.sparkweave.neoforge.mixin.client;
 import dev.upcraft.sparkweave.api.client.event.RegisterBlockEntityRenderersEvent;
 import dev.upcraft.sparkweave.api.client.event.RegisterEntityRenderersEvent;
 import net.minecraft.client.renderer.blockentity.BlockEntityRendererProvider;
+import net.minecraft.client.renderer.blockentity.state.BlockEntityRenderState;
 import net.minecraft.client.renderer.entity.EntityRendererProvider;
 import net.minecraft.world.entity.Entity;
 import net.minecraft.world.entity.EntityType;
@@ -24,12 +25,12 @@ import java.util.function.Supplier;
 public abstract class RegisterRenderersEventMixin implements RegisterEntityRenderersEvent, RegisterBlockEntityRenderersEvent {
 
 	@Shadow
-	public abstract <T extends BlockEntity> void registerBlockEntityRenderer(BlockEntityType<? extends T> blockEntityType, BlockEntityRendererProvider<T> blockEntityRendererProvider);
+	public abstract <T extends BlockEntity, S extends BlockEntityRenderState> void registerBlockEntityRenderer(BlockEntityType<? extends T> blockEntityType, BlockEntityRendererProvider<T, S> blockEntityRendererProvider);
 
 	@Shadow
 	public abstract <T extends Entity> void registerEntityRenderer(EntityType<? extends T> entityType, EntityRendererProvider<T> entityRendererProvider);
 
-	public <T extends BlockEntity> void registerBlockEntityRenderer$registerRenderer(Supplier<BlockEntityType<T>> blockEntityType, BlockEntityRendererProvider<T> blockEntityRendererProvider) {
+	public <T extends BlockEntity,  S extends BlockEntityRenderState> void registerBlockEntityRenderer$registerRenderer(Supplier<BlockEntityType<T>> blockEntityType, BlockEntityRendererProvider<T, S> blockEntityRendererProvider) {
 		this.registerBlockEntityRenderer(blockEntityType.get(), blockEntityRendererProvider);
 	}
 

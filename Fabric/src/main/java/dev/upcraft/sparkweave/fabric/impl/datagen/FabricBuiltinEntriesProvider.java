@@ -2,7 +2,7 @@ package dev.upcraft.sparkweave.fabric.impl.datagen;
 
 import dev.upcraft.sparkweave.api.datagen.provider.SparkweaveDynamicRegistryEntryProvider;
 import dev.upcraft.sparkweave.api.platform.ModContainer;
-import net.fabricmc.fabric.api.datagen.v1.FabricDataOutput;
+import net.fabricmc.fabric.api.datagen.v1.FabricPackOutput;
 import net.fabricmc.fabric.api.datagen.v1.provider.FabricDynamicRegistryProvider;
 import net.minecraft.core.HolderLookup;
 import net.minecraft.core.RegistrySetBuilder;
@@ -20,7 +20,7 @@ public class FabricBuiltinEntriesProvider extends FabricDynamicRegistryProvider 
 	private final Map<ModContainer, List<SparkweaveDynamicRegistryEntryProvider>> providers;
 	private final RegistrySetBuilder registrySetBuilder;
 
-	public FabricBuiltinEntriesProvider(FabricDataOutput output, CompletableFuture<HolderLookup.Provider> registriesFuture, RegistrySetBuilder registrySetBuilder, Set<String> modIds, Map<ModContainer, List<SparkweaveDynamicRegistryEntryProvider>> providers) {
+	public FabricBuiltinEntriesProvider(FabricPackOutput output, CompletableFuture<HolderLookup.Provider> registriesFuture, RegistrySetBuilder registrySetBuilder, Set<String> modIds, Map<ModContainer, List<SparkweaveDynamicRegistryEntryProvider>> providers) {
 		super(output, registriesFuture);
 		this.registriesFuture = registriesFuture;
 		this.registrySetBuilder = registrySetBuilder;
@@ -39,12 +39,12 @@ public class FabricBuiltinEntriesProvider extends FabricDynamicRegistryProvider 
 	protected void configure(HolderLookup.Provider registries, Entries entries) {
 		// cannot simply use entries#addAll here because that filters by active fabric mod container
 		registrySetBuilder.getEntryKeys().stream().map(registries::lookupOrThrow).forEach(registry -> {
-			registry.listElementIds().filter(registryKey -> modIds.contains(registryKey.location().getNamespace())).forEach(key -> entries.add(registry, key));
+			registry.listElementIds().filter(registryKey -> modIds.contains(registryKey.identifier().getNamespace())).forEach(key -> entries.add(registry, key));
 		});
 	}
 
 	@Override
 	public String getName() {
-		return "Sparkweave Registries";
+		return "Registries";
 	}
 }

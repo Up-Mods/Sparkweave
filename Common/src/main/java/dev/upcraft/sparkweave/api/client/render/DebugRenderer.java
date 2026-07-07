@@ -4,10 +4,10 @@ import com.google.common.collect.Multimap;
 import com.google.common.collect.MultimapBuilder;
 import com.mojang.blaze3d.vertex.PoseStack;
 import com.mojang.blaze3d.vertex.VertexConsumer;
-import net.minecraft.Util;
-import net.minecraft.client.Camera;
 import net.minecraft.client.renderer.MultiBufferSource;
-import net.minecraft.client.renderer.RenderType;
+import net.minecraft.client.renderer.rendertype.RenderType;
+import net.minecraft.client.renderer.state.level.LevelRenderState;
+import net.minecraft.util.Util;
 import net.minecraft.world.phys.Vec3;
 import org.joml.Matrix4f;
 import org.joml.Vector3f;
@@ -43,11 +43,11 @@ public class DebugRenderer {
 		drawLine(start.x(), start.y(), start.z(), end.x(), end.y(), end.z(), duration);
 	}
 
-	public static void render(PoseStack matrices, MultiBufferSource bufferSource, Camera camera) {
+	public static void render(PoseStack matrices, MultiBufferSource bufferSource, LevelRenderState levelRenderState) {
 		if(!renderables.isEmpty()) {
 			setColor(255, 255, 255, 255);
 			long currentTime = Util.getMillis();
-			Vec3 cameraPos = camera.getPosition();
+			Vec3 cameraPos = levelRenderState.cameraRenderState.pos;
 			matrices.pushPose();
 			matrices.translate(-cameraPos.x(), -cameraPos.y(), -cameraPos.z());
 			for (RenderType renderLayer : renderables.keySet()) {

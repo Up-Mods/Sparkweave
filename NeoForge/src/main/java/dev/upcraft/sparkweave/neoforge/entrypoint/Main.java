@@ -40,7 +40,7 @@ public class Main {
 
 		EntrypointHelper.fireEntrypoints(MainEntryPoint.class, MainEntryPoint::onInitialize);
 
-		switch (FMLEnvironment.dist) {
+		switch (FMLEnvironment.getDist()) {
 			case CLIENT ->
 				EntrypointHelper.fireEntrypoints(ClientEntryPoint.class, ClientEntryPoint::onInitializeClient);
 			case DEDICATED_SERVER ->
@@ -55,7 +55,7 @@ public class Main {
 		if (event.getRegistryKey() == Registries.ITEM) {
 			BuiltInRegistries.BLOCK.entrySet().forEach(entry -> {
 				if (entry.getValue() instanceof BlockItemProvider provider) {
-					event.register(Registries.ITEM, entry.getKey().location(), provider::createItem);
+					event.register(Registries.ITEM, entry.getKey().identifier(), provider::createItem);
 				}
 			});
 		}

@@ -30,7 +30,7 @@ public class DumpRegistryCommand {
 
 	public static void register(LiteralArgumentBuilder<CommandSourceStack> $) {
 		$.then(Commands.literal("dump_registries")
-			.requires(src -> src.hasPermission(Commands.LEVEL_OWNERS))
+			.requires(src -> Commands.LEVEL_OWNERS.check(src.permissions()))
 			.executes(DumpRegistryCommand::dumpAllRegistries)
 			.then(Commands.argument("registry", RegistryArgumentType.registry())
 				.executes(ctx -> dumpRegistry(ctx, RegistryArgumentType.getRegistry(ctx, "registry")))
@@ -44,19 +44,19 @@ public class DumpRegistryCommand {
 	private static int dumpAllRegistries(CommandContext<CommandSourceStack> ctx) throws CommandSyntaxException {
 		var player = ctx.getSource().getPlayerOrException();
 		var registryAccess = ctx.getSource().getServer().registries().compositeAccess();
-		var registries = registryAccess.listRegistries().toList();
+		var registries = registryAccess.listRegistryKeys().toList();
 		var dir = Services.PLATFORM.getGameDir().resolve(SparkweaveMod.MODID).resolve("registry_export");
 
 		for (ResourceKey<? extends Registry<?>> registryKey : registries) {
-			var registry = registryAccess.registry(registryKey).orElseThrow();
+			var registry = registryAccess.lookupOrThrow(registryKey);
 			saveRegistryToFile(registry, dir);
 		}
 
-		if (ctx.getSource().getServer().isSingleplayerOwner(player.getGameProfile())) {
+		if (ctx.getSource().getServer().isSingleplayerOwner(player.nameAndId())) {
 			var path = Component.literal(dir.toString()).withStyle(style -> style
 				.applyFormats(ChatFormatting.BLUE, ChatFormatting.UNDERLINE)
-				.withHoverEvent(new HoverEvent(HoverEvent.Action.SHOW_TEXT, Component.translatable("chat.sparkweave.open_folder")))
-				.withClickEvent(new ClickEvent(ClickEvent.Action.OPEN_FILE, dir.toString()))
+				.withHoverEvent(new HoverEvent.ShowText(Component.translatable("chat.sparkweave.open_folder")))
+				.withClickEvent(new ClickEvent.OpenFile(dir.toString()))
 			);
 
 			//TODO directly send to client to bypass message click event filtering
@@ -74,17 +74,17 @@ public class DumpRegistryCommand {
 		var dir = Services.PLATFORM.getGameDir().resolve("sparkweave").resolve("registry_export");
 		saveRegistryToFile(registry, dir);
 
-		if (ctx.getSource().getServer().isSingleplayerOwner(player.getGameProfile())) {
+		if (ctx.getSource().getServer().isSingleplayerOwner(player.nameAndId())) {
 			var path = Component.literal(dir.toString()).withStyle(style -> style
 				.applyFormats(ChatFormatting.BLUE, ChatFormatting.UNDERLINE)
-				.withHoverEvent(new HoverEvent(HoverEvent.Action.SHOW_TEXT, Component.translatable("chat.sparkweave.open_folder")))
-				.withClickEvent(new ClickEvent(ClickEvent.Action.OPEN_FILE, dir.toString()))
+				.withHoverEvent(new HoverEvent.ShowText(Component.translatable("chat.sparkweave.open_folder")))
+				.withClickEvent(new ClickEvent.OpenFile(dir.toString()))
 			);
 
 			//TODO directly send to client to bypass message click event filtering
-			ctx.getSource().sendSuccess(() -> Component.translatable("commands.sparkweave.debug.dump_registries.success_path", registry.key().location(), path), true);
+			ctx.getSource().sendSuccess(() -> Component.translatable("commands.sparkweave.debug.dump_registries.success_path", registry.key().identifier(), path), true);
 		} else {
-			ctx.getSource().sendSuccess(() -> Component.translatable("commands.sparkweave.debug.dump_registries.success", registry.key().location()), true);
+			ctx.getSource().sendSuccess(() -> Component.translatable("commands.sparkweave.debug.dump_registries.success", registry.key().identifier()), true);
 		}
 
 		return Command.SINGLE_SUCCESS;
@@ -92,7 +92,7 @@ public class DumpRegistryCommand {
 
 	private static void saveRegistryToFile(Registry<?> registry, Path outputDir) throws CommandSyntaxException {
 		// TODO logging
-		var outputFile = outputDir.resolve(registry.key().location().getNamespace()).resolve(registry.key().location().getPath() + ".csv");
+		var outputFile = outputDir.resolve(registry.key().identifier().getNamespace()).resolve(registry.key().identifier().getPath() + ".csv");
 		try {
 			Files.createDirectories(outputFile.getParent());
 			try (var stream = Files.newOutputStream(outputFile)) {
@@ -101,7 +101,7 @@ public class DumpRegistryCommand {
 				}
 			}
 		} catch (IOException e) {
-			LOGGER.error("Failed to write registry dump for {}", registry.key().location(), e);
+			LOGGER.error("Failed to write registry dump for {}", registry.key().identifier(), e);
 			throw CommandHelper.IO_EXCEPTION.create(e.getMessage());
 		}
 	}

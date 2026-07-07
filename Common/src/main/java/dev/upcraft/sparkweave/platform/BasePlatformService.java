@@ -3,7 +3,7 @@ package dev.upcraft.sparkweave.platform;
 import dev.upcraft.sparkweave.SparkweaveMod;
 import net.harawata.appdirs.AppDirs;
 import net.harawata.appdirs.AppDirsFactory;
-import net.minecraft.Util;
+import net.minecraft.util.Util;
 import org.jetbrains.annotations.Nullable;
 
 import java.io.IOException;

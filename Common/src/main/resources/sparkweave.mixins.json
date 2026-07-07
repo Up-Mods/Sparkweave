@@ -10,9 +10,16 @@
     "LecternBlockMixin"
   ],
   "client": [
-    "client.LecternRendererMixin",
+    "client.MinecraftMixin",
     "client.RenderLayerMixin",
-    "client.debug.AbstractContainerScreenMixin"
+    "client.customarmor.HumanoidArmorLayerMixin",
+    "client.customarmor.HumanoidMobRendererMixin",
+    "client.customarmor.HumanoidRenderStateMixin",
+    "client.debug.AbstractContainerScreenMixin",
+    "client.lectern.BlockEntityRenderersMixin",
+    "client.lectern.LecternRendererMixin",
+    "client.lectern.LecternRenderStateMixin",
+    "client.renderstateext.BlockEntityRenderStateMixin"
   ],
   "injectors": {
     "defaultRequire": 1
