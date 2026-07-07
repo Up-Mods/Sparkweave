@@ -115,6 +115,7 @@ neoForge {
         configureEach {
             logLevel = org.slf4j.event.Level.DEBUG
             systemProperty("forge.logging.markers", "REGISTRIES")
+            systemProperty("terminal.ansi", "true")
             systemProperty("sparkweave.debug", "true")
 
             ideName = "NeoForge ${name.replaceFirstChar { it.titlecase(Locale.ROOT) }}"
