@@ -70,12 +70,12 @@ loom {
         create(modId) {
             // Tell Loom about each source set used by your mod here. This ensures that your mod's classes are properly transformed by Loader.
             sourceSet(sourceSets["main"])
-            sourceSet(project(":Sparkweave-Common").sourceSets["main"])
+            sourceSet(project(":${rootProject.name}-Common").sourceSets["main"])
         }
 
         create("${modId}_testmod") {
             sourceSet(sourceSets["testmod"])
-            sourceSet(project(":Sparkweave-Common").sourceSets["testmod"])
+            sourceSet(project(":${rootProject.name}-Common").sourceSets["testmod"])
         }
     }
 

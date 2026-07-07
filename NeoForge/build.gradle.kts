@@ -18,8 +18,8 @@ val localRuntime = configurations.dependencyScope("localRuntime")
 configurations.runtimeClasspath.configure { extendsFrom(localRuntime) }
 
 dependencies {
-	interfaceInjectionData(project(":Sparkweave-Common"))
-	accessTransformers(project(":Sparkweave-Common"))
+	interfaceInjectionData(project(":${rootProject.name}-Common"))
+	accessTransformers(project(":${rootProject.name}-Common"))
 	compileOnly(libs.autoservice.annotations)
 	annotationProcessor(libs.autoservice)
 
@@ -48,12 +48,12 @@ neoForge {
 		// but multi mod projects should define one per mod
         register(modId) {
 			sourceSet(sourceSets["main"])
-			sourceSet(project(":Sparkweave-Common").sourceSets["main"])
+			sourceSet(project(":${rootProject.name}-Common").sourceSets["main"])
 		}
 
         register("${modId}_testmod") {
 			sourceSet(sourceSets["testmod"])
-			sourceSet(project(":Sparkweave-Common").sourceSets["testmod"])
+			sourceSet(project(":${rootProject.name}-Common").sourceSets["testmod"])
 		}
 	}
 
