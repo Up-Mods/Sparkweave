@@ -81,6 +81,11 @@ public class FabricRegistryHandler<T> implements RegistryHandler<T> {
 	}
 
 	@Override
+	public String getNamespace() {
+		return namespace;
+	}
+
+	@Override
 	public Registry<T> createNewRegistry(boolean sync, @Nullable Identifier defaultEntry) {
 		var builder = defaultEntry != null ? FabricRegistryBuilder.createDefaulted(this.registryKey, defaultEntry) : FabricRegistryBuilder.create(this.registryKey);
 		if(sync) {

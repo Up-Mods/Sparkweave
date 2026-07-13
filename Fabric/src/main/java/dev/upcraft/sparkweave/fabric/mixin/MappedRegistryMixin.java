@@ -23,13 +23,10 @@ import java.util.function.Supplier;
 import java.util.stream.Collectors;
 
 @Mixin(MappedRegistry.class)
-public abstract class MappedRegistryMixin<T> implements FabricRegistryHack<T> {
+public abstract class MappedRegistryMixin<T> implements FabricRegistryHack<T>, HolderOwner<T> {
 
 	@Unique
 	private final Map<ResourceKey<T>, Holder.Reference<T>> unregisteredHolders = new HashMap<>();
-
-	@Shadow
-	public abstract HolderOwner<T> holderOwner();
 
 	@Shadow
 	protected abstract void validateWrite(ResourceKey<T> key);
@@ -50,12 +47,12 @@ public abstract class MappedRegistryMixin<T> implements FabricRegistryHack<T> {
 			return createIntrusiveHolder(factory.get());
 		}
 		validateWrite(key);
-		var holder = Holder.Reference.createStandAlone(this.holderOwner(), key);
+		var holder = Holder.Reference.createStandAlone(this, key);
 		unregisteredHolders.put(key, holder);
 		return holder;
 	}
 
-	@WrapOperation(method = "method_56594", at = @At(value = "INVOKE", target = "Lnet/minecraft/core/Holder$Reference;createStandAlone(Lnet/minecraft/core/HolderOwner;Lnet/minecraft/resources/ResourceKey;)Lnet/minecraft/core/Holder$Reference;"))
+	@WrapOperation(method = "lambda$register$0", at = @At(value = "INVOKE", target = "Lnet/minecraft/core/Holder$Reference;createStandAlone(Lnet/minecraft/core/HolderOwner;Lnet/minecraft/resources/ResourceKey;)Lnet/minecraft/core/Holder$Reference;"))
 	private Holder.Reference<T> wrapCreateReference(HolderOwner<T> owner, ResourceKey<T> key, Operation<Holder.Reference<T>> original) {
 		var value = unregisteredHolders.remove(key);
 		if(value != null) {
