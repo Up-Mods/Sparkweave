@@ -110,6 +110,7 @@ loom {
 
         configureEach {
             appendProjectPathToDisplayName = false
+            systemProperties.put("fabric-tag-conventions-v2.missingTagTranslationWarning", "VERBOSE")
             systemProperties.put("sparkweave.debug", "true")
             systemProperties.put("mixin.debug", "true")
 
