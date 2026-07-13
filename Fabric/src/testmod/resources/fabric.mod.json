@@ -14,14 +14,6 @@
   },
   "license": "${license_url}",
   "icon": "icon.png",
-  "entrypoints": {
-    "main": [
-      "dev.upcraft.sparkweave.testmod.fabric.entrypoint.Main"
-    ],
-    "client": [
-      "dev.upcraft.sparkweave.testmod.fabric.entrypoint.Client"
-    ]
-  },
   "depends": {
     "fabricloader": ">=${fabric_loader_version}",
     "${mod_id}": "=${version}",
