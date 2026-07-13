@@ -10,17 +10,16 @@
     "MappedRegistryMixin",
     "ServerLevelMixin",
     "datagen.PackGeneratorAccessor",
-    "datagen.RegistrySetBuilderMixin",
-    "dev.upcraft.sparkweave.mixin.AbstractContainerMenuMixin"
+    "datagen.RegistrySetBuilderMixin"
   ],
   "client": [
     "client.ClientLevelMixin",
     "client.ConditionalItemModelPropertiesMixin",
-    "client.HumanoidArmorLayerMixin",
     "client.RangeSelectItemModelPropertiesMixin",
     "client.SelectItemModelPropertiesMixin",
     "client.command.ClientSuggestionProviderMixin",
-    "client.renderstateext.EntityRenderStateMixin"
+    "client.ext.EntityRenderStateMixin",
+    "client.ext.HumanoidModelMixin"
   ],
   "injectors": {
     "defaultRequire": 1

@@ -3,15 +3,18 @@ package dev.upcraft.sparkweave.testmod.client;
 import com.google.auto.service.AutoService;
 import dev.upcraft.sparkweave.api.client.Debug;
 import dev.upcraft.sparkweave.api.client.event.ClientTickEvents;
+import dev.upcraft.sparkweave.api.client.event.RegisterCustomArmorRenderersEvent;
 import dev.upcraft.sparkweave.api.client.event.RegisterLayerDefinitionsEvent;
 import dev.upcraft.sparkweave.api.client.event.RegisterLecternItemRendererEvent;
 import dev.upcraft.sparkweave.api.entrypoint.ClientEntryPoint;
 import dev.upcraft.sparkweave.api.platform.ModContainer;
 import dev.upcraft.sparkweave.testmod.client.models.MageRobesModel;
 import dev.upcraft.sparkweave.testmod.client.renderers.DiamondLecternRenderer;
+import dev.upcraft.sparkweave.testmod.client.renderers.MageRobesRenderer;
 import dev.upcraft.sparkweave.testmod.init.TestItems;
 import net.minecraft.client.Minecraft;
 import net.minecraft.core.BlockPos;
+import net.minecraft.world.item.Items;
 import net.minecraft.world.level.levelgen.Heightmap;
 
 @AutoService(ClientEntryPoint.class)
@@ -22,8 +25,7 @@ public class SparkweaveTestmodClient implements ClientEntryPoint {
 	@Override
 	public void onInitializeClient(ModContainer mod) {
 		RegisterLayerDefinitionsEvent.EVENT.register(event -> event.registerModelLayers(MageRobesModel.MODEL_LAYER, MageRobesModel::createBodyLayer));
-		// TODO armor
-//		RegisterCustomArmorRenderersEvent.EVENT.register(event -> event.register((_, context, _) -> new MageRobesRenderer(context), Items.CHAINMAIL_HELMET, Items.CHAINMAIL_CHESTPLATE, Items.CHAINMAIL_LEGGINGS, Items.CHAINMAIL_BOOTS));
+		RegisterCustomArmorRenderersEvent.EVENT.register(event -> event.register((_, context, _) -> new MageRobesRenderer(context), Items.CHAINMAIL_HELMET, Items.CHAINMAIL_CHESTPLATE, Items.CHAINMAIL_LEGGINGS, Items.CHAINMAIL_BOOTS));
 		RegisterLecternItemRendererEvent.EVENT.register(event -> event.registerRenderer(DiamondLecternRenderer::new, TestItems.TEST_ITEM));
 		ClientTickEvents.START_TICK.register(SparkweaveTestmodClient::onClientTickStart);
 	}

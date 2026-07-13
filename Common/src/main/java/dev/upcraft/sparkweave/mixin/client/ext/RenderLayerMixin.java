@@ -1,4 +1,4 @@
-package dev.upcraft.sparkweave.mixin.client;
+package dev.upcraft.sparkweave.mixin.client.ext;
 
 import dev.upcraft.sparkweave.api.client.ext.RenderLayerExt;
 import net.minecraft.client.model.EntityModel;

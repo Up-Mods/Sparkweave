@@ -12,7 +12,8 @@
   "client": [
     "client.RegisterMenuScreensEventMixin",
     "client.RegisterRenderersEventMixin",
-    "client.renderstateext.BaseRenderStateMixin"
+    "client.ext.BaseRenderStateMixin",
+    "client.ext.HumanoidModelMixin"
   ],
   "injectors": {
     "defaultRequire": 1

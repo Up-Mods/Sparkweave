@@ -8,6 +8,9 @@
   "net/minecraft/client/Minecraft": [
     "dev/upcraft/sparkweave/api/client/ext/MinecraftExt"
   ],
+  "net/minecraft/client/model/HumanoidModel": [
+    "dev/upcraft/sparkweave/api/client/ext/HumanoidModelExt"
+  ],
   "net/minecraft/client/renderer/entity/layers/RenderLayer": [
     "dev/upcraft/sparkweave/api/client/ext/RenderLayerExt"
   ],

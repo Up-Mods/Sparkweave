@@ -1,4 +1,4 @@
-package dev.upcraft.sparkweave.mixin.client.renderstateext;
+package dev.upcraft.sparkweave.mixin.client.ext;
 
 import dev.upcraft.sparkweave.api.client.ext.RenderStateExt;
 import it.unimi.dsi.fastutil.objects.Reference2ObjectOpenHashMap;

@@ -7,7 +7,7 @@ import dev.upcraft.sparkweave.api.client.command.ClientCommandSource;
 import dev.upcraft.sparkweave.api.client.event.*;
 import dev.upcraft.sparkweave.api.client.event.RegisterMenuScreensEvent;
 import dev.upcraft.sparkweave.api.client.event.RegisterParticleProvidersEvent;
-import dev.upcraft.sparkweave.api.client.render.DebugRenderer;
+import dev.upcraft.sparkweave.client.debug.SparkweaveDebugRenderer;
 import dev.upcraft.sparkweave.neoforge.impl.registry.RegisterParticleProvidersEventImpl;
 import dev.upcraft.sparkweave.validation.TranslationChecker;
 import net.minecraft.client.Minecraft;
@@ -44,8 +44,7 @@ public class Client {
 
 	@SubscribeEvent
 	public static void onRegisterEntityLayers(EntityRenderersEvent.AddLayers event) {
-		//FIXME
-//		RegisterCustomArmorRenderersEvent.EVENT.invoker().registerCustomArmorRenderers(new RegisterCustomArmorRenderersEvent());
+		RegisterCustomArmorRenderersEvent.EVENT.invoker().registerCustomArmorRenderers(new RegisterCustomArmorRenderersEvent());
 	}
 
 	@SuppressWarnings("unchecked")
@@ -73,7 +72,7 @@ public class Client {
 
 	@SubscribeEvent
 	public static void onRenderWorld(RenderLevelStageEvent.AfterTranslucentBlocks event) {
-		DebugRenderer.render(event.getPoseStack(), event.getLevelRenderer().renderBuffers.bufferSource(), event.getLevelRenderState());
+		SparkweaveDebugRenderer.render(event.getPoseStack(), event.getLevelRenderer().renderBuffers.bufferSource(), event.getLevelRenderState());
 	}
 
 	@SubscribeEvent

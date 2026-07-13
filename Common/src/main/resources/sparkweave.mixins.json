@@ -5,19 +5,21 @@
   "plugin": "dev.upcraft.sparkweave.SparkweaveMixinConfigPlugin",
   "compatibilityLevel": "JAVA_${java_version}",
   "mixins": [
-    "BlockEntityMixin",
-    "LecternBlockEntityMixin",
-    "LecternBlockMixin"
+    "customlectern.BlockEntityMixin",
+    "customlectern.LecternBlockEntityMixin",
+    "customlectern.LecternBlockMixin"
   ],
   "client": [
-    "client.MinecraftMixin",
-    "client.RenderLayerMixin",
-    "client.customarmor.HumanoidArmorLayerMixin",
-    "client.customarmor.HumanoidMobRendererMixin",
+    "client.ext.MinecraftMixin",
+    "client.ext.RenderLayerMixin",
+    "client.armorrenderer.AvatarRendererMixin",
+    "client.armorrenderer.EntityRenderDispatcherMixin",
+    "client.armorrenderer.HumanoidArmorLayerMixin",
+    "client.armorrenderer.HumanoidMobRendererMixin",
     "client.debug.AbstractContainerScreenMixin",
     "client.lectern.BlockEntityRenderersMixin",
     "client.lectern.LecternRendererMixin",
-    "client.renderstateext.BlockEntityRenderStateMixin"
+    "client.ext.BlockEntityRenderStateMixin"
   ],
   "injectors": {
     "defaultRequire": 1

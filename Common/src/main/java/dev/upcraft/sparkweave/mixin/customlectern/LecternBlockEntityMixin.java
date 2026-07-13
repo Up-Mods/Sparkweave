@@ -1,4 +1,4 @@
-package dev.upcraft.sparkweave.mixin;
+package dev.upcraft.sparkweave.mixin.customlectern;
 
 import com.llamalad7.mixinextras.injector.ModifyReturnValue;
 import dev.upcraft.sparkweave.api.ext.LecternBlockEntityExt;

@@ -36,6 +36,7 @@ public abstract class LecternRendererMixin implements BlockEntityRenderer<Lecter
 				var customState = state.sparkweave$getData(LecternItemRendererRegistryImpl.ITEM_RENDERER_DATA_KEY);
 				if(customState == null || customState.getClass() != customRenderer.getRenderStateType()) {
 					customState = customRenderer.createRenderState();
+					state.sparkweave$setData(LecternItemRendererRegistryImpl.ITEM_RENDERER_DATA_KEY, customState);
 				}
 				customRenderer.extractRenderState(blockEntity, state, customState, partialTicks, cameraPosition, breakProgress);
 				state.sparkweave$setData(LecternItemRendererRegistryImpl.ITEM_RENDERER_KEY, customRenderer);
