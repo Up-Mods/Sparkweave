@@ -38,9 +38,19 @@ tasks.named<JavaCompile>("compileJava").configure {
     source(commonJava)
 }
 
+tasks.named<JavaCompile>("compileTestmodJava").configure {
+    dependsOn(testmodCommonJava)
+    source(testmodCommonJava)
+}
+
 tasks.named<ProcessResources>("processResources").configure {
     dependsOn(commonResources)
     from(commonResources)
+}
+
+tasks.named<ProcessResources>("processTestmodResources").configure {
+    dependsOn(testmodCommonResources)
+    from(testmodCommonResources)
 }
 
 tasks.named<Javadoc>("javadoc").configure {

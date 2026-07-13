@@ -42,12 +42,10 @@ neoForge {
 		// but multi mod projects should define one per mod
         register(modId) {
 			sourceSet(sourceSets["main"])
-			sourceSet(project(":${rootProject.name}-Common").sourceSets["main"])
 		}
 
         register("${modId}_testmod") {
 			sourceSet(sourceSets["testmod"])
-			sourceSet(project(":${rootProject.name}-Common").sourceSets["testmod"])
 		}
 	}
 

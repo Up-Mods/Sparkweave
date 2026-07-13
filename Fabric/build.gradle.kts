@@ -59,13 +59,11 @@ loom {
     mods {
         create(modId) {
             // Tell Loom about each source set used by your mod here. This ensures that your mod's classes are properly transformed by Loader.
-            sourceSet(sourceSets["main"])
-            sourceSet(project(":${rootProject.name}-Common").sourceSets["main"])
+            sourceSet("main")
         }
 
         create("${modId}_testmod") {
-            sourceSet(sourceSets["testmod"])
-            sourceSet(project(":${rootProject.name}-Common").sourceSets["testmod"])
+            sourceSet("testmod")
         }
     }
 
