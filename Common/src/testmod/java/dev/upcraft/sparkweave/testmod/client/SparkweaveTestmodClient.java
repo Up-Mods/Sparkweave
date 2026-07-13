@@ -11,6 +11,8 @@ import dev.upcraft.sparkweave.testmod.client.models.MageRobesModel;
 import dev.upcraft.sparkweave.testmod.client.renderers.DiamondLecternRenderer;
 import dev.upcraft.sparkweave.testmod.init.TestItems;
 import net.minecraft.client.Minecraft;
+import net.minecraft.core.BlockPos;
+import net.minecraft.world.level.levelgen.Heightmap;
 
 @AutoService(ClientEntryPoint.class)
 public class SparkweaveTestmodClient implements ClientEntryPoint {
@@ -27,11 +29,14 @@ public class SparkweaveTestmodClient implements ClientEntryPoint {
 	}
 
 	public static void onClientTickStart(Minecraft client) {
+		var bp = new BlockPos.MutableBlockPos();
 		if (client.level != null && ticks++ % 100 == 0) {
 			for (int x = 0; x < 16; x++) {
 				for (int z = 0; z < 16; z++) {
 					Debug.setColor(50 + x * 10, 0, 135 + z * 8);
-					Debug.drawLine(x, 0, z, x, 1, z, 100); // TODO time format
+					bp.set(x, 0, z);
+					var height = client.level.getHeight(Heightmap.Types.WORLD_SURFACE, bp);
+					Debug.drawLine(x + 0.5F, height, z + 0.5F, x + 0.5F, height + 1, z + 0.5F, 5000); // TODO time format
 				}
 			}
 		}

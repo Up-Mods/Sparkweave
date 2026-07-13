@@ -6,7 +6,7 @@ import dev.upcraft.sparkweave.api.SparkweaveApi;
 import dev.upcraft.sparkweave.api.annotation.CalledByReflection;
 import dev.upcraft.sparkweave.api.client.command.ClientCommandSource;
 import dev.upcraft.sparkweave.api.client.event.*;
-import dev.upcraft.sparkweave.api.client.render.DebugRenderer;
+import dev.upcraft.sparkweave.client.debug.SparkweaveDebugRenderer;
 import dev.upcraft.sparkweave.api.entrypoint.ClientEntryPoint;
 import dev.upcraft.sparkweave.entrypoint.EntrypointHelper;
 import dev.upcraft.sparkweave.fabric.impl.registry.*;
@@ -27,9 +27,7 @@ public class Client implements ClientModInitializer {
 	@SuppressWarnings("unchecked")
 	@Override
 	public void onInitializeClient() {
-		LevelRenderEvents.AFTER_TRANSLUCENT_TERRAIN.register(context -> {
-			DebugRenderer.render(context.poseStack(), context.bufferSource(), context.levelState());
-		});
+		LevelRenderEvents.AFTER_TRANSLUCENT_TERRAIN.register(context -> SparkweaveDebugRenderer.render(context.poseStack(), context.bufferSource(), context.levelState()));
 
 		if(SparkweaveApi.Client.LOG_MISSING_TRANSLATIONS) {
 			var id = SparkweaveMod.id("translation_checker");

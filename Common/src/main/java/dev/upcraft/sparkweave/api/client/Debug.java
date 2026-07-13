@@ -1,10 +1,12 @@
 package dev.upcraft.sparkweave.api.client;
 
 import com.mojang.blaze3d.vertex.PoseStack;
-import dev.upcraft.sparkweave.api.client.render.DebugRenderer;
 import dev.upcraft.sparkweave.api.platform.RuntimeEnvironmentType;
+import dev.upcraft.sparkweave.client.debug.SparkweaveDebugRenderer;
+import org.jetbrains.annotations.ApiStatus;
 import org.joml.Vector3fc;
 
+@ApiStatus.Experimental
 public class Debug {
 
 	static {
@@ -16,7 +18,7 @@ public class Debug {
 	}
 
 	public static void setColor(int red, int green, int blue, int alpha) {
-		DebugRenderer.setColor(red, green, blue, alpha);
+		SparkweaveDebugRenderer.setColor(red, green, blue, alpha);
 	}
 
 	public static void drawLine(Vector3fc start, Vector3fc end, long duration) {
@@ -24,7 +26,7 @@ public class Debug {
 	}
 
 	public static void drawLine(float startX, float startY, float startZ, float endX, float endY, float endZ, long duration) {
-		DebugRenderer.drawLine(startX, startY, startZ, endX, endY, endZ, duration);
+		SparkweaveDebugRenderer.drawLine(startX, startY, startZ, endX, endY, endZ, duration);
 	}
 
 	public static void drawLine(PoseStack poseStack, Vector3fc start, Vector3fc end, long duration) {
@@ -32,6 +34,6 @@ public class Debug {
 	}
 
 	public static void drawLine(PoseStack poseStack, float startX, float startY, float startZ, float endX, float endY, float endZ, long duration) {
-		DebugRenderer.drawLine(poseStack, startX, startY, startZ, endX, endY, endZ, duration);
+		SparkweaveDebugRenderer.drawLine(poseStack, startX, startY, startZ, endX, endY, endZ, duration);
 	}
 }

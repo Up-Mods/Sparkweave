@@ -1,9 +1,11 @@
-package dev.upcraft.sparkweave.api.client.render;
+package dev.upcraft.sparkweave.client.debug;
 
 import com.google.common.collect.Multimap;
 import com.google.common.collect.MultimapBuilder;
 import com.mojang.blaze3d.vertex.PoseStack;
 import com.mojang.blaze3d.vertex.VertexConsumer;
+import dev.upcraft.sparkweave.api.client.render.DebugRenderable;
+import dev.upcraft.sparkweave.api.client.render.LineRenderable;
 import net.minecraft.client.renderer.MultiBufferSource;
 import net.minecraft.client.renderer.rendertype.RenderType;
 import net.minecraft.client.renderer.state.level.LevelRenderState;
@@ -15,7 +17,7 @@ import org.joml.Vector3f;
 import java.util.ArrayList;
 import java.util.List;
 
-public class DebugRenderer {
+public class SparkweaveDebugRenderer {
 
 	private static final Multimap<RenderType, DebugRenderable> renderables = MultimapBuilder.hashKeys().linkedListValues().build();
 	private static final List<DebugRenderable> expired = new ArrayList<>(10);
