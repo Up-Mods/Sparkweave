@@ -125,15 +125,4 @@ loom {
     }
 }
 
-val generateDatagenDir = tasks.register("generateDatagenDir") {
-    description = "Creates the data generation output directory"
-    inputs.dir(project.layout.buildDirectory.dir("datagen"))
-
-    doFirst {
-        inputs.files.forEach { it.mkdirs() }
-    }
-}
-
-tasks.named("ideaSyncTask").configure { dependsOn(generateDatagenDir) }
-tasks.named("runDatagen").configure { dependsOn(generateDatagenDir) }
 sourceSets["testmod"].resources { srcDir("src/testmod/generated") }
