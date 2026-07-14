@@ -51,8 +51,6 @@ dependencies {
     localRuntime(libs.modmenu.fabric) {
         isTransitive = false
     }
-
-    testImplementation(libs.neoforge.testframework)
 }
 
 loom {
