@@ -8,6 +8,7 @@ import dev.upcraft.sparkweave.api.event.RegisterCustomLecternMenuEvent;
 import dev.upcraft.sparkweave.api.platform.ModContainer;
 import dev.upcraft.sparkweave.api.platform.services.RegistryService;
 import dev.upcraft.sparkweave.testmod.init.TestCreativeTabs;
+import dev.upcraft.sparkweave.testmod.init.TestDataComponents;
 import dev.upcraft.sparkweave.testmod.init.TestItems;
 import dev.upcraft.sparkweave.testmod.init.TestStatusEffects;
 import net.minecraft.network.chat.Component;
@@ -35,6 +36,7 @@ public class SparkweaveTestmod implements MainEntryPoint {
 	public void onInitialize(ModContainer mod) {
 		var registryService = RegistryService.get();
 
+		TestDataComponents.DATA_COMPONENTS.accept(registryService);
 		TestItems.ITEMS.accept(registryService);
 		TestCreativeTabs.TABS.accept(registryService);
 		TestStatusEffects.STATUS_EFFECTS.accept(registryService);

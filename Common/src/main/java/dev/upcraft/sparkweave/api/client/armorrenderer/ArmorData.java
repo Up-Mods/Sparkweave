@@ -48,7 +48,7 @@ public final class ArmorData {
 		return (T) customData.get(key);
 	}
 
-	public ItemStack getStack() {
+	public ItemStack getItemStack() {
 		return stack;
 	}
 

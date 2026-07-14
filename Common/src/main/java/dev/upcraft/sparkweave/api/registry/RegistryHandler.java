@@ -2,9 +2,11 @@ package dev.upcraft.sparkweave.api.registry;
 
 import dev.upcraft.sparkweave.api.platform.services.RegistryService;
 import dev.upcraft.sparkweave.api.registry.block.BlockRegistryHandler;
+import dev.upcraft.sparkweave.api.registry.datacomponent.DataComponentRegistryHandler;
 import dev.upcraft.sparkweave.api.registry.item.ItemRegistryHandler;
 import dev.upcraft.sparkweave.registry.IdAwareRegistryHandlerImpl;
 import dev.upcraft.sparkweave.registry.block.BlockRegistryHandlerImpl;
+import dev.upcraft.sparkweave.registry.datacomponents.DataComponentRegistryHandlerImpl;
 import dev.upcraft.sparkweave.registry.item.ItemRegistryHandlerImpl;
 import net.minecraft.core.Registry;
 import net.minecraft.core.registries.Registries;
@@ -33,6 +35,11 @@ public interface RegistryHandler<T> extends Consumer<RegistryService>, RegistryC
 	static BlockRegistryHandler blocks(String namespace) {
 		var handler = create(Registries.BLOCK, namespace);
 		return new BlockRegistryHandlerImpl(handler);
+	}
+
+	static DataComponentRegistryHandler dataComponents(String namespace) {
+		var handler = create(Registries.DATA_COMPONENT_TYPE, namespace);
+		return new DataComponentRegistryHandlerImpl(handler);
 	}
 
 	<S extends T> RegistrySupplier<S> register(String name, Supplier<S> factory);

@@ -5,6 +5,8 @@ import dev.upcraft.sparkweave.api.client.armorrenderer.ArmorData;
 import dev.upcraft.sparkweave.api.client.render.CustomHumanoidModelArmorRenderer;
 import dev.upcraft.sparkweave.testmod.client.models.MageRobesModel;
 import dev.upcraft.sparkweave.testmod.data.TestmodEquipmentAssets;
+import dev.upcraft.sparkweave.testmod.datacomponent.Openable;
+import dev.upcraft.sparkweave.testmod.init.TestDataComponents;
 import net.minecraft.client.model.HumanoidModel;
 import net.minecraft.client.renderer.SubmitNodeCollector;
 import net.minecraft.client.renderer.entity.EntityRendererProvider;
@@ -44,7 +46,7 @@ public class MageRobesRenderer extends CustomHumanoidModelArmorRenderer<LivingEn
 
 	@Override
 	protected void setupAnim(MageRobesModel<HumanoidRenderState> model, HumanoidRenderState baseState, HumanoidRenderState customState, ArmorData armorData, EquipmentSlot slot) {
-		model.closedHood.visible = false;
+		model.closedHood.visible = slot == EquipmentSlot.HEAD && !armorData.getItemStack().getOrDefault(TestDataComponents.OPENABLE.get(), Openable.OPEN).isOpen();
 		model.openHood.visible = slot == EquipmentSlot.HEAD;
 		model.cloak.visible = slot == EquipmentSlot.HEAD;
 		model.garb.visible = slot == EquipmentSlot.CHEST;

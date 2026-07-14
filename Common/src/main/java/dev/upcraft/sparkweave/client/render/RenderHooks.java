@@ -26,7 +26,7 @@ public class RenderHooks {
 						state.sparkweave$setData(dataKey, data);
 					}
 
-					if(!ItemStack.matches(data.getStack(), stack)) {
+					if(!ItemStack.matches(data.getItemStack(), stack)) {
 						data.clear();
 						data.setStack(stack.copy());
 						data.setCustomRenderer(renderer);
