@@ -18,4 +18,6 @@ public class TestItems {
 
 	public static final RegistrySupplier<Item> MAGE_HOOD = ITEMS.register("mage_hood", Item::new, () -> new Item.Properties().humanoidArmor(TestArmorMaterials.MAGE_ROBES, ArmorType.HELMET));
 	public static final RegistrySupplier<Item> MAGE_ROBES = ITEMS.register("mage_robes", Item::new, () -> new Item.Properties().humanoidArmor(TestArmorMaterials.MAGE_ROBES, ArmorType.CHESTPLATE));
+	public static final RegistrySupplier<Item> MAGE_LEGGINGS = ITEMS.register("mage_leggings", Item::new, () -> new Item.Properties().humanoidArmor(TestArmorMaterials.MAGE_ROBES, ArmorType.LEGGINGS));
+	public static final RegistrySupplier<Item> MAGE_BOOTS = ITEMS.register("mage_boots", Item::new, () -> new Item.Properties().humanoidArmor(TestArmorMaterials.MAGE_ROBES, ArmorType.BOOTS));
 }

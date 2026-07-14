@@ -5,7 +5,6 @@ import dev.upcraft.sparkweave.api.client.armorrenderer.ArmorData;
 import net.minecraft.client.model.EntityModel;
 import net.minecraft.client.renderer.SubmitNodeCollector;
 import net.minecraft.client.renderer.entity.EntityRendererProvider;
-import net.minecraft.client.renderer.entity.RenderLayerParent;
 import net.minecraft.client.renderer.entity.layers.EquipmentLayerRenderer;
 import net.minecraft.client.renderer.entity.state.HumanoidRenderState;
 import net.minecraft.client.renderer.item.ItemModelResolver;
@@ -19,7 +18,7 @@ import org.jetbrains.annotations.Nullable;
 
 public abstract class CustomArmorRenderer<ENTITY extends LivingEntity, BASESTATE extends HumanoidRenderState, BASEMODEL extends EntityModel<BASESTATE>> {
 
-	public abstract void extractRenderState(EquipmentSlot slot, ENTITY entity, BASESTATE baseState, ArmorData customState, ItemModelResolver itemModelResolver);
+	public abstract void extractRenderState(EquipmentSlot slot, ENTITY entity, BASESTATE baseState, ArmorData customState, float partialTicks, ItemModelResolver itemModelResolver);
 
 	public abstract void submit(EquipmentLayerRenderer renderer, EquipmentClientInfo.LayerType layerType, ResourceKey<EquipmentAsset> equipmentAssetId, BASEMODEL model, BASESTATE state, ArmorData armorData, EquipmentSlot slot, ItemStack itemStack, PoseStack poseStack, SubmitNodeCollector submitNodeCollector, int lightCoords, int outlineColor);
 
@@ -29,6 +28,6 @@ public abstract class CustomArmorRenderer<ENTITY extends LivingEntity, BASESTATE
 	@FunctionalInterface
 	public interface Factory<ENTITY extends LivingEntity, BASESTATE extends HumanoidRenderState, BASEMODEL extends EntityModel<BASESTATE>> {
 
-		@Nullable CustomArmorRenderer<? extends ENTITY, ? extends BASESTATE, ? extends BASEMODEL> create(ENTITY entity, EntityRendererProvider.Context context, RenderLayerParent<BASESTATE, BASEMODEL> renderer);
+		@Nullable CustomArmorRenderer<? extends ENTITY, ? extends BASESTATE, ? extends BASEMODEL> create(ENTITY entity, EntityRendererProvider.Context context);
 	}
 }

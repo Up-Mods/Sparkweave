@@ -23,7 +23,7 @@ public class MageRobesRenderer extends CustomHumanoidModelArmorRenderer<LivingEn
 
 	private final MageRobesModel<HumanoidRenderState> model;
 
-	public MageRobesRenderer(EntityRendererProvider.Context context) {
+	public MageRobesRenderer(LivingEntity entity, EntityRendererProvider.Context context) {
 		this.model = new MageRobesModel<>(context.bakeLayer(MageRobesModel.MODEL_LAYER));
 	}
 
@@ -38,7 +38,7 @@ public class MageRobesRenderer extends CustomHumanoidModelArmorRenderer<LivingEn
 	}
 
 	@Override
-	protected void extractCustomRenderState(EquipmentSlot slot, LivingEntity entity, HumanoidRenderState baseState, HumanoidRenderState renderState, ArmorData armorData, ItemModelResolver itemModelResolver) {
+	protected void extractCustomRenderState(EquipmentSlot slot, LivingEntity entity, HumanoidRenderState baseState, HumanoidRenderState state, ArmorData armorData, float partialTicks, ItemModelResolver itemModelResolver) {
 
 	}
 

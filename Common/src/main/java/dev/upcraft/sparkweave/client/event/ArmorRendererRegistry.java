@@ -6,10 +6,8 @@ import dev.upcraft.sparkweave.SparkweaveMod;
 import dev.upcraft.sparkweave.api.client.armorrenderer.ArmorData;
 import dev.upcraft.sparkweave.api.client.render.CustomArmorRenderer;
 import it.unimi.dsi.fastutil.objects.Object2ObjectOpenHashMap;
-import net.minecraft.client.Minecraft;
 import net.minecraft.client.model.EntityModel;
 import net.minecraft.client.renderer.entity.EntityRendererProvider;
-import net.minecraft.client.renderer.entity.RenderLayerParent;
 import net.minecraft.client.renderer.entity.state.HumanoidRenderState;
 import net.minecraft.core.registries.BuiltInRegistries;
 import net.minecraft.util.Util;
@@ -59,7 +57,7 @@ public class ArmorRendererRegistry {
 	}
 
 	@SuppressWarnings({"unchecked", "rawtypes"})
-	public static <E extends LivingEntity, S extends HumanoidRenderState, M extends EntityModel<S>> Optional<CustomArmorRenderer<E, S, M>> get(RenderLayerParent<S, M> renderer, E entity, ItemStack stack) {
+	public static <E extends LivingEntity, S extends HumanoidRenderState, M extends EntityModel<S>> Optional<CustomArmorRenderer<E, S, M>> get(E entity, ItemStack stack) {
 		if(stack.isEmpty()) {
 			return Optional.empty();
 		}
@@ -70,8 +68,7 @@ public class ArmorRendererRegistry {
 				return Optional.empty();
 			}
 
-			var mc = Minecraft.getInstance();
-			return Optional.ofNullable(factory.create(entity, Objects.requireNonNull(creationContext, "Unable to obtain render creation context"), renderer));
+			return Optional.ofNullable(factory.create(entity, Objects.requireNonNull(creationContext, "Unable to obtain render creation context")));
 		});
 	}
 

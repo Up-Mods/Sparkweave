@@ -3,7 +3,6 @@ package dev.upcraft.sparkweave.client.render;
 import dev.upcraft.sparkweave.api.client.armorrenderer.ArmorData;
 import dev.upcraft.sparkweave.client.event.ArmorRendererRegistry;
 import net.minecraft.client.model.EntityModel;
-import net.minecraft.client.renderer.entity.RenderLayerParent;
 import net.minecraft.client.renderer.entity.state.HumanoidRenderState;
 import net.minecraft.client.renderer.item.ItemModelResolver;
 import net.minecraft.core.component.DataComponents;
@@ -12,7 +11,7 @@ import net.minecraft.world.item.ItemStack;
 
 public class RenderHooks {
 
-	public static <E extends LivingEntity, S extends HumanoidRenderState, M extends EntityModel<S>> void extractHumanoidRenderState(RenderLayerParent<S, M> parentRenderer, E entity, S state, ItemModelResolver itemModelResolver, float partialTicks) {
+	public static <E extends LivingEntity, S extends HumanoidRenderState, M extends EntityModel<S>> void extractHumanoidRenderState(E entity, S state, float partialTicks, ItemModelResolver itemModelResolver) {
 		for(var slot : ArmorRendererRegistry.ARMOR_SLOTS) {
 			var stack = entity.getItemBySlot(slot);
 			var dataKey = ArmorRendererRegistry.ARMOR_CONTEXT_KEYS.get(slot);
@@ -20,7 +19,7 @@ public class RenderHooks {
 			if(stack.has(DataComponents.EQUIPPABLE)) {
 				var data = state.sparkweave$getData(dataKey);
 
-				var renderer = ArmorRendererRegistry.get(parentRenderer, entity, stack).orElse(null);
+				var renderer = ArmorRendererRegistry.get(entity, stack).orElse(null);
 				if(renderer != null) {
 					if(data == null) {
 						data = new ArmorData();
@@ -33,8 +32,8 @@ public class RenderHooks {
 						data.setCustomRenderer(renderer);
 					}
 					data.setOverrideEquipmentAsset(renderer.getOverrideEquipmentAssetId(slot, entity, state, data));
-					renderer.extractRenderState(slot, entity, state, data, itemModelResolver);
-					return;
+					renderer.extractRenderState(slot, entity, state, data, partialTicks, itemModelResolver);
+					continue;
 				}
 			}
 

@@ -25,7 +25,8 @@ public class SparkweaveTestmodClient implements ClientEntryPoint {
 	@Override
 	public void onInitializeClient(ModContainer mod) {
 		RegisterLayerDefinitionsEvent.EVENT.register(event -> event.registerModelLayers(MageRobesModel.MODEL_LAYER, MageRobesModel::createBodyLayer));
-		RegisterCustomArmorRenderersEvent.EVENT.register(event -> event.register((_, context, _) -> new MageRobesRenderer(context), Items.CHAINMAIL_HELMET, Items.CHAINMAIL_CHESTPLATE, Items.CHAINMAIL_LEGGINGS, Items.CHAINMAIL_BOOTS));
+		RegisterCustomArmorRenderersEvent.EVENT.register(event -> event.register(MageRobesRenderer::new, Items.CHAINMAIL_HELMET, Items.CHAINMAIL_CHESTPLATE, Items.CHAINMAIL_LEGGINGS, Items.CHAINMAIL_BOOTS));
+		RegisterCustomArmorRenderersEvent.EVENT.register(event -> event.register(MageRobesRenderer::new, TestItems.MAGE_HOOD, TestItems.MAGE_ROBES, TestItems.MAGE_LEGGINGS, TestItems.MAGE_BOOTS));
 		RegisterLecternItemRendererEvent.EVENT.register(event -> event.registerRenderer(DiamondLecternRenderer::new, TestItems.TEST_ITEM));
 		ClientTickEvents.START_TICK.register(SparkweaveTestmodClient::onClientTickStart);
 	}

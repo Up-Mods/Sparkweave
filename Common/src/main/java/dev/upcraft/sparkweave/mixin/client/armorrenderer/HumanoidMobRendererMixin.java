@@ -6,6 +6,8 @@ import net.minecraft.client.renderer.entity.AgeableMobRenderer;
 import net.minecraft.client.renderer.entity.EntityRendererProvider;
 import net.minecraft.client.renderer.entity.HumanoidMobRenderer;
 import net.minecraft.client.renderer.entity.state.HumanoidRenderState;
+import net.minecraft.client.renderer.item.ItemModelResolver;
+import net.minecraft.world.entity.LivingEntity;
 import net.minecraft.world.entity.Mob;
 import org.spongepowered.asm.mixin.Mixin;
 import org.spongepowered.asm.mixin.injection.At;
@@ -21,8 +23,8 @@ public abstract class HumanoidMobRendererMixin<T extends Mob, S extends Humanoid
 		throw new UnsupportedOperationException();
 	}
 
-	@Inject(method = "extractRenderState(Lnet/minecraft/world/entity/Mob;Lnet/minecraft/client/renderer/entity/state/HumanoidRenderState;F)V", at = @At("RETURN"))
-	private void extractCustomRenderState(T entity, S state, float partialTicks, CallbackInfo ci) {
-		RenderHooks.extractHumanoidRenderState(this, entity, state, this.itemModelResolver, partialTicks);
+	@Inject(method = "extractHumanoidRenderState", at = @At("RETURN"))
+	private static void extractCustomRenderState(LivingEntity entity, HumanoidRenderState state, float partialTicks, ItemModelResolver itemModelResolver, CallbackInfo ci) {
+		RenderHooks.extractHumanoidRenderState(entity, state, partialTicks, itemModelResolver);
 	}
 }

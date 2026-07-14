@@ -26,17 +26,17 @@ public abstract class CustomHumanoidModelArmorRenderer<ENTITY extends LivingEnti
 
 	@SuppressWarnings("unchecked")
 	@Override
-	public final void extractRenderState(EquipmentSlot slot, ENTITY entity, BASESTATE baseState, ArmorData armorData, ItemModelResolver itemModelResolver) {
+	public final void extractRenderState(EquipmentSlot slot, ENTITY entity, BASESTATE baseState, ArmorData armorData, float partialTicks, ItemModelResolver itemModelResolver) {
 		var customState = (CUSTOMSTATE) armorData.getCustomData(CUSTOM_RENDER_STATE);
 		if(customState == null) {
 			customState = createRenderState();
 			armorData.setCustomData(CUSTOM_RENDER_STATE, customState);
 		}
 
-		extractCustomRenderState(slot, entity, baseState, customState, armorData, itemModelResolver);
+		extractCustomRenderState(slot, entity, baseState, customState, armorData, partialTicks, itemModelResolver);
 	}
 
-	protected abstract void extractCustomRenderState(EquipmentSlot slot, ENTITY entity, BASESTATE baseState, CUSTOMSTATE customstate, ArmorData armorData, ItemModelResolver itemModelResolver);
+	protected abstract void extractCustomRenderState(EquipmentSlot slot, ENTITY entity, BASESTATE baseState, CUSTOMSTATE customstate, ArmorData armorData, float partialTicks, ItemModelResolver itemModelResolver);
 
 	@SuppressWarnings("unchecked")
 	@Override

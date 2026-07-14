@@ -58,6 +58,7 @@ public abstract class HumanoidArmorLayerMixin<BASESTATE extends HumanoidRenderSt
 				return;
 			}
 		}
+
 		original.call(instance, layerType, equipmentAssetId, model, state, itemStack, poseStack, submitNodeCollector, lightCoords, outlineColor);
 	}
 }
