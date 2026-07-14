@@ -19,6 +19,10 @@ transitive-inject-interface net/minecraft/client/model/HumanoidModel dev/upcraft
 # Debug::Renderer
 transitive-accessible field net/minecraft/client/renderer/LevelRenderer renderBuffers Lnet/minecraft/client/renderer/RenderBuffers;
 
+# Debug::RenderSlotIds
+transitive-accessible class net/minecraft/client/gui/screens/inventory/CreativeModeInventoryScreen$SlotWrapper
+transitive-accessible field net/minecraft/client/gui/screens/inventory/CreativeModeInventoryScreen$SlotWrapper target Lnet/minecraft/world/inventory/Slot;
+
 # RenderStateExt
 transitive-inject-interface net/minecraft/client/renderer/blockentity/state/BlockEntityRenderState dev/upcraft/sparkweave/api/client/ext/RenderStateExt
 transitive-inject-interface net/minecraft/client/renderer/entity/state/EntityRenderState dev/upcraft/sparkweave/api/client/ext/RenderStateExt

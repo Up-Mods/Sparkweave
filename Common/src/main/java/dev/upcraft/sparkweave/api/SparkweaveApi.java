@@ -23,6 +23,6 @@ public class SparkweaveApi {
 
 		public static final boolean LOG_MISSING_TRANSLATIONS = DEVELOPMENT_ENVIRONMENT || Env.getBool("debug.log.missing_translations", SparkweaveMod.MODID);
 
-		public static final boolean RENDER_SLOT_NUMBERS = DEBUG_MODE || Env.getBool("debug.render.slotnumber", SparkweaveMod.MODID);
+		public static final boolean RENDER_SLOT_IDS = DEBUG_MODE || Env.getBool("debug.render.slot_ids", SparkweaveMod.MODID);
 	}
 }
