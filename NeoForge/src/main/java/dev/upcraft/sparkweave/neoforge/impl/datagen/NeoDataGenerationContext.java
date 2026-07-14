@@ -4,6 +4,7 @@ import dev.upcraft.sparkweave.api.datagen.DataGenerationContext;
 import dev.upcraft.sparkweave.api.datagen.provider.SparkweaveDynamicRegistryEntryProvider;
 import dev.upcraft.sparkweave.api.datagen.Pack;
 import dev.upcraft.sparkweave.api.platform.ModContainer;
+import dev.upcraft.sparkweave.datagen.SparkweaveDatagenHelper;
 import net.minecraft.core.HolderLookup;
 import net.minecraft.data.DataGenerator;
 import net.neoforged.neoforge.data.event.GatherDataEvent;
@@ -15,11 +16,13 @@ public class NeoDataGenerationContext implements DataGenerationContext {
 
 	private final ModContainer modContainer;
 	private final GatherDataEvent event;
+	private final boolean includeClient;
 	private final NeoBuiltinPack builtinPack;
 
-	public NeoDataGenerationContext(ModContainer modContainer, DataGenerator rootGenerator, CompletableFuture<HolderLookup.Provider> registriesFuture, GatherDataEvent event, List<SparkweaveDynamicRegistryEntryProvider> dynamicProviders) {
+	public NeoDataGenerationContext(ModContainer modContainer, DataGenerator rootGenerator, CompletableFuture<HolderLookup.Provider> registriesFuture, GatherDataEvent event, boolean includeClient, List<SparkweaveDynamicRegistryEntryProvider> dynamicProviders) {
 		this.modContainer = modContainer;
 		this.event = event;
+		this.includeClient = includeClient;
 		this.builtinPack = new NeoBuiltinPack(this, rootGenerator, registriesFuture, dynamicProviders);
 	}
 
@@ -30,22 +33,17 @@ public class NeoDataGenerationContext implements DataGenerationContext {
 
 	@Override
 	public boolean includeClient() {
-		return event instanceof GatherDataEvent.Client;
+		return includeClient;
 	}
 
 	@Override
-	public boolean includeServer() {
-		return event instanceof GatherDataEvent.Server;
-	}
-
-	@Override
-	public boolean includeDev() {
-		return event.includeDev();
+	public boolean includeDevTools() {
+		return event.includeDev() || SparkweaveDatagenHelper.INCLUDE_DEV_TOOLS;
 	}
 
 	@Override
 	public boolean includeReports() {
-		return event.includeReports();
+		return event.includeReports() || SparkweaveDatagenHelper.INCLUDE_REPORTS;
 	}
 
 	@Override

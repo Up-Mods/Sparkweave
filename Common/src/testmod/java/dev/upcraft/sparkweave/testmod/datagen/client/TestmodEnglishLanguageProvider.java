@@ -20,5 +20,10 @@ public class TestmodEnglishLanguageProvider extends SparkweaveLanguageProvider {
 	public void generateTranslations(HolderLookup.Provider registries, TranslationBuilder builder) {
 		builder.creativeTab(TestCreativeTabs.ITEMS, "TestMod Items");
 		builder.item(TestItems.TEST_ITEM, "Test Item");
+
+		builder.item(TestItems.MAGE_HOOD, "Mage Hood");
+		builder.item(TestItems.MAGE_ROBES, "Mage Robes");
+		builder.item(TestItems.MAGE_LEGGINGS, "Mage Leggings");
+		builder.item(TestItems.MAGE_BOOTS, "Mage Boots");
 	}
 }

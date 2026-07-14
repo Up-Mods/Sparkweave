@@ -13,7 +13,7 @@ plugins {
 }
 applyMcGradleConventions("fabric")
 
-val modId: String = providers.gradleProperty("mod_id").get()
+val modID: String = providers.gradleProperty("mod_id").get()
 
 repositories {
     exclusiveContent {
@@ -55,17 +55,17 @@ dependencies {
 
 loom {
     mods {
-        create(modId) {
+        create(modID) {
             // Tell Loom about each source set used by your mod here. This ensures that your mod's classes are properly transformed by Loader.
             sourceSet("main")
         }
 
-        create("${modId}_testmod") {
+        create("${modID}_testmod") {
             sourceSet("testmod")
         }
     }
 
-    accessWidenerPath.set(file("src/main/resources/${modId}.classtweaker"))
+    accessWidenerPath.set(file("src/main/resources/${modID}.classtweaker"))
 
     runs {
         named("client") {
@@ -91,17 +91,21 @@ loom {
             runDirectory = file("run/server")
         }
 
-        create("datagen") {
-            client()
+        fabricApi.configureDataGeneration {
+            outputDirectory = file("src/testmod/generated")
+            addToResources = false
+
+            client = true
+            modId = modID
+            strictValidation = true // '--all' sets '--validate' to true as well
+        }
+
+        named("datagen") {
             displayName = "Fabric TestmodData"
 
             sourceSet = "testmod"
 
-            systemProperties.put("fabric-api.datagen", "true")
-            systemProperties.put("fabric-api.datagen.strict-validation", "true") // '--all' sets '--validate' to true as well
-            systemProperties.put("fabric-api.datagen.output-dir", file("src/testmod/generated").absolutePath)
-            systemProperties.put("sparkweave.datagen.mods", "${modId}, ${modId}_testmod")
-            runDirectory = file("build/datagen")
+            systemProperties.put("sparkweave.datagen.mods", "${modID}_testmod")
         }
 
         configureEach {

@@ -1,10 +1,11 @@
 package dev.upcraft.sparkweave.fabric.impl.datagen;
 
-import dev.upcraft.sparkweave.api.datagen.DataGenerationContext;
-import dev.upcraft.sparkweave.api.datagen.provider.SparkweaveDynamicRegistryEntryProvider;
-import dev.upcraft.sparkweave.api.datagen.Pack;
 import dev.upcraft.sparkweave.api.SparkweaveApi;
+import dev.upcraft.sparkweave.api.datagen.DataGenerationContext;
+import dev.upcraft.sparkweave.api.datagen.Pack;
+import dev.upcraft.sparkweave.api.datagen.provider.SparkweaveDynamicRegistryEntryProvider;
 import dev.upcraft.sparkweave.api.platform.ModContainer;
+import dev.upcraft.sparkweave.datagen.SparkweaveDatagenHelper;
 import net.fabricmc.fabric.api.datagen.v1.FabricDataGenerator;
 import net.minecraft.core.HolderLookup;
 
@@ -30,26 +31,17 @@ public class FabricDataGenerationContext implements DataGenerationContext {
 
 	@Override
 	public boolean includeClient() {
-		// FIXME better check here?
 		return SparkweaveApi.CLIENTSIDE_ENVIRONMENT;
 	}
 
 	@Override
-	public boolean includeServer() {
-		// FIXME better check here?
-		return true;
-	}
-
-	@Override
-	public boolean includeDev() {
-		// FIXME better check here?
-		return SparkweaveApi.DEVELOPMENT_ENVIRONMENT;
+	public boolean includeDevTools() {
+		return SparkweaveDatagenHelper.INCLUDE_DEV_TOOLS;
 	}
 
 	@Override
 	public boolean includeReports() {
-		// FIXME better check here?
-		return true;
+		return SparkweaveDatagenHelper.INCLUDE_REPORTS;
 	}
 
 	@Override

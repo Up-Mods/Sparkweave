@@ -9,7 +9,7 @@ plugins {
 }
 applyMcGradleConventions("neoforge")
 
-val modId = providers.gradleProperty("mod_id").get()
+val modID = providers.gradleProperty("mod_id").get()
 
 // need this before dependencies because it configures the plugin and creates additionalRuntimeClasspath configuration
 neoForge.version = libs.versions.neoforge.get()
@@ -40,11 +40,11 @@ neoForge {
 		// these are used to tell the game which sources are for which mod
 		// mostly optional in a single mod project
 		// but multi mod projects should define one per mod
-        register(modId) {
+        register(modID) {
 			sourceSet(sourceSets["main"])
 		}
 
-        register("${modId}_testmod") {
+        register("${modID}_testmod") {
 			sourceSet(sourceSets["testmod"])
 		}
 	}
@@ -52,8 +52,8 @@ neoForge {
 	unitTest {
 		enable()
 
-		testedMod = mods[modId]
-		loadedMods = listOf(mods[modId])
+		testedMod = mods[modID]
+		loadedMods = listOf(mods[modID])
 	}
 
     runs {
@@ -61,19 +61,19 @@ neoForge {
             client()
             devLogin = true
             gameDirectory = file("run/client")
-            systemProperty("neoforge.enabledGameTestNamespaces", modId)
+            systemProperty("neoforge.enabledGameTestNamespaces", modID)
 
             sourceSet = sourceSets["main"]
-            loadedMods = listOf(mods[modId])
+            loadedMods = listOf(mods[modID])
         }
 
         register("server") {
             server()
             gameDirectory = file("run/server")
-            systemProperty("neoforge.enabledGameTestNamespaces", modId)
+            systemProperty("neoforge.enabledGameTestNamespaces", modID)
 
             sourceSet = sourceSets["main"]
-            loadedMods = listOf(mods[modId])
+            loadedMods = listOf(mods[modID])
 
             programArgument("--nogui")
         }
@@ -82,26 +82,27 @@ neoForge {
             client()
             devLogin = true
             gameDirectory = file("run/testmod_client")
-            systemProperty("neoforge.enabledGameTestNamespaces", "${modId}_testmod")
+            systemProperty("neoforge.enabledGameTestNamespaces", "${modID}_testmod")
 
             sourceSet = sourceSets["testmod"]
-            loadedMods = listOf(mods[modId], mods["${modId}_testmod"])
+            loadedMods = listOf(mods[modID], mods["${modID}_testmod"])
         }
 
         register("testmodData") {
             clientData()
             gameDirectory = file("run/testmod_data")
 
+            systemProperty("sparkweave.datagen.mods", "${modID}_testmod")
+
             programArguments.addAll(
-                "--mod", modId,
-                "--mod", "${modId}_testmod",
+                "--mod", modID,
                 "--all",
                 "--flat",
                 "--output", file("src/testmod/generated").absolutePath,
                 "--existing", file("src/testmod/resources").absolutePath
             )
             sourceSet = sourceSets["testmod"]
-            loadedMods = listOf(mods[modId], mods["${modId}_testmod"])
+            loadedMods = listOf(mods[modID], mods["${modID}_testmod"])
         }
 
         configureEach {

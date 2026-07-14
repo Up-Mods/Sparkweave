@@ -8,9 +8,7 @@ public interface DataGenerationContext {
 
 	boolean includeClient();
 
-	boolean includeServer();
-
-	boolean includeDev();
+	boolean includeDevTools();
 
 	boolean includeReports();
 

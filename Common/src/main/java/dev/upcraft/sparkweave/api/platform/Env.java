@@ -1,9 +1,12 @@
 package dev.upcraft.sparkweave.api.platform;
 
+import com.google.common.base.Preconditions;
 import com.google.common.base.Strings;
 import dev.upcraft.sparkweave.api.annotation.CallerSensitive;
 import dev.upcraft.sparkweave.api.reflect.ContextHelper;
 import org.jetbrains.annotations.Nullable;
+
+import java.util.Objects;
 
 public class Env {
 
@@ -22,6 +25,12 @@ public class Env {
 		}
 
 		return System.getProperty(prefix + '.' + name);
+	}
+
+	public static String get(String name, String prefix, String defaultValue) {
+		Preconditions.checkNotNull(defaultValue, "no default value provided");
+
+		return Objects.requireNonNullElse(get(name, prefix), defaultValue);
 	}
 
 	@CallerSensitive
