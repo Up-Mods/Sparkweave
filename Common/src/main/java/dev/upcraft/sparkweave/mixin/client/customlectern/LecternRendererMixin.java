@@ -1,4 +1,4 @@
-package dev.upcraft.sparkweave.mixin.client.lectern;
+package dev.upcraft.sparkweave.mixin.client.customlectern;
 
 import com.llamalad7.mixinextras.injector.wrapoperation.Operation;
 import com.llamalad7.mixinextras.injector.wrapoperation.WrapOperation;

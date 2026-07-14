@@ -1,4 +1,4 @@
-package dev.upcraft.sparkweave.mixin.client.lectern;
+package dev.upcraft.sparkweave.mixin.client.customlectern;
 
 import dev.upcraft.sparkweave.client.event.LecternItemRendererRegistryImpl;
 import net.minecraft.client.renderer.blockentity.BlockEntityRenderer;

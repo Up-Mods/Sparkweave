@@ -17,8 +17,8 @@
     "client.armorrenderer.HumanoidArmorLayerMixin",
     "client.armorrenderer.HumanoidMobRendererMixin",
     "client.debug.AbstractContainerScreenMixin",
-    "client.lectern.BlockEntityRenderersMixin",
-    "client.lectern.LecternRendererMixin",
+    "client.customlectern.BlockEntityRenderersMixin",
+    "client.customlectern.LecternRendererMixin",
     "client.ext.BlockEntityRenderStateMixin"
   ],
   "injectors": {
