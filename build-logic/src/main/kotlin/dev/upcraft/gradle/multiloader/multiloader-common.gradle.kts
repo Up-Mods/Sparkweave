@@ -195,13 +195,11 @@ publishing {
     }
 
     providers.environmentVariable("MAVEN_UPLOAD_URL").orNull?.let { url ->
-        publishing {
-            repositories {
-                maven(uri(url)) {
-                    credentials {
-                        username = providers.environmentVariable("MAVEN_UPLOAD_USERNAME").orNull
-                        password = providers.environmentVariable("MAVEN_UPLOAD_PASSWORD").orNull
-                    }
+        repositories {
+            maven(uri(url)) {
+                credentials {
+                    username = providers.environmentVariable("MAVEN_UPLOAD_USERNAME").orNull
+                    password = providers.environmentVariable("MAVEN_UPLOAD_PASSWORD").orNull
                 }
             }
         }
