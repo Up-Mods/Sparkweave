@@ -104,7 +104,7 @@ jobs:
           path: NeoForge/build/libs
       - name: Publish (GitHub Releases)
         id: publish_github
-        uses: Kira-NT/mc-publish@995edadc13559a8b28d0b7e6571229f067ec7659
+        uses: Kira-NT/mc-publish@52307b03863581dec6b652b83e597aec02ebb075 # v3.3.1
         with:
           github-token: ${{ github.token }}
           version-type: beta
@@ -132,7 +132,7 @@ jobs:
       - name: Publish (Modrinth)
         id: publish_modrinth
         if: matrix.platform == 'Modrinth'
-        uses: Kira-NT/mc-publish@995edadc13559a8b28d0b7e6571229f067ec7659
+        uses: Kira-NT/mc-publish@52307b03863581dec6b652b83e597aec02ebb075 # v3.3.1
         with:
           modrinth-token: ${{ secrets.MODRINTH_TOKEN }}
           version: ${{ env.TAG }}+${{ matrix.loader }}
@@ -143,7 +143,7 @@ jobs:
       - name: Publish (Curseforge)
         id: publish_curseforge
         if: matrix.platform == 'Curseforge'
-        uses: Kira-NT/mc-publish@995edadc13559a8b28d0b7e6571229f067ec7659
+        uses: Kira-NT/mc-publish@52307b03863581dec6b652b83e597aec02ebb075 # v3.3.1
         with:
           curseforge-token: ${{ secrets.CURSEFORGE_TOKEN }}
           version: ${{ env.TAG }}+${{ matrix.loader }}
