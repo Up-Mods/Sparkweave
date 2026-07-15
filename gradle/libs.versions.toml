@@ -41,7 +41,7 @@ junit = "6.1.0"
 # https://maven.blamejared.com/mezz/jei/jei-26.1.2-common/
 jei = "29.6.2.38"
 # https://modrinth.com/mod/modmenu/versions
-modmenu = "18.0.0-beta.1"
+modmenu = "18.0.0"
 # https://beehive.sh/mod/resourcefulconfig/versions
 resourcefulconfig = "4.0.1"
 
