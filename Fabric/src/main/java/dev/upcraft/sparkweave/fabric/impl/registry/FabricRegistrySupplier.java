@@ -62,7 +62,7 @@ public class FabricRegistrySupplier<R, T extends R> implements RegistrySupplier<
 	@SuppressWarnings("unchecked")
 	@Override
 	public boolean matches(TagKey<? super T> tag) {
-		return holder().is((TagKey<R>) tag);
+		return this.<R>holder().is((TagKey<R>) tag);
 	}
 
 	@Override
@@ -86,7 +86,7 @@ public class FabricRegistrySupplier<R, T extends R> implements RegistrySupplier<
 
 	@SuppressWarnings("unchecked")
 	@Override
-	public Holder<R> holder() {
+	public <R2> Holder<R2> holder() {
 		if (holder == null) {
 			holder = registry.get(getRegistryKey()).orElseGet(() -> {
 				if(registry instanceof FabricRegistryHack<?>) {
@@ -96,7 +96,7 @@ public class FabricRegistrySupplier<R, T extends R> implements RegistrySupplier<
 				throw new IllegalStateException("Unable to create holder for entry %s because registry is not a mapped registry!".formatted(getRegistryKey()));
 			});
 		}
-		return holder;
+		return (Holder<R2>) holder;
 	}
 
 	@Override
