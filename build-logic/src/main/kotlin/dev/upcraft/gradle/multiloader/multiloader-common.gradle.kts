@@ -232,3 +232,11 @@ buildList {
         }
     }
 }
+
+publishing {
+    publications.withType<MavenPublication>().configureEach {
+        listOf("testmodApiElements", "testmodRuntimeElements").forEach {
+            suppressPomMetadataWarningsFor(it)
+        }
+    }
+}
