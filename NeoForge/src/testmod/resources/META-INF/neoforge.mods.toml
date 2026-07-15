@@ -17,7 +17,7 @@ description = '''Testmod for ${mod_display_name}''' #mandatory (Supports multili
 # https://docs.neoforged.net/docs/gettingstarted/modfiles#dependency-configurations
 [dependencies]
 "${mod_id}_testmod" = [
-	{ modId = "neoforge", type = "required", versionRange = "*", ordering = "NONE", side = "BOTH", mc-publish = { ignore = true } },
+	{ modId = "neoforge", type = "required", versionRange = "*", ordering = "NONE", side = "BOTH" },
 	{ modId = "minecraft", type = "required", versionRange = "[${minecraft_version}]", ordering = "NONE", side = "BOTH" },
 	{ modId = "${mod_id}", type = "required", versionRange = "[${version}]", ordering = "NONE", side = "BOTH" },
 #	{ modId = "resourcefulconfig", type = "required", versionRange = "*", ordering = "NONE", side = "BOTH", mc-publish = { curseforge = "714059", modrinth = "M1953qlQ" } },
@@ -26,5 +26,6 @@ description = '''Testmod for ${mod_display_name}''' #mandatory (Supports multili
 # Features are specific properties of the game environment, that you may want to declare you require. This example declares
 # that your mod requires GL version 3.2 or higher. Other features will be added. They are side aware so declaring this won't
 # stop your mod loading on the server for example.
-#[features.${mod_id}_testmod]
+[features.${mod_id}_testmod]
 #openGLVersion="[3.2,)"
+javaVersion="[${java_version},)"
