@@ -22,6 +22,7 @@ public final class RegisterCustomArmorRenderersEvent {
 		ArmorRendererRegistry.register(factory, items);
 	}
 
+	@SuppressWarnings("varargs")
 	@SafeVarargs
 	public final <ENTITY extends LivingEntity, BASESTATE extends HumanoidRenderState, BASEMODEL extends EntityModel<BASESTATE>, CUSTOMSTATE extends EntityRenderState, ARMORMODEL extends EntityModel<CUSTOMSTATE>> void register(CustomArmorRenderer.Factory<ENTITY, BASESTATE, BASEMODEL> factory, Supplier<? extends ItemLike>... items) {
 		ArmorRendererRegistry.register(factory, items);

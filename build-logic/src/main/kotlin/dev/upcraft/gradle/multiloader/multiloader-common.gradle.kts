@@ -130,7 +130,29 @@ java {
 
 tasks.withType<JavaCompile>().configureEach {
     options.release.set(javaVersion)
-    options.compilerArgs.add("-Xlint:unchecked")
+
+    // docs.oracle.com/en/java/javase/25/docs/specs/man/javac.html#options
+    val xlint = listOf(
+        "cast", // unnecessary casts
+        "dangling-doc-comments", // dangling javadoc
+        "text-blocks", // inconsistent whitespace in textblocks
+        "dep-ann", // deprecated in javadoc but no @Deprecated annotation
+        "empty", // empty if statements
+        "overrides",
+        "deprecation",
+        "removal",
+        "rawtypes",
+        "unchecked",
+        "static", // static method access using object instance
+        "varargs",
+    )
+    options.compilerArgs.addAll(listOf(
+        "-Xmaxerrs", "500",
+        "-Xmaxwarns", "500",
+        "-Werror", // warnings as errors
+        "-Xlint:${xlint.joinToString(",")}",
+        "-Xpkginfo:nonempty", // only emit package-info.class if it contains class or runtime scope annotations
+    ))
 }
 
 val tmpManifest = tasks.register<BuildTimeManifestTask>("createManifestTimestamp") {
