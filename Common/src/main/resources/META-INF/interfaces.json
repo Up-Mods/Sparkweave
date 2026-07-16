@@ -5,6 +5,9 @@
   "net/minecraft/core/RegistrySetBuilder": [
     "dev/upcraft/sparkweave/api/ext/datagen/RegistrySetBuilderExt"
   ],
+  "net/minecraft/data/tags/TagAppender": [
+    "dev/upcraft/sparkweave/api/ext/datagen/TagAppenderExt<E,T>"
+  ],
   "net/minecraft/client/Minecraft": [
     "dev/upcraft/sparkweave/api/client/ext/MinecraftExt"
   ],

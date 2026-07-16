@@ -7,18 +7,21 @@
   "mixins": [
     "customlectern.BlockEntityMixin",
     "customlectern.LecternBlockEntityMixin",
-    "customlectern.LecternBlockMixin"
+    "customlectern.LecternBlockMixin",
+    "datagen.IntrinsicHolderTagsProviderAcessor",
+    "datagen.TagAppenderMixin",
+    "datagen.TagsProviderAccessor"
   ],
   "client": [
-    "client.ext.MinecraftMixin",
-    "client.ext.RenderLayerMixin",
     "client.armorrenderer.EntityRenderDispatcherMixin",
     "client.armorrenderer.HumanoidArmorLayerMixin",
     "client.armorrenderer.HumanoidMobRendererMixin",
-    "client.debug.AbstractContainerScreenMixin",
     "client.customlectern.BlockEntityRenderersMixin",
     "client.customlectern.LecternRendererMixin",
-    "client.ext.BlockEntityRenderStateMixin"
+    "client.debug.AbstractContainerScreenMixin",
+    "client.ext.BlockEntityRenderStateMixin",
+    "client.ext.MinecraftMixin",
+    "client.ext.RenderLayerMixin"
   ],
   "injectors": {
     "defaultRequire": 1

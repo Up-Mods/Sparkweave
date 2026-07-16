@@ -5,10 +5,7 @@ import dev.upcraft.sparkweave.api.datagen.DataGenerationContext;
 import dev.upcraft.sparkweave.api.datagen.DynamicRegistryBuilder;
 import dev.upcraft.sparkweave.api.entrypoint.DataGenerationEntryPoint;
 import dev.upcraft.sparkweave.testmod.datagen.client.TestmodEnglishLanguageProvider;
-import dev.upcraft.sparkweave.testmod.datagen.common.TestmodBiomeProvider;
-import dev.upcraft.sparkweave.testmod.datagen.common.TestmodConfiguredFeatureProvider;
-import dev.upcraft.sparkweave.testmod.datagen.common.TestmodEnchantmentProvider;
-import dev.upcraft.sparkweave.testmod.datagen.common.TestmodPlacedFeatureProvider;
+import dev.upcraft.sparkweave.testmod.datagen.common.*;
 
 @AutoService(DataGenerationEntryPoint.class)
 public class TestmodDataGenerator implements DataGenerationEntryPoint {
@@ -24,6 +21,8 @@ public class TestmodDataGenerator implements DataGenerationEntryPoint {
 	@Override
 	public void generate(DataGenerationContext ctx) {
 		var pack = ctx.getDefaultPack();
+		pack.addProvider(TestmodItemTagsProvider::new);
+
 		pack.addProvider(DataGenerationContext::includeClient, TestmodEnglishLanguageProvider::new);
 	}
 }

@@ -13,6 +13,10 @@ public interface Pack {
 
 	<T extends DataProvider> T addProvider(Predicate<DataGenerationContext> enabled, Pack.RegistryDependentFactory<T> factory);
 
+	<T extends DataProvider> T addProvider(Function<ContextAwarePackOutput, T> factory);
+
+	<T extends DataProvider> T addProvider(Pack.RegistryDependentFactory<T> factory);
+
 	@FunctionalInterface
 	interface RegistryDependentFactory<T extends DataProvider> {
 		T create(ContextAwarePackOutput output, CompletableFuture<HolderLookup.Provider> registriesFuture);

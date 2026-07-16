@@ -54,4 +54,14 @@ public class NeoBuiltinPack implements Pack {
 
 		return provider;
 	}
+
+	@Override
+	public <T extends DataProvider> T addProvider(Function<ContextAwarePackOutput, T> factory) {
+		return addProvider(_ -> true, factory);
+	}
+
+	@Override
+	public <T extends DataProvider> T addProvider(RegistryDependentFactory<T> factory) {
+		return addProvider(_ -> true, factory);
+	}
 }

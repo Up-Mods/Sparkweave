@@ -40,6 +40,8 @@ transitive-inject-interface net/minecraft/world/item/crafting/RecipeManager dev/
 # Datageneration::Registry
 transitive-accessible class net/minecraft/core/RegistrySetBuilder$RegistryStub
 transitive-inject-interface net/minecraft/core/RegistrySetBuilder dev/upcraft/sparkweave/api/ext/datagen/RegistrySetBuilderExt
+# Datageneration::Tags
+transitive-inject-interface net/minecraft/data/tags/TagAppender dev/upcraft/sparkweave/api/ext/datagen/TagAppenderExt<TE;TT;>
 # Datageneration::Biomes
 transitive-accessible method net/minecraft/data/worldgen/biome/OverworldBiomes baseBiome (FF)Lnet/minecraft/world/level/biome/Biome$BiomeBuilder;
 transitive-accessible method net/minecraft/data/worldgen/biome/OverworldBiomes baseJungle (Lnet/minecraft/core/HolderGetter;Lnet/minecraft/core/HolderGetter;FZZZ)Lnet/minecraft/world/level/biome/Biome$BiomeBuilder;
