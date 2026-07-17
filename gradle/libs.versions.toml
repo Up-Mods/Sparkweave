@@ -18,7 +18,7 @@ fancymodloader = "11.0.13"
 # https://fabricmc.net/develop
 fabric_loom = "1.17.13" # https://maven.fabricmc.net/net/fabricmc/fabric-loom/net.fabricmc.fabric-loom.gradle.plugin/
 fabric_loader = "0.19.3"
-fabric_api = "0.154.0+26.1.2"
+fabric_api = "0.155.2+26.1.2"
 
 # https://maven.covers1624.net/service/rest/repository/browse/maven-hosted/net/covers1624/DevLogin/
 devlogin = "0.1.0.5"
