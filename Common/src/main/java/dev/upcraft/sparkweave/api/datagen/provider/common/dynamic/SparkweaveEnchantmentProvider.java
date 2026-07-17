@@ -1,4 +1,4 @@
-package dev.upcraft.sparkweave.api.datagen.provider;
+package dev.upcraft.sparkweave.api.datagen.provider.common.dynamic;
 
 import com.mojang.serialization.Lifecycle;
 import net.minecraft.core.HolderGetter;

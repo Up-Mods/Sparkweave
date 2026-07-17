@@ -1,8 +1,7 @@
 package dev.upcraft.sparkweave.api.datagen;
 
-import dev.upcraft.sparkweave.api.datagen.provider.SparkweaveRecipeProvider;
-import dev.upcraft.sparkweave.api.platform.ModContainer;
-import dev.upcraft.sparkweave.datagen.RecipeBuilderRunner;
+import dev.upcraft.sparkweave.api.datagen.provider.common.SparkweaveRecipeProvider;
+import dev.upcraft.sparkweave.datagen.SparkweaveRecipeProviderRunner;
 import net.minecraft.core.HolderLookup;
 import net.minecraft.data.DataProvider;
 import net.minecraft.data.recipes.RecipeOutput;
@@ -13,8 +12,6 @@ import java.util.function.Function;
 import java.util.function.Predicate;
 
 public interface Pack {
-
-	ModContainer getOwner();
 
 	<T extends DataProvider> T addProvider(Predicate<DataGenerationContext> enabled, Function<ContextAwarePackOutput, T> factory);
 
@@ -33,7 +30,7 @@ public interface Pack {
 	}
 
 	default DataProvider addRecipes(Predicate<DataGenerationContext> enabled, BiFunction<HolderLookup.Provider, RecipeOutput, SparkweaveRecipeProvider> factory) {
-		return addProvider(enabled, (output, registriesFuture) -> new RecipeBuilderRunner(output, registriesFuture, getOwner(), factory));
+		return addProvider(enabled, (output, registriesFuture) -> new SparkweaveRecipeProviderRunner(output, registriesFuture, factory));
 	}
 
 	@FunctionalInterface

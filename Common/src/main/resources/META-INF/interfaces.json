@@ -11,6 +11,9 @@
   "net/minecraft/data/recipes/RecipeBuilder": [
     "dev/upcraft/sparkweave/api/ext/datagen/RecipeBuilderExt"
   ],
+  "net/minecraft/client/data/models/ItemModelGenerators": [
+    "dev/upcraft/sparkweave/api/client/ext/datagen/ItemModelGeneratorsExt"
+  ],
   "net/minecraft/client/Minecraft": [
     "dev/upcraft/sparkweave/api/client/ext/MinecraftExt"
   ],

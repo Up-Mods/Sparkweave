@@ -1,7 +1,7 @@
 package dev.upcraft.sparkweave.datagen;
 
 import dev.upcraft.sparkweave.api.datagen.DynamicRegistryBuilder;
-import dev.upcraft.sparkweave.api.datagen.provider.SparkweaveDynamicRegistryEntryProvider;
+import dev.upcraft.sparkweave.api.datagen.provider.common.dynamic.SparkweaveDynamicRegistryEntryProvider;
 import dev.upcraft.sparkweave.api.logging.SparkweaveLoggerFactory;
 import dev.upcraft.sparkweave.api.platform.ModContainer;
 import net.minecraft.core.RegistrySetBuilder;

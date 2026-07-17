@@ -2,7 +2,7 @@ package dev.upcraft.sparkweave.testmod.datagen.client;
 
 import dev.upcraft.sparkweave.api.datagen.ContextAwarePackOutput;
 import dev.upcraft.sparkweave.api.datagen.TranslationBuilder;
-import dev.upcraft.sparkweave.api.datagen.provider.SparkweaveLanguageProvider;
+import dev.upcraft.sparkweave.api.datagen.provider.client.SparkweaveLanguageProvider;
 import dev.upcraft.sparkweave.testmod.init.TestCreativeTabs;
 import dev.upcraft.sparkweave.testmod.init.TestItems;
 import net.minecraft.core.HolderLookup;

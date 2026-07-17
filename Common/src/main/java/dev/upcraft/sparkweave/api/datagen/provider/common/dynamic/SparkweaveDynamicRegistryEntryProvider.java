@@ -1,4 +1,4 @@
-package dev.upcraft.sparkweave.api.datagen.provider;
+package dev.upcraft.sparkweave.api.datagen.provider.common.dynamic;
 
 import dev.upcraft.sparkweave.api.logging.SparkweaveLoggerFactory;
 import net.minecraft.core.HolderGetter;

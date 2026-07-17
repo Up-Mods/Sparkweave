@@ -1,7 +1,7 @@
 package dev.upcraft.sparkweave.fabric.entrypoint;
 
 import dev.upcraft.sparkweave.api.datagen.DataGenerationContext;
-import dev.upcraft.sparkweave.api.datagen.provider.SparkweaveDynamicRegistryEntryProvider;
+import dev.upcraft.sparkweave.api.datagen.provider.common.dynamic.SparkweaveDynamicRegistryEntryProvider;
 import dev.upcraft.sparkweave.api.entrypoint.DataGenerationEntryPoint;
 import dev.upcraft.sparkweave.api.logging.SparkweaveLoggerFactory;
 import dev.upcraft.sparkweave.api.platform.ModContainer;

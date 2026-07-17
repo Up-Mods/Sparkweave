@@ -1,6 +1,6 @@
 package dev.upcraft.sparkweave.testmod.datagen.common;
 
-import dev.upcraft.sparkweave.api.datagen.provider.SparkweaveBiomeProvider;
+import dev.upcraft.sparkweave.api.datagen.provider.common.dynamic.SparkweaveBiomeProvider;
 import dev.upcraft.sparkweave.testmod.data.TestmodBiomes;
 import net.minecraft.core.HolderGetter;
 import net.minecraft.data.worldgen.BiomeDefaultFeatures;

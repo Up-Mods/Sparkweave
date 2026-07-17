@@ -3,7 +3,7 @@ package dev.upcraft.sparkweave.fabric.impl.datagen;
 import dev.upcraft.sparkweave.api.SparkweaveApi;
 import dev.upcraft.sparkweave.api.datagen.DataGenerationContext;
 import dev.upcraft.sparkweave.api.datagen.Pack;
-import dev.upcraft.sparkweave.api.datagen.provider.SparkweaveDynamicRegistryEntryProvider;
+import dev.upcraft.sparkweave.api.datagen.provider.common.dynamic.SparkweaveDynamicRegistryEntryProvider;
 import dev.upcraft.sparkweave.api.platform.ModContainer;
 import dev.upcraft.sparkweave.datagen.SparkweaveDatagenHelper;
 import net.fabricmc.fabric.api.datagen.v1.FabricDataGenerator;

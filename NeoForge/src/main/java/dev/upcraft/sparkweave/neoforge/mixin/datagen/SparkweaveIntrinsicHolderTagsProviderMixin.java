@@ -1,6 +1,6 @@
 package dev.upcraft.sparkweave.neoforge.mixin.datagen;
 
-import dev.upcraft.sparkweave.api.datagen.provider.SparkweaveIntrinsicHolderTagsProvider;
+import dev.upcraft.sparkweave.api.datagen.provider.common.SparkweaveIntrinsicHolderTagsProvider;
 import net.minecraft.core.HolderLookup;
 import net.minecraft.core.Registry;
 import net.minecraft.data.PackOutput;

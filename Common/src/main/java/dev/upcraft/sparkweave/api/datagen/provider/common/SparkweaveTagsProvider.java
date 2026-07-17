@@ -1,4 +1,4 @@
-package dev.upcraft.sparkweave.api.datagen.provider;
+package dev.upcraft.sparkweave.api.datagen.provider.common;
 
 import net.minecraft.core.HolderLookup;
 import net.minecraft.core.Registry;
@@ -37,4 +37,6 @@ public abstract class SparkweaveTagsProvider<T> extends TagsProvider<T> {
 		// TODO add tag translation to language file
 		return super.getOrCreateRawBuilder(tag);
 	}
+
+	// TODO getName()
 }

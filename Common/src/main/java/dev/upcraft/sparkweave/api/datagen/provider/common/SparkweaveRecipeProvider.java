@@ -1,4 +1,4 @@
-package dev.upcraft.sparkweave.api.datagen.provider;
+package dev.upcraft.sparkweave.api.datagen.provider.common;
 
 import net.minecraft.core.HolderLookup;
 import net.minecraft.data.recipes.RecipeOutput;

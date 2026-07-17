@@ -1,4 +1,4 @@
-package dev.upcraft.sparkweave.api.datagen.provider;
+package dev.upcraft.sparkweave.api.datagen.provider.client;
 
 import com.google.common.base.Preconditions;
 import com.mojang.serialization.Codec;
@@ -53,7 +53,7 @@ public abstract class SparkweaveLanguageProvider implements DataProvider {
 
 	@Override
 	public String getName() {
-		return "Language Provider/%s/%s".formatted(output.getModContainer().metadata().displayName(), languageCode);
+		return "%s::Language/%s".formatted(output.getModContainer().metadata().displayName(), languageCode);
 	}
 
 	public String getLanguageCode() {

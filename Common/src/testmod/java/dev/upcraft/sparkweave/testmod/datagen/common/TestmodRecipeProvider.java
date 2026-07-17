@@ -1,6 +1,6 @@
 package dev.upcraft.sparkweave.testmod.datagen.common;
 
-import dev.upcraft.sparkweave.api.datagen.provider.SparkweaveRecipeProvider;
+import dev.upcraft.sparkweave.api.datagen.provider.common.SparkweaveRecipeProvider;
 import dev.upcraft.sparkweave.testmod.SparkweaveTestmod;
 import net.minecraft.core.HolderLookup;
 import net.minecraft.data.recipes.RecipeCategory;

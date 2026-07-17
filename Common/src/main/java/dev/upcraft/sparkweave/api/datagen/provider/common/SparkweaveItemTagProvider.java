@@ -1,4 +1,4 @@
-package dev.upcraft.sparkweave.api.datagen.provider;
+package dev.upcraft.sparkweave.api.datagen.provider.common;
 
 import dev.upcraft.sparkweave.mixin.datagen.IntrinsicHolderTagsProviderAcessor;
 import dev.upcraft.sparkweave.mixin.datagen.TagsProviderAccessor;

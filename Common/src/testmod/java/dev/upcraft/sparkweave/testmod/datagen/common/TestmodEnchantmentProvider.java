@@ -1,6 +1,6 @@
 package dev.upcraft.sparkweave.testmod.datagen.common;
 
-import dev.upcraft.sparkweave.api.datagen.provider.SparkweaveEnchantmentProvider;
+import dev.upcraft.sparkweave.api.datagen.provider.common.dynamic.SparkweaveEnchantmentProvider;
 import dev.upcraft.sparkweave.testmod.data.TestmodEnchantments;
 import net.minecraft.core.HolderGetter;
 import net.minecraft.tags.ItemTags;

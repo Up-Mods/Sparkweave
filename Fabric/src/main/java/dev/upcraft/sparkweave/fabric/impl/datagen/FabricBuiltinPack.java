@@ -3,9 +3,8 @@ package dev.upcraft.sparkweave.fabric.impl.datagen;
 import dev.upcraft.sparkweave.api.datagen.ContextAwarePackOutput;
 import dev.upcraft.sparkweave.api.datagen.DataGenerationContext;
 import dev.upcraft.sparkweave.api.datagen.Pack;
-import dev.upcraft.sparkweave.api.datagen.provider.SparkweaveDynamicRegistryEntryProvider;
-import dev.upcraft.sparkweave.api.datagen.provider.SparkweaveLanguageProvider;
-import dev.upcraft.sparkweave.api.platform.ModContainer;
+import dev.upcraft.sparkweave.api.datagen.provider.client.SparkweaveLanguageProvider;
+import dev.upcraft.sparkweave.api.datagen.provider.common.dynamic.SparkweaveDynamicRegistryEntryProvider;
 import dev.upcraft.sparkweave.fabric.mixin.datagen.PackGeneratorAccessor;
 import net.fabricmc.fabric.api.datagen.v1.FabricDataGenerator;
 import net.fabricmc.fabric.api.datagen.v1.FabricPackOutput;
@@ -35,16 +34,11 @@ public class FabricBuiltinPack implements Pack {
 	}
 
 	@Override
-	public ModContainer getOwner() {
-		return context.getMod();
-	}
-
-	@Override
 	public <T extends DataProvider> T addProvider(Predicate<DataGenerationContext> enabled, Function<ContextAwarePackOutput, T> factory) {
 		T provider = factory.apply(output);
 
 		if (enabled.test(context)) {
-			pack.addProvider((FabricPackOutput fabricOutput) -> provider);
+			pack.addProvider((FabricPackOutput _) -> provider);
 		}
 
 		if(!hasTranslations && provider instanceof SparkweaveLanguageProvider languageProvider && languageProvider.isDefaultLanguage()) {
@@ -60,7 +54,7 @@ public class FabricBuiltinPack implements Pack {
 		T provider = factory.create(output, registriesFuture);
 
 		if (enabled.test(context)) {
-			pack.addProvider((fabricOutput, registriesFuture1) -> provider);
+			pack.addProvider((_, _) -> provider);
 		}
 
 		if(!hasTranslations && provider instanceof SparkweaveLanguageProvider languageProvider && languageProvider.isDefaultLanguage()) {

@@ -3,9 +3,8 @@ package dev.upcraft.sparkweave.neoforge.impl.datagen;
 import dev.upcraft.sparkweave.api.datagen.ContextAwarePackOutput;
 import dev.upcraft.sparkweave.api.datagen.DataGenerationContext;
 import dev.upcraft.sparkweave.api.datagen.Pack;
-import dev.upcraft.sparkweave.api.datagen.provider.SparkweaveDynamicRegistryEntryProvider;
-import dev.upcraft.sparkweave.api.datagen.provider.SparkweaveLanguageProvider;
-import dev.upcraft.sparkweave.api.platform.ModContainer;
+import dev.upcraft.sparkweave.api.datagen.provider.client.SparkweaveLanguageProvider;
+import dev.upcraft.sparkweave.api.datagen.provider.common.dynamic.SparkweaveDynamicRegistryEntryProvider;
 import net.minecraft.core.HolderLookup;
 import net.minecraft.data.DataGenerator;
 import net.minecraft.data.DataProvider;
@@ -30,11 +29,6 @@ public class NeoBuiltinPack implements Pack {
 		this.registriesFuture = registriesFuture;
 		this.dynamicProviders = dynamicProviders;
 		this.output = new ContextAwarePackOutput(rootGenerator.getPackOutput().getOutputFolder(), context.getMod());
-	}
-
-	@Override
-	public ModContainer getOwner() {
-		return context.getMod();
 	}
 
 	@Override

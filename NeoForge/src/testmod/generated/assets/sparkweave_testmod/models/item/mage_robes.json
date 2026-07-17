@@ -1,0 +1,6 @@
+{
+  "parent": "minecraft:item/generated",
+  "textures": {
+    "layer0": "sparkweave_testmod:item/mage_robes"
+  }
+}

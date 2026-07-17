@@ -1,6 +1,6 @@
 package dev.upcraft.sparkweave.neoforge.impl.datagen;
 
-import dev.upcraft.sparkweave.api.datagen.provider.SparkweaveDynamicRegistryEntryProvider;
+import dev.upcraft.sparkweave.api.datagen.provider.common.dynamic.SparkweaveDynamicRegistryEntryProvider;
 import dev.upcraft.sparkweave.api.platform.ModContainer;
 import net.minecraft.core.HolderLookup;
 import net.minecraft.core.RegistrySetBuilder;

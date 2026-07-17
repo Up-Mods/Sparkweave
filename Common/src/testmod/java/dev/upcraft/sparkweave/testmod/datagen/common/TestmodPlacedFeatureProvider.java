@@ -1,6 +1,6 @@
 package dev.upcraft.sparkweave.testmod.datagen.common;
 
-import dev.upcraft.sparkweave.api.datagen.provider.SparkweavePlacedFeatureProvider;
+import dev.upcraft.sparkweave.api.datagen.provider.common.dynamic.SparkweavePlacedFeatureProvider;
 import dev.upcraft.sparkweave.api.worldgen.feature.GridPlacementFilter;
 import dev.upcraft.sparkweave.testmod.data.TestmodConfiguredFeatures;
 import dev.upcraft.sparkweave.testmod.data.TestmodPlacedFeatures;

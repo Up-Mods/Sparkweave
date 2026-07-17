@@ -1,7 +1,7 @@
 package dev.upcraft.sparkweave.testmod.datagen.common;
 
 import dev.upcraft.sparkweave.SparkweaveMod;
-import dev.upcraft.sparkweave.api.datagen.provider.SparkweaveItemTagProvider;
+import dev.upcraft.sparkweave.api.datagen.provider.common.SparkweaveItemTagProvider;
 import dev.upcraft.sparkweave.testmod.data.TestmodTags;
 import dev.upcraft.sparkweave.testmod.init.TestItems;
 import net.minecraft.core.HolderLookup;

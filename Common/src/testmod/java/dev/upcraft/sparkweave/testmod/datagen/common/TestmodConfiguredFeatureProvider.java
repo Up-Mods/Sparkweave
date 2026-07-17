@@ -1,6 +1,6 @@
 package dev.upcraft.sparkweave.testmod.datagen.common;
 
-import dev.upcraft.sparkweave.api.datagen.provider.SparkweaveConfiguredFeatureProvider;
+import dev.upcraft.sparkweave.api.datagen.provider.common.dynamic.SparkweaveConfiguredFeatureProvider;
 import dev.upcraft.sparkweave.testmod.data.TestmodConfiguredFeatures;
 import net.minecraft.data.worldgen.BootstrapContext;
 import net.minecraft.data.worldgen.features.FeatureUtils;
