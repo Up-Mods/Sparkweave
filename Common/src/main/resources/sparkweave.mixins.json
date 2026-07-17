@@ -9,6 +9,7 @@
     "customlectern.LecternBlockEntityMixin",
     "customlectern.LecternBlockMixin",
     "datagen.IntrinsicHolderTagsProviderAcessor",
+    "datagen.RecipeBuilderMixin",
     "datagen.TagAppenderMixin",
     "datagen.TagsProviderAccessor"
   ],

@@ -8,6 +8,9 @@
   "net/minecraft/data/tags/TagAppender": [
     "dev/upcraft/sparkweave/api/ext/datagen/TagAppenderExt<E,T>"
   ],
+  "net/minecraft/data/recipes/RecipeBuilder": [
+    "dev/upcraft/sparkweave/api/ext/datagen/RecipeBuilderExt"
+  ],
   "net/minecraft/client/Minecraft": [
     "dev/upcraft/sparkweave/api/client/ext/MinecraftExt"
   ],

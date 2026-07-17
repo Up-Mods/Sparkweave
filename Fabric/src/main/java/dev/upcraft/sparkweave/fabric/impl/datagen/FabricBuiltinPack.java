@@ -5,6 +5,7 @@ import dev.upcraft.sparkweave.api.datagen.DataGenerationContext;
 import dev.upcraft.sparkweave.api.datagen.Pack;
 import dev.upcraft.sparkweave.api.datagen.provider.SparkweaveDynamicRegistryEntryProvider;
 import dev.upcraft.sparkweave.api.datagen.provider.SparkweaveLanguageProvider;
+import dev.upcraft.sparkweave.api.platform.ModContainer;
 import dev.upcraft.sparkweave.fabric.mixin.datagen.PackGeneratorAccessor;
 import net.fabricmc.fabric.api.datagen.v1.FabricDataGenerator;
 import net.fabricmc.fabric.api.datagen.v1.FabricPackOutput;
@@ -31,6 +32,11 @@ public class FabricBuiltinPack implements Pack {
 		this.registriesFuture = registriesFuture;
 		this.dynamicProviders = dynamicProviders;
 		this.output = new ContextAwarePackOutput(((PackGeneratorAccessor) (Object) pack).sparkweave$getPackOutput().getOutputFolder(), context.getMod());
+	}
+
+	@Override
+	public ModContainer getOwner() {
+		return context.getMod();
 	}
 
 	@Override
@@ -63,15 +69,5 @@ public class FabricBuiltinPack implements Pack {
 		}
 
 		return provider;
-	}
-
-	@Override
-	public <T extends DataProvider> T addProvider(Function<ContextAwarePackOutput, T> factory) {
-		return addProvider(_ -> true, factory);
-	}
-
-	@Override
-	public <T extends DataProvider> T addProvider(RegistryDependentFactory<T> factory) {
-		return addProvider(_ -> true, factory);
 	}
 }
