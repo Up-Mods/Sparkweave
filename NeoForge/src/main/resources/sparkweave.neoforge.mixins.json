@@ -10,6 +10,8 @@
     "client.command.ClientCommandSourceStackMixin",
     "datagen.SparkweaveIntrinsicHolderTagsProviderMixin",
     "datagen.SparkweaveTagsProviderMixin",
+    "datagen.TagAppender1Mixin",
+    "datagen.TagAppender2Mixin",
     "datagen.TagsProviderAccessor"
   ],
   "client": [

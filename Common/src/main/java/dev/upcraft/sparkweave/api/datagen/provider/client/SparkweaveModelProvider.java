@@ -32,6 +32,7 @@ public abstract class SparkweaveModelProvider implements DataProvider {
 		this.modContainer = output.getModContainer();
 	}
 
+	// TODO wrap with sparkweave types to avoid suppliers
 	protected abstract void registerModels(BlockModelGenerators blockModels, ItemModelGenerators itemModels);
 
 	@Override

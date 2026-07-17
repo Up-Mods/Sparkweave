@@ -10,7 +10,8 @@
     "MappedRegistryMixin",
     "ServerLevelMixin",
     "datagen.PackGeneratorAccessor",
-    "datagen.RegistrySetBuilderMixin"
+    "datagen.RegistrySetBuilderMixin",
+    "datagen.TagAppenderMixin"
   ],
   "client": [
     "client.ClientLevelMixin",
