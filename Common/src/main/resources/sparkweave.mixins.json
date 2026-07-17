@@ -22,7 +22,8 @@
     "client.debug.AbstractContainerScreenMixin",
     "client.ext.BlockEntityRenderStateMixin",
     "client.ext.MinecraftMixin",
-    "client.ext.RenderLayerMixin"
+    "client.ext.RenderLayerMixin",
+    "datagen.ItemModelGeneratorsMixin"
   ],
   "injectors": {
     "defaultRequire": 1
