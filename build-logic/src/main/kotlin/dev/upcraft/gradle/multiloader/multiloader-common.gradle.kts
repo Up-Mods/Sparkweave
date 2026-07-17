@@ -203,6 +203,10 @@ tasks.withType<ProcessResources>().configureEach {
     filteringCharset = "UTF-8"
 }
 
+tasks.withType<Jar>().configureEach {
+    exclude(".cache/**")
+}
+
 listOf("processResources", "processTestmodResources").forEach {
     tasks.named<ProcessResources>(it).configure {
         configureModProperties()
