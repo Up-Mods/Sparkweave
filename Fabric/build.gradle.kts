@@ -97,7 +97,7 @@ loom {
 
             client = true
             modId = modID
-            strictValidation = true // '--all' sets '--validate' to true as well
+            strictValidation = true // neoforge '--all' sets '--validate' to true as well
         }
 
         named("datagen") {
