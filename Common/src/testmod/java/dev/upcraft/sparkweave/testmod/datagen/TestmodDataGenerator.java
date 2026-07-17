@@ -24,6 +24,6 @@ public class TestmodDataGenerator implements DataGenerationEntryPoint {
 		pack.addProvider(TestmodItemTagsProvider::new);
 
 		pack.addProvider(DataGenerationContext::includeClient, TestmodEnglishLanguageProvider::new);
-		pack.addProvider(TestmodRecipeProvider::new);
+		pack.addRecipes(TestmodRecipeProvider::new);
 	}
 }

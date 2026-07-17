@@ -28,12 +28,12 @@ public interface Pack {
 		return addProvider(_ -> true, factory);
 	}
 
-	default DataProvider addProvider(BiFunction<HolderLookup.Provider, RecipeOutput, SparkweaveRecipeProvider> factory) {
-		return addProvider(_ -> true, factory);
+	default DataProvider addRecipes(BiFunction<HolderLookup.Provider, RecipeOutput, SparkweaveRecipeProvider> factory) {
+		return addRecipes(_ -> true, factory);
 	}
 
-	default DataProvider addProvider(Predicate<DataGenerationContext> enabled, BiFunction<HolderLookup.Provider, RecipeOutput, SparkweaveRecipeProvider> factory) {
-		return addProvider(enabled, (RegistryDependentFactory<RecipeBuilderRunner>) (output, registriesFuture) -> new RecipeBuilderRunner(output, registriesFuture, getOwner(), factory));
+	default DataProvider addRecipes(Predicate<DataGenerationContext> enabled, BiFunction<HolderLookup.Provider, RecipeOutput, SparkweaveRecipeProvider> factory) {
+		return addProvider(enabled, (output, registriesFuture) -> new RecipeBuilderRunner(output, registriesFuture, getOwner(), factory));
 	}
 
 	@FunctionalInterface
