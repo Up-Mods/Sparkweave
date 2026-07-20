@@ -6,6 +6,7 @@ import dev.upcraft.sparkweave.api.registry.RegistrySupplier;
 import net.minecraft.core.HolderLookup;
 import net.minecraft.tags.TagKey;
 import net.minecraft.util.Util;
+import net.minecraft.world.effect.MobEffect;
 import net.minecraft.world.entity.Entity;
 import net.minecraft.world.entity.EntityType;
 import net.minecraft.world.entity.ai.attributes.Attribute;
@@ -51,7 +52,7 @@ public class TranslationBuilder {
 		add(item.get().getDescriptionId(), translation);
 	}
 
-	public void mobEffect(Supplier<? extends Block> effect, String translation) {
+	public void mobEffect(Supplier<? extends MobEffect> effect, String translation) {
 		add(effect.get().getDescriptionId(), translation);
 	}
 
