@@ -3,6 +3,7 @@ package dev.upcraft.sparkweave.testmod.datagen.client;
 import dev.upcraft.sparkweave.api.datagen.ContextAwarePackOutput;
 import dev.upcraft.sparkweave.api.datagen.TranslationBuilder;
 import dev.upcraft.sparkweave.api.datagen.provider.client.SparkweaveLanguageProvider;
+import dev.upcraft.sparkweave.testmod.data.TestmodTags;
 import dev.upcraft.sparkweave.testmod.init.TestCreativeTabs;
 import dev.upcraft.sparkweave.testmod.init.TestItems;
 import net.minecraft.core.HolderLookup;
@@ -25,5 +26,8 @@ public class TestmodEnglishLanguageProvider extends SparkweaveLanguageProvider {
 		builder.item(TestItems.MAGE_ROBES, "Mage Robes");
 		builder.item(TestItems.MAGE_LEGGINGS, "Mage Leggings");
 		builder.item(TestItems.MAGE_BOOTS, "Mage Boots");
+
+		// TODO remove once implemented in tag provider
+		builder.tag(TestmodTags.Items.MAGE_ROBES_REPAIR_MATERIALS, "Mage Robes repair materials");
 	}
 }

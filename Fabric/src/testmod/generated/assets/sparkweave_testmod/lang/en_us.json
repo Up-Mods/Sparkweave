@@ -7,5 +7,6 @@
   "item.sparkweave_testmod.mage_leggings": "Mage Leggings",
   "item.sparkweave_testmod.mage_robes": "Mage Robes",
   "item.sparkweave_testmod.test_item": "Test Item",
-  "itemGroup.sparkweave_testmod.items": "TestMod Items"
+  "itemGroup.sparkweave_testmod.items": "TestMod Items",
+  "tag.item.sparkweave_testmod.mage_robes_repair_materials": "Mage Robes repair materials"
 }
