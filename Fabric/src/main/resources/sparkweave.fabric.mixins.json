@@ -11,7 +11,8 @@
     "ServerLevelMixin",
     "datagen.PackGeneratorAccessor",
     "datagen.RegistrySetBuilderMixin",
-    "datagen.TagAppenderMixin"
+    "datagen.TagAppenderMixin",
+    "ext.TagKeyMixin"
   ],
   "client": [
     "client.ClientLevelMixin",

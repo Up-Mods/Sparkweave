@@ -12,7 +12,8 @@
     "datagen.SparkweaveTagsProviderMixin",
     "datagen.TagAppender1Mixin",
     "datagen.TagAppender2Mixin",
-    "datagen.TagsProviderAccessor"
+    "datagen.TagsProviderAccessor",
+    "ext.TagKeyMixin"
   ],
   "client": [
     "client.RegisterMenuScreensEventMixin",

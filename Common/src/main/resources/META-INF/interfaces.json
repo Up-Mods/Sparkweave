@@ -31,5 +31,8 @@
   ],
   "net/minecraft/world/item/crafting/RecipeManager": [
     "dev/upcraft/sparkweave/api/ext/RecipeManagerExt"
+  ],
+  "net/minecraft/tags/TagKey": [
+    "dev/upcraft/sparkweave/api/ext/TagKeyExt"
   ]
 }

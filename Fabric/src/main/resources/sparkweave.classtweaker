@@ -36,6 +36,9 @@ accessible field net/minecraft/core/Holder$Reference value Ljava/lang/Object;
 # RecipeManager
 transitive-inject-interface net/minecraft/world/item/crafting/RecipeManager dev/upcraft/sparkweave/api/ext/RecipeManagerExt
 
+# TagKey
+transitive-inject-interface net/minecraft/tags/TagKey dev/upcraft/sparkweave/api/ext/TagKeyExt
+
 # Datageneration
 # Datageneration::Registry
 transitive-accessible class net/minecraft/core/RegistrySetBuilder$RegistryStub
