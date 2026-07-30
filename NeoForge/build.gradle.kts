@@ -1,26 +1,28 @@
-@file:Suppress("UnstableApiUsage")
-
-import dev.upcraft.gradle.multiloader.applyMcGradleConventions
-import java.util.*
-
 plugins {
-	id("dev.upcraft.gradle.multiloader.multiloader-loader")
+    id("dev.upcraft.gradle.multiloader")
+    id("dev.upcraft.gradle.custom")
     id("net.neoforged.moddev")
 }
-applyMcGradleConventions("neoforge")
 
 val modID = providers.gradleProperty("mod_id").get()
 
 // need this before dependencies because it configures the plugin and creates additionalRuntimeClasspath configuration
 neoForge.version = libs.versions.neoforge.get()
 
-val localRuntime = configurations.dependencyScope("localRuntime")
-configurations.runtimeClasspath.configure { extendsFrom(localRuntime) }
+multiLoader {
+    javaVersion = libs.versions.java.map { it.toInt() }
+    minecraftVersion = libs.versions.minecraft
+
+    loader = "neoforge"
+
+    withTestmod()
+    setCommonProject(":${rootProject.name}-Common")
+    applyMetadataReplacements(listOf("pack.mcmeta", "*.mixins.json", "META-INF/neoforge.mods.toml"), mapOf(
+        "neoforge_version" to libs.versions.neoforge
+    ))
+}
 
 dependencies {
-	interfaceInjectionData(project(":${rootProject.name}-Common"))
-	accessTransformers(project(":${rootProject.name}-Common"))
-
 //	implementation(libs.resourcefulconfig.neoforge)
 
 	implementation(libs.appdirs)
@@ -29,7 +31,7 @@ dependencies {
 	}
 
     compileOnly(libs.jei.neoforge.api)
-    localRuntime(libs.jei.neoforge)
+    "localRuntime"(libs.jei.neoforge)
 
 	testImplementation(libs.neoforge.testframework)
 }
@@ -41,53 +43,14 @@ neoForge {
 		// mostly optional in a single mod project
 		// but multi mod projects should define one per mod
         register(modID) {
-			sourceSet(sourceSets["main"])
-		}
-
+            sourceSet(sourceSets["main"])
+        }
         register("${modID}_testmod") {
-			sourceSet(sourceSets["testmod"])
-		}
-	}
-
-	unitTest {
-		enable()
-
-		testedMod = mods[modID]
-		loadedMods = listOf(mods[modID])
-	}
+            sourceSet(sourceSets["testmod"])
+        }
+    }
 
     runs {
-        register("client") {
-            client()
-            devLogin = true
-            gameDirectory = file("run/client")
-            systemProperty("neoforge.enabledGameTestNamespaces", modID)
-
-            sourceSet = sourceSets["main"]
-            loadedMods = listOf(mods[modID])
-        }
-
-        register("server") {
-            server()
-            gameDirectory = file("run/server")
-            systemProperty("neoforge.enabledGameTestNamespaces", modID)
-
-            sourceSet = sourceSets["main"]
-            loadedMods = listOf(mods[modID])
-
-            programArgument("--nogui")
-        }
-
-        register("testmodClient") {
-            client()
-            devLogin = true
-            gameDirectory = file("run/testmod_client")
-            systemProperty("neoforge.enabledGameTestNamespaces", "${modID}_testmod")
-
-            sourceSet = sourceSets["testmod"]
-            loadedMods = listOf(mods[modID], mods["${modID}_testmod"])
-        }
-
         register("testmodData") {
             clientData()
             gameDirectory = file("run/testmod_data")
@@ -103,15 +66,6 @@ neoForge {
             )
             sourceSet = sourceSets["testmod"]
             loadedMods = listOf(mods[modID], mods["${modID}_testmod"])
-        }
-
-        configureEach {
-            logLevel = org.slf4j.event.Level.DEBUG
-            systemProperty("forge.logging.markers", "REGISTRIES")
-            systemProperty("terminal.ansi", "true")
-            systemProperty("sparkweave.debug", "true")
-
-            ideName = "NeoForge ${name.replaceFirstChar { it.titlecase(Locale.ROOT) }}"
         }
     }
 }

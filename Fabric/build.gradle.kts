@@ -1,35 +1,26 @@
-@file:Suppress("UnstableApiUsage")
-
-import dev.upcraft.gradle.multiloader.applyMcGradleConventions
-import net.fabricmc.loom.task.LoomTasks
-import org.jetbrains.gradle.ext.runConfigurations
-import org.jetbrains.gradle.ext.settings
-
-
 plugins {
-    id("dev.upcraft.gradle.multiloader.multiloader-loader")
-    id("org.jetbrains.gradle.plugin.idea-ext")
+    id("dev.upcraft.gradle.multiloader")
+    id("dev.upcraft.gradle.custom")
     id("net.fabricmc.fabric-loom")
 }
-applyMcGradleConventions("fabric")
 
 val modID: String = providers.gradleProperty("mod_id").get()
 
-repositories {
-    exclusiveContent {
-        forRepository {
-            maven(uri("https://maven.covers1624.net")) {
-                name = "Covers1624"
-            }
-        }
-        filter {
-            includeGroup("net.covers1624")
-        }
-    }
+multiLoader {
+    javaVersion = libs.versions.java.map { it.toInt() }
+    minecraftVersion = libs.versions.minecraft
+
+    loader = "fabric"
+
+    withTestmod()
+    setCommonProject(":${rootProject.name}-Common")
+    applyMetadataReplacements(listOf("pack.mcmeta", "*.mixins.json", "fabric.mod.json"), mapOf(
+        "fabric_api_version" to libs.versions.fabric.api,
+        "fabric_loader_version" to libs.versions.fabric.loader
+    ))
 }
 
 dependencies {
-    localRuntime(libs.devlogin)
     minecraft(libs.minecraft)
 
     implementation(libs.fabric.loader)
@@ -65,32 +56,7 @@ loom {
         }
     }
 
-    accessWidenerPath.set(file("src/main/resources/${modID}.classtweaker"))
-
     runs {
-        named("client") {
-            client()
-            programArguments.addAll(listOf("--launch_target", "net.fabricmc.loader.impl.launch.knot.KnotClient"))
-            mainClass = "net.covers1624.devlogin.DevLogin"
-            displayName = "Fabric Client"
-            runDirectory = file("run/client")
-        }
-
-        create("testmodClient") {
-            client()
-            programArguments.addAll(listOf("--launch_target", "net.fabricmc.loader.impl.launch.knot.KnotClient"))
-            mainClass = "net.covers1624.devlogin.DevLogin"
-            displayName = "Fabric TestmodClient"
-            runDirectory = file("run/testmod")
-            sourceSet = "testmod"
-        }
-
-        named("server") {
-            server()
-            displayName = "Fabric Server"
-            runDirectory = file("run/server")
-        }
-
         fabricApi.configureDataGeneration {
             outputDirectory = file("src/testmod/generated")
             addToResources = false
@@ -106,21 +72,6 @@ loom {
             sourceSet = "testmod"
 
             systemProperties.put("sparkweave.datagen.mods", "${modID}_testmod")
-        }
-
-        configureEach {
-            appendProjectPathToDisplayName = false
-            systemProperties.put("fabric-tag-conventions-v2.missingTagTranslationWarning", "VERBOSE")
-            systemProperties.put("sparkweave.debug", "true")
-            systemProperties.put("mixin.debug", "true")
-
-            // register as Gradle runs instead of IDEA runs
-            // https://github.com/FabricMC/fabric-loom/issues/1349
-            generateRunConfig = false
-            rootProject.idea.project.settings.runConfigurations.create<org.jetbrains.gradle.ext.Gradle>(displayName.get()) {
-                taskNames = listOf(LoomTasks.getRunConfigTaskName(this@configureEach))
-                setProject(project)
-            }
         }
     }
 }

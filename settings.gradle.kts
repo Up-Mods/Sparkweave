@@ -2,19 +2,22 @@ pluginManagement {
     repositories {
         gradlePluginPortal()
         mavenCentral()
-        maven {
+        maven("https://maven.neoforged.net/releases") {
             name = "NeoForge"
-            url = uri("https://maven.neoforged.net/releases")
         }
-        maven {
+        maven("https://maven.fabricmc.net") {
             name = "Fabric"
-            url = uri("https://maven.fabricmc.net")
         }
+        maven("https://maven.uuid.gg/releases") {
+            name = "Up-Mods"
+        }
+        mavenLocal()
     }
 }
 
 plugins {
     id("org.gradle.toolchains.foojay-resolver-convention") version "1.0.0"
+    id("dev.upcraft.gradle.multiloader.settings") version "0.1.3"
 }
 
 rootProject.name = "Sparkweave"

@@ -1,9 +1,4 @@
-@file:OptIn(ExperimentalTime::class)
-
-import kotlin.time.ExperimentalTime
-
 plugins {
-    alias(libs.plugins.idea.ext)
     alias(libs.plugins.moddevgradle) apply false
     alias(libs.plugins.fabric.loom) apply false
 }
@@ -20,10 +15,3 @@ version = tag.orElse(provider { buildString {
 } }).get()
 
 println("Building ${project.name} $version")
-
-// IDEA no longer automatically downloads sources/javadoc jars for dependencies, so we need to explicitly enable the behavior.
-idea {
-	module {
-		isDownloadSources = true
-	}
-}

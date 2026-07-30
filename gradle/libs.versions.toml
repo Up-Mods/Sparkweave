@@ -20,10 +20,6 @@ fabric_loom = "1.17.13" # https://maven.fabricmc.net/net/fabricmc/fabric-loom/ne
 fabric_loader = "0.19.3"
 fabric_api = "0.155.2+26.1.2"
 
-# https://maven.covers1624.net/service/rest/repository/browse/maven-hosted/net/covers1624/DevLogin/
-devlogin = "0.1.0.5"
-idea_ext = "1.4.1"
-
 # Minecraft dependencies
 jetbrains_annotations = "26.1.0"
 jspecify = "1.0.0"
@@ -54,17 +50,9 @@ neoforge_fancymodloader = { module = "net.neoforged.fancymodloader:loader", vers
 # Fabric
 fabric_loader = { module = "net.fabricmc:fabric-loader", version.ref = "fabric_loader" }
 fabric_api = { module = "net.fabricmc.fabric-api:fabric-api", version.ref = "fabric_api" }
-devlogin = { module = "net.covers1624:DevLogin", version.ref = "devlogin" }
 
 # Minecraft dependencies
 minecraft = { module = "com.mojang:minecraft", version.ref = "minecraft" }
-mixin = { module = "net.fabricmc:sponge-mixin", version.ref = "mixin" }
-mixin_extras = { module = "io.github.llamalad7:mixinextras-common", version.ref = "mixin_extras" }
-asm = { module = "org.ow2.asm:asm", version.ref = "asm" }
-asm_analysis = { module = "org.ow2.asm:asm-analysis", version.ref = "asm" }
-asm_commons = { module = "org.ow2.asm:asm-commons", version.ref = "asm" }
-asm_tree = { module = "org.ow2.asm:asm-tree", version.ref = "asm" }
-asm_util = { module = "org.ow2.asm:asm-util", version.ref = "asm" }
 jna = { module = "net.java.dev.jna:jna-platform", version.ref = "jna" }
 
 # Other dependencies
@@ -91,10 +79,6 @@ resourcefulconfig = { module = "com.teamresourceful.resourcefulconfig:resourcefu
 resourcefulconfig_fabric = { module = "com.teamresourceful.resourcefulconfig:resourcefulconfig-fabric-1.21", version.ref = "resourcefulconfig" }
 resourcefulconfig_neoforge = { module = "com.teamresourceful.resourcefulconfig:resourcefulconfig-neoforge-1.21", version.ref = "resourcefulconfig" }
 
-[bundles]
-mixin = ["mixin", "mixin_extras", "asm", "asm_analysis", "asm_commons", "asm_tree", "asm_util"]
-
 [plugins]
 moddevgradle = { id = "net.neoforged.moddev", version.ref = "moddevgradle" }
 fabric_loom = { id = "net.fabricmc.fabric-loom", version.ref = "fabric_loom" }
-idea_ext = { id = "org.jetbrains.gradle.plugin.idea-ext", version.ref = "idea_ext" }
