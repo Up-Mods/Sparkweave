@@ -8,16 +8,12 @@ pluginManagement {
         maven("https://maven.fabricmc.net") {
             name = "Fabric"
         }
-        maven("https://maven.uuid.gg/releases") {
-            name = "Up-Mods"
-        }
-        mavenLocal()
     }
 }
 
 plugins {
     id("org.gradle.toolchains.foojay-resolver-convention") version "1.0.0"
-    id("dev.upcraft.gradle.multiloader.settings") version "0.1.3"
+    id("dev.upcraft.gradle.multiloader.settings") version "0.2.0"
 }
 
 rootProject.name = "Sparkweave"
@@ -33,7 +29,7 @@ buildCache {
     remote<HttpBuildCache> {
         url = uri("https://ci-cache.uuid.gg/cache")
         val pass = providers.environmentVariable("GRADLE_BUILD_CACHE_TOKEN")
-        isPush = providers.environmentVariable("CI").orNull.toBoolean() && pass.isPresent
+        isPush = providers.environmentVariable("CI").map { !it.equals("false", true) }.getOrElse(false) && pass.isPresent
         credentials {
             username = providers.environmentVariable("GRADLE_BUILD_CACHE_USER").orNull
             password = pass.orNull

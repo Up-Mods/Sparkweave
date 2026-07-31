@@ -10,10 +10,10 @@ plugins {
 
 val libs = versionCatalogs.named("libs")
 
-// FIXME workaround for appdirs transitively requiring newer JNA but we are locked due to MC
-libs.findLibrary("jna").ifPresent {
-    configurations.configureEach {
-        resolutionStrategy.force(it)
+// workaround for appdirs transitively requiring newer JNA, but we are locked due to MC
+dependencies {
+    constraints {
+        implementation(libs.findLibrary("jna").orElseThrow { AssertionError("could not find 'jna' in version catalog 'libs'") })
     }
 }
 

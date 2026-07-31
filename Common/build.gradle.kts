@@ -23,7 +23,6 @@ dependencies {
 //	compileOnly(libs.resourcefulconfig)
     compileOnly(libs.jei.api)
 
-    testCompileOnly(libs.junit.api)
     testCompileOnly(libs.neoforge.testframework)
 }
 

@@ -21,17 +21,10 @@ fabric_loader = "0.19.3"
 fabric_api = "0.155.2+26.1.2"
 
 # Minecraft dependencies
-jetbrains_annotations = "26.1.0"
-jspecify = "1.0.0"
-mixin = "0.17.3+mixin.0.8.7"
-mixin_extras = "0.5.4"
-asm = "9.9.1"
-jna = "5.17.0"
+jna = { strictly = "5.17.0" }
 
 # Other dependencies
 appdirs = "1.5.0"
-autoservice = "1.1.1"
-junit = "6.1.0"
 
 # Mods
 # https://maven.blamejared.com/mezz/jei/jei-26.1.2-common/
@@ -44,8 +37,6 @@ resourcefulconfig = "4.0.1"
 [libraries]
 # NeoForge
 neoforge_testframework = { module = "net.neoforged:testframework", version.ref = "neoforge" }
-neoforge_mcdeps = { module = "net.neoforged:minecraft-dependencies", version.ref = "minecraft" }
-neoforge_fancymodloader = { module = "net.neoforged.fancymodloader:loader", version.ref = "fancymodloader" }
 
 # Fabric
 fabric_loader = { module = "net.fabricmc:fabric-loader", version.ref = "fabric_loader" }
@@ -57,14 +48,6 @@ jna = { module = "net.java.dev.jna:jna-platform", version.ref = "jna" }
 
 # Other dependencies
 appdirs = { module = "net.harawata:appdirs", version.ref = "appdirs" }
-autoservice = { module = "com.google.auto.service:auto-service", version.ref = "autoservice" }
-autoservice_annotations = { module = "com.google.auto.service:auto-service-annotations", version.ref = "autoservice" }
-jetbrains_annotations = { module = "org.jetbrains:annotations", version.ref = "jetbrains_annotations" }
-jspecify = { module = "org.jspecify:jspecify", version.ref = "jspecify" }
-junit_api = { module = "org.junit.jupiter:junit-jupiter-api", version.ref = "junit" }
-junit_launcher = { module = "org.junit.platform:junit-platform-launcher" }
-junit_engine = { module = "org.junit.jupiter:junit-jupiter-engine", version.ref = "junit" }
-slf4j_api = { module = "org.slf4j:slf4j-api" }
 
 # Mods
 jei_api = { module = "mezz.jei:jei-26.1.2-common-api", version.ref = "jei" }
