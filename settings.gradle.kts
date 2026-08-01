@@ -13,7 +13,7 @@ pluginManagement {
 
 plugins {
     id("org.gradle.toolchains.foojay-resolver-convention") version "1.0.0"
-    id("dev.upcraft.gradle.multiloader.settings") version "0.2.0"
+    id("dev.upcraft.gradle.multiloader.settings") version "0.2.1"
 }
 
 rootProject.name = "Sparkweave"
