@@ -4,12 +4,11 @@ plugins {
 }
 
 val tag = providers.environmentVariable("TAG")
-val isPreviewBuild = tag.orNull?.matches(Regex(".+-.+")) ?: false
-val buildNumber = tag.orElse(providers.environmentVariable("BUILD_NUMBER").map { "build.${it}" })
+val buildNumber = providers.environmentVariable("BUILD_NUMBER").map { "build.${it}" }
 
 version = tag.orElse(provider { buildString {
     append("0.1.0-development")
-    if(isPreviewBuild && !tag.isPresent) {
+    if(!tag.isPresent) {
         append(buildNumber.map { "+${it}" }.getOrElse(""))
     }
 } }).get()
