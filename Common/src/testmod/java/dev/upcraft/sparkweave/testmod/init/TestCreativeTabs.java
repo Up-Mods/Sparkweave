@@ -13,7 +13,7 @@ public class TestCreativeTabs {
 
 	public static final RegistrySupplier<CreativeModeTab> ITEMS = TABS.register("items", () -> CreativeTabHelper.newBuilder(SparkweaveTestmod.id("items"))
 		.icon(() -> TestItems.TEST_ITEM.get().getDefaultInstance())
-		.displayItems((itemDisplayParameters, output) -> CreativeTabHelper.addRegistryEntries(itemDisplayParameters, output, TestItems.ITEMS))
+		.displayItems((itemDisplayParameters, output) -> CreativeTabHelper.addRegistryEntries(itemDisplayParameters, output, TestItems.ITEMS, TestBlocks.BLOCKS))
 		.build()
 	);
 }

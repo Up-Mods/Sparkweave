@@ -4,6 +4,7 @@ import dev.upcraft.sparkweave.api.datagen.ContextAwarePackOutput;
 import dev.upcraft.sparkweave.api.datagen.TranslationBuilder;
 import dev.upcraft.sparkweave.api.datagen.provider.client.SparkweaveLanguageProvider;
 import dev.upcraft.sparkweave.testmod.data.TestmodTags;
+import dev.upcraft.sparkweave.testmod.init.TestBlocks;
 import dev.upcraft.sparkweave.testmod.init.TestCreativeTabs;
 import dev.upcraft.sparkweave.testmod.init.TestItems;
 import net.minecraft.core.HolderLookup;
@@ -20,6 +21,7 @@ public class TestmodEnglishLanguageProvider extends SparkweaveLanguageProvider {
 	@Override
 	public void generateTranslations(HolderLookup.Provider registries, TranslationBuilder builder) {
 		builder.creativeTab(TestCreativeTabs.ITEMS, "TestMod Items");
+		builder.block(TestBlocks.TEST_BLOCK, "Test Block");
 		builder.item(TestItems.TEST_ITEM, "Test Item");
 
 		builder.item(TestItems.MAGE_HOOD, "Mage Hood");
