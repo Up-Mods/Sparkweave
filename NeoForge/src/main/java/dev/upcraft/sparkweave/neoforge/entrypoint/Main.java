@@ -55,7 +55,7 @@ public class Main {
 		if (event.getRegistryKey() == Registries.ITEM) {
 			BuiltInRegistries.BLOCK.entrySet().forEach(entry -> {
 				if (entry.getValue() instanceof BlockItemProvider provider) {
-					event.register(Registries.ITEM, entry.getKey().identifier(), provider::createItem);
+					event.register(Registries.ITEM, entry.getKey().identifier(), () -> provider.createItem(entry.getKey()));
 				}
 			});
 		}

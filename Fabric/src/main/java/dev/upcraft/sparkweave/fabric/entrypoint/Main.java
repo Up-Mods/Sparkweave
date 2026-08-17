@@ -16,6 +16,8 @@ import net.fabricmc.fabric.api.event.lifecycle.v1.ServerLifecycleEvents;
 import net.fabricmc.fabric.api.event.lifecycle.v1.ServerTickEvents;
 import net.minecraft.core.Registry;
 import net.minecraft.core.registries.BuiltInRegistries;
+import net.minecraft.core.registries.Registries;
+import net.minecraft.resources.ResourceKey;
 
 @CalledByReflection
 public class Main implements ModInitializer {
@@ -24,7 +26,7 @@ public class Main implements ModInitializer {
 	public void onInitialize() {
 		RegistryService.get().visitRegistry(BuiltInRegistries.BLOCK, (id, block) -> {
 			if (block instanceof BlockItemProvider provider) {
-				Registry.register(BuiltInRegistries.ITEM, id, provider.createItem());
+				Registry.register(BuiltInRegistries.ITEM, id, provider.createItem(ResourceKey.create(Registries.BLOCK, id)));
 			}
 		});
 
