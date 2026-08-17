@@ -1,8 +1,5 @@
 package dev.upcraft.gradle
 
-import gradle.kotlin.dsl.accessors._3c984467cfe6063166439ec0710b6c00.versionCatalogs
-import kotlin.time.ExperimentalTime
-
 plugins {
     `java-library`
     `maven-publish`
