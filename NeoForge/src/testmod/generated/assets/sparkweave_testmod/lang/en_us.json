@@ -1,8 +1,10 @@
 {
   "biome.sparkweave_testmod.test_biome": "Test Biome",
+  "block.sparkweave_testmod.blueberry_bush": "Blueberry Bush",
   "block.sparkweave_testmod.test_block": "Test Block",
   "enchantment.sparkweave_testmod.test_enchantment": "Test Enchantment",
   "enchantment.sparkweave_testmod.test_enchantment.desc": "Debug Enchantment to test Sparkweave Data generation APIs",
+  "item.sparkweave_testmod.blueberry": "Blueberry",
   "item.sparkweave_testmod.mage_boots": "Mage Boots",
   "item.sparkweave_testmod.mage_hood": "Mage Hood",
   "item.sparkweave_testmod.mage_leggings": "Mage Leggings",

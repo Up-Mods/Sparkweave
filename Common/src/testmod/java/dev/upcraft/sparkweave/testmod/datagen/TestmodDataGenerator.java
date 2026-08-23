@@ -7,6 +7,7 @@ import dev.upcraft.sparkweave.api.entrypoint.DataGenerationEntryPoint;
 import dev.upcraft.sparkweave.testmod.datagen.client.TestmodEnglishLanguageProvider;
 import dev.upcraft.sparkweave.testmod.datagen.client.TestmodModelProvider;
 import dev.upcraft.sparkweave.testmod.datagen.common.*;
+import dev.upcraft.sparkweave.testmod.datagen.common.loot.TestmodLootTableProvider;
 
 @AutoService(DataGenerationEntryPoint.class)
 public class TestmodDataGenerator implements DataGenerationEntryPoint {
@@ -22,8 +23,9 @@ public class TestmodDataGenerator implements DataGenerationEntryPoint {
 	@Override
 	public void generate(DataGenerationContext ctx) {
 		var pack = ctx.getDefaultPack();
-		pack.addProvider(TestmodItemTagsProvider::new);
 
+		pack.addProvider(TestmodItemTagsProvider::new);
+		pack.addProvider(TestmodLootTableProvider::new);
 		pack.addRecipes(TestmodRecipeProvider::new);
 		pack.addProvider(DataGenerationContext::includeClient, TestmodEnglishLanguageProvider::new);
 		pack.addProvider(DataGenerationContext::includeClient, TestmodModelProvider::new);

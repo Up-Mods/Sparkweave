@@ -2,12 +2,19 @@ package dev.upcraft.sparkweave.testmod.datagen.client;
 
 import dev.upcraft.sparkweave.api.datagen.ContextAwarePackOutput;
 import dev.upcraft.sparkweave.api.datagen.provider.client.SparkweaveModelProvider;
+import dev.upcraft.sparkweave.testmod.block.BerryBushBlock;
 import dev.upcraft.sparkweave.testmod.data.TestmodEquipmentAssets;
 import dev.upcraft.sparkweave.testmod.init.TestBlocks;
 import dev.upcraft.sparkweave.testmod.init.TestItems;
 import net.minecraft.client.data.models.BlockModelGenerators;
 import net.minecraft.client.data.models.ItemModelGenerators;
+import net.minecraft.client.data.models.blockstates.MultiVariantGenerator;
+import net.minecraft.client.data.models.blockstates.PropertyDispatch;
 import net.minecraft.client.data.models.model.ModelTemplates;
+import net.minecraft.client.data.models.model.TextureMapping;
+import net.minecraft.world.item.Item;
+
+import java.util.function.Supplier;
 
 public class TestmodModelProvider extends SparkweaveModelProvider {
 
@@ -25,5 +32,19 @@ public class TestmodModelProvider extends SparkweaveModelProvider {
 		itemModels.generateTrimmableItem(TestItems.MAGE_BOOTS.get(), TestmodEquipmentAssets.MAGE_ROBES, ItemModelGenerators.TRIM_PREFIX_BOOTS, false);
 
 		blockModels.createTrivialCube(TestBlocks.TEST_BLOCK.get());
+		createBerryBush(blockModels, itemModels, TestBlocks.BLUEBERRY_BUSH, TestItems.BLUEBERRY);
+	}
+
+	private void createBerryBush(BlockModelGenerators blockModels, ItemModelGenerators itemModels, Supplier<? extends BerryBushBlock> block, Supplier<Item> item) {
+		itemModels.generateFlatItem(item.get(), ModelTemplates.FLAT_ITEM);
+
+		var actualBlock = block.get();
+		blockModels.blockStateOutput.accept(MultiVariantGenerator.dispatch(actualBlock)
+			.with(PropertyDispatch.initial(BerryBushBlock.AGE)
+				.generate(age -> BlockModelGenerators.plainVariant(
+					blockModels.createSuffixedVariant(actualBlock, "_stage_" + age, ModelTemplates.CROSS, TextureMapping::cross)
+				))
+			)
+		);
 	}
 }

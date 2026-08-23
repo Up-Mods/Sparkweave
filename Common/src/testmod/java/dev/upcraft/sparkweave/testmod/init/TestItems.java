@@ -10,12 +10,16 @@ import net.minecraft.core.Holder;
 import net.minecraft.world.item.Item;
 import net.minecraft.world.item.equipment.ArmorType;
 
+import java.util.function.Supplier;
+
 public class TestItems {
 
 	public static final ItemRegistryHandler ITEMS = RegistryHandler.items(SparkweaveTestmod.MODID);
 
 	public static final RegistrySupplier<Item> TEST_ITEM = ITEMS.register("test_item", Item::new, new Item.Properties());
 	public static final Holder<Item> TEST_ITEM_HOLDER_EARLY = TEST_ITEM.holder();
+
+	public static final Supplier<Item> BLUEBERRY = () -> TestBlocks.BLUEBERRY_BUSH.get().asItem();
 
 	public static final RegistrySupplier<Item> MAGE_HOOD = ITEMS.register("mage_hood", Item::new, () -> new Item.Properties().humanoidArmor(TestArmorMaterials.MAGE_ROBES, ArmorType.HELMET).component(TestDataComponents.OPENABLE.get(), Openable.OPEN));
 	public static final RegistrySupplier<Item> MAGE_ROBES = ITEMS.register("mage_robes", Item::new, () -> new Item.Properties().humanoidArmor(TestArmorMaterials.MAGE_ROBES, ArmorType.CHESTPLATE));
