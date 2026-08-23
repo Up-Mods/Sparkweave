@@ -8,9 +8,13 @@ import net.minecraft.world.level.block.Block;
 
 public interface BlockItemProvider {
 
-	default Item createItem(ResourceKey<Block> blockId) {
+	default ResourceKey<Item> createItemId(ResourceKey<Block> blockId) {
+		return ResourceKey.create(Registries.ITEM, blockId.identifier());
+	}
+
+	default Item createItem(Item.Properties properties) {
 		if (this instanceof Block block) {
-			return new BlockItem(block, new Item.Properties().setId(ResourceKey.create(Registries.ITEM, blockId.identifier())).useBlockDescriptionPrefix());
+			return new BlockItem(block, properties);
 		}
 
 		throw new IllegalStateException("BlockItemProvider implemented on non-block!");

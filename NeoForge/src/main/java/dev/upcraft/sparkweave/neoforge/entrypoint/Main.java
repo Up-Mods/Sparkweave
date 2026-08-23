@@ -16,6 +16,7 @@ import dev.upcraft.sparkweave.registry.SparkweaveCommandArgumentTypes;
 import dev.upcraft.sparkweave.scheduler.ScheduledTaskQueue;
 import net.minecraft.core.registries.BuiltInRegistries;
 import net.minecraft.core.registries.Registries;
+import net.minecraft.world.item.Item;
 import net.neoforged.bus.api.IEventBus;
 import net.neoforged.bus.api.SubscribeEvent;
 import net.neoforged.fml.common.EventBusSubscriber;
@@ -55,7 +56,11 @@ public class Main {
 		if (event.getRegistryKey() == Registries.ITEM) {
 			BuiltInRegistries.BLOCK.entrySet().forEach(entry -> {
 				if (entry.getValue() instanceof BlockItemProvider provider) {
-					event.register(Registries.ITEM, entry.getKey().identifier(), () -> provider.createItem(entry.getKey()));
+					event.register(Registries.ITEM, registerHelper -> {
+						var itemId = provider.createItemId(entry.getKey());
+						var properties = new Item.Properties().useBlockDescriptionPrefix().setId(itemId);
+						registerHelper.register(itemId, provider.createItem(properties));
+					});
 				}
 			});
 		}

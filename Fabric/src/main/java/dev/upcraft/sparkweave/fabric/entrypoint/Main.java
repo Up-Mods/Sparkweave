@@ -18,6 +18,7 @@ import net.minecraft.core.Registry;
 import net.minecraft.core.registries.BuiltInRegistries;
 import net.minecraft.core.registries.Registries;
 import net.minecraft.resources.ResourceKey;
+import net.minecraft.world.item.Item;
 
 @CalledByReflection
 public class Main implements ModInitializer {
@@ -26,7 +27,9 @@ public class Main implements ModInitializer {
 	public void onInitialize() {
 		RegistryService.get().visitRegistry(BuiltInRegistries.BLOCK, (id, block) -> {
 			if (block instanceof BlockItemProvider provider) {
-				Registry.register(BuiltInRegistries.ITEM, id, provider.createItem(ResourceKey.create(Registries.BLOCK, id)));
+				var itemId = provider.createItemId(ResourceKey.create(Registries.BLOCK, id));
+				var properties = new Item.Properties().useBlockDescriptionPrefix().setId(itemId);
+				Registry.register(BuiltInRegistries.ITEM, itemId, provider.createItem(properties));
 			}
 		});
 
