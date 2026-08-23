@@ -12,7 +12,6 @@ import net.minecraft.world.entity.EntityType;
 import net.minecraft.world.entity.ai.attributes.Attribute;
 import net.minecraft.world.item.CreativeModeTab;
 import net.minecraft.world.item.Item;
-import net.minecraft.world.item.Items;
 import net.minecraft.world.level.block.Block;
 import org.jetbrains.annotations.ApiStatus;
 
@@ -40,14 +39,6 @@ public class TranslationBuilder {
 	public void block(Supplier<? extends Block> block, String translation) {
 		var blockId = block.get().getDescriptionId();
 		add(blockId, translation);
-
-		var item = block.get().asItem();
-		if(item != Items.AIR) {
-			var itemId = item.getDescriptionId();
-			if(!itemId.equals(blockId)) {
-				add(itemId, translation);
-			}
-		}
 	}
 
 	public void creativeTab(RegistrySupplier<CreativeModeTab> tab, String translation) {
