@@ -11,7 +11,7 @@ import net.minecraft.world.entity.Entity;
 import net.minecraft.world.entity.EntityType;
 import net.minecraft.world.entity.ai.attributes.Attribute;
 import net.minecraft.world.item.CreativeModeTab;
-import net.minecraft.world.item.Item;
+import net.minecraft.world.level.ItemLike;
 import net.minecraft.world.level.block.Block;
 import org.jetbrains.annotations.ApiStatus;
 
@@ -49,8 +49,8 @@ public class TranslationBuilder {
 		add(entity.get().getDescriptionId(), translation);
 	}
 
-	public void item(Supplier<? extends Item> item, String translation) {
-		add(item.get().getDescriptionId(), translation);
+	public void item(Supplier<? extends ItemLike> item, String translation) {
+		add(item.get().asItem().getDescriptionId(), translation);
 	}
 
 	public void mobEffect(Supplier<? extends MobEffect> effect, String translation) {
