@@ -1,5 +1,8 @@
 classTweaker v2 official
 
+# BLockFamilies
+transitive-accessible method net/minecraft/data/BlockFamilies familyBuilder (Lnet/minecraft/world/level/block/Block;)Lnet/minecraft/data/BlockFamily$Builder;
+
 # CreativeModeTab::Registry
 transitive-accessible class net/minecraft/world/item/CreativeModeTab$Output
 
@@ -58,3 +61,5 @@ transitive-accessible method net/minecraft/data/worldgen/biome/OverworldBiomes b
 # Datageneration::ItemModels
 transitive-inject-interface net/minecraft/client/data/models/ItemModelGenerators dev/upcraft/sparkweave/api/client/ext/datagen/ItemModelGeneratorsExt
 transitive-accessible field net/minecraft/client/data/models/ItemModelGenerators BLANK_LAYER Lnet/minecraft/client/color/item/ItemTintSource;
+# Datageneration::BlockModels
+transitive-accessible class net/minecraft/client/data/models/BlockModelGenerators$BlockFamilyProvider
