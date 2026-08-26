@@ -1,0 +1,8 @@
+{
+  "parent": "minecraft:block/stairs",
+  "textures": {
+    "bottom": "sparkweave_testmod:block/test_block",
+    "side": "sparkweave_testmod:block/test_block",
+    "top": "sparkweave_testmod:block/test_block"
+  }
+}

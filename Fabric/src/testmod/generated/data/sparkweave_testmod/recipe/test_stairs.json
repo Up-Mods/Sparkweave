@@ -1,0 +1,17 @@
+{
+  "type": "minecraft:crafting_shaped",
+  "category": "building",
+  "group": "sparkweave_testmod.test_stairs",
+  "key": {
+    "#": "sparkweave_testmod:test_block"
+  },
+  "pattern": [
+    "#  ",
+    "## ",
+    "###"
+  ],
+  "result": {
+    "count": 4,
+    "id": "sparkweave_testmod:test_stairs"
+  }
+}

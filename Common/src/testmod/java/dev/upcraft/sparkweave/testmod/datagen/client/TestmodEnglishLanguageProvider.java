@@ -22,6 +22,8 @@ public class TestmodEnglishLanguageProvider extends SparkweaveLanguageProvider {
 	public void generateTranslations(HolderLookup.Provider registries, TranslationBuilder builder) {
 		builder.creativeTab(TestCreativeTabs.ITEMS, "TestMod Items");
 		builder.block(TestBlocks.TEST_BLOCK, "Test Block");
+		builder.block(TestBlocks.TEST_STAIRS, "Test Stairs");
+
 		builder.item(TestItems.TEST_ITEM, "Test Item");
 
 		builder.block(TestBlocks.BLUEBERRY_BUSH, "Blueberry Bush");

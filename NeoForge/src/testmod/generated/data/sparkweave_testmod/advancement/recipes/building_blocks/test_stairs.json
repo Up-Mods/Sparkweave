@@ -1,0 +1,32 @@
+{
+  "parent": "minecraft:recipes/root",
+  "criteria": {
+    "has_testblock": {
+      "conditions": {
+        "items": [
+          {
+            "items": "sparkweave_testmod:test_block"
+          }
+        ]
+      },
+      "trigger": "minecraft:inventory_changed"
+    },
+    "has_the_recipe": {
+      "conditions": {
+        "recipe": "sparkweave_testmod:test_stairs"
+      },
+      "trigger": "minecraft:recipe_unlocked"
+    }
+  },
+  "requirements": [
+    [
+      "has_the_recipe",
+      "has_testblock"
+    ]
+  ],
+  "rewards": {
+    "recipes": [
+      "sparkweave_testmod:test_stairs"
+    ]
+  }
+}
