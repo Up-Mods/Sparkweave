@@ -9,10 +9,10 @@ neoform = "26.1.2-1"
 
 # NeoForge
 # https://projects.neoforged.net/neoforged/neoforge
-neoforge = "26.1.2.76"
+neoforge = "26.1.2.97"
 # https://projects.neoforged.net/neoforged/fancymodloader
 # MUST match the version that neoforge uses! https://github.com/neoforged/NeoForge/blob/26.1.x/gradle.properties
-fancymodloader = "11.0.13"
+fancymodloader = "11.0.15"
 
 # Fabric
 # https://fabricmc.net/develop
