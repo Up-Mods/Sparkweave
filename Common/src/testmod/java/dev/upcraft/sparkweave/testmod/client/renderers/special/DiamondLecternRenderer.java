@@ -1,4 +1,4 @@
-package dev.upcraft.sparkweave.testmod.client.renderers;
+package dev.upcraft.sparkweave.testmod.client.renderers.special;
 
 import com.mojang.blaze3d.vertex.PoseStack;
 import dev.upcraft.sparkweave.api.client.render.LecternItemRenderer;
