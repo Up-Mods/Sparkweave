@@ -12,7 +12,7 @@ import java.util.function.Supplier;
 public class RegisterBlockEntityRenderersEventImpl implements RegisterBlockEntityRenderersEvent {
 
 	@Override
-	public <T extends BlockEntity, S extends BlockEntityRenderState> void registerRenderer(Supplier<BlockEntityType<T>> blockEntityType, BlockEntityRendererProvider<T, S> blockEntityRendererProvider) {
+	public <T extends BlockEntity, S extends BlockEntityRenderState> void registerRenderer(Supplier<? extends BlockEntityType<? extends T>> blockEntityType, BlockEntityRendererProvider<T, S> blockEntityRendererProvider) {
 		BlockEntityRenderers.register(blockEntityType.get(), blockEntityRendererProvider);
 	}
 }
