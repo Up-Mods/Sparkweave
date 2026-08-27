@@ -5,7 +5,7 @@ import com.mojang.brigadier.context.CommandContext;
 import com.mojang.brigadier.exceptions.CommandSyntaxException;
 import com.mojang.brigadier.exceptions.DynamicCommandExceptionType;
 import dev.upcraft.sparkweave.api.platform.Services;
-import dev.upcraft.sparkweave.api.platform.services.SparkweaveHelperService;
+import dev.upcraft.sparkweave.platform.SparkweaveHelperService;
 import net.minecraft.ChatFormatting;
 import net.minecraft.commands.CommandSourceStack;
 import net.minecraft.commands.synchronization.ArgumentTypeInfo;

@@ -1,7 +1,7 @@
 package dev.upcraft.sparkweave.api.item;
 
 import dev.upcraft.sparkweave.api.platform.Services;
-import dev.upcraft.sparkweave.api.platform.services.SparkweaveHelperService;
+import dev.upcraft.sparkweave.platform.SparkweaveHelperService;
 import dev.upcraft.sparkweave.api.registry.RegistryHandler;
 import dev.upcraft.sparkweave.api.registry.item.CreativeTabFiller;
 import net.minecraft.network.chat.Component;
