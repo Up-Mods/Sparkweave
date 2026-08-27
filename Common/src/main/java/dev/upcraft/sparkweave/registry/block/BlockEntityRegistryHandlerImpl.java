@@ -1,9 +1,11 @@
 package dev.upcraft.sparkweave.registry.block;
 
+import dev.upcraft.sparkweave.api.platform.Services;
 import dev.upcraft.sparkweave.api.platform.services.RegistryService;
 import dev.upcraft.sparkweave.api.registry.RegistryHandler;
 import dev.upcraft.sparkweave.api.registry.RegistrySupplier;
 import dev.upcraft.sparkweave.api.registry.block.BlockEntityRegistryHandler;
+import dev.upcraft.sparkweave.platform.SparkweaveHelperService;
 import net.minecraft.core.Registry;
 import net.minecraft.resources.Identifier;
 import net.minecraft.resources.ResourceKey;
@@ -16,11 +18,11 @@ import java.util.List;
 import java.util.Map;
 import java.util.Set;
 import java.util.function.Supplier;
-import java.util.stream.Collectors;
 import java.util.stream.Stream;
 
 public class BlockEntityRegistryHandlerImpl implements BlockEntityRegistryHandler {
 
+	private static final SparkweaveHelperService SERVICE = Services.getService(SparkweaveHelperService.class);
 	private final RegistryHandler<BlockEntityType<?>> delegate;
 
 	public BlockEntityRegistryHandlerImpl(RegistryHandler<BlockEntityType<?>> delegate) {
@@ -28,8 +30,8 @@ public class BlockEntityRegistryHandlerImpl implements BlockEntityRegistryHandle
 	}
 
 	@Override
-	public final <S extends BlockEntity> RegistrySupplier<BlockEntityType<S>> register(String name, BlockEntityType.BlockEntitySupplier<S> factory, Set<? extends Supplier<? extends Block>> allowedBlocks) {
-		return register(name, () -> new BlockEntityType<>(factory, allowedBlocks.stream().map(Supplier::get).collect(Collectors.toSet())));
+	public final <S extends BlockEntity> RegistrySupplier<BlockEntityType<S>> register(String name, BlockEntityType.BlockEntitySupplier<S> factory, boolean onlyOpCanSetNbt, Set<? extends Supplier<? extends Block>> validBlocks) {
+		return register(name, () -> SERVICE.createBlockEntityType(factory, onlyOpCanSetNbt, validBlocks.stream().map(Supplier::get).toArray(Block[]::new)));
 	}
 
 	@Override

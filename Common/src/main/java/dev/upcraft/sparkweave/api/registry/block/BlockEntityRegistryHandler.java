@@ -11,5 +11,9 @@ import java.util.function.Supplier;
 
 public interface BlockEntityRegistryHandler extends RegistryHandler<BlockEntityType<?>> {
 
-	<T extends BlockEntity> RegistrySupplier<BlockEntityType<T>> register(String name, BlockEntityType.BlockEntitySupplier<T> factory, Set<? extends Supplier<? extends Block>> allowedBlocks);
+	<T extends BlockEntity> RegistrySupplier<BlockEntityType<T>> register(String name, BlockEntityType.BlockEntitySupplier<T> factory, boolean onlyOpCanSetNbt, Set<? extends Supplier<? extends Block>> validBlocks);
+
+	default <T extends BlockEntity> RegistrySupplier<BlockEntityType<T>> register(String name, BlockEntityType.BlockEntitySupplier<T> factory, Set<? extends Supplier<? extends Block>> validBlocks) {
+		return register(name, factory, false, validBlocks);
+	}
 }
