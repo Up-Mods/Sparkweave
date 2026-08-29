@@ -1,16 +1,19 @@
 package dev.upcraft.sparkweave.api.item;
 
+import com.google.common.collect.Sets;
 import dev.upcraft.sparkweave.api.platform.Services;
-import dev.upcraft.sparkweave.platform.SparkweaveHelperService;
 import dev.upcraft.sparkweave.api.registry.RegistryHandler;
 import dev.upcraft.sparkweave.api.registry.item.CreativeTabFiller;
+import dev.upcraft.sparkweave.platform.SparkweaveHelperService;
 import net.minecraft.network.chat.Component;
 import net.minecraft.resources.Identifier;
 import net.minecraft.resources.ResourceKey;
 import net.minecraft.util.Util;
 import net.minecraft.world.item.CreativeModeTab;
+import net.minecraft.world.item.Items;
 import net.minecraft.world.level.ItemLike;
 
+import java.util.Set;
 import java.util.function.Supplier;
 
 public class CreativeTabHelper {
@@ -19,14 +22,26 @@ public class CreativeTabHelper {
 
 	@SafeVarargs
 	public static void addRegistryEntries(CreativeModeTab.ItemDisplayParameters displayParameters, CreativeModeTab.Output collector, RegistryHandler<? extends ItemLike>... itemProviders) {
+		Set<Object> seen = Sets.newIdentityHashSet(); // make sure to only look at each object once, even if we encounter it multiple times due to block-items
+
 		for (RegistryHandler<? extends ItemLike> itemProvider : itemProviders) {
 			itemProvider.stream().map(Supplier::get).forEach(registryObject -> {
 				if (registryObject instanceof CreativeTabFiller filler) {
-					filler.addItemsToTab(displayParameters, collector);
-				} else if (registryObject.asItem() instanceof CreativeTabFiller filler) {
-					filler.addItemsToTab(displayParameters, collector);
+					if(seen.add(registryObject)) {
+						filler.addItemsToTab(displayParameters, collector);
+					}
 				} else {
-					collector.accept(registryObject);
+					var item = registryObject.asItem();
+					if(item == Items.AIR || !seen.add(item)) {
+						return;
+					}
+
+					if(item instanceof CreativeTabFiller filler) {
+						filler.addItemsToTab(displayParameters, collector);
+					}
+					else {
+						collector.accept(registryObject);
+					}
 				}
 			});
 		}
