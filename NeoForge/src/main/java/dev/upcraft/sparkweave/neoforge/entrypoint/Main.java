@@ -10,6 +10,7 @@ import dev.upcraft.sparkweave.api.event.RegisterCustomLecternMenuEvent;
 import dev.upcraft.sparkweave.api.logging.SparkweaveLoggerFactory;
 import dev.upcraft.sparkweave.api.platform.services.RegistryService;
 import dev.upcraft.sparkweave.api.registry.block.BlockItemProvider;
+import dev.upcraft.sparkweave.api.registry.block.InjectIntoBlockEntity;
 import dev.upcraft.sparkweave.entrypoint.EntrypointHelper;
 import dev.upcraft.sparkweave.event.EntityTickEventsImpl;
 import dev.upcraft.sparkweave.registry.SparkweaveCommandArgumentTypes;
@@ -17,12 +18,14 @@ import dev.upcraft.sparkweave.scheduler.ScheduledTaskQueue;
 import net.minecraft.core.registries.BuiltInRegistries;
 import net.minecraft.core.registries.Registries;
 import net.minecraft.world.item.Item;
+import net.minecraft.world.level.block.entity.BlockEntityType;
 import net.neoforged.bus.api.IEventBus;
 import net.neoforged.bus.api.SubscribeEvent;
 import net.neoforged.fml.common.EventBusSubscriber;
 import net.neoforged.fml.common.Mod;
 import net.neoforged.fml.event.lifecycle.FMLCommonSetupEvent;
 import net.neoforged.fml.loading.FMLEnvironment;
+import net.neoforged.neoforge.event.BlockEntityTypeAddBlocksEvent;
 import net.neoforged.neoforge.event.RegisterCommandsEvent;
 import net.neoforged.neoforge.event.server.ServerStartingEvent;
 import net.neoforged.neoforge.event.server.ServerStoppedEvent;
@@ -52,18 +55,25 @@ public class Main {
 	}
 
 	@SubscribeEvent
-	public static void processBlockItems(RegisterEvent event) {
-		if (event.getRegistryKey() == Registries.ITEM) {
-			BuiltInRegistries.BLOCK.entrySet().forEach(entry -> {
-				if (entry.getValue() instanceof BlockItemProvider provider) {
-					event.register(Registries.ITEM, registerHelper -> {
-						var itemId = provider.createItemId(entry.getKey());
-						var properties = new Item.Properties().useBlockDescriptionPrefix().setId(itemId);
-						registerHelper.register(itemId, provider.createItem(properties));
-					});
+	public static void processBlockEntityInjections(BlockEntityTypeAddBlocksEvent event) {
+		BuiltInRegistries.BLOCK.forEach(block -> {
+			if(block instanceof InjectIntoBlockEntity inject) {
+				for (BlockEntityType<?> blockEntityType : inject.getBlockEntityTypesToInjectInto()) {
+					event.modify(blockEntityType, block);
 				}
-			});
-		}
+			}
+		});
+	}
+
+	@SubscribeEvent
+	public static void processBlockItems(RegisterEvent event) {
+		event.register(Registries.ITEM, registerHelper -> BuiltInRegistries.BLOCK.entrySet().forEach(entry -> {
+			if (entry.getValue() instanceof BlockItemProvider provider) {
+				var itemId = provider.createItemId(entry.getKey());
+				var properties = new Item.Properties().useBlockDescriptionPrefix().setId(itemId);
+				registerHelper.register(itemId, provider.createItem(properties));
+			}
+		}));
 	}
 
 	@SubscribeEvent

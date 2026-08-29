@@ -7,6 +7,7 @@ import dev.upcraft.sparkweave.api.event.RegisterCustomLecternMenuEvent;
 import dev.upcraft.sparkweave.api.logging.SparkweaveLoggerFactory;
 import dev.upcraft.sparkweave.api.platform.services.RegistryService;
 import dev.upcraft.sparkweave.api.registry.block.BlockItemProvider;
+import dev.upcraft.sparkweave.api.registry.block.InjectIntoBlockEntity;
 import dev.upcraft.sparkweave.entrypoint.EntrypointHelper;
 import dev.upcraft.sparkweave.registry.SparkweaveCommandArgumentTypes;
 import dev.upcraft.sparkweave.scheduler.ScheduledTaskQueue;
@@ -19,6 +20,7 @@ import net.minecraft.core.registries.BuiltInRegistries;
 import net.minecraft.core.registries.Registries;
 import net.minecraft.resources.ResourceKey;
 import net.minecraft.world.item.Item;
+import net.minecraft.world.level.block.entity.BlockEntityType;
 
 @CalledByReflection
 public class Main implements ModInitializer {
@@ -30,6 +32,12 @@ public class Main implements ModInitializer {
 				var itemId = provider.createItemId(ResourceKey.create(Registries.BLOCK, id));
 				var properties = new Item.Properties().useBlockDescriptionPrefix().setId(itemId);
 				Registry.register(BuiltInRegistries.ITEM, itemId, provider.createItem(properties));
+			}
+
+			if(block instanceof InjectIntoBlockEntity inject) {
+				for (BlockEntityType<?> blockEntityType : inject.getBlockEntityTypesToInjectInto()) {
+					blockEntityType.addValidBlock(block);
+				}
 			}
 		});
 
