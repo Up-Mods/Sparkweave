@@ -1,4 +1,7 @@
 {
+  "net/minecraft/world/level/block/state/BlockBehaviour$Properties": [
+    "dev/upcraft/sparkweave/api/ext/BlockPropertiesExt"
+  ],
   "net/minecraft/world/level/block/entity/LecternBlockEntity": [
     "dev/upcraft/sparkweave/api/ext/LecternBlockEntityExt"
   ],

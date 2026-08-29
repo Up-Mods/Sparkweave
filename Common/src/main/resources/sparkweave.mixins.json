@@ -5,6 +5,7 @@
   "plugin": "dev.upcraft.sparkweave.SparkweaveMixinConfigPlugin",
   "compatibilityLevel": "JAVA_${java_version}",
   "mixins": [
+    "BlockPropertiesMixin",
     "customlectern.BlockEntityMixin",
     "customlectern.LecternBlockEntityMixin",
     "customlectern.LecternBlockMixin",

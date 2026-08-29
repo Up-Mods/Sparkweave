@@ -3,6 +3,9 @@ classTweaker v2 official
 # BlockFamilies
 transitive-accessible method net/minecraft/data/BlockFamilies familyBuilder (Lnet/minecraft/world/level/block/Block;)Lnet/minecraft/data/BlockFamily$Builder;
 
+# Registry::Block
+transitive-inject-interface net/minecraft/world/level/block/state/BlockBehaviour$Properties dev/upcraft/sparkweave/api/ext/BlockPropertiesExt
+
 # Registry::BlockEntityType
 transitive-accessible class net/minecraft/world/level/block/entity/BlockEntityType$BlockEntitySupplier
 
