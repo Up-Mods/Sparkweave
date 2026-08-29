@@ -9,6 +9,8 @@
     "customlectern.BlockEntityMixin",
     "customlectern.LecternBlockEntityMixin",
     "customlectern.LecternBlockMixin",
+    "customsigns.HangingSignBlockEntityMixin",
+    "customsigns.SparkweaveHangingSignBlockEntityMixin",
     "datagen.IntrinsicHolderTagsProviderAcessor",
     "datagen.RecipeBuilderMixin",
     "datagen.TagAppenderMixin",
