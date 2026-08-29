@@ -2,6 +2,8 @@
   "biome.sparkweave_testmod.test_biome": "Test Biome",
   "block.sparkweave_testmod.blueberry_bush": "Blueberry Bush",
   "block.sparkweave_testmod.test_block": "Test Block",
+  "block.sparkweave_testmod.test_hanging_sign": "Test Hanging Sign",
+  "block.sparkweave_testmod.test_sign": "Test Sign",
   "block.sparkweave_testmod.test_stairs": "Test Stairs",
   "enchantment.sparkweave_testmod.test_enchantment": "Test Enchantment",
   "enchantment.sparkweave_testmod.test_enchantment.desc": "Debug Enchantment to test Sparkweave Data generation APIs",

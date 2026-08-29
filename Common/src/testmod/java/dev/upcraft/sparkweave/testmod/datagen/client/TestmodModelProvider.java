@@ -36,6 +36,7 @@ public class TestmodModelProvider extends SparkweaveModelProvider {
 		createBerryBush(blockModels, itemModels, TestBlocks.BLUEBERRY_BUSH, TestItems.BLUEBERRY);
 
 		createFamily(blockModels, TestmodBlockFamilies.TEST);
+		blockModels.createHangingSign(TestBlocks.TEST_BLOCK.get(), TestBlocks.TEST_HANGING_SIGN.get(), TestBlocks.TEST_WALL_HANGING_SIGN.get());
 	}
 
 	private static void createFamily(BlockModelGenerators blockModels, BlockFamily family) {

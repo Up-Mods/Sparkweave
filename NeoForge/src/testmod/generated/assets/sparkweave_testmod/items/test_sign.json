@@ -1,0 +1,6 @@
+{
+  "model": {
+    "type": "minecraft:model",
+    "model": "sparkweave_testmod:item/test_sign"
+  }
+}

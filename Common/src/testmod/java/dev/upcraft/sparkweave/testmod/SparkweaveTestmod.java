@@ -34,6 +34,7 @@ public class SparkweaveTestmod implements MainEntryPoint {
 		var registryService = RegistryService.get();
 
 		TestDataComponents.DATA_COMPONENTS.accept(registryService);
+		TestBlockEntities.BLOCK_ENTITIES.accept(registryService);
 		TestBlocks.BLOCKS.accept(registryService);
 		TestItems.ITEMS.accept(registryService);
 		TestCreativeTabs.TABS.accept(registryService);
