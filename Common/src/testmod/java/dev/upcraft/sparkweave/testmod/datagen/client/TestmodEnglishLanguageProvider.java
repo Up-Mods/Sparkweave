@@ -6,6 +6,7 @@ import dev.upcraft.sparkweave.api.datagen.provider.client.SparkweaveLanguageProv
 import dev.upcraft.sparkweave.testmod.data.TestmodTags;
 import dev.upcraft.sparkweave.testmod.init.TestBlocks;
 import dev.upcraft.sparkweave.testmod.init.TestCreativeTabs;
+import dev.upcraft.sparkweave.testmod.init.TestEntities;
 import dev.upcraft.sparkweave.testmod.init.TestItems;
 import net.minecraft.core.HolderLookup;
 import net.minecraft.locale.Language;
@@ -36,6 +37,9 @@ public class TestmodEnglishLanguageProvider extends SparkweaveLanguageProvider {
 		builder.item(TestItems.MAGE_ROBES, "Mage Robes");
 		builder.item(TestItems.MAGE_LEGGINGS, "Mage Leggings");
 		builder.item(TestItems.MAGE_BOOTS, "Mage Boots");
+
+		builder.item(TestItems.TEST_BOAT, "Test Boat");
+		builder.entity(TestEntities.TEST_BOAT, "Test Boat");
 
 		// TODO remove once implemented in tag provider
 		builder.tag(TestmodTags.Items.MAGE_ROBES_REPAIR_MATERIALS, "Mage Robes repair materials");

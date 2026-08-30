@@ -7,6 +7,7 @@ import dev.upcraft.sparkweave.testmod.SparkweaveTestmod;
 import dev.upcraft.sparkweave.testmod.data.TestArmorMaterials;
 import dev.upcraft.sparkweave.testmod.datacomponent.Openable;
 import net.minecraft.core.Holder;
+import net.minecraft.world.item.BoatItem;
 import net.minecraft.world.item.HangingSignItem;
 import net.minecraft.world.item.Item;
 import net.minecraft.world.item.SignItem;
@@ -30,4 +31,6 @@ public class TestItems {
 	public static final RegistrySupplier<Item> TEST_HANGING_SIGN = ITEMS.registerForBlock(TestBlocks.TEST_HANGING_SIGN, properties -> new HangingSignItem(TestBlocks.TEST_HANGING_SIGN.get(), TestBlocks.TEST_WALL_HANGING_SIGN.get(), properties), new Item.Properties().stacksTo(16));
 
 	public static final Supplier<Item> BLUEBERRY = () -> TestBlocks.BLUEBERRY_BUSH.get().asItem();
+
+	public static final RegistrySupplier<Item> TEST_BOAT = ITEMS.register("test_boat", properties -> new BoatItem(TestEntities.TEST_BOAT.get(), properties), new Item.Properties().stacksTo(1));
 }

@@ -37,6 +37,7 @@ public class TestmodModelProvider extends SparkweaveModelProvider {
 
 		createFamily(blockModels, TestmodBlockFamilies.TEST);
 		blockModels.createHangingSign(TestBlocks.TEST_BLOCK.get(), TestBlocks.TEST_HANGING_SIGN.get(), TestBlocks.TEST_WALL_HANGING_SIGN.get());
+		itemModels.generateFlatItem(TestItems.TEST_BOAT.get(), ModelTemplates.FLAT_ITEM);
 	}
 
 	private static void createFamily(BlockModelGenerators blockModels, BlockFamily family) {

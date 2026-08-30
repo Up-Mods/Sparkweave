@@ -2,17 +2,17 @@ package dev.upcraft.sparkweave.testmod.client;
 
 import com.google.auto.service.AutoService;
 import dev.upcraft.sparkweave.api.client.Debug;
-import dev.upcraft.sparkweave.api.client.event.ClientTickEvents;
-import dev.upcraft.sparkweave.api.client.event.RegisterCustomArmorRenderersEvent;
-import dev.upcraft.sparkweave.api.client.event.RegisterLayerDefinitionsEvent;
-import dev.upcraft.sparkweave.api.client.event.RegisterLecternItemRendererEvent;
+import dev.upcraft.sparkweave.api.client.event.*;
 import dev.upcraft.sparkweave.api.entrypoint.ClientEntryPoint;
 import dev.upcraft.sparkweave.api.platform.ModContainer;
 import dev.upcraft.sparkweave.testmod.client.models.MageRobesModel;
 import dev.upcraft.sparkweave.testmod.client.renderers.special.DiamondLecternRenderer;
 import dev.upcraft.sparkweave.testmod.client.renderers.entity.MageRobesRenderer;
+import dev.upcraft.sparkweave.testmod.init.TestEntities;
 import dev.upcraft.sparkweave.testmod.init.TestItems;
 import net.minecraft.client.Minecraft;
+import net.minecraft.client.model.geom.ModelLayers;
+import net.minecraft.client.renderer.entity.BoatRenderer;
 import net.minecraft.core.BlockPos;
 import net.minecraft.world.item.Items;
 import net.minecraft.world.level.levelgen.Heightmap;
@@ -28,6 +28,7 @@ public class SparkweaveTestmodClient implements ClientEntryPoint {
 		RegisterCustomArmorRenderersEvent.EVENT.register(event -> event.register(MageRobesRenderer::new, Items.CHAINMAIL_HELMET, Items.CHAINMAIL_CHESTPLATE, Items.CHAINMAIL_LEGGINGS, Items.CHAINMAIL_BOOTS));
 		RegisterCustomArmorRenderersEvent.EVENT.register(event -> event.register(MageRobesRenderer::new, TestItems.MAGE_HOOD, TestItems.MAGE_ROBES, TestItems.MAGE_LEGGINGS, TestItems.MAGE_BOOTS));
 		RegisterLecternItemRendererEvent.EVENT.register(event -> event.registerRenderer(DiamondLecternRenderer::new, TestItems.TEST_ITEM));
+		RegisterEntityRenderersEvent.EVENT.register(event -> event.registerRenderer(TestEntities.TEST_BOAT, context -> new BoatRenderer(context, ModelLayers.OAK_BOAT)));
 		ClientTickEvents.START_TICK.register(SparkweaveTestmodClient::onClientTickStart);
 	}
 

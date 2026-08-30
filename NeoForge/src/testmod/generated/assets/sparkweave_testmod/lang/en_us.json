@@ -7,11 +7,13 @@
   "block.sparkweave_testmod.test_stairs": "Test Stairs",
   "enchantment.sparkweave_testmod.test_enchantment": "Test Enchantment",
   "enchantment.sparkweave_testmod.test_enchantment.desc": "Debug Enchantment to test Sparkweave Data generation APIs",
+  "entity.sparkweave_testmod.test_boat": "Test Boat",
   "item.sparkweave_testmod.blueberry": "Blueberry",
   "item.sparkweave_testmod.mage_boots": "Mage Boots",
   "item.sparkweave_testmod.mage_hood": "Mage Hood",
   "item.sparkweave_testmod.mage_leggings": "Mage Leggings",
   "item.sparkweave_testmod.mage_robes": "Mage Robes",
+  "item.sparkweave_testmod.test_boat": "Test Boat",
   "item.sparkweave_testmod.test_item": "Test Item",
   "itemGroup.sparkweave_testmod.items": "TestMod Items",
   "tag.item.sparkweave_testmod.mage_robes_repair_materials": "Mage Robes repair materials"
