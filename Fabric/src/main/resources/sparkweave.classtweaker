@@ -5,6 +5,7 @@ transitive-accessible method net/minecraft/data/BlockFamilies familyBuilder (Lne
 
 # Registry::Block
 transitive-inject-interface net/minecraft/world/level/block/state/BlockBehaviour$Properties dev/upcraft/sparkweave/api/ext/BlockPropertiesExt
+transitive-accessible method net/minecraft/world/item/Items blockIdToItemId (Lnet/minecraft/resources/ResourceKey;)Lnet/minecraft/resources/ResourceKey;
 
 # Registry::BlockEntityType
 transitive-accessible class net/minecraft/world/level/block/entity/BlockEntityType$BlockEntitySupplier

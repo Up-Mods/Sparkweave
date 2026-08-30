@@ -1,15 +1,15 @@
 package dev.upcraft.sparkweave.api.registry.block;
 
-import net.minecraft.core.registries.Registries;
 import net.minecraft.resources.ResourceKey;
 import net.minecraft.world.item.BlockItem;
 import net.minecraft.world.item.Item;
+import net.minecraft.world.item.Items;
 import net.minecraft.world.level.block.Block;
 
 public interface BlockItemProvider {
 
 	default ResourceKey<Item> createItemId(ResourceKey<Block> blockId) {
-		return ResourceKey.create(Registries.ITEM, blockId.identifier());
+		return Items.blockIdToItemId(blockId);
 	}
 
 	default Item createItem(Item.Properties properties) {
