@@ -4,11 +4,13 @@ import dev.upcraft.sparkweave.api.platform.services.RegistryService;
 import dev.upcraft.sparkweave.api.registry.block.BlockEntityRegistryHandler;
 import dev.upcraft.sparkweave.api.registry.block.BlockRegistryHandler;
 import dev.upcraft.sparkweave.api.registry.datacomponent.DataComponentRegistryHandler;
+import dev.upcraft.sparkweave.api.registry.entity.EntityRegistryHandler;
 import dev.upcraft.sparkweave.api.registry.item.ItemRegistryHandler;
 import dev.upcraft.sparkweave.registry.IdAwareRegistryHandlerImpl;
 import dev.upcraft.sparkweave.registry.block.BlockEntityRegistryHandlerImpl;
 import dev.upcraft.sparkweave.registry.block.BlockRegistryHandlerImpl;
 import dev.upcraft.sparkweave.registry.datacomponents.DataComponentRegistryHandlerImpl;
+import dev.upcraft.sparkweave.registry.entity.EntityRegistryHandlerImpl;
 import dev.upcraft.sparkweave.registry.item.ItemRegistryHandlerImpl;
 import net.minecraft.core.Registry;
 import net.minecraft.core.registries.Registries;
@@ -29,11 +31,6 @@ public interface RegistryHandler<T> extends Consumer<RegistryService>, RegistryC
 		return new IdAwareRegistryHandlerImpl<>(handler, idMapper);
 	}
 
-	static ItemRegistryHandler items(String namespace) {
-		var handler = create(Registries.ITEM, namespace);
-		return new ItemRegistryHandlerImpl(handler);
-	}
-
 	static BlockEntityRegistryHandler blockEntities(String namespace) {
 		var handler = create(Registries.BLOCK_ENTITY_TYPE, namespace);
 		return new BlockEntityRegistryHandlerImpl(handler);
@@ -47,6 +44,16 @@ public interface RegistryHandler<T> extends Consumer<RegistryService>, RegistryC
 	static DataComponentRegistryHandler dataComponents(String namespace) {
 		var handler = create(Registries.DATA_COMPONENT_TYPE, namespace);
 		return new DataComponentRegistryHandlerImpl(handler);
+	}
+
+	static EntityRegistryHandler entities(String namespace) {
+		var handler = create(Registries.ENTITY_TYPE, namespace);
+		return new EntityRegistryHandlerImpl(handler);
+	}
+
+	static ItemRegistryHandler items(String namespace) {
+		var handler = create(Registries.ITEM, namespace);
+		return new ItemRegistryHandlerImpl(handler);
 	}
 
 	<S extends T> RegistrySupplier<S> register(String name, Supplier<S> factory);
