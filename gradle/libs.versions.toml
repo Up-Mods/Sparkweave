@@ -28,7 +28,7 @@ appdirs = "1.5.0"
 
 # Mods
 # https://maven.blamejared.com/mezz/jei/jei-26.1.2-common/
-jei = "29.6.2.38"
+jei = "29.34.0.88"
 # https://modrinth.com/mod/modmenu/versions
 modmenu = "18.0.0"
 # https://beehive.sh/mod/resourcefulconfig/versions
