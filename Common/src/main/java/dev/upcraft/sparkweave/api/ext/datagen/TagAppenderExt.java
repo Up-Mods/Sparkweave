@@ -7,12 +7,12 @@ import java.util.function.Supplier;
 
 public interface TagAppenderExt<E, T> {
 
-	default TagAppender<E, T> add(Supplier<E> element) {
+	default TagAppender<E, T> add(Supplier<? extends E> element) {
 		throw new AssertionError("Implemented in Mixin");
 	}
 
 	@SuppressWarnings("unchecked")
-	default TagAppender<E, T> add(Supplier<E>... elements) {
+	default TagAppender<E, T> add(Supplier<? extends E>... elements) {
 		throw new AssertionError("Implemented in Mixin");
 	}
 

@@ -20,13 +20,13 @@ public interface TagAppenderMixin<E, T> extends TagAppenderExt<E, T> {
 	TagAppender<E, T> addAll(Stream<E> elements);
 
 	@Override
-	default TagAppender<E, T> add(Supplier<E> element) {
+	default TagAppender<E, T> add(Supplier<? extends E> element) {
 		return this.add(element.get());
 	}
 
 	@SuppressWarnings("unchecked")
 	@Override
-	default TagAppender<E, T> add(Supplier<E>... elements) {
+	default TagAppender<E, T> add(Supplier<? extends E>... elements) {
 		return this.addAll(Arrays.stream(elements).map(Supplier::get));
 	}
 }
