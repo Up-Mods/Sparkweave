@@ -27,8 +27,8 @@ public class TestItems {
 	public static final RegistrySupplier<Item> MAGE_LEGGINGS = ITEMS.register("mage_leggings", Item::new, () -> new Item.Properties().humanoidArmor(TestArmorMaterials.MAGE_ROBES, ArmorType.LEGGINGS));
 	public static final RegistrySupplier<Item> MAGE_BOOTS = ITEMS.register("mage_boots", Item::new, () -> new Item.Properties().humanoidArmor(TestArmorMaterials.MAGE_ROBES, ArmorType.BOOTS));
 
-	public static final RegistrySupplier<Item> TEST_SIGN = ITEMS.registerForBlock(TestBlocks.TEST_SIGN, properties -> new SignItem(TestBlocks.TEST_SIGN.get(), TestBlocks.TEST_WALL_SIGN.get(), properties), new Item.Properties().stacksTo(16));
-	public static final RegistrySupplier<Item> TEST_HANGING_SIGN = ITEMS.registerForBlock(TestBlocks.TEST_HANGING_SIGN, properties -> new HangingSignItem(TestBlocks.TEST_HANGING_SIGN.get(), TestBlocks.TEST_WALL_HANGING_SIGN.get(), properties), new Item.Properties().stacksTo(16));
+	public static final RegistrySupplier<Item> TEST_SIGN = ITEMS.registerForBlock(TestBlocks.TEST_SIGN, (properties, signBlock) -> new SignItem(signBlock, TestBlocks.TEST_WALL_SIGN.get(), properties), new Item.Properties().stacksTo(16));
+	public static final RegistrySupplier<Item> TEST_HANGING_SIGN = ITEMS.registerForBlock(TestBlocks.TEST_HANGING_SIGN, (properties, signBlock) -> new HangingSignItem(signBlock, TestBlocks.TEST_WALL_HANGING_SIGN.get(), properties), new Item.Properties().stacksTo(16));
 
 	public static final Supplier<Item> BLUEBERRY = () -> TestBlocks.BLUEBERRY_BUSH.get().asItem();
 
