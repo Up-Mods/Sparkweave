@@ -3,10 +3,12 @@ package dev.upcraft.sparkweave.api.datagen.provider.common;
 import net.minecraft.core.HolderLookup;
 import net.minecraft.core.Registry;
 import net.minecraft.data.PackOutput;
+import net.minecraft.data.tags.TagAppender;
 import net.minecraft.data.tags.TagsProvider;
 import net.minecraft.resources.ResourceKey;
 import net.minecraft.tags.TagBuilder;
 import net.minecraft.tags.TagKey;
+import org.jetbrains.annotations.ApiStatus;
 
 import java.util.concurrent.CompletableFuture;
 
@@ -36,6 +38,16 @@ public abstract class SparkweaveTagsProvider<T> extends TagsProvider<T> {
 	public TagBuilder getOrCreateRawBuilder(TagKey<T> tag, String tagName) {
 		// TODO add tag translation to language file
 		return super.getOrCreateRawBuilder(tag);
+	}
+
+	public TagAppender<ResourceKey<T>, T> tag(TagKey<T> tagKey, String tagName) {
+		var builder = getOrCreateRawBuilder(tagKey, tagName);
+		return TagAppender.forBuilder(builder);
+	}
+
+	public TagAppender<ResourceKey<T>, T> existingTag(TagKey<T> tagKey) {
+		var builder = getOrCreateRawBuilder(tagKey);
+		return TagAppender.forBuilder(builder);
 	}
 
 	// TODO getName()
