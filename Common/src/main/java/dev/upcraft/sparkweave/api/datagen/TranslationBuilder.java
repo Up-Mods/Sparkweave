@@ -45,9 +45,9 @@ public class TranslationBuilder {
 	}
 
 	@Deprecated(forRemoval = true)
-	public void advancement(TranslationBuilder builder, Identifier advancementId, String title, String description) {
-		builder.add(Util.makeDescriptionId("advancements", advancementId.withSuffix(".title")), title);
-		builder.add(Util.makeDescriptionId("advancements", advancementId.withSuffix(".description")), description);
+	public void advancement(Identifier advancementId, String title, String description) {
+		add(Util.makeDescriptionId("advancements", advancementId.withSuffix(".title")), title);
+		add(Util.makeDescriptionId("advancements", advancementId.withSuffix(".description")), description);
 	}
 
 	public void attribute(Supplier<? extends Attribute> attribute, String translation) {
@@ -77,7 +77,7 @@ public class TranslationBuilder {
 
 	@ApiStatus.Experimental
 	@SuppressWarnings("deprecation")
-	public void itemStack(TranslationBuilder builder, ItemStack stack, String translation) {
+	public void itemStack(ItemStack stack, String translation) {
 		var itemName = stack.getItemName();
 		if(!(itemName.getContents() instanceof TranslatableContents translatableContents)) {
 			throw new IllegalArgumentException("Item name not translatable for [%s]: %s".formatted(stack.getItem().builtInRegistryHolder().key().identifier(), itemName));
@@ -88,7 +88,7 @@ public class TranslationBuilder {
 			throw new IllegalArgumentException("Item translation %s is the default key, use item()/block() instead!".formatted(translationKey));
 		}
 
-		builder.add(translatableContents.getKey(), translation);
+		add(translatableContents.getKey(), translation);
 	}
 
 	public void mobEffect(Supplier<? extends MobEffect> effect, String translation) {
