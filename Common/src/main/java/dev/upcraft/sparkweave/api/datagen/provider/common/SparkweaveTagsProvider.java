@@ -14,12 +14,17 @@ import java.util.concurrent.CompletableFuture;
 
 public abstract class SparkweaveTagsProvider<T> extends TagsProvider<T> {
 
+	private final String modId;
+	private final ResourceKey<? extends Registry<T>> registryKey;
+
 	/**
 	 * @param modId the ID of the mod this generator belongs to
 	 */
 	@SuppressWarnings({"deprecation", "RedundantSuppression"}) // needed for NeoForge because of patched modId parameter
 	public SparkweaveTagsProvider(PackOutput output, ResourceKey<? extends Registry<T>> registryKey, String modId, CompletableFuture<HolderLookup.Provider> lookupProvider, CompletableFuture<TagLookup<T>> parentProvider) {
 		super(output, registryKey, lookupProvider, parentProvider);
+		this.modId = modId;
+		this.registryKey = registryKey;
 	}
 
 	public SparkweaveTagsProvider(PackOutput output, ResourceKey<? extends Registry<T>> registryKey, String modId, CompletableFuture<HolderLookup.Provider> lookupProvider) {
@@ -50,5 +55,8 @@ public abstract class SparkweaveTagsProvider<T> extends TagsProvider<T> {
 		return TagAppender.forBuilder(builder);
 	}
 
-	// TODO getName()
+	@Override
+	public String getName() {
+		return "%s::Tags/%s".formatted(modId, registryKey.identifier());
+	}
 }
