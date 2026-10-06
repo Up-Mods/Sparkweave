@@ -17,12 +17,18 @@ import java.util.function.Function;
 
 @ApiStatus.Experimental
 public abstract class SparkweaveIntrinsicHolderTagsProvider<T> extends IntrinsicHolderTagsProvider<T> {
+
+	private final String modId;
+	private final ResourceKey<? extends Registry<T>> registryKey;
+
 	/**
 	 * @param modId the ID of the mod this generator belongs to
 	 */
 	@SuppressWarnings({"deprecation", "RedundantSuppression"}) // needed for NeoForge because of patched modId parameter
 	public SparkweaveIntrinsicHolderTagsProvider(PackOutput output, ResourceKey<? extends Registry<T>> registryKey, String modId, CompletableFuture<HolderLookup.Provider> lookupProvider, CompletableFuture<TagLookup<T>> parentProvider, Function<T, ResourceKey<T>> keyExtractor) {
 		super(output, registryKey, lookupProvider, parentProvider, keyExtractor);
+		this.modId = modId;
+		this.registryKey = registryKey;
 	}
 
 	public SparkweaveIntrinsicHolderTagsProvider(PackOutput output, ResourceKey<? extends Registry<T>> registryKey, String modId, CompletableFuture<HolderLookup.Provider> lookupProvider, Function<T, ResourceKey<T>> keyExtractor) {
@@ -70,5 +76,10 @@ public abstract class SparkweaveIntrinsicHolderTagsProvider<T> extends Intrinsic
 	protected TagAppender<T, T> tag(TagKey<T> tag, String tagName) {
 		TagBuilder builder = this.getOrCreateRawBuilder(tag, tagName);
 		return TagAppender.<T>forBuilder(builder).map(((IntrinsicHolderTagsProviderAcessor<T>) this).sparkweave$getKeyExtractor());
+	}
+
+	@Override
+	public String getName() {
+		return "%s::Tags/%s".formatted(modId, registryKey.identifier());
 	}
 }

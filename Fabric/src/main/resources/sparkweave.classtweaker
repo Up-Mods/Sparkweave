@@ -54,6 +54,7 @@ transitive-inject-interface net/minecraft/tags/TagKey dev/upcraft/sparkweave/api
 transitive-accessible class net/minecraft/core/RegistrySetBuilder$RegistryStub
 transitive-inject-interface net/minecraft/core/RegistrySetBuilder dev/upcraft/sparkweave/api/ext/datagen/RegistrySetBuilderExt
 # Datageneration::Tags
+transitive-extendable method net/minecraft/data/tags/TagsProvider getName ()Ljava/lang/String;
 transitive-inject-interface net/minecraft/data/tags/TagAppender dev/upcraft/sparkweave/api/ext/datagen/TagAppenderExt<TE;TT;>
 # Datageneration::Recipes
 transitive-extendable class net/minecraft/data/recipes/RecipeProvider$Runner
