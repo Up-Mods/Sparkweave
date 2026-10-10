@@ -13,6 +13,7 @@ public class TestmodLootTableProvider extends LootTableProvider {
 
 	public TestmodLootTableProvider(PackOutput output, CompletableFuture<HolderLookup.Provider> registries) {
 		super(output, TestmodLootTables.all(), List.of(
+			new SubProviderEntry(TestmodBlockLoot::new, LootContextParamSets.BLOCK),
 			new SubProviderEntry(TestmodBlockInteractLoot::new, LootContextParamSets.BLOCK_INTERACT)
 		), registries);
 	}

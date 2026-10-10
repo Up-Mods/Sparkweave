@@ -11,6 +11,7 @@
     "customlectern.LecternBlockMixin",
     "customsigns.HangingSignBlockEntityMixin",
     "customsigns.SparkweaveHangingSignBlockEntityMixin",
+    "datagen.BlockLootSubProviderMixin",
     "datagen.IntrinsicHolderTagsProviderAcessor",
     "datagen.RecipeBuilderMixin",
     "datagen.TagAppenderMixin",

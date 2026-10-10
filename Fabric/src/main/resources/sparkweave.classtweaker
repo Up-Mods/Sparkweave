@@ -66,6 +66,9 @@ transitive-accessible method net/minecraft/data/worldgen/biome/OverworldBiomes b
 transitive-accessible method net/minecraft/data/worldgen/biome/OverworldBiomes basePeaks (Lnet/minecraft/core/HolderGetter;Lnet/minecraft/core/HolderGetter;)Lnet/minecraft/world/level/biome/Biome$BiomeBuilder;
 transitive-accessible method net/minecraft/data/worldgen/biome/OverworldBiomes globalOverworldGeneration (Lnet/minecraft/world/level/biome/BiomeGenerationSettings$Builder;)V
 transitive-accessible method net/minecraft/data/worldgen/biome/OverworldBiomes baseOceanGeneration (Lnet/minecraft/core/HolderGetter;Lnet/minecraft/core/HolderGetter;)Lnet/minecraft/world/level/biome/BiomeGenerationSettings$Builder;
+# Datageneration::Blocks
+transitive-accessible method net/minecraft/data/loot/BlockLootSubProvider generate ()V
+transitive-accessible method net/minecraft/data/loot/packs/VanillaBlockLoot generate ()V
 # Datageneration::ItemModels
 transitive-inject-interface net/minecraft/client/data/models/ItemModelGenerators dev/upcraft/sparkweave/api/client/ext/datagen/ItemModelGeneratorsExt
 transitive-accessible field net/minecraft/client/data/models/ItemModelGenerators BLANK_LAYER Lnet/minecraft/client/color/item/ItemTintSource;
