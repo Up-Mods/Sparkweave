@@ -20,5 +20,7 @@ public class TestmodBlockLoot extends BlockLootSubProvider {
 		dropSelf(TestBlocks.TEST_SIGN.get());
 		dropSelf(TestBlocks.TEST_HANGING_SIGN.get());
 		dropSelf(TestBlocks.BLUEBERRY_BUSH.get());
+		dropSelf(TestBlocks.TEST_FLOWER.get());
+		dropPottedContents(TestBlocks.POTTED_TEST_FLOWER.get());
 	}
 }

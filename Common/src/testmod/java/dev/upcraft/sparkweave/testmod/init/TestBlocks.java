@@ -12,7 +12,11 @@ import dev.upcraft.sparkweave.testmod.block.BerryBushBlock;
 import dev.upcraft.sparkweave.testmod.block.BlueberryBushBlock;
 import dev.upcraft.sparkweave.testmod.block.TestBlock;
 import dev.upcraft.sparkweave.testmod.block.TestStairBlock;
+import net.minecraft.world.effect.MobEffects;
+import net.minecraft.world.level.block.Block;
 import net.minecraft.world.level.block.Blocks;
+import net.minecraft.world.level.block.FlowerBlock;
+import net.minecraft.world.level.block.FlowerPotBlock;
 import net.minecraft.world.level.block.state.BlockBehaviour;
 import net.minecraft.world.level.block.state.properties.WoodType;
 
@@ -28,4 +32,6 @@ public class TestBlocks {
 	public static final RegistrySupplier<SparkweaveWallHangingSignBlock> TEST_WALL_HANGING_SIGN = BLOCKS.register("test_wall_hanging_sign", properties -> new SparkweaveWallHangingSignBlock(WoodType.OAK, properties), () -> BlockBehaviour.Properties.ofFullCopy(Blocks.OAK_WALL_HANGING_SIGN).setOverridesFrom(TestBlocks.TEST_HANGING_SIGN));
 
 	public static final RegistrySupplier<BerryBushBlock> BLUEBERRY_BUSH = BLOCKS.register("blueberry_bush", BlueberryBushBlock::new, BlockBehaviour.Properties.ofFullCopy(Blocks.SWEET_BERRY_BUSH));
+	public static final RegistrySupplier<Block> TEST_FLOWER = BLOCKS.register("test_flower", properties -> new FlowerBlock(MobEffects.GLOWING, 15, properties), BlockBehaviour.Properties.ofFullCopy(Blocks.POPPY));
+	public static final RegistrySupplier<Block> POTTED_TEST_FLOWER = BLOCKS.register("potted_test_flower", properties -> new FlowerPotBlock(TEST_FLOWER.get(), properties), Blocks::flowerPotProperties);
 }

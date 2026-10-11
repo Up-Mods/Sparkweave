@@ -33,6 +33,9 @@ public class TestmodEnglishLanguageProvider extends SparkweaveLanguageProvider {
 		builder.block(TestBlocks.BLUEBERRY_BUSH, "Blueberry Bush");
 		builder.item(TestItems.BLUEBERRY, "Blueberry");
 
+		builder.block(TestBlocks.TEST_FLOWER, "Test Flower");
+		builder.block(TestBlocks.POTTED_TEST_FLOWER, "Potted Test Flower");
+
 		builder.item(TestItems.MAGE_HOOD, "Mage Hood");
 		builder.item(TestItems.MAGE_ROBES, "Mage Robes");
 		builder.item(TestItems.MAGE_LEGGINGS, "Mage Leggings");

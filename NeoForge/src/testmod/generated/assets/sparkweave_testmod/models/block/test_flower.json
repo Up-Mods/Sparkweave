@@ -1,0 +1,6 @@
+{
+  "parent": "minecraft:block/cross",
+  "textures": {
+    "cross": "sparkweave_testmod:block/test_flower"
+  }
+}
