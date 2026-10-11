@@ -3,22 +3,22 @@ minecraft = "26.1.2"
 java = "25"
 
 # https://projects.neoforged.net/neoforged/moddevgradle
-moddevgradle = "2.0.144"
+moddevgradle = "2.0.148"
 # https://projects.neoforged.net/neoforged/neoform
 neoform = "26.1.2-1"
 
 # NeoForge
 # https://projects.neoforged.net/neoforged/neoforge
-neoforge = "26.1.2.100"
+neoforge = "26.1.2.116"
 # https://projects.neoforged.net/neoforged/fancymodloader
 # MUST match the version that neoforge uses! https://github.com/neoforged/NeoForge/blob/26.1.x/gradle.properties
 fancymodloader = "11.0.15"
 
 # Fabric
 # https://fabricmc.net/develop
-fabric_loom = "1.17.20" # https://maven.fabricmc.net/net/fabricmc/fabric-loom/net.fabricmc.fabric-loom.gradle.plugin/
-fabric_loader = "0.19.3"
-fabric_api = "0.155.2+26.1.2"
+fabric_loom = "1.18.4" # https://maven.fabricmc.net/net/fabricmc/fabric-loom/net.fabricmc.fabric-loom.gradle.plugin/
+fabric_loader = "0.19.5"
+fabric_api = "0.155.3+26.1.2"
 
 # Minecraft dependencies
 jna = { strictly = "5.17.0" }
@@ -28,9 +28,9 @@ appdirs = "1.5.0"
 
 # Mods
 # https://maven.blamejared.com/mezz/jei/jei-26.1.2-common/
-jei = "29.34.0.88"
+jei = "29.43.0.107"
 # https://modrinth.com/mod/modmenu/versions
-modmenu = "18.0.0"
+modmenu = "18.0.2"
 # https://beehive.sh/mod/resourcefulconfig/versions
 resourcefulconfig = "4.0.1"
 
