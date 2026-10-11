@@ -6,6 +6,23 @@ transitive-accessible method net/minecraft/data/BlockFamilies familyBuilder (Lne
 # Registry::Block
 transitive-inject-interface net/minecraft/world/level/block/state/BlockBehaviour$Properties dev/upcraft/sparkweave/api/ext/BlockPropertiesExt
 transitive-accessible method net/minecraft/world/item/Items blockIdToItemId (Lnet/minecraft/resources/ResourceKey;)Lnet/minecraft/resources/ResourceKey;
+transitive-accessible method net/minecraft/world/level/block/Blocks litBlockEmission (I)Ljava/util/function/ToIntFunction;
+transitive-accessible method net/minecraft/world/level/block/Blocks waterloggedMapColor (Lnet/minecraft/world/level/material/MapColor;)Ljava/util/function/Function;
+transitive-accessible method net/minecraft/world/level/block/Blocks never (Lnet/minecraft/world/level/block/state/BlockState;Lnet/minecraft/world/level/BlockGetter;Lnet/minecraft/core/BlockPos;Lnet/minecraft/world/entity/EntityType;)Ljava/lang/Boolean;
+transitive-accessible method net/minecraft/world/level/block/Blocks never (Lnet/minecraft/world/level/block/state/BlockState;Lnet/minecraft/world/level/BlockGetter;Lnet/minecraft/core/BlockPos;)Z
+transitive-accessible method net/minecraft/world/level/block/Blocks always (Lnet/minecraft/world/level/block/state/BlockState;Lnet/minecraft/world/level/BlockGetter;Lnet/minecraft/core/BlockPos;Lnet/minecraft/world/entity/EntityType;)Ljava/lang/Boolean;
+transitive-accessible method net/minecraft/world/level/block/Blocks always (Lnet/minecraft/world/level/block/state/BlockState;Lnet/minecraft/world/level/BlockGetter;Lnet/minecraft/core/BlockPos;)Z
+transitive-accessible method net/minecraft/world/level/block/Blocks logProperties (Lnet/minecraft/world/level/material/MapColor;Lnet/minecraft/world/level/material/MapColor;Lnet/minecraft/world/level/block/SoundType;)Lnet/minecraft/world/level/block/state/BlockBehaviour$Properties;
+transitive-accessible method net/minecraft/world/level/block/Blocks netherStemProperties (Lnet/minecraft/world/level/material/MapColor;)Lnet/minecraft/world/level/block/state/BlockBehaviour$Properties;
+transitive-accessible method net/minecraft/world/level/block/Blocks postProcessSelf (Lnet/minecraft/world/level/block/state/BlockState;Lnet/minecraft/world/level/BlockGetter;Lnet/minecraft/core/BlockPos;)Lnet/minecraft/core/BlockPos;
+transitive-accessible method net/minecraft/world/level/block/Blocks postProcessAbove (Lnet/minecraft/world/level/block/state/BlockState;Lnet/minecraft/world/level/BlockGetter;Lnet/minecraft/core/BlockPos;)Lnet/minecraft/core/BlockPos;
+transitive-accessible method net/minecraft/world/level/block/Blocks leavesProperties (Lnet/minecraft/world/level/block/SoundType;)Lnet/minecraft/world/level/block/state/BlockBehaviour$Properties;
+transitive-accessible method net/minecraft/world/level/block/Blocks shulkerBoxProperties (Lnet/minecraft/world/level/material/MapColor;)Lnet/minecraft/world/level/block/state/BlockBehaviour$Properties;
+transitive-accessible method net/minecraft/world/level/block/Blocks pistonProperties ()Lnet/minecraft/world/level/block/state/BlockBehaviour$Properties;
+transitive-accessible method net/minecraft/world/level/block/Blocks buttonProperties ()Lnet/minecraft/world/level/block/state/BlockBehaviour$Properties;
+transitive-accessible method net/minecraft/world/level/block/Blocks flowerPotProperties ()Lnet/minecraft/world/level/block/state/BlockBehaviour$Properties;
+transitive-accessible method net/minecraft/world/level/block/Blocks candleProperties (Lnet/minecraft/world/level/material/MapColor;)Lnet/minecraft/world/level/block/state/BlockBehaviour$Properties;
+transitive-accessible method net/minecraft/world/level/block/Blocks wallVariant (Lnet/minecraft/world/level/block/Block;Z)Lnet/minecraft/world/level/block/state/BlockBehaviour$Properties;
 
 # Registry::BlockEntityType
 transitive-accessible class net/minecraft/world/level/block/entity/BlockEntityType$BlockEntitySupplier
@@ -74,3 +91,4 @@ transitive-inject-interface net/minecraft/client/data/models/ItemModelGenerators
 transitive-accessible field net/minecraft/client/data/models/ItemModelGenerators BLANK_LAYER Lnet/minecraft/client/color/item/ItemTintSource;
 # Datageneration::BlockModels
 transitive-accessible class net/minecraft/client/data/models/BlockModelGenerators$BlockFamilyProvider
+transitive-accessible class net/minecraft/client/data/models/BlockModelGenerators$PlantType
